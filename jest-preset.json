@@ -16,9 +16,6 @@
     "app/(.*)": "<rootDir>/src/app/$1",
     "environments/(.*)": "<rootDir>/src/environments/$1"
   },
-  "setupFiles": [
-    "<rootDir>/node_modules/jest-preset-angular/setupJest.js"
-  ],
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
   ]
