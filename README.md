@@ -42,3 +42,7 @@ A preset of [Jest](http://facebook.github.io/jest) configuration for Angular pro
 Jest doesn’t run in browser nor through dev server. It uses jsdom to abstract browser environment. So we have to cheat a little and inline our templates and get rid of styles (we’re not testing CSS) because otherwise Angular will try to make XHR call for our templates and fail miserably. 
 
 I used a scrappy regex to accomplish this with minimum effort, but you can also write a babel plugin to make it bulletproof. And btw, don’t bother about perf here – Jest heavily caches transforms. That’s why you need to run Jest with `--no-cache` flag every time you change it.
+
+## Angular testing environment setup
+
+If you look at your `src/test.ts` (or similar bootstrapping test file) file you’ll see similarities to [`setupJest.js`](https://github.com/thymikee/jest-preset-angular/blob/master/setupJest.js). What we’re doing here is we’re adding globals required by Angular. With [jest-zone-patch](https://github.com/thymikee/jest-zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
