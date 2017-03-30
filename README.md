@@ -1,8 +1,8 @@
 # jest-preset-angular
 
-Preset Jest configuration for Angular projects
+A preset of [Jest](http://facebook.github.io/jest) configuration for Angular projects.
 
-## Exposed configuration
+## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.json)
 ```json
 {
   "globals": {
@@ -28,7 +28,7 @@ Preset Jest configuration for Angular projects
 }
 ```
 
-## Brief explanation
+### Brief explanation of config
 * `<rootDir>` is a special syntax for root of your project (here by default it’s project's root /)
 * we’re using some `"globals"` to pass information about where our tsconfig.json file is that we’d like to be able to transform HTML files through ts-jest
 * `"transform"` – run every TS, JS, or HTML file through so called *preprocessor* (we’ll get there); this lets Jest understand non-JS syntax
@@ -37,3 +37,8 @@ Preset Jest configuration for Angular projects
 * `"moduleNameMapper"` – if you’re using absolute imports here’s how to tell Jest where to look for them; uses regex
 * `"setupTestFrameworkScriptFile"` – this is the heart of our config, in this file we’ll setup and patch environment within tests are running
 * `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx ) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
+
+## [Preprocessor](https://github.com/thymikee/jest-preset-angular/blob/master/preprocessor.js)
+Jest doesn’t run in browser nor through dev server. It uses jsdom to abstract browser environment. So we have to cheat a little and inline our templates and get rid of styles (we’re not testing CSS) because otherwise Angular will try to make XHR call for our templates and fail miserably. 
+
+I used a scrappy regex to accomplish this with minimum effort, but you can also write a babel plugin to make it bulletproof. And btw, don’t bother about perf here – Jest heavily caches transforms. That’s why you need to run Jest with `--no-cache` flag every time you change it.
