@@ -2,6 +2,8 @@
 
 A preset of [Jest](http://facebook.github.io/jest) configuration for Angular projects.
 
+This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/)
+
 ## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.json)
 ```json
 {
