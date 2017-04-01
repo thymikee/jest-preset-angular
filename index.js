@@ -3,24 +3,30 @@
  * always runs in a testZone (ProxyZone).
 */
 
-if (Zone === undefined) throw new Error('Missing: Zone (zone.js)');
-if (jest === undefined)
+if (Zone === undefined) {
+  throw new Error('Missing: Zone (zone.js)');
+}
+if (jest === undefined) {
   throw new Error(
     'Missing: jest.\n' +
       'This patch must be included in a script called with ' +
       '`setupTestFrameworkScriptFile` in Jest config.'
   );
-if (jest['__zone_patch__'] === true)
+}
+if (jest['__zone_patch__'] === true) {
   throw new Error("'jest' has already been patched with 'Zone'.");
+}
 
 jest['__zone_patch__'] = true;
 const SyncTestZoneSpec = Zone['SyncTestZoneSpec'];
 const ProxyZoneSpec = Zone['ProxyZoneSpec'];
 
-if (SyncTestZoneSpec === undefined)
+if (SyncTestZoneSpec === undefined) {
   throw new Error('Missing: SyncTestZoneSpec (zone.js/dist/sync-test)');
-if (ProxyZoneSpec === undefined)
+}
+if (ProxyZoneSpec === undefined) {
   throw new Error('Missing: ProxyZoneSpec (zone.js/dist/proxy.js)');
+}
 
 const env = global;
 const ambientZone = Zone.current;
