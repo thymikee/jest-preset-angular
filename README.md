@@ -5,6 +5,21 @@ A preset of [Jest](http://facebook.github.io/jest) configuration for Angular pro
 
 This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/)
 
+## Usage
+Create `setupJest.ts` file with following contents:
+```js
+import 'jest-preset-angular';
+import './jestGlobalMocks'; // browser mocks globally available for every test
+```
+
+And inclue in your `package.json` like this:
+```json
+"jest": {
+  "preset": "jest-preset-angular",
+  "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+}
+```
+
 ## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.json)
 ```json
 {
