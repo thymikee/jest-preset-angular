@@ -24,7 +24,7 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 ```json
 {
   "globals": {
-    "__TS_CONFIG__": "src/tsconfig.app.json",
+    "__TS_CONFIG__": "src/tsconfig.spec.json",
     "__TRANSFORM_HTML__": true
   },
   "transform": {
