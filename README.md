@@ -1,5 +1,6 @@
 # jest-preset-angular
 ![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)
+![npm version](https://badge.fury.io/js/jest-preset-angular.svg)
 
 A preset of [Jest](http://facebook.github.io/jest) configuration for Angular projects.
 
