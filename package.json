@@ -7,7 +7,15 @@
   "author": "Michał Pierzchała <thymikee@gmail.com>",
   "license": "BSD-3",
   "dependencies": {
-    "jest-zone-patch": "^0.0.5",
-    "ts-jest": "^19.0.6"
+    "jest-zone-patch": "^0.0.5"
+  },
+  "devDependencies": {
+    "jest": "^19.0.2",
+    "ts-jest": "^19.0.7",
+    "typescript": "^2.2.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:ci": "jest -i"
   }
 }

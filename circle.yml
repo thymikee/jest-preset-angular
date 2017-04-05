@@ -19,4 +19,5 @@ dependencies:
     - cd example && yarn install --no-progress
 test:
   override:
+    - yarn run test:ci
     - yarn link && cd example && yarn run test:ci
