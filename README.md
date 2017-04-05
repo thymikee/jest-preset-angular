@@ -75,12 +75,12 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 TypeScript supports absolute imports. The preset by default understands all absolute imports referring to `src` directory, so instead: 
 ```js
 import MyComponent from '../../src/app/my.component';
-import MyComponent from '../../src/testing/my.stuff';
+import MyStuff from '../../src/testing/my.stuff';
 ```
 you can use:
 ```js
 import MyComponent from 'app/my.component';
-import MyComponent from 'testing/my.stuff';
+import MyStuff from 'testing/my.stuff';
 ```
 However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
 ```js
