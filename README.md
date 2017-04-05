@@ -65,3 +65,46 @@ I used a scrappy regex to accomplish this with minimum effort, but you can also 
 ## Angular testing environment setup
 
 If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.js`](https://github.com/thymikee/jest-preset-angular/blob/master/setupJest.js). What we're doing here is we're adding globals required by Angular. With [jest-zone-patch](https://github.com/thymikee/jest-zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
+
+## Troubleshooting
+
+Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
+
+### Absolute imports
+
+TypeScript supports absolute imports. The preset by default understands all absolute imports referring to `src` directory, so instead: 
+```js
+import MyComponent from '../../src/app/my.component';
+import MyComponent from '../../src/testing/my.stuff';
+```
+you can use:
+```js
+import MyComponent from 'app/my.component';
+import MyComponent from 'testing/my.stuff';
+```
+However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
+```js
+{
+  "jest": {
+    "moduleNameMapper": {
+       "(.*)": "$1", // override default if it causes problems
+       "testing/(.*)": "<rootDir>/app/testing/$1"
+    }
+  }
+}
+```
+
+### Custom tsconfig
+
+Override `globals` object in Jest config:
+
+```json
+{
+  "jest": {
+    "globals": {
+      "__TS_CONFIG__": "src/tsconfig.custom.json",
+      "__TRANSFORM_HTML__": true
+    }
+  }
+}
+```
