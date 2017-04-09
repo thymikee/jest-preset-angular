@@ -108,3 +108,29 @@ Override `globals` object in Jest config:
   }
 }
 ```
+
+### Unexpected token [import|export|other]
+
+This means, that a file is not transformed through TypeScript compiler, e.g. because it is a JS file with TS syntax, or it is published to npm as uncompiled source files. Here's what you can do.
+
+#### Adjust your `transformIgnorePatterns` whitelist:
+```js
+{
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic)"
+    ]
+  }
+}
+```
+By default Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transforemed, even though they're `node_modules`.
+
+#### Allow JS files in your TS `compilerOptions`
+```json
+{
+  "compilerOptions": {
+    "allowJs": true
+  }
+}
+```
+This tells `ts-jest` (a preprocessor this preset using to transform TS files) to treat JS files the same as TS ones.
