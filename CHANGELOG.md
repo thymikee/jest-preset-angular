@@ -1,5 +1,12 @@
 ## Changelog (master)
 
+### v0.1.0
+* Fix: Coverage support [#15](https://github.com/thymikee/jest-preset-angular/pull/15)
+* Adjustment: Add `json` as a valid module extension [#16](https://github.com/thymikee/jest-preset-angular/pull/16) 
+
+### v0.0.14
+* Fix: Bump `jest-zone-patch` version with `zone.js` peer dependency
+
 ### v0.0.13
 * Fix: Overhaul regex for styleUrls ([#10](https://github.com/thymikee/jest-preset-angular/pull/10))
 
