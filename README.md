@@ -72,7 +72,7 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 ### Absolute imports
 
-TypeScript supports absolute imports. The preset by default understands all absolute imports referring to `src` directory, so instead: 
+TypeScript supports absolute imports. The preset by default understands all absolute imports referring to `src` directory, so instead:
 ```js
 import MyComponent from '../../src/app/my.component';
 import MyStuff from '../../src/testing/my.stuff';
@@ -134,3 +134,20 @@ By default Jest doesn't transform `node_modules`, because they should be valid J
 }
 ```
 This tells `ts-jest` (a preprocessor this preset using to transform TS files) to treat JS files the same as TS ones.
+
+### Observable ... is not a function
+
+Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setupJest.ts` file:
+
+```js
+import 'jest-preset-angular';
+
+// common rxjs imports
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+// ...
+
+import './jestGlobalMocks';
+```
