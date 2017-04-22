@@ -1,11 +1,14 @@
 ## Changelog (master)
 
+### v1.1.0
+* Feature: Support snapshot testing ([#24](https://github.com/thymikee/jest-preset-angular/pull/24))
+
 ### v1.0.0
-* Breaking change: `rxjs` is no longer auto included [#18](https://github.com/thymikee/jest-preset-angular/pull/18)
+* Breaking change: `rxjs` is no longer auto included ([#18](https://github.com/thymikee/jest-preset-angular/pull/18))
 
 ### v0.1.0
-* Fix: Coverage support [#15](https://github.com/thymikee/jest-preset-angular/pull/15)
-* Adjustment: Add `json` as a valid module extension [#16](https://github.com/thymikee/jest-preset-angular/pull/16)
+* Fix: Coverage support ([#15](https://github.com/thymikee/jest-preset-angular/pull/15))
+* Adjustment: Add `json` as a valid module extension ([#16](https://github.com/thymikee/jest-preset-angular/pull/16))
 
 ### v0.0.14
 * Fix: Bump `jest-zone-patch` version with `zone.js` peer dependency
