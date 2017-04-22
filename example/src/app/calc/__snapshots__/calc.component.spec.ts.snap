@@ -1,12 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CalcComponent should snap 1`] = `
-<app-calc>
+<app-calc
+  prop1={[Function Number]}
+>
   <div
     id="root0"
     ng-version="4.0.1"
   >
-    <p>
+    <p
+      class="a-default-class"
+      ng-reflect-klass="a-default-class"
+      ng-reflect-ng-class="[object Object]"
+    >
       calc works!
     </p>
   </div>
