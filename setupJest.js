@@ -7,6 +7,7 @@ require('zone.js/dist/async-test');
 require('zone.js/dist/fake-async-test');
 require('jest-zone-patch');
 const angularSnapshot = require('./angular-snapshot');
+const HTMLElementPlugin = require('./HTMLElementPlugin');
 const { getTestBed } = require('@angular/core/testing');
 const {
   BrowserDynamicTestingModule,
@@ -18,4 +19,5 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 
+// expect.addSnapshotSerializer(HTMLElementPlugin);
 expect.addSnapshotSerializer(angularSnapshot);
