@@ -8,9 +8,9 @@ describe('CalcComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CalcComponent ]
+      declarations: [CalcComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('CalcComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should snap', () => {
+    expect(fixture).toMatchSnapshot();
   });
 });
