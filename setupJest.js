@@ -19,5 +19,5 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 
-// expect.addSnapshotSerializer(HTMLElementPlugin);
+expect.addSnapshotSerializer(HTMLElementPlugin);
 expect.addSnapshotSerializer(angularSnapshot);
