@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-calc',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calc.component.css']
 })
 export class CalcComponent implements OnInit {
+  @Input() hasAClass;
+  prop1: number;
+  observable$: Observable<string>;
 
-  constructor() { }
+  constructor() {
+    this.init();
+    this.prop1 = 1337;
+  }
 
   ngOnInit() {
   }
 
+  init() {
+    return 'Imma method';
+  }
 }

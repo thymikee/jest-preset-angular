@@ -1,6 +1,6 @@
 machine:
   environment:
-    YARN_VERSION: 0.20.3
+    YARN_VERSION: 0.22.0
     PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: 7
@@ -20,4 +20,4 @@ dependencies:
 test:
   override:
     - yarn run test:ci
-    - yarn link && cd example && yarn run test:ci && yarn run test:coverage
+    - yarn link && cd example && yarn link jest-preset-angular && yarn run test:ci && yarn run test:coverage

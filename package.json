@@ -14,6 +14,9 @@
     "jest": "^19.0.2",
     "typescript": "^2.2.2"
   },
+  "peerDependencies": {
+    "jest": "^19.0.2"
+  },
   "scripts": {
     "test": "jest",
     "test:ci": "jest -i"

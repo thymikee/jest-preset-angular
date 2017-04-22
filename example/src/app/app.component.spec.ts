@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CalcComponent } from 'app/calc/calc.component';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -8,6 +9,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -16,6 +18,11 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
+
+  it('snaps', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    expect(fixture).toMatchSnapshot();
+  })
 
   it(`should have as title 'app works!'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
