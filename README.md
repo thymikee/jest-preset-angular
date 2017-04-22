@@ -66,6 +66,47 @@ I used a scrappy regex to accomplish this with minimum effort, but you can also 
 
 If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.js`](https://github.com/thymikee/jest-preset-angular/blob/master/setupJest.js). What we're doing here is we're adding globals required by Angular. With [jest-zone-patch](https://github.com/thymikee/jest-zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
 
+## Snapshot testing
+
+**Since version 1.1.0** it's possible to [snapshot test](http://facebook.github.io/jest/docs/snapshot-testing.html#snapshot-testing-with-jest) your Angular components. Please note it's still under active development and may be a subject of change. You can lookup [example](/tree/master/example/src/app) for details
+
+Example:
+
+*calc-component.spec.ts*
+```js
+// some initialization code
+test('renders markup to snapshot', () => {
+  const fixture = TestBed.createComponent(AppComponent);
+  expect(fixture).toMatchSnapshot();
+});
+```
+
+*__snapshots__/calc-component.spec.ts.snap*
+```js
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CalcComponent should snap 1`] = `
+<app-calc
+  prop1={[Function Number]}
+>
+  <div
+    id="root0"
+    ng-version="4.0.1"
+  >
+    <p
+      class="a-default-class"
+      ng-reflect-klass="a-default-class"
+      ng-reflect-ng-class="[object Object]"
+    >
+      calc works!
+    </p>
+  </div>
+</app-calc>
+`;
+```
+
+
+
 ## Troubleshooting
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
