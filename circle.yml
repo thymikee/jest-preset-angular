@@ -20,4 +20,4 @@ dependencies:
 test:
   override:
     - yarn run test:ci
-    - yarn link && cd example && yarn run test:ci && yarn run test:coverage
+    - yarn link && cd example && yarn link jest-preset-angular && yarn run test:ci && yarn run test:coverage
