@@ -68,11 +68,11 @@ If you look at your `src/test.ts` (or similar bootstrapping test file) file you'
 
 ## Snapshot testing
 
-**Since version 1.1.0** it's possible to [snapshot test](http://facebook.github.io/jest/docs/snapshot-testing.html#snapshot-testing-with-jest) your Angular components. Please note it's still under active development and may be a subject of change. You can lookup [example](/tree/master/example/src/app) for details
+**Since version 1.1.0** it's possible to [snapshot test](http://facebook.github.io/jest/docs/snapshot-testing.html#snapshot-testing-with-jest) your Angular components. Please note it's still under active development and may be a subject of change. You can lookup [example](/example/src/app) for details
 
 Example:
 
-*calc-component.spec.ts*
+`calc-component.spec.ts`
 ```js
 // some initialization code
 test('renders markup to snapshot', () => {
@@ -81,7 +81,7 @@ test('renders markup to snapshot', () => {
 });
 ```
 
-*__snapshots__/calc-component.spec.ts.snap*
+`__snapshots__/calc-component.spec.ts.snap`
 ```js
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
