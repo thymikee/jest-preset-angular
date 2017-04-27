@@ -1,7 +1,6 @@
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TestBed, async } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CalcComponent } from 'app/calc/calc.component';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
