@@ -13,7 +13,7 @@ function escapeHTML(str) {
   return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-const HTML_ELEMENT_REGEXP = /(HTML\w*?Element)|Text|Comment/;
+const HTML_ELEMENT_REGEXP = /(HTML\w*?Element)|Text$|Comment/;
 const test = isHTMLElement;
 
 function isHTMLElement(value) {
@@ -72,11 +72,12 @@ const print = (element, print, indent, opts, colors) => {
 
   const hasAttributes = element.attributes && element.attributes.length;
   if (hasAttributes) {
-    const attributes = Array.prototype.slice.call(element.attributes);
+    const attributes = Array.from(element.attributes);
     result += printAttributes(attributes, indent, colors, opts);
   }
 
-  const flatChildren = Array.prototype.slice.call(element.childNodes);
+  // TODO: Switch to element.childNodes for Jest 20
+  const flatChildren = Array.from(element.children);
   if (!flatChildren.length && element.textContent) {
     flatChildren.push(element.textContent.trim());
   }

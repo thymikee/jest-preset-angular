@@ -16,7 +16,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./calc.component.css']
 })
 export class CalcComponent implements OnInit {
-  @Input() hasAClass;
+  @Input() hasAClass = false;
   prop1: number;
   observable$: Observable<string>;
 
