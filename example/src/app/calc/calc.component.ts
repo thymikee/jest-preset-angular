@@ -3,7 +3,16 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-calc',
-  templateUrl: './calc.component.html',
+  template: `
+    <p
+      class="a-default-class"
+      [ngClass]="{
+        'a-class': hasAClass
+      }"
+    >
+      calc works!
+    </p>
+  `,
   styleUrls: ['./calc.component.css']
 })
 export class CalcComponent implements OnInit {

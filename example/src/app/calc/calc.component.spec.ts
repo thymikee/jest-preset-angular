@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CalcComponent } from 'app/calc/calc.component';
 
 describe('CalcComponent', () => {

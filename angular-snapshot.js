@@ -23,8 +23,7 @@ const print = (val, print, indent, opts, colors) => {
   let componentAttrs = '';
 
   const componentName = val.componentRef._elDef.element.name;
-  const componentInstance = print(val.componentInstance);
-  const nodes = val.componentRef._view.nodes
+  const nodes = (val.componentRef._view.nodes || [])
     .filter(node => node.hasOwnProperty('renderElement'))
     .map(node => print(node.renderElement))
     .join('\n');
