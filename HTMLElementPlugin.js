@@ -13,14 +13,14 @@ function escapeHTML(str) {
   return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-const HTML_ELEMENT_REGEXP = /(HTML\w*?Element)/;
+const HTML_ELEMENT_REGEXP = /(HTML\w*?Element)|Text|Comment/;
 const test = isHTMLElement;
 
 function isHTMLElement(value) {
   return (
     value !== undefined &&
     value !== null &&
-    value.nodeType === 1 &&
+    (value.nodeType === 1 || value.nodeType === 3 || value.nodeType === 8) &&
     value.constructor !== undefined &&
     HTML_ELEMENT_REGEXP.test(value.constructor.name)
   );
@@ -37,12 +37,14 @@ function printChildren(flatChildren, print, indent, colors, opts) {
         return print(node);
       }
     })
+    .filter(value => !!value)
     .join(opts.edgeSpacing);
 }
 
-function printAttributes(attributes, print, indent, colors, opts) {
+function printAttributes(attributes, indent, colors, opts) {
   return attributes
     .sort()
+    .filter(attribute => attribute.name !== 'ng-version')
     .map(attribute => {
       return (
         opts.spacing +
@@ -55,13 +57,15 @@ function printAttributes(attributes, print, indent, colors, opts) {
     .join('');
 }
 
-const print = (
-  element,
-  print,
-  indent,
-  opts,
-  colors
-) => {
+const print = (element, print, indent, opts, colors) => {
+  if (element instanceof Text) {
+    return element.data.trim();
+  }
+
+  if (element instanceof Comment) {
+    return '';
+  }
+
   let result = colors.tag.open + '<';
   const elementName = element.tagName.toLowerCase();
   result += elementName + colors.tag.close;
@@ -69,10 +73,10 @@ const print = (
   const hasAttributes = element.attributes && element.attributes.length;
   if (hasAttributes) {
     const attributes = Array.prototype.slice.call(element.attributes);
-    result += printAttributes(attributes, print, indent, colors, opts);
+    result += printAttributes(attributes, indent, colors, opts);
   }
 
-  const flatChildren = Array.prototype.slice.call(element.children);
+  const flatChildren = Array.prototype.slice.call(element.childNodes);
   if (!flatChildren.length && element.textContent) {
     flatChildren.push(element.textContent.trim());
   }
@@ -99,4 +103,4 @@ const print = (
   return result;
 };
 
-module.exports = ({print, test});
+module.exports = {print, test};
