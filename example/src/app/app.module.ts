@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CalcComponent } from './calc/calc.component';
+import { SimpleComponent } from './simple/simple.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalcComponent
+    CalcComponent,
+    SimpleComponent
   ],
   imports: [
     BrowserModule,
