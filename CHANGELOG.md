@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+### v1.2.0
+* Feature: Support absolute URLs in `templateUrl`
+
 ### v1.1.0
 * Feature: Support snapshot testing ([#24](https://github.com/thymikee/jest-preset-angular/pull/24))
 
