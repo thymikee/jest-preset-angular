@@ -1,4 +1,6 @@
-const {process} = require('../preprocessor');
+const {
+  process
+} = require('../preprocessor');
 
 const sources = [
   `@Component({
@@ -40,6 +42,6 @@ sources.forEach(source => {
   test(`works with ${source}`, () => {
     var result = process(source, '', config);
     expect(result).toMatch('styles: []');
-    expect(result).toMatch('template: \'./media-box-h0.component.html\'');
+    expect(result).toMatch('template: require(\'./media-box-h0.component.html\')');
   });
 });
