@@ -1,5 +1,5 @@
 const {process} = require('ts-jest/preprocessor.js');
-const TEMPLATE_URL_REGEX = /templateUrl:\s*('|")(.*)('|")/g;
+const TEMPLATE_URL_REGEX = /templateUrl:\s*('|")(\.\/){0,1}(.*)('|")/g;
 const STYLE_URLS_REGEX = /styleUrls:\s*\[\s*((?:'|").*\s*(?:'|")).*\s*.*\]/g;
 
 module.exports.process = (src, path, config) => {
@@ -7,7 +7,7 @@ module.exports.process = (src, path, config) => {
   // and `styleUrls: ['']` with `styles: []`
   return process(
     src
-      .replace(TEMPLATE_URL_REGEX, 'template: require($1./$2$3)')
+      .replace(TEMPLATE_URL_REGEX, 'template: require($1./$3$4)')
       .replace(STYLE_URLS_REGEX, 'styles: []'),
     path,
     config
