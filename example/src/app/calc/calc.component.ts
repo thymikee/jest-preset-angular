@@ -11,6 +11,8 @@ import { Observable } from 'rxjs/Observable';
       }"
     >
       calc works!
+      {{prop1}}
+      another text node
     </p>
   `,
   styleUrls: ['./calc.component.css']
