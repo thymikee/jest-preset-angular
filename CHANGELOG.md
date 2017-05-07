@@ -1,5 +1,9 @@
 ## Changelog (master)
 
+### v2.0.0
+* Breaking: Upgrade to Jest 20
+* Breaking: Better snapshot rendering
+
 ### v1.2.0
 * Feature: Support absolute URLs in `templateUrl`
 
