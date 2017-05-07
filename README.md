@@ -89,18 +89,13 @@ exports[`CalcComponent should snap 1`] = `
 <app-calc
   prop1={[Function Number]}
 >
-  <div
-    id="root0"
-    ng-version="4.0.1"
+  <p
+    class="a-default-class"
+    ng-reflect-klass="a-default-class"
+    ng-reflect-ng-class="[object Object]"
   >
-    <p
-      class="a-default-class"
-      ng-reflect-klass="a-default-class"
-      ng-reflect-ng-class="[object Object]"
-    >
-      calc works!
-    </p>
-  </div>
+    calc works!
+  </p>
 </app-calc>
 `;
 ```
