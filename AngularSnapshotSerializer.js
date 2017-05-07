@@ -25,7 +25,7 @@ const print = (val, print, indent, opts, colors) => {
   const componentName = val.componentRef._elDef.element.name;
   const nodes = (val.componentRef._view.nodes || [])
     .filter(node => node.hasOwnProperty('renderElement'))
-    .map(node => print(node.renderElement))
+    .map(node => Array.from(node.renderElement.childNodes).map(print).join(''))
     .join(opts.edgeSpacing);
 
   const attributes = Object.keys(val.componentInstance);
