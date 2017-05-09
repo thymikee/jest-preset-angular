@@ -30,16 +30,18 @@ const sources = [
 ];
 
 const config = {
-  "globals": {
-    "__TS_CONFIG__": "example/src/tsconfig.spec.json",
-    "__TRANSFORM_HTML__": true
-  },
-}
+  globals: {
+    __TS_CONFIG__: 'example/src/tsconfig.spec.json',
+    __TRANSFORM_HTML__: true
+  }
+};
 
 sources.forEach(source => {
   test(`works with ${source}`, () => {
     const result = process(source, '', config);
     expect(result).toMatch('styles: []');
-    expect(result).toMatch('template: require(\'./media-box-h0.component.html\')');
+    expect(result).toMatch(
+      "template: require('./media-box-h0.component.html')"
+    );
   });
 });

@@ -4,9 +4,18 @@ exports[`AppComponent snaps 1`] = `
 <app-root
   hasClass={[Function Boolean]}
   title={[Function String]}
+  variableWithPrecedingDolar={[Function Number]}
 >
   <h1>
+    app works!
     <app-calc />
+    <span>
+      aaa $1234
+    </span>
+    <span>
+      ddd
+    </span>
+    \`test'chars""
   </h1>
 </app-root>
 `;
