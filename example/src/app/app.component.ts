@@ -11,6 +11,7 @@ export class AppComponent {
   @HostBinding('@routerTransition')
   title = 'app works!';
   hasClass = true;
+  variableWithPrecedingDolar = 1234;
 }
 
 function slideToLeft() {
