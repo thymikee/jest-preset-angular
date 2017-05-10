@@ -38,8 +38,7 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
     "html"
   ],
   "moduleNameMapper": {
-    "app/(.*)": "<rootDir>/src/app/$1",
-    "environments/(.*)": "<rootDir>/src/environments/$1"
+    "(.*)": "<rootDir>/src/$1"
   },
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
