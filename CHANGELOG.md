@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+### v2.0.2
+* Fix: Angular injection errors are now visible
+
 ### v2.0.0
 * Breaking: Upgrade to Jest 20
 * Breaking: Better snapshot rendering
