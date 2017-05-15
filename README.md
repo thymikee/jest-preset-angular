@@ -15,9 +15,11 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 
 ...and inclue this in your `package.json`:
 ```json
-"jest": {
-  "preset": "jest-preset-angular",
-  "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+{
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+  }
 }
 ```
 
