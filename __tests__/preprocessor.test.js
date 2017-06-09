@@ -1,4 +1,4 @@
-const {process} = require('../preprocessor');
+const process = require('../preprocessor').process;
 
 const sources = [
   `@Component({
