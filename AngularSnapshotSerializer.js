@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 const printAttributes = (val, attributes, print, indent, colors, opts) => {
   return attributes
     .sort()
