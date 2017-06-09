@@ -1,4 +1,4 @@
-const {process} = require('ts-jest/preprocessor.js');
+const process = require('ts-jest/preprocessor.js').process;
 const TEMPLATE_URL_REGEX = /templateUrl:\s*('|")(\.\/){0,}(.*)('|")/g;
 const STYLE_URLS_REGEX = /styleUrls:\s*\[\s*((?:'|").*\s*(?:'|")).*\s*.*\]/g;
 const ESCAPE_TEMPLATE_REGEX = /(\${|\`)/g;

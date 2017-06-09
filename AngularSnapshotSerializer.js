@@ -1,3 +1,5 @@
+'use strict';
+
 const printAttributes = (val, attributes, print, indent, colors, opts) => {
   return attributes
     .sort()
@@ -60,4 +62,7 @@ const test = val =>
   typeof val === 'object' &&
   Object.prototype.hasOwnProperty.call(val, 'componentRef');
 
-module.exports = {print, test};
+module.exports = {
+  print: print,
+  test: test
+};

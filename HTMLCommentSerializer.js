@@ -19,4 +19,7 @@ const test = value =>
 
 const print = () => '';
 
-module.exports = {print, test};
+module.exports = {
+  print: print,
+  test: test
+};
