@@ -10,9 +10,5 @@ module.exports.process = (src, path, config, transformOptions) => {
   src = src
     .replace(TEMPLATE_URL_REGEX, 'template: require($1./$3$4)')
     .replace(STYLE_URLS_REGEX, 'styles: []');
-  if (config.mapCoverage) {
-    if (!transformOptions) transformOptions = {};
-    transformOptions.instrument = true;
-  }
   return process(src, path, config, transformOptions);
 };
