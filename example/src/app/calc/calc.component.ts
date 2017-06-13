@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+declare var require: any;
+let image = require('../../assets/tiger.jpg');
+
 @Component({
   selector: 'app-calc',
   template: `
