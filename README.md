@@ -2,9 +2,11 @@
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
 [![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular)
 
-A preset of [Jest](http://facebook.github.io/jest) configuration for Angular projects.
+A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](https://angular.io/) projects. 
 
-This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/)
+This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
+
+*Note: This preset does not suport AngularJS (1.5+). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251).*
 
 ## Usage
 In `src` directory create `setupJest.ts` file with following contents:
