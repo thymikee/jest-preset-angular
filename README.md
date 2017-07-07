@@ -28,8 +28,8 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 {
   "globals": {
     "ts-jest": {
-        "tsConfigFile": "src/tsconfig.spec.json"
-      }
+      "tsConfigFile": "src/tsconfig.spec.json"
+    }
     "__TRANSFORM_HTML__": true
   },
   "transform": {
