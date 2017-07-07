@@ -29,7 +29,9 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 ```json
 {
   "globals": {
-    "__TS_CONFIG__": "src/tsconfig.spec.json",
+    "ts-jest": {
+      "tsConfigFile": "src/tsconfig.spec.json"
+    },
     "__TRANSFORM_HTML__": true
   },
   "transform": {
@@ -141,7 +143,9 @@ Override `globals` object in Jest config:
 {
   "jest": {
     "globals": {
-      "__TS_CONFIG__": "src/tsconfig.custom.json",
+     "ts-jest": {
+        "tsConfigFile": "src/tsconfig.custom.json"
+      }, 
       "__TRANSFORM_HTML__": true
     }
   }

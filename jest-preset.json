@@ -1,6 +1,8 @@
 {
   "globals": {
-    "__TS_CONFIG__": "src/tsconfig.spec.json",
+    "ts-jest": {
+      "tsConfigFile": "src/tsconfig.spec.json"
+    },
     "__TRANSFORM_HTML__": true
   },
   "transform": {
