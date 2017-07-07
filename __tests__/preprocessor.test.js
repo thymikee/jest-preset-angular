@@ -31,7 +31,9 @@ const sources = [
 
 const config = {
   globals: {
-    __TS_CONFIG__: 'example/src/tsconfig.spec.json',
+    'ts-jest': {
+         tsConfigFile: 'example/src/tsconfig.spec.json'
+    },
     __TRANSFORM_HTML__: true
   }
 };
