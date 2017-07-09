@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+### v2.0.5
+* fix: Bump to ts-jest 20.0.7
+
 ### v2.0.2
 * Fix: Angular injection errors are now visible
 * Fix: Escape template literals special chars ([#34](https://github.com/thymikee/jest-preset-angular/pull/34))
