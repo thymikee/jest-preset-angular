@@ -15,7 +15,7 @@ import 'jest-preset-angular';
 import './jestGlobalMocks'; // browser mocks globally available for every test
 ```
 
-...and inclue this in your `package.json`:
+...and include this in your `package.json`:
 ```json
 {
   "jest": {
