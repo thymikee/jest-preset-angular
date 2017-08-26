@@ -186,7 +186,7 @@ Some vendors publish their sources without transpiling. You need to say jest to 
   "presets": ["env"]
 }
 ```
-2. Specify jest how to transpile js files in jest configuration:
+2. Specify jest how to transpile JS files in jest configuration:
 ```js
 {
   "jest": {
