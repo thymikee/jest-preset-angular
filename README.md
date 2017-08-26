@@ -179,14 +179,14 @@ By default Jest doesn't transform `node_modules`, because they should be valid J
 This tells `ts-jest` (a preprocessor this preset using to transform TS files) to treat JS files the same as TS ones.
 
 #### Transpile js files through `babel-jest`
-Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest`) do not transpile them. 
-1. Install `babel-preset-env` with npm or yarn and add `.babelrc` (or modify existing if needed) with that contents:
+Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest` used by this preset) do not transpile them. 
+1. Install `babel-preset-env` and add `.babelrc` (or modify existing if needed) with that contents:
 ```
 {
   "presets": ["env"]
 }
 ```
-2. Specify jest how to transpile JS files in jest configuration:
+2. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 ```js
 {
   "jest": {
