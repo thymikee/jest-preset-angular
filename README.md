@@ -178,6 +178,26 @@ By default Jest doesn't transform `node_modules`, because they should be valid J
 ```
 This tells `ts-jest` (a preprocessor this preset using to transform TS files) to treat JS files the same as TS ones.
 
+#### Transpile js files through `babel-jest`
+Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually. 
+1. Install `babel-preset-env` with npm or yarn and add `.babelrc` (or modify existing if needed) with that contents:
+```
+{
+  "presets": ["env"]
+}
+```
+2. Specify jest how to transpile js files in jest configuration:
+```js
+{
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js",
+      "^.+\\.js$": "babel-jest"
+    },
+  }
+}
+```
+
 ### Observable ... is not a function
 
 Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setupJest.ts` file:
