@@ -2,7 +2,7 @@
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
 [![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular)
 
-A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](https://angular.io/) projects. 
+A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](https://angular.io/) projects.
 
 This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
 
@@ -44,7 +44,9 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
     "html"
   ],
   "moduleNameMapper": {
-    "(.*)": "<rootDir>/src/$1"
+    "app/(.*)": "<rootDir>/src/app/$1",
+    "assets/(.*)": "<rootDir>/src/assets/$1",
+    "environments/(.*)": "<rootDir>/src/environments/$1"
   },
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
@@ -105,15 +107,13 @@ exports[`CalcComponent should snap 1`] = `
 `;
 ```
 
-
-
 ## Troubleshooting
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
 
 ### Absolute imports
 
-TypeScript supports absolute imports. The preset by default understands all absolute imports referring to `src` directory, so instead:
+TypeScript supports absolute imports. The preset (starting from v3.0.0) by default understands absolute imports referring to `src`, `app`, `assets` and `environments` directory, so instead:
 ```js
 import MyComponent from '../../src/app/my.component';
 import MyStuff from '../../src/testing/my.stuff';
@@ -121,15 +121,15 @@ import MyStuff from '../../src/testing/my.stuff';
 you can use:
 ```js
 import MyComponent from 'app/my.component';
-import MyStuff from 'testing/my.stuff';
+import MyStuff from 'src/testing/my.stuff';
 ```
 However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
 ```js
 {
   "jest": {
     "moduleNameMapper": {
-       "(.*)": "$1", // override default if it causes problems
-       "testing/(.*)": "<rootDir>/app/testing/$1"
+      "app/(.*)": "<rootDir>/src/to/app/$1", // override default, why not
+      "testing/(.*)": "<rootDir>/app/testing/$1" // add new mapping
     }
   }
 }
