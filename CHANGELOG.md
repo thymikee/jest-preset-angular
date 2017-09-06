@@ -1,7 +1,13 @@
 ## Changelog (master)
 
+### v3.0.1
+* Breaking: Upgrade jest to 21
+* Breaking: Upgrade ts-jest to 21
+* Breaking: `moduleNameMapper` no longer maps absolute paths to `src` by default, you need to declare the mappings explicitly ([#53](https://github.com/thymikee/jest-preset-angular/pull/53))
+* Fix: issues with `moduleNameMapper` not overriding mappings ([#53](https://github.com/thymikee/jest-preset-angular/pull/53))
+
 ### v2.0.5
-* fix: Bump to ts-jest 20.0.7
+* Fix: Bump to ts-jest 20.0.7
 
 ### v2.0.2
 * Fix: Angular injection errors are now visible
