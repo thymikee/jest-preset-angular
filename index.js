@@ -43,6 +43,9 @@ function wrapDescribeInZone(describeBody) {
 // can retroactively install different zones.
 const testProxyZone = ambientZone.fork(new ProxyZoneSpec());
 function wrapTestInZone(testBody) {
+  if (testBody === undefined) {
+    return;
+  }
   return testBody.length === 0
     ? () => testProxyZone.run(testBody, null)
     : done => testProxyZone.run(testBody, null, [done]);
