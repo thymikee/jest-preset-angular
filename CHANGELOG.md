@@ -1,5 +1,9 @@
 ## Changelog (master)
 
+* Breaking: Drop Node 4 support
+* Feature: Custom test environment with newest version of `jsdom` ([#75](https://github.com/thymikee/jest-preset-angular/pull/75))
+* Fix: Use universal `zone.js` instead of node-specific one ([#76](https://github.com/thymikee/jest-preset-angular/pull/76))
+
 ### v3.0.1
 * Breaking: Upgrade jest to 21
 * Breaking: Upgrade ts-jest to 21
