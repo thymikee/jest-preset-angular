@@ -13,7 +13,9 @@ class JSDOMEnvironment {
     // lazy require
     const {JSDOM} = require('jsdom');
 
-    this.document = new JSDOM(undefined, {
+    const html = '<!DOCTYPE HTML><html lang="en"><head><title>Test Environment</title></head><body></body></html>'
+    
+    this.document = new JSDOM(html, {
       url: config.testURL,
       runScripts: 'dangerously'
     });
