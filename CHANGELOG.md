@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+### v4.0.1
+* Fix: Add doctype to test envrionment ([#78](https://github.com/thymikee/jest-preset-angular/pull/78))
+
 ### v4.0.0
 * Breaking: Drop Node 4 support (because of `jsdom` upgrade)
 * Feature: Custom test environment with newest version of `jsdom` ([#75](https://github.com/thymikee/jest-preset-angular/pull/75))
