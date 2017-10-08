@@ -12,8 +12,8 @@ class JSDOMEnvironment {
   constructor(config) {
     // lazy require
     const {JSDOM} = require('jsdom');
-
-    this.document = new JSDOM(undefined, {
+    
+    this.document = new JSDOM('<!doctype html>', {
       url: config.testURL,
       runScripts: 'dangerously'
     });
