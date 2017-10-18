@@ -8,6 +8,10 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 
 *Note: This preset does not suport AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251).*
 
+## Installation
+
+`yarn add --dev jest jest-preset-angular @types/jest`
+
 ## Usage
 In `src` directory create `setupJest.ts` file with following contents:
 ```js
