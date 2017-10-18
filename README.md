@@ -10,7 +10,9 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 
 ## Installation
 
-`yarn add --dev jest jest-preset-angular @types/jest`
+```bash
+yarn add --dev jest jest-preset-angular @types/jest
+```
 
 ## Usage
 In `src` directory create `setupJest.ts` file with following contents:
