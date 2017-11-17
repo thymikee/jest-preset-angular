@@ -158,6 +158,8 @@ Override `globals` object in Jest config:
 }
 ```
 
+If you choose to overide `globals` in order to point at a specific tsconfig, you will need to add `"__TRANSFORM_HTML__": true` to the `globals` section too, otherwise you will get parse errors on any html templates.
+
 ### Unexpected token [import|export|other]
 
 This means, that a file is not transformed through TypeScript compiler, e.g. because it is a JS file with TS syntax, or it is published to npm as uncompiled source files. Here's what you can do.
