@@ -6,7 +6,13 @@ A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](h
 
 This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
 
-*Note: This preset does not suport AngularJS (1.5+). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251).*
+*Note: This preset does not suport AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251).*
+
+## Installation
+
+```bash
+yarn add --dev jest jest-preset-angular @types/jest
+```
 
 ## Usage
 In `src` directory create `setupJest.ts` file with following contents:
@@ -151,6 +157,8 @@ Override `globals` object in Jest config:
   }
 }
 ```
+
+If you choose to overide `globals` in order to point at a specific tsconfig, you will need to add `"__TRANSFORM_HTML__": true` to the `globals` section too, otherwise you will get parse errors on any html templates.
 
 ### Unexpected token [import|export|other]
 
