@@ -17,8 +17,7 @@ const image = require('assets/its_something.png');
       another text node
       {{image}}
     </p>
-  `,
-  styleUrls: ['./calc.component.css']
+  `
 })
 export class CalcComponent implements OnInit {
   @Input() hasAClass = false;
