@@ -1,14 +1,15 @@
 {
   "globals": {
     "ts-jest": {
-      "tsConfigFile": "src/tsconfig.spec.json"
+      "tsConfigFile": "./test/tsconfig.json"
     },
     "__TRANSFORM_HTML__": true
   },
+  "setupTestFrameworkScriptFile": "./test/_jest/setup.ts",
   "transform": {
-    "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
+    "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-kendo-angular/preprocessor.js"
   },
-  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
+  "testRegex": "/test/.*\\.test\\.ts$",
   "moduleFileExtensions": [
     "ts",
     "js",
@@ -22,7 +23,7 @@
     "^assets/(.*)": "<rootDir>/src/assets/$1",
     "^environments/(.*)": "<rootDir>/src/environments/$1"
   },
-  "testEnvironment": "jest-preset-angular/testEnvironment.js",
+  "testEnvironment": "jest-preset-kendo-angular/testEnvironment.js",
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
   ]
