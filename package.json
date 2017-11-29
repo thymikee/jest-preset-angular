@@ -1,11 +1,16 @@
 {
-  "name": "kendo-angular-jest-preset",
+  "name": "@progress/kendo-angular-jest-preset",
   "version": "1.0.0",
   "description": "Jest preset configuration for Kendo UI for Angular, based on original work by Michał Pierzchała",
   "main": "index.js",
   "repository": "git@github.com:telerik/kendo-angular-jest-preset.git",
   "author": "Progress",
   "license": "BSD-3",
+  "scripts": {
+    "test": "jest",
+    "test:ci": "jest -i",
+    "semantic-release": "semantic-release pre && semantic-prerelease publish --public && semantic-release post"
+  },
   "dependencies": {
     "jest-zone-patch": "^0.0.7",
     "jsdom": "^11.3.0",
@@ -17,9 +22,5 @@
   },
   "peerDependencies": {
     "jest": "^21.0.1"
-  },
-  "scripts": {
-    "test": "jest",
-    "test:ci": "jest -i"
   }
 }
