@@ -1,6 +1,6 @@
 {
   "name": "@progress/kendo-angular-jest-preset",
-  "version": "1.0.0",
+  "version": "0.0.0-semantically-released",
   "description": "Jest preset configuration for Kendo UI for Angular, based on original work by Michał Pierzchała",
   "main": "index.js",
   "repository": "git@github.com:telerik/kendo-angular-jest-preset.git",
@@ -11,14 +11,57 @@
     "test:ci": "jest -i",
     "semantic-release": "semantic-release pre && semantic-prerelease publish --public && semantic-release post"
   },
+  "release": {
+    "debug": false,
+    "branchTags": {
+      "develop": "dev"
+    },
+    "fallbackTags": {
+      "dev": "latest"
+    },
+    "analyzeCommits": "@telerik/semantic-prerelease/analyzeCommits",
+    "generateNotes": "@telerik/semantic-prerelease/generateNotes",
+    "getLastRelease": "@telerik/semantic-prerelease/getLastRelease",
+    "verifyConditions": "@telerik/semantic-prerelease/verifyConditions",
+    "verifyRelease": "@telerik/semantic-prerelease/verifyRelease"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-push": "npm run test",
+      "commit-msg": "validate-commit-msg"
+    },
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "revert"
+      ],
+      "warnOnFail": false,
+      "maxSubjectLength": 100
+    }
+  },
   "dependencies": {
     "jest-zone-patch": "^0.0.7",
-    "jsdom": "^11.3.0",
-    "ts-jest": "^21.0.0"
+    "jsdom": "^11.3.0"
   },
   "devDependencies": {
-    "jest": "^21.0.1",
-    "typescript": "^2.3.0"
+    "@telerik/semantic-prerelease": "^1.2.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "ghooks": "^2.0.2",
+    "jest": "^21.2.1",
+    "semantic-release": "^8.2.0",
+    "ts-jest": "^21.2.3",
+    "typescript": "^2.6.2",
+    "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
     "jest": "^21.0.1"
