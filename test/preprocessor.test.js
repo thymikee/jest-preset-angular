@@ -1,4 +1,4 @@
-const process = require('../preprocessor').process;
+const process = require('../src/preprocessor').process;
 
 const sources = [
   `@Component({
@@ -32,7 +32,7 @@ const sources = [
 const config = {
   globals: {
     'ts-jest': {
-      tsConfigFile: 'example/src/tsconfig.spec.json'
+      tsConfigFile: 'test/tsconfig.json'
     },
     __TRANSFORM_HTML__: true
   }
@@ -47,3 +47,4 @@ sources.forEach(source => {
     );
   });
 });
+
