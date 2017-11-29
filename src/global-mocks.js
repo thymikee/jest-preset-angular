@@ -26,3 +26,11 @@ Object.defineProperty(window, 'getComputedStyle', {
     })
 );
 
+const getPrototypeOf = Object.getPrototypeOf;
+Object.getPrototypeOf = function(obj) {
+    if (!obj) {
+        return null;
+    }
+
+    return getPrototypeOf.apply(Object, [obj]);
+};
