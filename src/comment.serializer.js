@@ -23,3 +23,4 @@ module.exports = {
   print: print,
   test: test
 };
+

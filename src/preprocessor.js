@@ -7,8 +7,10 @@ module.exports.process = (src, path, config, transformOptions) => {
   if (path.endsWith('.html')) {
     src = src.replace(ESCAPE_TEMPLATE_REGEX, '\\$1');
   }
+
   src = src
     .replace(TEMPLATE_URL_REGEX, 'template: require($1./$3$4)')
     .replace(STYLE_URLS_REGEX, 'styles: []');
   return process(src, path, config, transformOptions);
 };
+

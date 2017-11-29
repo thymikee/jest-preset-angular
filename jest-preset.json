@@ -7,7 +7,7 @@
   },
   "setupTestFrameworkScriptFile": "./test/_jest/setup.ts",
   "transform": {
-    "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-kendo-angular/preprocessor.js"
+    "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/kendo-angular-jest-preset/src/preprocessor.js"
   },
   "testRegex": "/test/.*\\.test\\.ts$",
   "moduleFileExtensions": [
@@ -23,7 +23,7 @@
     "^assets/(.*)": "<rootDir>/src/assets/$1",
     "^environments/(.*)": "<rootDir>/src/environments/$1"
   },
-  "testEnvironment": "jest-preset-kendo-angular/testEnvironment.js",
+  "testEnvironment": "kendo-angular-jest-preset/src/environment.js",
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
   ]
