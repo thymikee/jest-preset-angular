@@ -1,2 +1,2 @@
-export * from './src/matchers.d.ts';
+export * from './src/matchers';
 
