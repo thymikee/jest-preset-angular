@@ -9,6 +9,7 @@ require('zone.js/dist/async-test');
 require('zone.js/dist/fake-async-test');
 require('jest-zone-patch');
 require('./global-mocks');
+require('./matchers');
 
 const AngularSnapshotSerializer = require('./snapshot.serializer');
 const HTMLCommentSerializer = require('./comment.serializer');
