@@ -1,6 +1,13 @@
 Object.defineProperty(window, 'getComputedStyle', {
     value: () => ({
-        getPropertyValue: () => ''
+        getPropertyValue: (prop) => {
+            // Report font-size of 0 to disable drawDOM text export
+            if (prop === 'font-size') {
+                return '0';
+            }
+
+            return '';
+        }
     })
 });
 
