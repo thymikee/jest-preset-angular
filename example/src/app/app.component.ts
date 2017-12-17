@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {trigger, transition, style, animate} from '@angular/animations';
 
 @Component({
@@ -7,14 +7,16 @@ import {trigger, transition, style, animate} from '@angular/animations';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   @HostBinding('@routerTransition')
   title = 'app works!';
   hasClass = true;
   variableWithPrecedingDolar = 1234;
+
+  ngOnInit() {}
 }
 
-function slideToLeft() {
+export function slideToLeft() {
   return trigger('routerTransition', [
     transition(':enter', [
       style({transform: 'translateX(200%)', position: 'fixed', width: '100%'}),
