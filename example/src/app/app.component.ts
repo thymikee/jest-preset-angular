@@ -7,11 +7,13 @@ import {trigger, transition, style, animate} from '@angular/animations';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   @HostBinding('@routerTransition')
   title = 'app works!';
   hasClass = true;
   variableWithPrecedingDolar = 1234;
+
+  ngOnInit() {}
 }
 
 export function slideToLeft() {
