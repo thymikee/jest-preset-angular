@@ -1,10 +1,10 @@
 ## Changelog (master)
 
 ### v4.0.2
-* Breaking: Change to MIT license ([#102] https://github.com/thymikee/jest-preset-angular/pull/102)
-* Fix: Upgrade example app to Angular 5.0.0 using Angular CLI 1.6.1 ([#101] (https://github.com/thymikee/jest-preset-angular/pull/101))
-* Fix: Make example app compilation ([#101] (https://github.com/thymikee/jest-preset-angular/pull/101))
-* Fix: Upgrade jest to minor release 21.2.4 and other dependencies ([#101] (https://github.com/thymikee/jest-preset-angular/pull/101))
+* Breaking: Change to MIT license ([#102](https://github.com/thymikee/jest-preset-angular/pull/102))
+* Fix: Upgrade example app to Angular 5.0.0 using Angular CLI 1.6.1 ([#101](https://github.com/thymikee/jest-preset-angular/pull/101))
+* Fix: Make example app compile ([#101](https://github.com/thymikee/jest-preset-angular/pull/101))
+* Chore: Update dependencies ([#101](https://github.com/thymikee/jest-preset-angular/pull/101))
 
 ### v4.0.1
 * Fix: Add doctype to test envrionment ([#78](https://github.com/thymikee/jest-preset-angular/pull/78))
