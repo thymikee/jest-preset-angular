@@ -1,5 +1,10 @@
 ## Changelog (master)
 
+### v5.0.0
+* Breaking: Upgrade Jest to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
+* Breaking: Upgrade `ts-jest` to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
+* Chore: Get rid of explicit `jsdom` dependency and custom test environment
+
 ### v4.0.2
 * Breaking: Change to MIT license ([#102](https://github.com/thymikee/jest-preset-angular/pull/102))
 * Fix: Upgrade example app to Angular 5.0.0 using Angular CLI 1.6.1 ([#101](https://github.com/thymikee/jest-preset-angular/pull/101))
@@ -16,8 +21,8 @@
 * Fix: `fakeAsync` not working with `zone.js` >= 0.8.11
 
 ### v3.0.1
-* Breaking: Upgrade jest to 21
-* Breaking: Upgrade ts-jest to 21
+* Breaking: Upgrade Jest to 21
+* Breaking: Upgrade `ts-jest` to 21
 * Breaking: `moduleNameMapper` no longer maps absolute paths to `src` by default, you need to declare the mappings explicitly ([#53](https://github.com/thymikee/jest-preset-angular/pull/53))
 * Fix: issues with `moduleNameMapper` not overriding mappings ([#53](https://github.com/thymikee/jest-preset-angular/pull/53))
 
