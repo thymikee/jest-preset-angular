@@ -1,7 +1,8 @@
 import { inject, TestBed } from '@angular/core/testing'
-import { HttpClient, HttpClientModule, HttpRequest } from '@angular/common/http'
+import { HttpClientModule, HttpErrorResponse, HttpRequest } from '@angular/common/http'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { heroesUrl, HeroService } from './hero.service'
+import { of } from 'rxjs/observable/of'
 
 describe('Service: GoogleBooks', () => {
   let service: HeroService
@@ -23,16 +24,13 @@ describe('Service: GoogleBooks', () => {
       ],
     })
 
-    spyOn(console, 'warn')
-    spyOn(console, 'error')
+    backend = TestBed.get(HttpTestingController)
+    service = TestBed.get(HeroService)
+
+    // Mock implementation of console.error to
+    // return undefined to stop printing out to console log during test
+    jest.spyOn(console, 'error').mockImplementation(() => undefined)
   })
-
-  beforeEach(inject([ HttpClient, HttpTestingController ],
-    (_httpClient: HttpClient, _backend: HttpTestingController) => {
-
-      backend = _backend
-      service = new HeroService(_httpClient)
-    }))
 
   afterEach(inject([ HttpTestingController ], (_backend: HttpTestingController) => {
     _backend.verify()
@@ -55,7 +53,6 @@ describe('Service: GoogleBooks', () => {
       .flush(expectedData)
 
     expect(actualData).toEqual(expectedData)
-    expect(console.warn).toHaveBeenCalledWith('HeroService: fetched hero id=1')
   })
 
   it('should send an expected GET request and throw error to console when an error occurs', () => {
@@ -71,5 +68,12 @@ describe('Service: GoogleBooks', () => {
     getHeroRequest.error(new ErrorEvent('ERROR_GET_HERO_DATA'))
 
     expect(console.error).toHaveBeenCalled()
+  })
+
+  it('should return an observable of null and print error to console', () => {
+    const result = service.handleError(new HttpErrorResponse({ error: 'Error occurs' }), 'test method')
+
+    expect(console.error).toHaveBeenCalled()
+    expect(result).toEqual(of(undefined))
   })
 })
