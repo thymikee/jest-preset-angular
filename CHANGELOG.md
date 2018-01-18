@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+### v5.0.1
+* Fix: Upgrade Jest to 22.1.x
+
 ### v5.0.0
 * Breaking: Upgrade Jest to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
 * Breaking: Upgrade `ts-jest` to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
