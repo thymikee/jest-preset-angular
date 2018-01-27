@@ -1,4 +1,5 @@
 ## Changelog (master)
+* Docs: Add a configuration section with vendor libraries like jQuery ([#117](https://github.com/thymikee/jest-preset-angular/pull/117))
 
 ### v5.0.0
 * Breaking: Upgrade Jest to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
