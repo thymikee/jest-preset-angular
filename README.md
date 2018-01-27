@@ -224,22 +224,3 @@ import 'rxjs/add/operator/catch';
 
 import './jestGlobalMocks';
 ```
-
-### Allow vendor libraries like jQuery, etc...
-
-The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
-
-```
-window.$ = require('path/to/jquery');
-``
-
-or 
-
-```
-import $ from 'jquery';
-global.$ = global.jQuery = $;
-```
- 
- The same declaration can be applied to other vendor libraries.
- 
- Reference: https://github.com/facebook/jest/issues/708
