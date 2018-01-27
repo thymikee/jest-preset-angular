@@ -1,6 +1,7 @@
 ## Changelog (master)
 * Feature: Simplify installation by adding @types/jest as a package dependency ([#116](https://github.com/thymikee/jest-preset-angular/pull/116))
 * Chore: Upgrade example app to Angular 5.2 using Angular CLI 1.6 ([#116](https://github.com/thymikee/jest-preset-angular/pull/116))
+* Docs: Add a configuration section with vendor libraries like jQuery ([#117](https://github.com/thymikee/jest-preset-angular/pull/117))
 
 ### v5.0.0
 * Breaking: Upgrade Jest to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
