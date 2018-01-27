@@ -11,8 +11,10 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 ## Installation
 
 ```bash
-yarn add --dev jest jest-preset-angular @types/jest
+yarn add -D jest jest-preset-angular
 ```
+
+This will install `jest`, `@types/jest`, `ts-jest`, `jest-zone-patch` as dependencies needed to run with Angular projects.
 
 ## Usage
 In `src` directory create `setupJest.ts` file with following contents:
@@ -222,3 +224,22 @@ import 'rxjs/add/operator/catch';
 
 import './jestGlobalMocks';
 ```
+
+### Allow vendor libraries like jQuery, etc...
+
+The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
+
+```
+window.$ = require('path/to/jquery');
+``
+
+or 
+
+```
+import $ from 'jquery';
+global.$ = global.jQuery = $;
+```
+ 
+ The same declaration can be applied to other vendor libraries.
+ 
+ Reference: https://github.com/facebook/jest/issues/708

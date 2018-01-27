@@ -4,6 +4,9 @@
 * Breaking: Upgrade Jest to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
 * Breaking: Upgrade `ts-jest` to 22 ([#109](https://github.com/thymikee/jest-preset-angular/pull/109))
 * Chore: Get rid of explicit `jsdom` dependency and custom test environment
+* Fix: Upgrade example app to Angular 5.2.x using Angular CLI 1.6.6
+* Fix: Add @types/jest as a package dependency
+* Fix: Adjust README for easy installation guide and add configuration section with vendor libaries like jQuery etc..
 
 ### v4.0.2
 * Breaking: Change to MIT license ([#102](https://github.com/thymikee/jest-preset-angular/pull/102))
