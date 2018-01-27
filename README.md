@@ -11,8 +11,10 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 ## Installation
 
 ```bash
-yarn add --dev jest jest-preset-angular @types/jest
+yarn add -D jest jest-preset-angular
 ```
+
+This will install `jest`, `@types/jest`, `ts-jest`, `jest-zone-patch` as dependencies needed to run with Angular projects.
 
 ## Usage
 In `src` directory create `setupJest.ts` file with following contents:
