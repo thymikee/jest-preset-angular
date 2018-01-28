@@ -119,6 +119,19 @@ exports[`CalcComponent should snap 1`] = `
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
 
+Angular might have problem with Jest regarding to JSDOM missing transform property with Angular material, there is a work around for it. Add this to your `jestGlobalMocks` file
+```
+Object.defineProperty(document.body.style, 'transform', {
+  value: () => {
+    return {
+      enumerable: true,
+      configurable: true,
+    };
+  },
+});
+```
+Reference: https://github.com/angular/material2/issues/7101
+
 ### Absolute imports
 
 TypeScript supports absolute imports. The preset (starting from v3.0.0) by default understands absolute imports referring to `src`, `app`, `assets` and `environments` directory, so instead:
@@ -231,7 +244,7 @@ The same like normal Jest configuration, you can load jQuery in your Jest setup 
 
 ```
 window.$ = require('path/to/jquery');
-``
+```
 
 or 
 
@@ -240,6 +253,6 @@ import $ from 'jquery';
 global.$ = global.jQuery = $;
 ```
  
- The same declaration can be applied to other vendor libraries.
+The same declaration can be applied to other vendor libraries.
  
- Reference: https://github.com/facebook/jest/issues/708
+Reference: https://github.com/facebook/jest/issues/708
