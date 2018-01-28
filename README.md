@@ -119,7 +119,7 @@ exports[`CalcComponent should snap 1`] = `
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
 
-Angular might have problem with Jest regarding to JSDOM missing transform property with Angular material, there is a work around for it. Add this to your `jestGlobalMocks` file
+The animation trigger "transformMenu" has failed with Angular Material, there is a workaround for it. Add this to your `jestGlobalMocks` file
 ```
 Object.defineProperty(document.body.style, 'transform', {
   value: () => {
