@@ -252,7 +252,7 @@ or
 import $ from 'jquery';
 global.$ = global.jQuery = $;
 ```
- 
+
 The same declaration can be applied to other vendor libraries.
  
 Reference: https://github.com/facebook/jest/issues/708
