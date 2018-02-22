@@ -18,6 +18,3 @@ getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting()
 );
-
-expect.addSnapshotSerializer(HTMLCommentSerializer);
-expect.addSnapshotSerializer(AngularSnapshotSerializer);
