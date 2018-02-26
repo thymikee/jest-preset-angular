@@ -1,8 +1,9 @@
 ## Changelog (master)
+* Chore: Upgrade ts-jest and remove `mapCoverage` from `jest-preset` ([#109](https://github.com/thymikee/jest-preset-angular/pull/117))
 
 ### v5.1.0
 * Feature: Simplify installation by adding @types/jest as a package dependency ([#116](https://github.com/thymikee/jest-preset-angular/pull/116))
-* Feature: Move serializers setup to jest config to be possible to override them ([#126](https://github.com/thymikee/jest-preset-angular/pull/116))
+* Feature: Move serializers setup to jest config to be possible to override them ([#117](https://github.com/thymikee/jest-preset-angular/pull/116))
 * Chore: Upgrade example app to Angular 5.2 using Angular CLI 1.6 ([#116](https://github.com/thymikee/jest-preset-angular/pull/116))
 * Docs: Add a configuration section with vendor libraries like jQuery ([#117](https://github.com/thymikee/jest-preset-angular/pull/117))
 
