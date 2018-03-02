@@ -205,6 +205,25 @@ describe('Component snapshots', () => {
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
 
+### @Input() bindings are not reflected into fixture when `ChangeDetectionStrategy.OnPush` is used
+
+This issue is not related to Jest, [it's a known Angular bug](https://github.com/angular/angular/issues/12313)
+
+To mitigate this, you need to wrap your component under test, into some container component with default change detection strategy (`ChangeDetectionStrategy.Default`) and pass props through it, or overwrite change detection strategy within `TestBed` setup, if it's not critical for the test.
+
+```ts
+// override change detection strategy
+beforeEach(
+  async(() => {
+    TestBed.configureTestingModule({ declarations: [PizzaItemComponent] })
+      .overrideComponent(PizzaItemComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+      .compileComponents();
+  })
+);
+```
+
 ### The animation trigger "transformMenu" has failed
 JSDOM missing transform property when using Angular Material, there is a workaround for it.
 
