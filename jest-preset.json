@@ -9,8 +9,8 @@
     "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
   },
   "testMatch": [
-    "**/__tests__/**/*.(ts|js)?(x)",
-    "**/+(*.)(spec|test).(ts|js)?(x)"
+    "**/__tests__/**/*.+(ts|js)?(x)",
+    "**/+(*.)+(spec|test).+(ts|js)?(x)"
   ],
   "moduleFileExtensions": [
     "ts",
