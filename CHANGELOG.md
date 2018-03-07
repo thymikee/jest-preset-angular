@@ -1,6 +1,6 @@
 ## Changelog (master)
 
-* Chore: Remove `testRegex` out of the preset config, by default Jest already set `testMatch` ([#130](https://github.com/thymikee/jest-preset-angular/pull/130))
+* Chore: Change `testRegex` to `testMatch` ([#130](https://github.com/thymikee/jest-preset-angular/pull/130))
 
 ### v5.2.0
 
