@@ -1,6 +1,6 @@
 ## Changelog (master)
 
-* Chore: Change `testRegex` to `testMatch` ([#130](https://github.com/thymikee/jest-preset-angular/pull/130))
+* Chore: Change `testRegex` to `testMatch` ([#131](https://github.com/thymikee/jest-preset-angular/pull/131))
 
 ### v5.2.0
 
