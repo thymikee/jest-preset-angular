@@ -69,7 +69,7 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 * `<rootDir>` is a special syntax for root of your project (here by default it's project's root /)
 * we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through ts-jest
 * `"transform"` – run every TS, JS, or HTML file through so called *preprocessor* (we'll get there); this lets Jest understand non-JS syntax
-* `"testMatch"` – we want to run Jest on files that matches this regex
+* `"testMatch"` – we want to run Jest on files that matches this glob
 * `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
 * `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
 * `"setupTestFrameworkScriptFile"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
