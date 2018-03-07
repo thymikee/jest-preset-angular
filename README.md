@@ -46,7 +46,8 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
     "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
   },
   "testMatch": [
-    "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$"
+    "**/__tests__/**/*.+(ts|js)?(x)",
+    "**/?(*.)+(spec|test).+(ts|js)?(x)"
   ],
   "moduleFileExtensions": [
     "ts",
