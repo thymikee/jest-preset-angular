@@ -1,5 +1,7 @@
 ## Changelog (master)
 
+* Chore: Change `testRegex` to `testMatch` ([#131](https://github.com/thymikee/jest-preset-angular/pull/131))
+
 ### v5.2.0
 
 * Chore: Upgrade ts-jest and remove `mapCoverage` from `jest-preset` (requires `jest@^22.4.0` as a dependency now) ([#127](https://github.com/thymikee/jest-preset-angular/pull/127))
