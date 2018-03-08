@@ -1,6 +1,9 @@
 ## Changelog (master)
 
+### v5.2.1
+
 * Chore: Change `testRegex` to `testMatch` ([#131](https://github.com/thymikee/jest-preset-angular/pull/131))
+* Fix: Update `ts-jest` to `22.4.1` – urgent fix for `enableTsDiagnostics` ([#130](https://github.com/thymikee/jest-preset-angular/pull/130))
 
 ### v5.2.0
 
