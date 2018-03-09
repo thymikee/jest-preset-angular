@@ -1,30 +1,37 @@
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {TestBed, async, fakeAsync, tick} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {AppComponent} from './app.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { ConfigureFn, configureTests } from '@lib/testing';
+
+import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  let fixture;
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [AppComponent],
-        imports: [NoopAnimationsModule],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      const configure: ConfigureFn = testBed => {
+        testBed.configureTestingModule({
+          declarations: [AppComponent],
+          imports: [NoopAnimationsModule],
+          schemas: [NO_ERRORS_SCHEMA],
+        });
+      };
+
+      configureTests(configure).then(testBed => {
+        fixture = testBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
     })
   );
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-  });
 
   it(
     'should create the app',
     async(() => {
-      const app = fixture.debugElement.componentInstance;
+      const app = component;
       expect(app).toBeTruthy();
     })
   );
@@ -36,7 +43,7 @@ describe('AppComponent', () => {
   it(
     `should have as title 'app works!'`,
     async(() => {
-      const app = fixture.debugElement.componentInstance;
+      const app = component;
       expect(app.title).toEqual('app works!');
     })
   );
