@@ -168,31 +168,36 @@ export const configureTests = (configure: ConfigureFn, compilerOptions: Compiler
 And setup your test with that function like following:
 
 ```ts
-// my-foo.component.spec.ts
+// foo.component.spec.ts
 
-import { TestBed } from '@angular/core/testing'
+import { async, ComponentFixture } from '@angular/core/testing'
+
 import { configureTests, ConfigureFn } from '../test-config.helper'
+
+import { AppComponent } from './foo.component';
 
 describe('Component snapshots', () => {
 
+  let fixture: ComponentFixture<FooComponent>;
+  let component: FooComponent;
+
   beforeEach(
     async(() => {
-
       const configure: ConfigureFn = testBed => {
         testBed.configureTestingModule({
+          declarations: [FooComponent],
           imports: [...],
-          declarations: [...],
           schemas: [NO_ERRORS_SCHEMA],
-        })
-      }
-    })
+        });
+      };
 
-    configureTests(configure).then((testBed) => {
-      fixture = testBed.createComponent(PizzaItemComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-  )
+      configureTests(configure).then(testBed => {
+        fixture = testBed.createComponent(FooComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+    })
+  );
 
   it(`should create snapshots without blank lines/white spaces`, () => {
     expect(fixture).toMatchSnapshot();
