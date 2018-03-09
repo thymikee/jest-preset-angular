@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnPushComponent should reflect toppings @Input() via *ngFor 1`] = `
+<app-on-push
+  name={[Function String]}
+  toppings={[Function Array]}
+>
+  <h3>
+    Chilli pizza
+  </h3><ul>
+    
+    <li>
+      first
+    </li>
+  </ul>
+</app-on-push>
+`;
+
+exports[`OnPushComponent should reflect toppings @Input() via *ngFor 2`] = `
+<app-on-push
+  name={[Function String]}
+  toppings={[Function Array]}
+>
+  <h3>
+    Chilli pizza
+  </h3><ul>
+    
+    <li>
+      anchovy
+    </li>
+    <li>
+      tomato
+    </li>
+    <li>
+      chili
+    </li>
+  </ul>
+</app-on-push>
+`;
+
+exports[`OnPushComponent should snapshot pizza name @Input 1`] = `
+<app-on-push
+  name={[Function String]}
+  toppings={[Function Array]}
+>
+  <h3>
+    Chilli pizza
+  </h3><ul>
+    
+  </ul>
+</app-on-push>
+`;
