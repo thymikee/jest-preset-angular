@@ -118,15 +118,126 @@ exports[`CalcComponent should snap 1`] = `
 `;
 ```
 
+### Removing empty lines and white-spaces in component snaphots
+
+You will immediately notice, that your snapshot files contain a lot of white spaces and blank lines. This is not an issue with Jest, rather with Angular. It can be mitigated via Angular compiler by setting `preserveWhitespaces: false`
+
+> By default it's set to `true` Angular 5.x, although it may change to be set to `false` in upcoming versions
+> (if that occurs, you can stop reading right here, because your issue has been already solved)
+
+Your `TestBed` setup should look like following:
+
+```ts
+describe('Component snapshot tests', ()=>{
+  // you need to turn TS checking because it's an private API
+  const compilerConfig = {preserveWhitespaces: false} as any
+
+  beforeEach(() => {
+    TestBed.configureCompiler(compilerConfig)
+      .configureTestingModule({...});
+  });
+
+})
+```
+
+This is indeed very repetitive, so you can extract this in a helper function:
+
+```ts
+// test-config.helper.ts
+
+import { TestBed } from '@angular/core/testing'
+
+type CompilerOptions = Partial<{
+  providers: any[]
+  useJit: boolean
+  preserveWhitespaces: boolean
+}>
+export type ConfigureFn = (testBed: typeof TestBed) => void
+
+export const configureTests = (configure: ConfigureFn, compilerOptions: CompilerOptions = {}) => {
+  const compilerConfig: CompilerOptions = {
+    preserveWhitespaces: false,
+    ...compilerOptions,
+  }
+
+  const configuredTestBed = TestBed.configureCompiler(compilerConfig)
+
+  configure(configuredTestBed)
+
+  return configuredTestBed.compileComponents().then(() => configuredTestBed)
+}
+```
+
+And setup your test with that function like following:
+
+```ts
+// foo.component.spec.ts
+
+import { async, ComponentFixture } from '@angular/core/testing'
+
+import { configureTests, ConfigureFn } from '../test-config.helper'
+
+import { AppComponent } from './foo.component';
+
+describe('Component snapshots', () => {
+
+  let fixture: ComponentFixture<FooComponent>;
+  let component: FooComponent;
+
+  beforeEach(
+    async(() => {
+      const configure: ConfigureFn = testBed => {
+        testBed.configureTestingModule({
+          declarations: [FooComponent],
+          imports: [...],
+          schemas: [NO_ERRORS_SCHEMA],
+        });
+      };
+
+      configureTests(configure).then(testBed => {
+        fixture = testBed.createComponent(FooComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+    })
+  );
+
+  it(`should create snapshots without blank lines/white spaces`, () => {
+    expect(fixture).toMatchSnapshot();
+  });
+
+})
+```
+
 ## Troubleshooting
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
+
+### @Input() bindings are not reflected into fixture when `ChangeDetectionStrategy.OnPush` is used
+
+This issue is not related to Jest, [it's a known Angular bug](https://github.com/angular/angular/issues/12313)
+
+To mitigate this, you need to wrap your component under test, into some container component with default change detection strategy (`ChangeDetectionStrategy.Default`) and pass props through it, or overwrite change detection strategy within `TestBed` setup, if it's not critical for the test.
+
+```ts
+// override change detection strategy
+beforeEach(
+  async(() => {
+    TestBed.configureTestingModule({ declarations: [PizzaItemComponent] })
+      .overrideComponent(PizzaItemComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+      .compileComponents();
+  })
+);
+```
 
 ### The animation trigger "transformMenu" has failed
 JSDOM missing transform property when using Angular Material, there is a workaround for it.
 
 Add this to your `jestGlobalMocks` file
-```
+
+```js
 Object.defineProperty(document.body.style, 'transform', {
   value: () => {
     return {
@@ -151,7 +262,8 @@ import MyComponent from 'app/my.component';
 import MyStuff from 'src/testing/my.stuff';
 ```
 However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
-```js
+
+```json
 {
   "jest": {
     "moduleNameMapper": {
@@ -172,7 +284,7 @@ Override `globals` object in Jest config:
     "globals": {
      "ts-jest": {
         "tsConfigFile": "src/tsconfig.custom.json"
-      }, 
+      },
       "__TRANSFORM_HTML__": true
     }
   }
@@ -186,7 +298,8 @@ If you choose to overide `globals` in order to point at a specific tsconfig, you
 This means, that a file is not transformed through TypeScript compiler, e.g. because it is a JS file with TS syntax, or it is published to npm as uncompiled source files. Here's what you can do.
 
 #### Adjust your `transformIgnorePatterns` whitelist:
-```js
+
+```json
 {
   "jest": {
     "transformIgnorePatterns": [
@@ -208,7 +321,7 @@ By default Jest doesn't transform `node_modules`, because they should be valid J
 This tells `ts-jest` (a preprocessor this preset using to transform TS files) to treat JS files the same as TS ones.
 
 #### Transpile js files through `babel-jest`
-Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest` used by this preset) do not transpile them. 
+Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest` used by this preset) do not transpile them.
 1. Install `babel-preset-env` and add `.babelrc` (or modify existing if needed) with that contents:
 ```
 {
@@ -248,17 +361,17 @@ import './jestGlobalMocks';
 
 The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
 
-```
+```js
 window.$ = require('path/to/jquery');
 ```
 
-or 
+or
 
-```
+```js
 import $ from 'jquery';
 global.$ = global.jQuery = $;
 ```
 
 The same declaration can be applied to other vendor libraries.
- 
+
 Reference: https://github.com/facebook/jest/issues/708
