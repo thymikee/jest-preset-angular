@@ -2,7 +2,7 @@
 
 require('core-js/es6/reflect');
 require('core-js/es7/reflect');
-require('zone.js/dist/zone.js');
+require('zone.js');
 require('zone.js/dist/proxy.js');
 require('zone.js/dist/sync-test');
 require('zone.js/dist/async-test');
