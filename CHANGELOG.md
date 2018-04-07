@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+* Docs: Provide examples to integrate with `@netbasal/spectator`
+* Example-app: Provide examples to use `jest-preset-angular` with `@netbasal/spectator`
+
 ### v5.2.1
 
 * Chore: Change `testRegex` to `testMatch` ([#131](https://github.com/thymikee/jest-preset-angular/pull/131))
