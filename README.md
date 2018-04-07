@@ -380,10 +380,10 @@ Reference: https://github.com/facebook/jest/issues/708
 ## Integrating with @netbasal/spectator
 
 `@netbasal/spectator` is a extra library written to provide extra testing APIs to Angular, similar to Enzyme with React.
-To use `@netbasal/spectator` with Jest and this preset, first you need to install it following the instruction from its repository. The repository can be found here: 
+To use `@netbasal/spectator` with `jest` and this preset, first you need to install it following the instruction from its repository. The repository can be found here: 
 https://github.com/NetanelBasal/spectator
 
-After installing it, you need to provide extra typing declaration to Jest namespace because the repo only provides typing declaration for jasmine namespace. You need to add this to your `typings.d.ts`
+After installing it, you need to provide extra typing declaration to `jest` namespace because the repo only provides typing declaration for `jasmine` namespace. You need to add the following codes to your `typings.d.ts`
 
 ```
 declare namespace jest {
@@ -433,4 +433,4 @@ declare namespace jest {
 
 #### Example using with Jest:
 
-The ZippyComponent in `example` folder of this repository contains some example tests to use Jest with @netbasal/spectator
+The `ZippyComponent` in `example` folder of this repository contains some example tests to use `jest` with `@netbasal/spectator`
