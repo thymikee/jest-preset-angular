@@ -26,6 +26,25 @@ const sources = [
     '../media-box.component.scss',
     './media-box-h0.component.scss'
   ],
+})`,
+  `@Component({
+  selector: 'xc-media-box-h0',
+  templateUrl: 'media-box-h0.component.html',
+  styleUrls: [
+    '../../box.component.scss',
+    '../media-box.component.scss',
+    './media-box-h0.component.scss'
+  ],
+})`,
+  `@Component({
+  selector: 'xc-media-box-h0',
+  templateUrl: 'media-box-h0.component.html',
+  styleUrls: [
+    '../../../box.component.scss',
+    '../../box.component.scss',
+    '../media-box.component.scss',
+    './media-box-h0.component.scss'
+  ],
 })`
 ];
 
