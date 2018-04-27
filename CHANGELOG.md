@@ -1,5 +1,12 @@
 ## Changelog (master)
 
+### v5.2.2
+
+* Fix: specify angular modules as peerDependancies ([#141](https://github.com/thymikee/jest-preset-angular/pull/141))
+* Fix: update `STYLE_URLS_REGEX` to not break on multiple new lines ([#139](https://github.com/thymikee/jest-preset-angular/pull/139))
+* Docs: add more troubleshooting docs ([#129](https://github.com/thymikee/jest-preset-angular/pull/129))
+
+
 ### v5.2.1
 
 * Chore: Change `testRegex` to `testMatch` ([#131](https://github.com/thymikee/jest-preset-angular/pull/131))
