@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+* Chore: Upgrade example app to Angular 6 ([#141](https://github.com/thymikee/jest-preset-angular/pull/141))
+* Chore: Upgrade dependencies for the repository
+
 ### v5.2.2
 
 * Fix: specify angular modules as peerDependancies ([#141](https://github.com/thymikee/jest-preset-angular/pull/141))
