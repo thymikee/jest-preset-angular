@@ -1,7 +1,7 @@
 ## Changelog (master)
 
-* Chore: Upgrade example app to Angular 6 ([#146](https://github.com/thymikee/jest-preset-angular/pull/146))
-* Chore: Upgrade dependencies for the repository ([#146](https://github.com/thymikee/jest-preset-angular/pull/146))
+* Chore: Upgrade example app to Angular 6 ([#147](https://github.com/thymikee/jest-preset-angular/pull/147))
+* Chore: Upgrade dependencies for the repository ([#147](https://github.com/thymikee/jest-preset-angular/pull/147))
 
 ### v5.2.2
 
