@@ -1,8 +1,8 @@
 import { inject, TestBed } from '@angular/core/testing'
 import { HttpClientModule, HttpErrorResponse, HttpRequest } from '@angular/common/http'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+
 import { heroesUrl, HeroService } from './hero.service'
-import { of } from 'rxjs/observable/of'
 
 describe('Service: GoogleBooks', () => {
   let service: HeroService
@@ -10,7 +10,7 @@ describe('Service: GoogleBooks', () => {
 
   const expectedData = {
     id: 1,
-    name: 'Test hero'
+    name: 'Test hero',
   }
 
   beforeEach(() => {
@@ -70,10 +70,10 @@ describe('Service: GoogleBooks', () => {
     expect(console.error).toHaveBeenCalled()
   })
 
-  it('should return an observable of null and print error to console', () => {
+  it('should return an observable of undefined and print error to console', () => {
     const result = service.handleError(new HttpErrorResponse({ error: 'Error occurs' }), 'test method')
 
     expect(console.error).toHaveBeenCalled()
-    expect(result).toEqual(of(undefined))
+    result.subscribe(value => expect(value).toBeUndefined())
   })
 })
