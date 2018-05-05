@@ -1,6 +1,6 @@
 {
   "name": "jest-preset-angular",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "Jest preset configuration for Angular projects",
   "main": "index.js",
   "repository": "git@github.com:thymikee/jest-preset-angular.git",
@@ -16,9 +16,9 @@
     "typescript": "~2.5.3"
   },
   "peerDependencies": {
-    "jest": "^22.0.0",
     "@angular/core": ">=2.0.0",
-    "@angular/platform-browser-dynamic": ">=2.0.0"
+    "@angular/platform-browser-dynamic": ">=2.0.0",
+    "jest": "^22.0.0"
   },
   "scripts": {
     "test": "jest",
