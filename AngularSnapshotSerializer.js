@@ -53,7 +53,7 @@ const print = (val, print, indent, opts, colors) => {
     '\n</' +
     componentName +
     '>'
-  );
+  ).replace(/\n\s+\n/g, '\n');
 };
 
 const test = val =>
