@@ -7,7 +7,7 @@
 
 * Chore: Upgrade example app to Angular 6 ([#150](https://github.com/thymikee/jest-preset-angular/pull/150))
 * Chore: Upgrade dependencies for the repository ([#150](https://github.com/thymikee/jest-preset-angular/pull/150))
-* Fix: fix preprocess.js to not break on spaces before colon ([#165](https://github.com/thymikee/jest-preset-angular/pull/165))
+* Fix: fix `preprocess.js` to not break on spaces before colon ([#165](https://github.com/thymikee/jest-preset-angular/pull/165))
 
 ### v5.2.2
 
