@@ -24,6 +24,7 @@
     "^environments/(.*)": "<rootDir>/src/environments/$1"
   },
   "testEnvironment": "@progress/kendo-angular-jest-preset/src/environment.js",
+  "testURL": "http://localhost",
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
   ]
