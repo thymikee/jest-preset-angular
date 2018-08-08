@@ -30,7 +30,10 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts",
+    "moduleNameMapper": {
+      "@lib/(.*)": "<rootDir>/src/lib/$1"
+    }
   }
 }
 ```
