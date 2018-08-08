@@ -1,5 +1,5 @@
 const process = require('ts-jest').process;
-const TEMPLATE_URL_REGEX = /templateUrl\s*:\s*('|")(\.\/){0,}(.*)('|")/g;
+const TEMPLATE_URL_REGEX = /templateUrl\s*:\s*('|"|`)(\.\/){0,}(.*)('|"|`)/g;
 const STYLE_URLS_REGEX = /styleUrls\s*:\s*\[[^\]]*\]/g;
 const ESCAPE_TEMPLATE_REGEX = /(\${|\`)/g;
 
