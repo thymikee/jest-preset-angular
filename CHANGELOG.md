@@ -1,7 +1,11 @@
 ## Changelog (master)
 
-* Chore: Upgrade `ts-jest`, `@types/jest` in dependencies to be compatible with `jest` v23.
-* Chore: Upgrade peer dependency `jest` to be compatible with `jest` v23.
+* Fix: Support backtick quoted templateUrl. ([#182](https://github.com/thymikee/jest-preset-angular/pull/182))
+
+### v6.0.0
+
+* Chore: Upgrade `ts-jest`, `@types/jest` in dependencies to be compatible with `jest` v23. ([#173](https://github.com/thymikee/jest-preset-angular/pull/173))
+* Chore: Upgrade peer dependency `jest` to be compatible with `jest` v23. ([#173](https://github.com/thymikee/jest-preset-angular/pull/173))
 
 ### v5.2.3
 
