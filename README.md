@@ -302,7 +302,10 @@ This means, that a file is not transformed through TypeScript compiler, e.g. bec
 #### Adjust your `tsconfig.spec.json`:
 Since Angular released v6, the default `tsconfig.json` and `tsconfig.spec.json` have been changed. Therefore, `jest` will throw an error
 ```
-
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,global,jest){import 'jest-preset-angular';
+                                                                                             ^^^^^^
+    SyntaxError: Unexpected token import
+      at ScriptTransformer._transformAndBuildScript (node_modules/jest-runtime/build/script_transformer.js:403:17)
 ```
 
 What you need to do is adjust your `tsconfig.spec.json` to add the option `"module": "commonjs",`
