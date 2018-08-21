@@ -299,6 +299,37 @@ If you choose to overide `globals` in order to point at a specific tsconfig, you
 
 This means, that a file is not transformed through TypeScript compiler, e.g. because it is a JS file with TS syntax, or it is published to npm as uncompiled source files. Here's what you can do.
 
+#### Adjust your `tsconfig.spec.json`:
+Since Angular released v6, the default `tsconfig.json` and `tsconfig.spec.json` have been changed. Therefore, `jest` will throw an error
+```
+
+```
+
+What you need to do is adjust your `tsconfig.spec.json` to add the option `"module": "commonjs",`
+
+A default `tsconfig.spec.json` after modifying will look like this
+```
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "module": "commonjs",
+    "types": [
+      "jest",
+      "jquery",
+      "jsdom",
+      "node"
+    ]
+  },
+  "files": [
+    "polyfills.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+```
+
 #### Adjust your `transformIgnorePatterns` whitelist:
 
 ```json
