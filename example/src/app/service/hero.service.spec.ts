@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { heroesUrl, HeroService } from './hero.service'
 
-describe('Service: GoogleBooks', () => {
+describe('Service: HeroService', () => {
   let service: HeroService
   let backend: HttpTestingController
 
