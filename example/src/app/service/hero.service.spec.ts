@@ -13,6 +13,17 @@ describe('Service: HeroService', () => {
     name: 'Test hero',
   }
 
+  const expectedDataAll = [
+    {
+      id: 1,
+      name: 'Test hero 1'
+    },
+    {
+      id: 2,
+      name: 'Test hero 2'
+    }
+  ]
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -38,6 +49,20 @@ describe('Service: HeroService', () => {
 
   it('should create an instance successfully', () => {
     expect(service).toBeDefined()
+  })
+
+  it('should call the GET heroes api and return all results', () => {
+    let actualDataAll = {}
+
+    service.getHeroes().subscribe(data => actualDataAll = data)
+
+    backend.expectOne((req: HttpRequest<any>) => {
+      return req.url === `${heroesUrl}`
+        && req.method === 'GET'
+    }, `GET all hero data from ${heroesUrl}`)
+      .flush(expectedDataAll)
+
+    expect(actualDataAll).toEqual(expectedDataAll)
   })
 
   it('should call the GET hero api and return the result', () => {

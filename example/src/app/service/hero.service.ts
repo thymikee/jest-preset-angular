@@ -13,6 +13,14 @@ export class HeroService {
 
   constructor(private http: HttpClient) {}
 
+  /** GET heroes from the server */
+  getHeroes(): Observable<Hero[]> {
+    return this.http.get<Hero>(heroesUrl)
+      .pipe(
+        catchError(err => this.handleError(err, 'getHero')),
+      )
+  }
+
   /** GET hero by id. Will 404 if id not found */
   getHero(id: number): Observable<Hero> {
     const params = new HttpParams().set('id', id.toString())
