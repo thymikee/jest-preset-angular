@@ -1,6 +1,13 @@
 ## Changelog (master)
 
+### v6.0.1
+
 * Fix: Support backtick quoted templateUrl. ([#182](https://github.com/thymikee/jest-preset-angular/pull/182))
+* Fix: Restrict version of ts-jest to ~23.1.3 ([#196](https://github.com/thymikee/jest-preset-angular/pull/196))
+* Chore: Add HeroesComponent example with mocked service provider ([#110](https://github.com/thymikee/jest-preset-angular/pull/110))
+* Chore: Adjust troubleshooting to support configuration with Angular 6 ([#187](https://github.com/thymikee/jest-preset-angular/pull/187))
+* Chore: Update dependencies for example app ([#179](https://github.com/thymikee/jest-preset-angular/pull/179))
+
 
 ### v6.0.0
 
