@@ -1,9 +1,9 @@
 {
   "globals": {
     "ts-jest": {
-      "tsConfigFile": "src/tsconfig.spec.json"
-    },
-    "__TRANSFORM_HTML__": true
+      "tsConfig": "src/tsconfig.spec.json",
+       "stringifyContentPathRegex": true
+    }
   },
   "transform": {
     "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
