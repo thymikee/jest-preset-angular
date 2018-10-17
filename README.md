@@ -17,8 +17,10 @@ yarn add -D jest jest-preset-angular
 This will install `jest`, `@types/jest`, `ts-jest`, `jest-zone-patch` as dependencies needed to run with Angular projects.
 
 ## Usage
+
 In `src` directory create `setupJest.ts` file with following contents:
-```js
+
+```ts
 import 'jest-preset-angular';
 import './jestGlobalMocks'; // browser mocks globally available for every test
 ```
@@ -26,6 +28,7 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 *Note: feel free to copy the `jestGlobalMocks.ts` file from the example directory and save it next to the `setupJest.ts` file.*
 
 ...and include this in your `package.json`:
+
 ```json
 {
   "jest": {
@@ -40,29 +43,30 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 {
   "globals": {
     "ts-jest": {
-      "tsConfigFile": "src/tsconfig.spec.json"
-    },
-    "__TRANSFORM_HTML__": true
+      "tsConfig": "<rootDir>/src/tsconfig.spec.json",
+      "stringifyContentPathRegex": "\\.html$"
+    }
   },
   "transform": {
-    "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
+    "\\.(ts|js|html)$": "ts-jest"
   },
   "testMatch": [
-    "**/__tests__/**/*.+(ts|js)?(x)",
-    "**/+(*.)+(spec|test).+(ts|js)?(x)"
+    "**/__tests__/**/*.ts?(x)",
+    "**/?(*.)+(spec|test).ts?(x)"
   ],
-  "moduleFileExtensions": [
-    "ts",
-    "js",
-    "html"
-  ],
+  "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx", "html"],
   "moduleNameMapper": {
-    "app/(.*)": "<rootDir>/src/app/$1",
-    "assets/(.*)": "<rootDir>/src/assets/$1",
-    "environments/(.*)": "<rootDir>/src/environments/$1"
+    "^src/(.*)$": "<rootDir>/src/$1",
+    "^app/(.*)$": "<rootDir>/src/app/$1",
+    "^assets/(.*)$": "<rootDir>/src/assets/$1",
+    "^environments/(.*)$": "<rootDir>/src/environments/$1"
   },
   "transformIgnorePatterns": [
     "node_modules/(?!@ngrx)"
+  ],
+  "snapshotSerializers": [
+    "jest-preset-angular/AngularSnapshotSerializer.js",
+    "jest-preset-angular/HTMLCommentSerializer.js"
   ]
 }
 ```
@@ -93,7 +97,7 @@ If you look at your `src/test.ts` (or similar bootstrapping test file) file you'
 Example:
 
 `calc-component.spec.ts`
-```js
+```ts
 // some initialization code
 test('renders markup to snapshot', () => {
   const fixture = TestBed.createComponent(AppComponent);
@@ -120,7 +124,7 @@ exports[`CalcComponent should snap 1`] = `
 `;
 ```
 
-### Removing empty lines and white-spaces in component snaphots
+### Removing empty lines and white-spaces in component snapshots
 
 You will immediately notice, that your snapshot files contain a lot of white spaces and blank lines. This is not an issue with Jest, rather with Angular. It can be mitigated via Angular compiler by setting `preserveWhitespaces: false`
 
@@ -213,7 +217,7 @@ describe('Component snapshots', () => {
 
 ## Troubleshooting
 
-Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firsty priority). Please be adivsed that every entry in default configuration may be overriden to best suite your app's needs.
+Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firstly priority). Please be advised that every entry in default configuration may be overridden to best suite your app's needs.
 
 ### @Input() bindings are not reflected into fixture when `ChangeDetectionStrategy.OnPush` is used
 
@@ -254,15 +258,19 @@ Reference: https://github.com/angular/material2/issues/7101
 ### Absolute imports
 
 TypeScript supports absolute imports. The preset (starting from v3.0.0) by default understands absolute imports referring to `src`, `app`, `assets` and `environments` directory, so instead:
-```js
+
+```ts
 import MyComponent from '../../src/app/my.component';
 import MyStuff from '../../src/testing/my.stuff';
 ```
+
 you can use:
-```js
+
+```ts
 import MyComponent from 'app/my.component';
 import MyStuff from 'src/testing/my.stuff';
 ```
+
 However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
 
 ```json

@@ -42,11 +42,11 @@
     "typescript": "2.9.2"
   },
   "jest": {
-    "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts",
+    "preset": "..",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png)$": "<rootDir>/__mocks__/image.js",
-      "@lib/(.*)": "<rootDir>/src/lib/$1"
-    }
+      "^@lib/(.*)$": "<rootDir>/src/lib/$1"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
   }
 }

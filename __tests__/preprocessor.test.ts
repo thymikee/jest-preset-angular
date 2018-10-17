@@ -1,4 +1,4 @@
-const process = require('../preprocessor').process;
+import { createTransformer } from 'ts-jest'
 
 const sources = [
   `@Component({
@@ -71,17 +71,20 @@ const sources = [
 ];
 
 const config = {
+  rootDir: __dirname,
+  cwd: __dirname,
   globals: {
     'ts-jest': {
-      tsConfigFile: './__tests__/tsconfig.spec.json'
+      tsConfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$'
     },
-    __TRANSFORM_HTML__: true
   }
 };
 
 sources.forEach(source => {
+  const processor = createTransformer()
   test(`works with ${source}`, () => {
-    const result = process(source, '', config);
+    const result = processor.process(source, '', config);
     expect(result).toMatch('styles: []');
     expect(result).toMatch(
       /template: require\(['"`]\.\/media-box-h0\.component\.html['"`]\)/
