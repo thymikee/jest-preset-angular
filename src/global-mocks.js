@@ -41,44 +41,44 @@ Object.getPrototypeOf = function(obj) {
 
     return getPrototypeOf.apply(Object, [obj]);
 };
-/* tslint:disable:no-empty */
 
-(window as any).HTMLCanvasElement.prototype.getContext = function (): any {
+HTMLCanvasElement.prototype.getContext = function () {
     return {
-        fillRect: function(): void {},
-        clearRect: function(): void {},
-        getImageData: function(_x: any, _y: any, w: any, h: any): any {
+        fillRect: function() {},
+        clearRect: function() {},
+        getImageData: function(_x, _y, w, h) {
             return {
                 data: new Array(w * h * 4)
             };
         },
-        putImageData: function(): void {},
-        createImageData: function(): any[] { return []; },
-        setTransform: function(): void {},
-        drawImage: function(): void {},
-        save: function(): void {},
-        fillText: function(): void {},
-        restore: function(): void {},
-        beginPath: function(): void {},
-        moveTo: function(): void {},
-        lineTo: function(): void {},
-        closePath: function(): void {},
-        stroke: function(): void {},
-        translate: function(): void {},
-        scale: function(): void {},
-        rotate: function(): void {},
-        arc: function(): void {},
-        fill: function(): void {},
-        measureText: function(): any {
+        putImageData: function() {},
+        createImageData: function() { return []; },
+        setTransform: function() {},
+        drawImage: function() {},
+        save: function() {},
+        fillText: function() {},
+        restore: function() {},
+        beginPath: function() {},
+        moveTo: function() {},
+        lineTo: function() {},
+        closePath: function() {},
+        stroke: function() {},
+        translate: function() {},
+        scale: function() {},
+        rotate: function() {},
+        arc: function() {},
+        fill: function() {},
+        measureText: function() {
             return { width: 0 };
         },
-        transform: function(): void {},
-        rect: function(): void {},
-        clip: function(): void {},
-        bezierCurveTo: function(): void {}
+        transform: function() {},
+        rect: function() {},
+        clip: function() {},
+        bezierCurveTo: function() {}
     };
 };
 
-(window as any).HTMLCanvasElement.prototype.toDataURL = function (): string {
+HTMLCanvasElement.prototype.toDataURL = function () {
     return "data:image/png;base64,";
 };
+
