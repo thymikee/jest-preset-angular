@@ -21,7 +21,8 @@
     "^src/(.*)": "<rootDir>/src/$1",
     "^app/(.*)": "<rootDir>/src/app/$1",
     "^assets/(.*)": "<rootDir>/src/assets/$1",
-    "^environments/(.*)": "<rootDir>/src/environments/$1"
+    "^environments/(.*)": "<rootDir>/src/environments/$1",
+    "^@progress/kendo-drawing/(.*)": "<rootDir>/node_modules/@progress/kendo-drawing/dist/npm/main.js"
   },
   "testEnvironment": "@progress/kendo-angular-jest-preset/src/environment.js",
   "testURL": "http://localhost",
