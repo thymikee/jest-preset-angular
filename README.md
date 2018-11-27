@@ -48,11 +48,11 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
     }
   },
   "transform": {
-    "\\.(ts|js|html)$": "ts-jest"
+    "^.+\\.(ts|js|html)$": "ts-jest"
   },
   "testMatch": [
-    "**/__tests__/**/*.ts?(x)",
-    "**/?(*.)+(spec|test).ts?(x)"
+    "**/__tests__/**/*.+(ts|js)?(x)",
+    "**/?(*.)+(spec|test).+(ts|js)?(x)"
   ],
   "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx", "html"],
   "moduleNameMapper": {

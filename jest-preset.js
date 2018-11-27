@@ -5,16 +5,18 @@ module.exports = {
     'ts-jest': {
       tsConfig: '<rootDir>/src/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      transformers:[
-        // here should be the transformer file described in header of preprocess.js, for example:
-        // require.resolve('./transformer')
+      astTransformers:[
+        require.resolve('./InlineHtmlStripStylesTransformer')
       ]
     },
   },
   transform: {
-    '\\.(ts|html)$': 'ts-jest',
+    '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testMatch: defaults.testMatch,
+  testMatch: [
+    '**/__tests__/**/*.+(ts|js)?(x)',
+    '**/+(*.)+(spec|test).+(ts|js)?(x)'
+  ],
   moduleFileExtensions: defaults.moduleFileExtensions.concat(['html']),
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
@@ -22,7 +24,9 @@ module.exports = {
     '^assets/(.*)$': '<rootDir>/src/assets/$1',
     '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
-  transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!@ngrx)'
+  ],
   snapshotSerializers: [
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',

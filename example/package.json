@@ -42,7 +42,7 @@
     "typescript": "2.9.2"
   },
   "jest": {
-    "preset": "..",
+    "preset": "jest-preset-angular",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png)$": "<rootDir>/__mocks__/image.js",
       "^@lib/(.*)$": "<rootDir>/src/lib/$1"

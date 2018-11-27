@@ -1,5 +1,9 @@
 ## Changelog (master)
 
+### v7.0.0
+
+* Feature: Support ts-jest ^23.10.4 ([#204](https://github.com/thymikee/jest-preset-angular/pull/204))
+
 ### v6.0.1
 
 * Fix: Support backtick quoted templateUrl. ([#182](https://github.com/thymikee/jest-preset-angular/pull/182))
