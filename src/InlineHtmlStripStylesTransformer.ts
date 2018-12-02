@@ -54,17 +54,11 @@ import TS, {
   TransformationContext,
   Transformer,
   Visitor,
-  isClassDeclaration,
-  isCallExpression,
-  isObjectLiteralExpression,
-  isPropertyAssignment,
-  isIdentifier,
   ClassDeclaration,
   CallExpression,
   ObjectLiteralExpression,
   PropertyAssignment,
   Identifier,
-  isStringLiteral,
   StringLiteral,
 } from 'typescript'
 
@@ -134,13 +128,13 @@ export function factory(cs: ConfigSet) {
   function getPropertyAssignmentsToTransform(classDeclaration: ClassDeclaration) {
     return flatten<PropertyAssignment>(classDeclaration.decorators!
       .map(dec => dec.expression)
-      .filter(isCallExpression)
+      .filter(ts.isCallExpression)
       .map(callExpr => (callExpr as CallExpression).arguments
-        .filter(isObjectLiteralExpression)
+        .filter(ts.isObjectLiteralExpression)
         .map(arg => (arg as ObjectLiteralExpression).properties
-          .filter(isPropertyAssignment)
+          .filter(ts.isPropertyAssignment)
           .map(arg => arg as PropertyAssignment)
-          .filter(propAss => isIdentifier(propAss.name))
+          .filter(propAss => ts.isIdentifier(propAss.name))
           .filter(propAss => TRANSFORM_PROPS.includes((propAss.name as Identifier).text))
         )
       )
@@ -163,7 +157,7 @@ export function factory(cs: ConfigSet) {
           let templatePathLiteral = assignment.initializer
 
           // fix templatePathLiteral if it was a non-relative path
-          if (isStringLiteral(assignment.initializer)) {
+          if (ts.isStringLiteral(assignment.initializer)) {
             const templatePathStringLiteral: StringLiteral = assignment.initializer;
             // match if it starts with ./ or ../ or /
             if (templatePathStringLiteral.text &&
@@ -210,7 +204,7 @@ export function factory(cs: ConfigSet) {
       // before we create a deep clone to modify, we make sure that
       // this class has the decorator arguments of interest.
       if (
-        isClassDeclaration(node) &&
+        ts.isClassDeclaration(node) &&
           node.decorators &&
           getPropertyAssignmentsToTransform(node).length
       ) {
