@@ -1,8 +1,17 @@
 ## Changelog (master)
 
-### v7.0.0
+* Breaking: Upgrade ts-jest to ^23.10.4 and use ast-transformer instead of processor ([#204](https://github.com/thymikee/jest-preset-angular/pull/204))
+* Adjustment: Remove template literal character escaping (reverts [#34](https://github.com/thymikee/jest-preset-angular/pull/34))
 
-* Feature: Support ts-jest ^23.10.4 ([#204](https://github.com/thymikee/jest-preset-angular/pull/204))
+#### Migration Guide
+
+* If `global` and `transform` are not set in your configuration in `jest.config.json`, `jest.config.js` or `package.json`, you are done.
+* If the `global` value of the configuration was overriden, adjust  
+  * The option `"__TRANSFORM_HTML__": true` is not required anymore. Instead the `"stringifyContentPathRegex": "\\.html$"` should be used inside the `ts-jest`-configuration.
+  * Change the assignment identifier from `tsConfigFile` to `tsConfig`.
+  * Add the `astTransformer: [ require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')]` so Jest can work with `templateUrl`-assignments in Component decorators.
+* If `transform` was overridden, remove the entry pointing at `preprocessor.js` and add `"^.+\\.(ts|js|html)$": "ts-jest"` to the `transform`-object.
+* If in doubt, check the configuration example in `jest-preset.json`.
 
 ### v6.0.1
 

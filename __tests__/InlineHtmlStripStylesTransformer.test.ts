@@ -77,6 +77,19 @@ const CODE_WITH_ALL_DECORATOR_PROPERTIES = `
   export class AngularComponent {
   }
 `
+
+const CODE_WITH_CUSTOM_DECORATOR = `
+  import { Component as CustomDecoratorName } from '@angular/core';
+
+  @CustomDecoratorName({
+    templateUrl: './page.html'
+  })
+  export class AngularComponent {
+  }
+`
+
+
+
 const createFactory = () => {
   return transformer.factory({ compilerModule: tsc } as any)
 }
@@ -116,6 +129,12 @@ describe('inlining template and stripping styles', () => {
 
   it('should handle all transformable decorator assignments', () => {
     const out = transpile(CODE_WITH_ALL_DECORATOR_PROPERTIES)
+
+    expect(out.outputText).toMatchSnapshot()
+  })
+
+  it('should handle all decorator assignments in differently named decorators', () => {
+    const out = transpile(CODE_WITH_CUSTOM_DECORATOR)
 
     expect(out.outputText).toMatchSnapshot()
   })
