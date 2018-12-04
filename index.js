@@ -1,1 +1,1 @@
-module.exports = require('./setupJest.js');
+module.exports = require('./setupJest.js');	

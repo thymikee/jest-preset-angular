@@ -5,6 +5,7 @@
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -17,7 +18,7 @@
       "dom"
     ],
     "paths": {
-      "@lib/*":[
+      "@lib/*": [
         "lib/*"
       ]
     }

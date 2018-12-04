@@ -7,20 +7,31 @@
   "author": "Michał Pierzchała <thymikee@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@types/jest": "^23.3.1",
+    "@types/jest": "^23.3.10",
     "jest-zone-patch": "^0.0.8",
-    "ts-jest": "~23.1.3"
+    "ts-jest": "~23.10.0"
   },
   "devDependencies": {
-    "jest": "^23.5.0",
-    "typescript": "~2.9.2"
+    "jest": "^23.6.0",
+    "typescript": "^3.2.1"
   },
   "peerDependencies": {
     "@angular/core": ">=2.0.0",
     "@angular/platform-browser-dynamic": ">=2.0.0",
     "jest": "^23.0.0"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "<rootDir>/tsconfig.spec.json"
+      }
+    },
+    "rootDir": "__tests__"
+  },
   "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
     "test": "jest",
     "test:ci": "jest -i"
   }

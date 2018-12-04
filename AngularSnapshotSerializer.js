@@ -21,7 +21,6 @@ const printAttributes = (val, attributes, print, indent, colors, opts) => {
 };
 
 const print = (val, print, indent, opts, colors) => {
-  let result = '';
   let componentAttrs = '';
 
   const componentName = val.componentRef._elDef.element.name;
