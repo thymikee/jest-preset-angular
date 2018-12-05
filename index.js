@@ -51,30 +51,49 @@ function wrapTestInZone(testBody) {
     : done => testProxyZone.run(testBody, null, [done]);
 }
 
+const bindDescribe = (originalJestFn) => function () {
+  const eachArguments = arguments;
+  return function (description, specDefinitions, timeout) {
+    arguments[1] = wrapDescribeInZone(specDefinitions)
+    return originalJestFn.apply(this, eachArguments).apply(
+      this,
+      arguments
+    )
+  }
+};
+
 ['xdescribe', 'fdescribe', 'describe'].forEach(methodName => {
   const originaljestFn = env[methodName];
-  env[methodName] = function(description, specDefinitions) {
-    return originaljestFn.call(
+  env[methodName] = function(description, specDefinitions, timeout) {
+    arguments[1] = wrapDescribeInZone(specDefinitions)
+    return originaljestFn.apply(
       this,
-      description,
-      wrapDescribeInZone(specDefinitions)
+      arguments
     );
   };
+  env[methodName].each = bindDescribe(originaljestFn.each);
   if (methodName === 'describe') {
     env[methodName].only = env['fdescribe'];
     env[methodName].skip = env['xdescribe'];
+    env[methodName].only.each = bindDescribe(originaljestFn.only.each);
+    env[methodName].skip.each = bindDescribe(originaljestFn.skip.each);
   }
 });
 
-['xit', 'fit', 'test', 'it'].forEach(methodName => {
+['xit', 'fit', 'xtest', 'test', 'it'].forEach(methodName => {
   const originaljestFn = env[methodName];
   env[methodName] = function(description, specDefinitions, timeout) {
     arguments[1] = wrapTestInZone(specDefinitions);
     return originaljestFn.apply(this, arguments);
   };
+  // The revised method will be populated to the final each method, so we only declare the method that in the new globals
+  env[methodName].each = originaljestFn.each;
   if (methodName === 'test' || methodName === 'it') {
     env[methodName].only = env['fit'];
+    env[methodName].only.each = originaljestFn.only.each;
+
     env[methodName].skip = env['xit'];
+    env[methodName].skip.each = originaljestFn.skip.each;
   }
 });
 
