@@ -1,0 +1,40 @@
+version: 2.1
+executors:
+  node-11:
+    docker:
+      - image: circleci/node:10
+jobs:
+  build:
+    executor: node-11
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, we still use increasingly general patterns to restore cache
+            # the install afterwards will only install packages with different versions
+            - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ .Branch }}-
+      - run:
+          name: Install dependencies
+          command: |
+            yarn --version
+            yarn install --frozen-lockfile
+            cd example
+            yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn
+            - ~/.cache/yarn
+            - ./node_modules
+            - ./example/node_modules
+      - run:
+          name: Test Library
+          command: |
+            yarn test:ci
+      - run:
+          name: Test Example App
+          command: |
+            cd example
+            yarn test:ci
+            yarn test:coverage
