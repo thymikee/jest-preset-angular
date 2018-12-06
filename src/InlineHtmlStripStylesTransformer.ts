@@ -54,9 +54,6 @@ import TS, {
   TransformationContext,
   Transformer,
   Visitor,
-  ClassDeclaration,
-  CallExpression,
-  ObjectLiteralExpression,
   PropertyAssignment,
   Identifier,
   StringLiteral,
@@ -105,18 +102,6 @@ export const version = 1
 export function factory(cs: ConfigSet) {
 
   /**
-   * Array Flatten function, as there were problems to make the compiler use
-   * esnext's Array.flat, can be removed in the future.
-   * @param arr Array to be flattened
-   */
-  function flatten<T>(arr: (T | T[] | T[][])[]): T[] {
-    return arr.reduce(
-      (xs: T[], x) => Array.isArray(x) ? xs.concat(flatten(x as T[])) : xs.concat(x),
-      []
-    ) as T[]
-  }
-
-  /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */
   const ts = cs.compilerModule
@@ -125,65 +110,55 @@ export function factory(cs: ConfigSet) {
    * Traverses the AST down to the relevant assignments in the decorator
    * argument and returns them in an array.
    */
-  function getPropertyAssignmentsToTransform(classDeclaration: ClassDeclaration) {
-    return flatten<PropertyAssignment>(classDeclaration.decorators!
-      .map(dec => dec.expression)
-      .filter(ts.isCallExpression)
-      .map(callExpr => (callExpr as CallExpression).arguments
-        .filter(ts.isObjectLiteralExpression)
-        .map(arg => (arg as ObjectLiteralExpression).properties
-          .filter(ts.isPropertyAssignment)
-          .map(arg => arg as PropertyAssignment)
-          .filter(propAss => ts.isIdentifier(propAss.name))
-          .filter(propAss => TRANSFORM_PROPS.includes((propAss.name as Identifier).text))
-        )
-      )
-    )
+  function isPropertyAssignmentToTransform(node: Node): node is PropertyAssignment {
+    return ts.isPropertyAssignment(node) &&
+      ts.isIdentifier(node.name) &&
+      TRANSFORM_PROPS.includes(node.name.text)
   }
 
   /**
    * Clones the node, identifies the properties to transform in the decorator and modifies them.
    * @param node class declaration with decorators
    */
-  function transfromDecoratorForJest(node: ClassDeclaration) {
+  function transfromPropertyAssignmentForJest(node: PropertyAssignment) {
 
-    const mutable = ts.getMutableClone(node)
-    const assignments = getPropertyAssignmentsToTransform(mutable)
+    const mutableAssignment = ts.getMutableClone(node)
 
-    assignments.forEach(assignment => {
-      switch ((assignment.name as Identifier).text) {
-        case TEMPLATE_URL:
-          // we can reuse the right-hand-side literal from the assignment
-          let templatePathLiteral = assignment.initializer
+    const assignmentNameText = (mutableAssignment.name as Identifier).text
 
-          // fix templatePathLiteral if it was a non-relative path
-          if (ts.isStringLiteral(assignment.initializer)) {
-            const templatePathStringLiteral: StringLiteral = assignment.initializer;
-            // match if it starts with ./ or ../ or /
-            if (templatePathStringLiteral.text &&
-                !templatePathStringLiteral.text.match(/^(\.\/|\.\.\/|\/)/)) {
-              // make path relative by appending './'
-              templatePathLiteral = ts.createStringLiteral(`./${templatePathStringLiteral.text}`)
-            }
+    switch (assignmentNameText) {
+      case TEMPLATE_URL:
+        // we can reuse the right-hand-side literal from the assignment
+        let templatePathLiteral = mutableAssignment.initializer
+
+        // fix templatePathLiteral if it was a non-relative path
+        if (ts.isStringLiteral(mutableAssignment.initializer)) {
+          const templatePathStringLiteral: StringLiteral = mutableAssignment.initializer;
+          // match if it starts with ./ or ../ or /
+          if (templatePathStringLiteral.text &&
+              !templatePathStringLiteral.text.match(/^(\.\/|\.\.\/|\/)/)) {
+            // make path relative by appending './'
+            templatePathLiteral = ts.createStringLiteral(`./${templatePathStringLiteral.text}`)
           }
+        }
 
-          // replace 'templateUrl' with 'template'
-          assignment.name = ts.createIdentifier(TEMPLATE)
-          // replace current initializer with require(path)
-          assignment.initializer = ts.createCall(
-            /* expression */ ts.createIdentifier(REQUIRE),
-            /* type arguments */ undefined,
-            /* arguments array */ [templatePathLiteral]
-          )
-          break;
-        case STYLES:
-        case STYLE_URLS:
-          // replace initializer array with empty array
-          assignment.initializer = ts.createArrayLiteral()
-          break;
-      }
-    })
-    return mutable
+        // replace 'templateUrl' with 'template'
+        mutableAssignment.name = ts.createIdentifier(TEMPLATE)
+        // replace current initializer with require(path)
+        mutableAssignment.initializer = ts.createCall(
+          /* expression */ ts.createIdentifier(REQUIRE),
+          /* type arguments */ undefined,
+          /* arguments array */ [templatePathLiteral]
+        )
+        break;
+      case STYLES:
+      case STYLE_URLS:
+        // replace initializer array with empty array
+        mutableAssignment.initializer = ts.createArrayLiteral()
+        break;
+    }
+
+    return mutableAssignment
   }
 
   /**
@@ -203,16 +178,12 @@ export function factory(cs: ConfigSet) {
 
       // before we create a deep clone to modify, we make sure that
       // this class has the decorator arguments of interest.
-      if (
-        ts.isClassDeclaration(node) &&
-          node.decorators &&
-          getPropertyAssignmentsToTransform(node).length
-      ) {
+      if (isPropertyAssignmentToTransform(node)) {
         // get mutable node and change properties
         // NOTE: classes can be inside methods, but we do not
         // look for them inside Angular Components!
         // recursion ends here, as ts.visitEachChild is not called.
-        resultNode = transfromDecoratorForJest(node)
+        resultNode = transfromPropertyAssignmentForJest(node)
       } else {
         // look for other classes with decorators
         // classes can be inside other statements (like if blocks)

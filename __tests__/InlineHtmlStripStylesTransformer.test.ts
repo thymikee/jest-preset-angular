@@ -88,6 +88,37 @@ const CODE_WITH_CUSTOM_DECORATOR = `
   }
 `
 
+const CODE_TEST_WITH_TEMPLATE_URL_OVERRIDE = `
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AComponent } from './a.component';
+
+describe('AComponent', () => {
+  let fixture: ComponentFixture<AComponent>,
+  instance: AComponent;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        AComponent,
+      ],
+    }).overrideComponent(AComponent, {
+      set: {
+        templateUrl: '../__mocks__/alert-follow-stub.component.html',
+      },
+    });
+
+    fixture = TestBed.createComponent(AComponent);
+    instance = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
+
+  it('should render the component', () => {
+    expect(fixture).toMatchSnapshot();
+  });
+});
+`
+
 
 
 const createFactory = () => {
@@ -135,6 +166,12 @@ describe('inlining template and stripping styles', () => {
 
   it('should handle all decorator assignments in differently named decorators', () => {
     const out = transpile(CODE_WITH_CUSTOM_DECORATOR)
+
+    expect(out.outputText).toMatchSnapshot()
+  })
+
+  it('should handle templateUrl in test file outside decorator', () => {
+    const out = transpile(CODE_TEST_WITH_TEMPLATE_URL_OVERRIDE)
 
     expect(out.outputText).toMatchSnapshot()
   })
