@@ -4,59 +4,30 @@
  * 
  */
 
-
-
 /* 
  * IMPLEMENTATION DETAILS:
- * This transformer handles two concerns: removing styles and inlining referenced templates,
- * as they both are handled at the same location in the AST.
+ * This transformer handles two concerns: removing styles and inlining referenced templates.
  *
- * The Component can be located anywhere in a file, except inside another Angular Component.
- * The Decorator is not checked for the name 'Component', as someone might import it under
- * a different name, or have their custom, modified version of the component decorator.
- * Instead it checks for specific properties inside any class decorator.
+ * The assignments can be located anywhere in a file.
  * Caveats:
- * All properties 'templateUrl', 'styles', 'styleUrls' inside ANY decorator will be modified.
- * If the decorator content is referenced, it will not work:
- * ```ts
- * const componentArgs = {}
- * @Component(componentArgs)
- * class MyComponent { }
- * ```
+ * All properties 'templateUrl', 'styles', 'styleUrls' ANYWHERE will be modified, even if they
+ * are not used in the context of an Angular Component.
  * 
- * The AST has to look like this:
+ * The AST has to simply look like this anywhere in a ts file:
  * 
- * ClassDeclaration
- *   Decorator
- *     CallExpression
- *       ObjectLiteralExpression
- *         PropertyAssignment
- *           Identifier
- *           StringLiteral
- * 
- * Where some additional Check have to be made to identify the node as the required kind:
- * 
- * ClassDeclaration: isClassDeclaration
- *   Decorator
- *     CallExpression: isCallExpression
- *       ObjectLiteralExpression: isObjectLiteral
- *         PropertyAssignment: isPropertyAssignment
- *           Identifier: isIdentifier
- *           StringLiteral: isStringLiteral
- * 
+ * PropertyAssignment
+ *   Identifier
+ *   Initializer
  */
 
 
-// take care of importing only types, for the rest use injected `ts`
+// only import types, for the rest use injected `ConfigSet.compilerModule`
 import TS, {
   Node,
   SourceFile,
   TransformationContext,
   Transformer,
   Visitor,
-  ClassDeclaration,
-  CallExpression,
-  ObjectLiteralExpression,
   PropertyAssignment,
   Identifier,
   StringLiteral,
@@ -105,18 +76,6 @@ export const version = 1
 export function factory(cs: ConfigSet) {
 
   /**
-   * Array Flatten function, as there were problems to make the compiler use
-   * esnext's Array.flat, can be removed in the future.
-   * @param arr Array to be flattened
-   */
-  function flatten<T>(arr: (T | T[] | T[][])[]): T[] {
-    return arr.reduce(
-      (xs: T[], x) => Array.isArray(x) ? xs.concat(flatten(x as T[])) : xs.concat(x),
-      []
-    ) as T[]
-  }
-
-  /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */
   const ts = cs.compilerModule
@@ -125,71 +84,61 @@ export function factory(cs: ConfigSet) {
    * Traverses the AST down to the relevant assignments in the decorator
    * argument and returns them in an array.
    */
-  function getPropertyAssignmentsToTransform(classDeclaration: ClassDeclaration) {
-    return flatten<PropertyAssignment>(classDeclaration.decorators!
-      .map(dec => dec.expression)
-      .filter(ts.isCallExpression)
-      .map(callExpr => (callExpr as CallExpression).arguments
-        .filter(ts.isObjectLiteralExpression)
-        .map(arg => (arg as ObjectLiteralExpression).properties
-          .filter(ts.isPropertyAssignment)
-          .map(arg => arg as PropertyAssignment)
-          .filter(propAss => ts.isIdentifier(propAss.name))
-          .filter(propAss => TRANSFORM_PROPS.includes((propAss.name as Identifier).text))
-        )
-      )
-    )
+  function isPropertyAssignmentToTransform(node: Node): node is PropertyAssignment {
+    return ts.isPropertyAssignment(node) &&
+      ts.isIdentifier(node.name) &&
+      TRANSFORM_PROPS.includes(node.name.text)
   }
 
   /**
-   * Clones the node, identifies the properties to transform in the decorator and modifies them.
-   * @param node class declaration with decorators
+   * Clones the assignment and manipulates it depending on its name.
+   * @param node the property assignment to change
    */
-  function transfromDecoratorForJest(node: ClassDeclaration) {
+  function transfromPropertyAssignmentForJest(node: PropertyAssignment) {
 
-    const mutable = ts.getMutableClone(node)
-    const assignments = getPropertyAssignmentsToTransform(mutable)
+    const mutableAssignment = ts.getMutableClone(node)
 
-    assignments.forEach(assignment => {
-      switch ((assignment.name as Identifier).text) {
-        case TEMPLATE_URL:
-          // we can reuse the right-hand-side literal from the assignment
-          let templatePathLiteral = assignment.initializer
+    const assignmentNameText = (mutableAssignment.name as Identifier).text
 
-          // fix templatePathLiteral if it was a non-relative path
-          if (ts.isStringLiteral(assignment.initializer)) {
-            const templatePathStringLiteral: StringLiteral = assignment.initializer;
-            // match if it starts with ./ or ../ or /
-            if (templatePathStringLiteral.text &&
-                !templatePathStringLiteral.text.match(/^(\.\/|\.\.\/|\/)/)) {
-              // make path relative by appending './'
-              templatePathLiteral = ts.createStringLiteral(`./${templatePathStringLiteral.text}`)
-            }
+    switch (assignmentNameText) {
+      case TEMPLATE_URL:
+        // reuse the right-hand-side literal from the assignment
+        let templatePathLiteral = mutableAssignment.initializer
+
+        // fix templatePathLiteral if it was a non-relative path
+        if (ts.isStringLiteral(mutableAssignment.initializer)) {
+          const templatePathStringLiteral: StringLiteral = mutableAssignment.initializer;
+          // match if it starts with ./ or ../ or /
+          if (templatePathStringLiteral.text &&
+              !templatePathStringLiteral.text.match(/^(\.\/|\.\.\/|\/)/)) {
+            // make path relative by appending './'
+            templatePathLiteral = ts.createStringLiteral(`./${templatePathStringLiteral.text}`)
           }
+        }
 
-          // replace 'templateUrl' with 'template'
-          assignment.name = ts.createIdentifier(TEMPLATE)
-          // replace current initializer with require(path)
-          assignment.initializer = ts.createCall(
-            /* expression */ ts.createIdentifier(REQUIRE),
-            /* type arguments */ undefined,
-            /* arguments array */ [templatePathLiteral]
-          )
-          break;
-        case STYLES:
-        case STYLE_URLS:
-          // replace initializer array with empty array
-          assignment.initializer = ts.createArrayLiteral()
-          break;
-      }
-    })
-    return mutable
+        // replace 'templateUrl' with 'template'
+        mutableAssignment.name = ts.createIdentifier(TEMPLATE)
+        // replace current initializer with require(path)
+        mutableAssignment.initializer = ts.createCall(
+          /* expression */ ts.createIdentifier(REQUIRE),
+          /* type arguments */ undefined,
+          /* arguments array */ [templatePathLiteral]
+        )
+        break;
+      case STYLES:
+      case STYLE_URLS:
+        // replace initializer array with empty array
+        mutableAssignment.initializer = ts.createArrayLiteral()
+        break;
+    }
+
+    return mutableAssignment
   }
 
   /**
    * Create a source file visitor which will visit all nodes in a source file
    * @param ctx The typescript transformation context
-   * @param sf The owning source file
+   * @param _ The owning source file
    */
   function createVisitor(ctx: TransformationContext, _: SourceFile) {
 
@@ -202,30 +151,22 @@ export function factory(cs: ConfigSet) {
       let resultNode: Node
 
       // before we create a deep clone to modify, we make sure that
-      // this class has the decorator arguments of interest.
-      if (
-        ts.isClassDeclaration(node) &&
-          node.decorators &&
-          getPropertyAssignmentsToTransform(node).length
-      ) {
-        // get mutable node and change properties
-        // NOTE: classes can be inside methods, but we do not
-        // look for them inside Angular Components!
-        // recursion ends here, as ts.visitEachChild is not called.
-        resultNode = transfromDecoratorForJest(node)
+      // this is an assignment which we want to transform
+      if (isPropertyAssignmentToTransform(node)) {
+
+        // get transformed node with changed properties
+        resultNode = transfromPropertyAssignmentForJest(node)
       } else {
-        // look for other classes with decorators
-        // classes can be inside other statements (like if blocks)
+        // look for interesting assignments inside this node
         resultNode = ts.visitEachChild(node, visitor, ctx)
       }
 
-      // finally returns the currently visited node
+      // finally return the currently visited node
       return resultNode
     }
     return visitor
   }
 
-  // returns the transformer factory
   return (ctx: TransformationContext): Transformer<SourceFile> =>
     (sf: SourceFile) => ts.visitNode(sf, createVisitor(ctx, sf))
 }

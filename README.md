@@ -81,10 +81,8 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 * `"setupTestFrameworkScriptFile"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
 * `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx ) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
 
-## [Preprocessor](https://github.com/thymikee/jest-preset-angular/blob/master/preprocessor.js)
+## [AST Transformer](https://github.com/thymikee/jest-preset-angular/blob/master/src/InlineHtmlStripStylesTransformer.ts)
 Jest doesn't run in browser nor through dev server. It uses jsdom to abstract browser environment. So we have to cheat a little and inline our templates and get rid of styles (we're not testing CSS) because otherwise Angular will try to make XHR call for our templates and fail miserably.
-
-I used a scrappy regex to accomplish this with minimum effort, but you can also write a babel plugin to make it bulletproof. And btw, don't bother about perf here – Jest heavily caches transforms. That's why you need to run Jest with `--no-cache` flag every time you change it.
 
 ## Angular testing environment setup
 

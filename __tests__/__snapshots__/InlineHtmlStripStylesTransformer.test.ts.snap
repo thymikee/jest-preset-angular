@@ -57,6 +57,34 @@ exports.AngularComponent = AngularComponent;
 "
 `;
 
+exports[`inlining template and stripping styles should handle templateUrl in test file outside decorator 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+var testing_1 = require(\\"@angular/core/testing\\");
+var a_component_1 = require(\\"./a.component\\");
+describe('AComponent', function () {
+    var fixture, instance;
+    beforeEach(testing_1.async(function () {
+        testing_1.TestBed.configureTestingModule({
+            declarations: [
+                a_component_1.AComponent,
+            ],
+        }).overrideComponent(a_component_1.AComponent, {
+            set: {
+                template: require('../__mocks__/alert-follow-stub.component.html'),
+            },
+        });
+        fixture = testing_1.TestBed.createComponent(a_component_1.AComponent);
+        instance = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
+    it('should render the component', function () {
+        expect(fixture).toMatchSnapshot();
+    });
+});
+"
+`;
+
 exports[`inlining template and stripping styles should inline non-relative templateUrl assignment and make it relative 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
