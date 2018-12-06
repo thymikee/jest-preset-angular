@@ -4,8 +4,6 @@
  * 
  */
 
-
-
 /* 
  * IMPLEMENTATION DETAILS:
  * This transformer handles two concerns: removing styles and inlining referenced templates.
@@ -15,7 +13,7 @@
  * All properties 'templateUrl', 'styles', 'styleUrls' ANYWHERE will be modified, even if they
  * are not used in the context of an Angular Component.
  * 
- * The AST has to look like this:
+ * The AST has to simply look like this anywhere in a ts file:
  * 
  * PropertyAssignment
  *   Identifier
@@ -23,7 +21,7 @@
  */
 
 
-// take care of importing only types, for the rest use injected `compilerModule`
+// only import types, for the rest use injected `ConfigSet.compilerModule`
 import TS, {
   Node,
   SourceFile,
@@ -93,8 +91,8 @@ export function factory(cs: ConfigSet) {
   }
 
   /**
-   * Clones the node, identifies the properties to transform in the decorator and modifies them.
-   * @param node class declaration with decorators
+   * Clones the assignment and manipulates it depending on its name.
+   * @param node the property assignment to change
    */
   function transfromPropertyAssignmentForJest(node: PropertyAssignment) {
 
@@ -104,7 +102,7 @@ export function factory(cs: ConfigSet) {
 
     switch (assignmentNameText) {
       case TEMPLATE_URL:
-        // we can reuse the right-hand-side literal from the assignment
+        // reuse the right-hand-side literal from the assignment
         let templatePathLiteral = mutableAssignment.initializer
 
         // fix templatePathLiteral if it was a non-relative path
@@ -140,7 +138,7 @@ export function factory(cs: ConfigSet) {
   /**
    * Create a source file visitor which will visit all nodes in a source file
    * @param ctx The typescript transformation context
-   * @param sf The owning source file
+   * @param _ The owning source file
    */
   function createVisitor(ctx: TransformationContext, _: SourceFile) {
 
@@ -153,26 +151,22 @@ export function factory(cs: ConfigSet) {
       let resultNode: Node
 
       // before we create a deep clone to modify, we make sure that
-      // this class has the decorator arguments of interest.
+      // this is an assignment which we want to transform
       if (isPropertyAssignmentToTransform(node)) {
-        // get mutable node and change properties
-        // NOTE: classes can be inside methods, but we do not
-        // look for them inside Angular Components!
-        // recursion ends here, as ts.visitEachChild is not called.
+
+        // get transformed node with changed properties
         resultNode = transfromPropertyAssignmentForJest(node)
       } else {
-        // look for other classes with decorators
-        // classes can be inside other statements (like if blocks)
+        // look for interesting assignments inside this node
         resultNode = ts.visitEachChild(node, visitor, ctx)
       }
 
-      // finally returns the currently visited node
+      // finally return the currently visited node
       return resultNode
     }
     return visitor
   }
 
-  // returns the transformer factory
   return (ctx: TransformationContext): Transformer<SourceFile> =>
     (sf: SourceFile) => ts.visitNode(sf, createVisitor(ctx, sf))
 }
