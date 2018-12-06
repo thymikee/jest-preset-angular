@@ -8,46 +8,22 @@
 
 /* 
  * IMPLEMENTATION DETAILS:
- * This transformer handles two concerns: removing styles and inlining referenced templates,
- * as they both are handled at the same location in the AST.
+ * This transformer handles two concerns: removing styles and inlining referenced templates.
  *
- * The Component can be located anywhere in a file, except inside another Angular Component.
- * The Decorator is not checked for the name 'Component', as someone might import it under
- * a different name, or have their custom, modified version of the component decorator.
- * Instead it checks for specific properties inside any class decorator.
+ * The assignments can be located anywhere in a file.
  * Caveats:
- * All properties 'templateUrl', 'styles', 'styleUrls' inside ANY decorator will be modified.
- * If the decorator content is referenced, it will not work:
- * ```ts
- * const componentArgs = {}
- * @Component(componentArgs)
- * class MyComponent { }
- * ```
+ * All properties 'templateUrl', 'styles', 'styleUrls' ANYWHERE will be modified, even if they
+ * are not used in the context of an Angular Component.
  * 
  * The AST has to look like this:
  * 
- * ClassDeclaration
- *   Decorator
- *     CallExpression
- *       ObjectLiteralExpression
- *         PropertyAssignment
- *           Identifier
- *           StringLiteral
- * 
- * Where some additional Check have to be made to identify the node as the required kind:
- * 
- * ClassDeclaration: isClassDeclaration
- *   Decorator
- *     CallExpression: isCallExpression
- *       ObjectLiteralExpression: isObjectLiteral
- *         PropertyAssignment: isPropertyAssignment
- *           Identifier: isIdentifier
- *           StringLiteral: isStringLiteral
- * 
+ * PropertyAssignment
+ *   Identifier
+ *   Initializer
  */
 
 
-// take care of importing only types, for the rest use injected `ts`
+// take care of importing only types, for the rest use injected `compilerModule`
 import TS, {
   Node,
   SourceFile,
