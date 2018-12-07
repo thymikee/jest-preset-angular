@@ -30,13 +30,13 @@ jobs:
             - ./node_modules
             - ./example/node_modules
       - persist_to_workspace:
-          root: ~
+          root: .
           paths: .
   unit-tests-library:
     executor: node-11
     steps:
       - attach_workspace:
-          at: ~
+          at: .
       - run:
           name: Test Library
           command: |
@@ -45,7 +45,7 @@ jobs:
     executor: node-11
     steps:
       - attach_workspace:
-          at: ~
+          at: .
       - run:
           name: Test Example
           command: |
