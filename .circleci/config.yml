@@ -1,16 +1,17 @@
+# Note: all paths are relative to the default workspace ~/project
 version: 2.1
 executors:
   node-11:
     docker:
       - image: circleci/node:10
 jobs:
-  build:
+  install-dependencies:
     executor: node-11
     steps:
       - checkout
       - restore_cache:
           keys:
-            # when lock file changes, we still use increasingly general patterns to restore cache
+            # if lock file changes, we still use increasingly general patterns to restore cache
             # the install afterwards will only install packages with different versions
             - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - yarn-cache-{{ .Branch }}-
@@ -28,13 +29,38 @@ jobs:
             - ~/.cache/yarn
             - ./node_modules
             - ./example/node_modules
+      - persist_to_workspace:
+          root: ~
+          paths: .
+  unit-tests-library:
+    executor: node-11
+    steps:
+      - attach_workspace:
+          at: ~
       - run:
           name: Test Library
           command: |
             yarn test:ci
+  unit-tests-example:
+    executor: node-11
+    steps:
+      - attach_workspace:
+          at: ~
       - run:
-          name: Test Example App
+          name: Test Example
           command: |
             cd example
             yarn test:ci
             yarn test:coverage
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - install-dependencies
+      - unit-tests-library:
+          requires:
+            - install-dependencies
+      - unit-tests-example:
+          requires:
+            - install-dependencies
+
