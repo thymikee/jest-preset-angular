@@ -1,12 +1,12 @@
 version: 2.1
 executors:
-  node-11:
+  node-10:
     docker:
-      - image: circleci/node:11
+      - image: circleci/node:10
 
 jobs:
   install-dependencies:
-    executor: node-11
+    executor: node-10
     steps:
       - checkout
       - restore_cache:
@@ -30,7 +30,7 @@ jobs:
           paths: .
 
   test-library:
-    executor: node-11
+    executor: node-10
     steps:
       - attach_workspace:
           at: .
@@ -39,7 +39,7 @@ jobs:
           command: yarn test:ci
 
   install-test-example:
-    executor: node-11
+    executor: node-10
     steps:
       - attach_workspace:
           at: .
