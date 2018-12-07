@@ -1,9 +1,9 @@
-# Note: all paths are relative to the default workspace ~/project
 version: 2.1
 executors:
   node-11:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:11
+
 jobs:
   install-dependencies:
     executor: node-11
@@ -12,7 +12,6 @@ jobs:
       - restore_cache:
           keys:
             # if lock file changes, we still use increasingly general patterns to restore cache
-            # the install afterwards will only install packages with different versions
             - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - yarn-cache-{{ .Branch }}-
       - run:
@@ -20,47 +19,59 @@ jobs:
           command: |
             yarn --version
             yarn install --frozen-lockfile
-            cd example
-            yarn install --frozen-lockfile
       - save_cache:
           key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
             - ~/.cache/yarn
             - ./node_modules
-            - ./example/node_modules
       - persist_to_workspace:
           root: .
           paths: .
-  unit-tests-library:
+
+  test-library:
     executor: node-11
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Test Library
-          command: |
-            yarn test:ci
-  unit-tests-example:
+          command: yarn test:ci
+
+  install-test-example:
     executor: node-11
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          keys:
+            - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-example-{{ .Branch }}-
+      - run:
+          name: Install Example Dependencies
+          command: |
+            cd example
+            yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./example/node_modules
       - run:
           name: Test Example
           command: |
             cd example
             yarn test:ci
             yarn test:coverage
+
 workflows:
   version: 2
   build-and-test:
     jobs:
       - install-dependencies
-      - unit-tests-library:
+      - test-library:
           requires:
             - install-dependencies
-      - unit-tests-example:
+      - install-test-example:
           requires:
             - install-dependencies
 
