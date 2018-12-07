@@ -1,0 +1,77 @@
+version: 2.1
+executors:
+  node-10:
+    docker:
+      - image: circleci/node:10
+
+jobs:
+  install-dependencies:
+    executor: node-10
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # if lock file changes, we still use increasingly general patterns to restore cache
+            - yarn-cache-lib-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-lib-{{ .Branch }}-
+      - run:
+          name: Install dependencies
+          command: |
+            yarn --version
+            yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-cache-lib-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn
+            - ~/.cache/yarn
+            - ./node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  test-library:
+    executor: node-10
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Test Library
+          command: yarn test:ci
+
+  install-test-example:
+    executor: node-10
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-example-{{ .Branch }}-
+      - run:
+          name: Install Example Dependencies
+          command: |
+            cd example
+            yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./example/node_modules
+      - run:
+          name: Test Example
+          command: |
+            cd example
+            yarn test:ci
+            yarn test:coverage
+
+workflows:
+  version: 2
+  install-and-test:
+    jobs:
+      - install-dependencies
+      - test-library:
+          requires:
+            - install-dependencies
+      - install-test-example:
+          requires:
+            - install-dependencies
+
