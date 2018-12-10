@@ -36,7 +36,7 @@ const ambientZone = Zone.current;
 // inside of a `describe` but outside of a `beforeEach` or `it`.
 const syncZone = ambientZone.fork(new SyncTestZoneSpec('jest.describe'));
 function wrapDescribeInZone(describeBody) {
-  return () => syncZone.run(describeBody, null, arguments);
+  return function () { return syncZone.run(describeBody, null, arguments); }
 }
 
 // Create a proxy zone in which to run `test` blocks so that the tests function
