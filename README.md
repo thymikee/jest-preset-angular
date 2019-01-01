@@ -44,7 +44,10 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
   "globals": {
     "ts-jest": {
       "tsConfig": "<rootDir>/src/tsconfig.spec.json",
-      "stringifyContentPathRegex": "\\.html$"
+      "stringifyContentPathRegex": "\\.html$",
+      "astTransformers" :[
+        "jest-preset-angular/InlineHtmlStripStylesTransformer"
+      ]
     }
   },
   "transform": {
