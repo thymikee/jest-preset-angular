@@ -1,6 +1,6 @@
 {
   "name": "jest-preset-angular",
-  "version": "6.0.1",
+  "version": "7.0.0-alpha.2",
   "description": "Jest preset configuration for Angular projects",
   "main": "index.js",
   "repository": "git@github.com:thymikee/jest-preset-angular.git",
@@ -8,7 +8,8 @@
   "license": "MIT",
   "dependencies": {
     "@types/jest": "^23.3.10",
-    "ts-jest": "~23.10.5"
+    "jest-zone-patch": ">=0.0.9 <1.0.0",
+    "ts-jest": "~23.10.0"
   },
   "devDependencies": {
     "@types/node": "^10.12.12",
