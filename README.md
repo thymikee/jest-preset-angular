@@ -33,7 +33,7 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+    "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
   }
 }
 ```
@@ -81,7 +81,7 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 * `"testMatch"` – we want to run Jest on files that matches this glob
 * `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
 * `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
-* `"setupTestFrameworkScriptFile"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
+* `"setupFilesAfterEnv"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
 * `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx ) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
 
 ## [AST Transformer](https://github.com/thymikee/jest-preset-angular/blob/master/src/InlineHtmlStripStylesTransformer.ts)
