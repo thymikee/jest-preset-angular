@@ -420,3 +420,16 @@ global.$ = global.jQuery = $;
 The same declaration can be applied to other vendor libraries.
 
 Reference: https://github.com/facebook/jest/issues/708
+
+### Failing with Node v7 or lower
+
+By default we use JSDOM v13, which requires Node v8+. If you want to use Node in a lower version to run your tests, make sure to configure jest to use an older JSDOM version, either in your `jest.config.js`, `jest.config.json` or `package.json`:
+
+```json
+"testEnvironment": "jsdom"
+```
+
+If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
+
+Reference: https://jestjs.io/docs/en/configuration.html#testenvironment-string, https://github.com/jsdom/jsdom/blob/master/Changelog.md#1200
+

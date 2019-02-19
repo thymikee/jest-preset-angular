@@ -2,6 +2,8 @@
 
 * (**BREAKING**): Upgrade ts-jest to ^23.10.4 and use ast-transformer instead of processor ([#204](https://github.com/thymikee/jest-preset-angular/pull/204))
 * Chore: Remove template literal character escaping (reverts [#34](https://github.com/thymikee/jest-preset-angular/pull/34))
+* Feat: Use test environment JSDOM v13 by default ([#229](https://github.com/thymikee/jest-preset-angular/pull/229))
+
 
 #### Migration Guide
 
