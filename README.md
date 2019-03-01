@@ -367,12 +367,25 @@ This tells `ts-jest` (a preprocessor this preset using to transform TS files) to
 
 #### Transpile js files through `babel-jest`
 Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest` used by this preset) do not transpile them.
-1. Install `babel-preset-env` and add `.babelrc` (or modify existing if needed) with that contents:
+
+1. Install `@babel/preset-env` and add `babel.config.js` (or modify existing if needed) with the following content:
+```js
+module.exports = function(api) {
+  api.cache(true);
+
+  const presets = ['@babel/preset-env'];
+  const plugins = [];
+
+  return {
+    presets,
+    plugins,
+  };
+};
+
 ```
-{
-  "presets": ["env"]
-}
-```
+
+*Note: do not use a `.babelrc` file otherwise the packages that you specify in the next step will not be picked up. CF [Babel documentation](https://babeljs.io/docs/en/configuration#what-s-your-use-case) and the comment `You want to compile node_modules? babel.config.js is for you!`*.
+
 2. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 ```js
 {
