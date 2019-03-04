@@ -94,6 +94,9 @@ const bindDescribe = (originalJestFn) => function () {
 
     env[methodName].skip = env['xit'];
     env[methodName].skip.each = originaljestFn.skip.each;
+
+    env[methodName].todo = env[methodName];
+    env[methodName].todo.each = originaljestFn.skip.each;
   }
 });
 
