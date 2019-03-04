@@ -17,6 +17,7 @@ module.exports = {
     '**/__tests__/**/*.+(ts|js)?(x)',
     '**/+(*.)+(spec|test).+(ts|js)?(x)'
   ],
+  testEnvironment: "jest-environment-jsdom-thirteen",
   moduleFileExtensions: defaults.moduleFileExtensions.concat(['html']),
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
