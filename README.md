@@ -1,4 +1,5 @@
 # jest-preset-angular
+
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
 [![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular)
 
@@ -6,7 +7,7 @@ A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](h
 
 This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
 
-*Note: This preset does not suport AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251).*
+_Note: This preset does not suport AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251)._
 
 ## Installation
 
@@ -25,7 +26,7 @@ import 'jest-preset-angular';
 import './jestGlobalMocks'; // browser mocks globally available for every test
 ```
 
-*Note: feel free to copy the `jestGlobalMocks.ts` file from the example directory and save it next to the `setupJest.ts` file.*
+_Note: feel free to copy the `jestGlobalMocks.ts` file from the example directory and save it next to the `setupJest.ts` file._
 
 ...and include this in your `package.json`:
 
@@ -33,58 +34,54 @@ import './jestGlobalMocks'; // browser mocks globally available for every test
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+    "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
   }
 }
 ```
 
-## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.json)
-```json
-{
-  "globals": {
-    "ts-jest": {
-      "tsConfig": "<rootDir>/src/tsconfig.spec.json",
-      "stringifyContentPathRegex": "\\.html$",
-      "astTransformers": [
-        "jest-preset-angular/InlineHtmlStripStylesTransformer"
-      ]
-    }
+## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
+
+```js
+module.exports = {
+  globals: {
+    'ts-jest': {
+      tsConfig: '<rootDir>/src/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$',
+      astTransformers: [require.resolve('./InlineHtmlStripStylesTransformer')],
+    },
   },
-  "transform": {
-    "^.+\\.(ts|js|html)$": "ts-jest"
+  transform: {
+    '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  "testMatch": [
-    "**/__tests__/**/*.+(ts|js)?(x)",
-    "**/?(*.)+(spec|test).+(ts|js)?(x)"
+  testEnvironment: 'jest-environment-jsdom-thirteen',
+  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+    '^assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^environments/(.*)$': '<rootDir>/src/environments/$1',
+  },
+  transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
+  snapshotSerializers: [
+    'jest-preset-angular/AngularSnapshotSerializer.js',
+    'jest-preset-angular/HTMLCommentSerializer.js',
   ],
-  "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx", "html"],
-  "moduleNameMapper": {
-    "^src/(.*)$": "<rootDir>/src/$1",
-    "^app/(.*)$": "<rootDir>/src/app/$1",
-    "^assets/(.*)$": "<rootDir>/src/assets/$1",
-    "^environments/(.*)$": "<rootDir>/src/environments/$1"
-  },
-  "transformIgnorePatterns": [
-    "node_modules/(?!@ngrx)"
-  ],
-  "snapshotSerializers": [
-    "jest-preset-angular/AngularSnapshotSerializer.js",
-    "jest-preset-angular/HTMLCommentSerializer.js"
-  ]
-}
+};
 ```
 
 ### Brief explanation of config
-* `<rootDir>` is a special syntax for root of your project (here by default it's project's root /)
-* we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through ts-jest
-* `"transform"` – run every TS, JS, or HTML file through so called *preprocessor* (we'll get there); this lets Jest understand non-JS syntax
-* `"testMatch"` – we want to run Jest on files that matches this glob
-* `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
-* `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
-* `"setupTestFrameworkScriptFile"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
-* `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx ) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
+
+- `<rootDir>` is a special syntax for root of your project (here by default it's project's root /)
+- we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through ts-jest
+- `"transform"` – run every TS, JS, or HTML file through so called _preprocessor_ (we'll get there); this lets Jest understand non-JS syntax
+- `"testMatch"` – we want to run Jest on files that matches this glob
+- `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
+- `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
+- `"setupFilesAfterEnv"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
+- `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx ) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
 
 ## [AST Transformer](https://github.com/thymikee/jest-preset-angular/blob/master/src/InlineHtmlStripStylesTransformer.ts)
+
 Jest doesn't run in browser nor through dev server. It uses jsdom to abstract browser environment. So we have to cheat a little and inline our templates and get rid of styles (we're not testing CSS) because otherwise Angular will try to make XHR call for our templates and fail miserably.
 
 ## Angular testing environment setup
@@ -98,6 +95,7 @@ If you look at your `src/test.ts` (or similar bootstrapping test file) file you'
 Example:
 
 `calc-component.spec.ts`
+
 ```ts
 // some initialization code
 test('renders markup to snapshot', () => {
@@ -107,6 +105,7 @@ test('renders markup to snapshot', () => {
 ```
 
 `__snapshots__/calc-component.spec.ts.snap`
+
 ```js
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
@@ -152,27 +151,30 @@ This is indeed very repetitive, so you can extract this in a helper function:
 ```ts
 // test-config.helper.ts
 
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 
 type CompilerOptions = Partial<{
-  providers: any[]
-  useJit: boolean
-  preserveWhitespaces: boolean
-}>
-export type ConfigureFn = (testBed: typeof TestBed) => void
+  providers: any[];
+  useJit: boolean;
+  preserveWhitespaces: boolean;
+}>;
+export type ConfigureFn = (testBed: typeof TestBed) => void;
 
-export const configureTests = (configure: ConfigureFn, compilerOptions: CompilerOptions = {}) => {
+export const configureTests = (
+  configure: ConfigureFn,
+  compilerOptions: CompilerOptions = {}
+) => {
   const compilerConfig: CompilerOptions = {
     preserveWhitespaces: false,
     ...compilerOptions,
-  }
+  };
 
-  const configuredTestBed = TestBed.configureCompiler(compilerConfig)
+  const configuredTestBed = TestBed.configureCompiler(compilerConfig);
 
-  configure(configuredTestBed)
+  configure(configuredTestBed);
 
-  return configuredTestBed.compileComponents().then(() => configuredTestBed)
-}
+  return configuredTestBed.compileComponents().then(() => configuredTestBed);
+};
 ```
 
 And setup your test with that function like following:
@@ -228,18 +230,17 @@ To mitigate this, you need to wrap your component under test, into some containe
 
 ```ts
 // override change detection strategy
-beforeEach(
-  async(() => {
-    TestBed.configureTestingModule({ declarations: [PizzaItemComponent] })
-      .overrideComponent(PizzaItemComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default },
-      })
-      .compileComponents();
-  })
-);
+beforeEach(async(() => {
+  TestBed.configureTestingModule({ declarations: [PizzaItemComponent] })
+    .overrideComponent(PizzaItemComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default },
+    })
+    .compileComponents();
+}));
 ```
 
 ### The animation trigger "transformMenu" has failed
+
 JSDOM missing transform property when using Angular Material, there is a workaround for it.
 
 Add this to your `jestGlobalMocks` file
@@ -254,6 +255,7 @@ Object.defineProperty(document.body.style, 'transform', {
   },
 });
 ```
+
 Reference: https://github.com/angular/material2/issues/7101
 
 ### Absolute imports
@@ -293,7 +295,7 @@ Override `globals` object in Jest config:
 {
   "jest": {
     "globals": {
-     "ts-jest": {
+      "ts-jest": {
         "tsConfigFile": "src/tsconfig.custom.json"
       },
       "__TRANSFORM_HTML__": true
@@ -309,7 +311,9 @@ If you choose to overide `globals` in order to point at a specific tsconfig, you
 This means, that a file is not transformed through TypeScript compiler, e.g. because it is a JS file with TS syntax, or it is published to npm as uncompiled source files. Here's what you can do.
 
 #### Adjust your `tsconfig.spec.json`:
+
 Since Angular released v6, the default `tsconfig.json` and `tsconfig.spec.json` have been changed. Therefore, `jest` will throw an error
+
 ```
     ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,global,jest){import 'jest-preset-angular';
                                                                                              ^^^^^^
@@ -320,6 +324,7 @@ Since Angular released v6, the default `tsconfig.json` and `tsconfig.spec.json` 
 What you need to do is adjust your `tsconfig.spec.json` to add the option `"module": "commonjs",`
 
 A default `tsconfig.spec.json` after modifying will look like this
+
 ```
 {
   "extends": "../tsconfig.json",
@@ -353,9 +358,11 @@ A default `tsconfig.spec.json` after modifying will look like this
   }
 }
 ```
+
 By default Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transforemed, even though they're `node_modules`.
 
 #### Allow JS files in your TS `compilerOptions`
+
 ```json
 {
   "compilerOptions": {
@@ -363,9 +370,11 @@ By default Jest doesn't transform `node_modules`, because they should be valid J
   }
 }
 ```
+
 This tells `ts-jest` (a preprocessor this preset using to transform TS files) to treat JS files the same as TS ones.
 
 #### Transpile js files through `babel-jest`
+
 Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest` used by this preset) do not transpile them.
 
 1. Install `@babel/preset-env` and add `babel.config.js` (or modify existing if needed) with the following content:
@@ -387,6 +396,7 @@ module.exports = function(api) {
 *Note: do not use a `.babelrc` file otherwise the packages that you specify in the next step will not be picked up. CF [Babel documentation](https://babeljs.io/docs/en/configuration#what-s-your-use-case) and the comment `You want to compile node_modules? babel.config.js is for you!`*.
 
 2. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
+
 ```js
 {
   "jest": {
@@ -445,4 +455,3 @@ By default we use JSDOM v13, which requires Node v8+. If you want to use Node in
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
 
 Reference: https://jestjs.io/docs/en/configuration.html#testenvironment-string, https://github.com/jsdom/jsdom/blob/master/Changelog.md#1200
-

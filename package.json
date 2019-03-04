@@ -8,18 +8,18 @@
   "license": "MIT",
   "dependencies": {
     "jest-environment-jsdom-thirteen": "^0.0.2",
-    "ts-jest": "~23.10.5"
+    "ts-jest": "^24.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.10",
+    "@types/jest": "^24.0.0",
     "@types/node": "^10.12.12",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "typescript": "^3.2.1"
   },
   "peerDependencies": {
     "@angular/core": ">=2.0.0",
     "@angular/platform-browser-dynamic": ">=2.0.0",
-    "jest": "^23.0.0"
+    "jest": "^24.1.0"
   },
   "jest": {
     "preset": "ts-jest",
@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
+    "prepare": "yarn build",
     "test": "jest",
     "test:ci": "jest -i"
   }
