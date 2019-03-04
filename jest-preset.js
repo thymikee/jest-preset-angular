@@ -9,12 +9,8 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testMatch: [
-    '**/__tests__/**/*.+(ts|js)?(x)',
-    '**/+(*.)+(spec|test).+(ts|js)?(x)',
-  ],
   testEnvironment: 'jest-environment-jsdom-thirteen',
-  moduleFileExtensions: ['ts', 'js', 'html'],
+  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
     '^app/(.*)$': '<rootDir>/src/app/$1',
