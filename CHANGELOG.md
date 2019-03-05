@@ -1,9 +1,18 @@
 ## Changelog (master)
 
+#### Features
 * (**BREAKING**): Upgrade ts-jest to ^23.10.4 and use ast-transformer instead of processor ([#204](https://github.com/thymikee/jest-preset-angular/pull/204))
-* Chore: Remove template literal character escaping (reverts [#34](https://github.com/thymikee/jest-preset-angular/pull/34))
-* Feat: Use test environment JSDOM v13 by default ([#229](https://github.com/thymikee/jest-preset-angular/pull/229))
+* Compatibile with Jest 24 ([#224](https://github.com/thymikee/jest-preset-angular/pull/224))
+* Use test environment JSDOM v13 by default ([#229](https://github.com/thymikee/jest-preset-angular/pull/229))
+* Embed `jest-zone-patch` into this preset ([#214](https://github.com/thymikee/jest-preset-angular/pull/214))
 
+#### Chore & Maintenance
+* Remove template literal character escaping (reverts [#34](https://github.com/thymikee/jest-preset-angular/pull/34))
+* Moved @types/jest to devDependencies ([#227](https://github.com/thymikee/jest-preset-angular/pull/227)), close ([#226](https://github.com/thymikee/jest-preset-angular/issues/226))
+* Upgrade example app dependencies ([#233](https://github.com/thymikee/jest-preset-angular/pull/233))
+* Migrate CI config to CircleCI v2 ([#212](https://github.com/thymikee/jest-preset-angular/pull/212))
+* `[Docs]`: do not use .babelrc file but rather babel.config.js ([#231](https://github.com/thymikee/jest-preset-angular/pull/231))
+* `[Docs]`: add astTransformers in configuration example ([#218](https://github.com/thymikee/jest-preset-angular/pull/218))
 
 #### Migration Guide
 
