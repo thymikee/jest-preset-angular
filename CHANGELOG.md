@@ -1,9 +1,11 @@
 ## Changelog (master)
 
+### v7.0.0
+
 #### Features
 * (**BREAKING**): Upgrade ts-jest to ^23.10.4 and use ast-transformer instead of processor ([#204](https://github.com/thymikee/jest-preset-angular/pull/204))
-* Compatible with Jest 24 ([#224](https://github.com/thymikee/jest-preset-angular/pull/224))
-* Use test environment JSDOM v13 by default ([#229](https://github.com/thymikee/jest-preset-angular/pull/229))
+* Upgrade Jest to 24 ([#224](https://github.com/thymikee/jest-preset-angular/pull/224))
+* Use test environment JSDOM v13 by default (drops Node below 8) ([#229](https://github.com/thymikee/jest-preset-angular/pull/229))
 * Embed `jest-zone-patch` into this preset ([#214](https://github.com/thymikee/jest-preset-angular/pull/214))
 
 #### Chore & Maintenance
@@ -17,7 +19,7 @@
 #### Migration Guide
 
 * If `global` and `transform` are not set in your configuration in `jest.config.json`, `jest.config.js` or `package.json`, you are done.
-* If the `global` value of the configuration was overriden, adjust  
+* If the `global` value of the configuration was overriden, adjust
   * The option `"__TRANSFORM_HTML__": true` is not required anymore. Instead the `"stringifyContentPathRegex": "\\.html$"` should be used inside the `ts-jest`-configuration.
   * Change the assignment identifier from `tsConfigFile` to `tsConfig`.
   * Add the `astTransformer: [ require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')]` so Jest can work with `templateUrl`-assignments in Component decorators.
