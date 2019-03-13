@@ -22,7 +22,7 @@
 * If the `global` value of the configuration was overriden, adjust
   * The option `"__TRANSFORM_HTML__": true` is not required anymore. Instead the `"stringifyContentPathRegex": "\\.html$"` should be used inside the `ts-jest`-configuration.
   * Change the assignment identifier from `tsConfigFile` to `tsConfig`.
-  * Add the `astTransformer: [ require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')]` so Jest can work with `templateUrl`-assignments in Component decorators.
+  * Add the `astTransformers: [require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')]` so Jest can work with `templateUrl`-assignments in Component decorators.
 * If `transform` was overridden, remove the entry pointing at `preprocessor.js` and add `"^.+\\.(ts|js|html)$": "ts-jest"` to the `transform`-object.
 * If in doubt, check the configuration example in `jest-preset.json`.
 
