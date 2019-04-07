@@ -12,9 +12,9 @@ _Note: This preset does not suport AngularJS (1.x). If you want to set up Jest w
 ## Installation
 
 ```bash
-yarn add -D jest jest-preset-angular
+yarn add -D jest jest-preset-angular @types/jest
 # or
-npm install -D jest jest-preset-angular
+npm install -D jest jest-preset-angular @types/jest
 ```
 
 This will install `jest`, `@types/jest`, `ts-jest`, `jest-zone-patch` as dependencies needed to run with Angular projects.
