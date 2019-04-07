@@ -41,6 +41,10 @@ _Note: feel free to copy the `jestGlobalMocks.ts` file from the example director
 }
 ```
 
+### Avoid karma conflicts
+By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up by jest. To circumvent this you can either rename it to `src/karmaTest.ts` or hide it from jest by adding `<rootDir>/src/test.ts` to jest `testPathIgnorePatterns` option.
+
+
 ## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
 
 ```js
