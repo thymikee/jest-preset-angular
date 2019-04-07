@@ -17,7 +17,7 @@ yarn add -D jest jest-preset-angular @types/jest
 npm install -D jest jest-preset-angular @types/jest
 ```
 
-This will install `jest`, `@types/jest`, `ts-jest`, `jest-zone-patch` as dependencies needed to run with Angular projects.
+This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run with Angular projects.
 
 ## Usage
 
