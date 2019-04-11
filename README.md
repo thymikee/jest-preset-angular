@@ -92,7 +92,7 @@ Jest doesn't run in browser nor through dev server. It uses jsdom to abstract br
 
 ## Angular testing environment setup
 
-If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.js`](https://github.com/thymikee/jest-preset-angular/blob/master/setupJest.js). What we're doing here is we're adding globals required by Angular. With [jest-zone-patch](https://github.com/thymikee/jest-zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
+If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.js`](https://github.com/thymikee/jest-preset-angular/blob/master/setupJest.js). What we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
 
 ## Snapshot testing
 
@@ -134,7 +134,7 @@ exports[`CalcComponent should snap 1`] = `
 
 You will immediately notice, that your snapshot files contain a lot of white spaces and blank lines. This is not an issue with Jest, rather with Angular. It can be mitigated via Angular compiler by setting `preserveWhitespaces: false`
 
-> By default it's set to `true` Angular 5.x, although it may change to be set to `false` in upcoming versions
+> By default it's set to `true` Angular 7.x, although it may change to be set to `false` in upcoming versions
 > (if that occurs, you can stop reading right here, because your issue has been already solved)
 
 Your `TestBed` setup should look like following:
@@ -247,7 +247,7 @@ beforeEach(async(() => {
 
 ### The animation trigger "transformMenu" has failed
 
-JSDOM missing transform property when using Angular Material, there is a workaround for it.
+The currenly used JSDOM version handles this, but older versions used before v7 of this preset was missing transform property. To patch it for Angular Material, use this workaround.
 
 Add this to your `jestGlobalMocks` file
 
@@ -302,15 +302,16 @@ Override `globals` object in Jest config:
   "jest": {
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "src/tsconfig.custom.json"
-      },
-      "__TRANSFORM_HTML__": true
+        "tsConfig": "<rootDir>/src/tsconfig.custom.json",
+        "stringifyContentPathRegex": "\\.html$",
+        "astTransformers": ["jest-preset-angular/InlineHtmlStripStylesTransformer"],
+      }
     }
   }
 }
 ```
 
-If you choose to overide `globals` in order to point at a specific tsconfig, you will need to add `"__TRANSFORM_HTML__": true` to the `globals` section too, otherwise you will get parse errors on any html templates.
+If you choose to overide `globals` in order to point at a specific tsconfig, you will need to add `"astTransformers": ["jest-preset-angular/InlineHtmlStripStylesTransformer"]` to the `globals.ts-jest` section too, otherwise you will get parse errors on any html templates.
 
 ### Unexpected token [import|export|other]
 
@@ -415,6 +416,8 @@ module.exports = function(api) {
 ```
 
 ### Observable ... is not a function
+
+Note: This fix is only relevant to Angular v5 and lower.
 
 Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setupJest.ts` file:
 
