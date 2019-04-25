@@ -19,7 +19,7 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    'jest-preset-angular/AngularNoNgAttributesSnapshotSerializer.js',
+    // 'jest-preset-angular/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',
   ],
