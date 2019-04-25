@@ -43,14 +43,15 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - restore_cache:
-          keys:
-            - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-example-{{ .Branch }}-
+      #- restore_cache:
+      #    keys:
+      #      - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      #      - yarn-cache-example-{{ .Branch }}-
       - run:
           name: Install Example Dependencies
           command: |
             cd example
+            rm -rf node_modules/jest-preset-angular
             yarn install --frozen-lockfile
       - save_cache:
           key: yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
