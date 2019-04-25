@@ -1,5 +1,7 @@
 ## Changelog (master)
 
+* Added `AngularNoNgAttributesSnapshotSerializer`. Using this serializer makes snapshots clearer and more human-readable. You have to apply this serializer manually by redefining `snapshotSerializers` `jest` option.
+
 ### v7.0.0
 
 #### Features

@@ -1,4 +1,4 @@
-# jest-preset-angular
+AngularSnapshotSerializer# jest-preset-angular
 
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
 [![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular) [![Greenkeeper badge](https://badges.greenkeeper.io/thymikee/jest-preset-angular.svg)](https://greenkeeper.io/)
@@ -69,6 +69,7 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
+    'jest-preset-angular/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',
   ],
@@ -84,7 +85,8 @@ module.exports = {
 - `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
 - `"setupFilesAfterEnv"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
-- `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx ) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
+- `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
+- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc). This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable. To remove such specific attributes use `AngularNoNgAttributesSnapshotSerializer` serializer. You need to add `AngularNoNgAttributesSnapshotSerializer` serializer manually (like in `example` application in `package.json`).
 
 ## [AST Transformer](https://github.com/thymikee/jest-preset-angular/blob/master/src/InlineHtmlStripStylesTransformer.ts)
 
