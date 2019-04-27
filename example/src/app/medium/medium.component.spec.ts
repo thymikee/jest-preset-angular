@@ -1,17 +1,17 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ABitMoreComplexComponent } from './a-bit-more-complex.component';
+import { MediumComponent } from './medium.component';
 import { ChildComponent } from './child.component';
 
-describe('ABitMoreComplexComponent', () => {
-  let component: ABitMoreComplexComponent;
-  let fixture: ComponentFixture<ABitMoreComplexComponent>;
+describe('MediumComponent', () => {
+  let component: MediumComponent;
+  let fixture: ComponentFixture<MediumComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [ABitMoreComplexComponent, ChildComponent],
+        declarations: [MediumComponent, ChildComponent],
       })
         .overrideComponent(ChildComponent, {set: {template: 'stubbedBody'}})
         .compileComponents();
@@ -19,7 +19,7 @@ describe('ABitMoreComplexComponent', () => {
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ABitMoreComplexComponent);
+    fixture = TestBed.createComponent(MediumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

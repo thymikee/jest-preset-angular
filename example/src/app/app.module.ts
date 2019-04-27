@@ -9,7 +9,7 @@ import { SimpleComponent } from './simple/simple.component';
 import { OnPushComponent } from './on-push/on-push.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { SimpleWithStylesComponent } from './simple-with-styles/simple-with-styles.component';
-import { ChildComponent } from './a-bit-more-complex-component/child.component';
+import { ChildComponent } from './medium/child.component';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-a-bit-more-complex',
+  selector: 'app-medium',
   template: `
     <div class="some-wrapper-class">
       diary works!
@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class ABitMoreComplexComponent {
+export class MediumComponent {
   someVar = true;
   anotherVar = false;
 }

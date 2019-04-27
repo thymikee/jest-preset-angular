@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SimpleWithStylesComponent } from './simple-with-styles.component';
-import { ChildComponent } from '../a-bit-more-complex-component/child.component';
+import { ChildComponent } from '../medium/child.component';
 
 describe('SimpleWithStylesComponent', () => {
   let component: SimpleWithStylesComponent;
