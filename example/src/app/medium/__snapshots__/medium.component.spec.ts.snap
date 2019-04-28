@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MediumComponent snapshot test 1`] = `
+<app-medium
+  anotherVar="false"
+  someVar={[Function Boolean]}
+>
+  <div
+    class="some-wrapper-class"
+  >
+     diary works! 
+    
+    <div
+      class="inner-class"
+    >
+      
+      <div>
+        another case
+      </div>
+      <span>
+        some html
+      </span>
+    </div>
+    <div>
+      one more case case
+    </div>
+    <div>
+      <app-child-component
+        someinput="someVar"
+      >
+        stubbedBody
+      </app-child-component>
+    </div>
+  </div>
+</app-medium>
+`;

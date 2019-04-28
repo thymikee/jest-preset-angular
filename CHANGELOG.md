@@ -1,5 +1,8 @@
 ## Changelog (master)
 
+* Added `AngularNoNgAttributesSnapshotSerializer`. Using this serializer makes snapshots clearer and more human-readable. You have to apply this serializer manually by redefining `snapshotSerializers` `jest` option.
+* Fixed a CI cache issue in the example app, which would not always use the current version of the preset in the test runs.
+
 ### v7.0.0
 
 #### Features

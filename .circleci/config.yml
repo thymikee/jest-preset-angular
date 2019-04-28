@@ -43,19 +43,21 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - restore_cache:
-          keys:
-            - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-example-{{ .Branch }}-
+      # disabling cache here as it created issues with the preset in the root
+      # not being used, as older version in cache was available
+      #- restore_cache:
+      #    keys:
+      #      - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      #      - yarn-cache-example-{{ .Branch }}-
       - run:
           name: Install Example Dependencies
           command: |
             cd example
             yarn install --frozen-lockfile
-      - save_cache:
-          key: yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ./example/node_modules
+      #- save_cache:
+      #    key: yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      #    paths:
+      #      - ./example/node_modules
       - run:
           name: Test Example
           command: |

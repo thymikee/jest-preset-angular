@@ -8,6 +8,8 @@ import { CalcComponent } from './calc/calc.component';
 import { SimpleComponent } from './simple/simple.component';
 import { OnPushComponent } from './on-push/on-push.component';
 import { HeroesComponent } from './heroes/heroes.component';
+import { SimpleWithStylesComponent } from './simple-with-styles/simple-with-styles.component';
+import { ChildComponent } from './medium/child.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { HeroesComponent } from './heroes/heroes.component';
     CalcComponent,
     SimpleComponent,
     OnPushComponent,
-    HeroesComponent
+    HeroesComponent,
+    SimpleWithStylesComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,

@@ -30,5 +30,9 @@ describe('SimpleComponent', () => {
 
   it('snapshots', () => {
     expect(fixture).toMatchSnapshot();
-  })
+  });
+
+  it('snapshot on nativeElement should be without ng-version', () => {
+    expect(fixture.nativeElement).toMatchSnapshot();
+  });
 });
