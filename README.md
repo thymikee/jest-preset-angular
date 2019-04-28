@@ -1,4 +1,4 @@
-AngularSnapshotSerializer# jest-preset-angular
+# jest-preset-angular
 
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
 [![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular) [![Greenkeeper badge](https://badges.greenkeeper.io/thymikee/jest-preset-angular.svg)](https://greenkeeper.io/)
@@ -69,7 +69,6 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    'jest-preset-angular/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',
   ],
