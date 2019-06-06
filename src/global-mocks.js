@@ -82,3 +82,5 @@ HTMLCanvasElement.prototype.toDataURL = function () {
     return "data:image/png;base64,";
 };
 
+window.requestAnimationFrame = window.setTimeout;
+window.cancelAnimationFrame = window.clearTimeout;
