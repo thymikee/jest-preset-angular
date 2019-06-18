@@ -1,5 +1,10 @@
 ## Changelog (master)
 
+* (**BREAKING**): Refine ast-transformer behavior: only transform `styles`-assignments inside @Component ([#261](https://github.com/thymikee/jest-preset-angular/pull/261)) and TypeScript v2.9 `createStringLiteral` is polyfilled if an older version is used ([#272](https://github.com/thymikee/jest-preset-angular/issues/272)).
+
+#### Migration Guide
+* If the `astTransformers` are referenced in a custom `jest` config, `[ 'jest-preset-angular/InlineFilesTransformer', 'jest-preset-angular/StripStylesTransformer']` have to be set instead.
+
 ### v7.1.0
 
 #### Features

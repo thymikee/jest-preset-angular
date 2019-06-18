@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlining template and stripping styles should handle all decorator assignments in differently named decorators 1`] = `
+exports[`inlining template and stripping styleUrls should handle all decorator assignments in differently named decorators 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -24,7 +24,7 @@ exports.AngularComponent = AngularComponent;
 "
 `;
 
-exports[`inlining template and stripping styles should handle all transformable decorator assignments 1`] = `
+exports[`inlining template and stripping styleUrls should handle all transformable decorator assignments 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -44,7 +44,10 @@ var AngularComponent = /** @class */ (function () {
         core_1.Component({
             template: require('./page.html'),
             styleUrls: [],
-            styles: [],
+            styles: [
+                'body { display: none }',
+                'html { background-color: red }'
+            ],
             unaffectedProperty: 'whatever'
         }),
         SomeOtherDecorator({
@@ -57,7 +60,7 @@ exports.AngularComponent = AngularComponent;
 "
 `;
 
-exports[`inlining template and stripping styles should handle templateUrl in test file outside decorator 1`] = `
+exports[`inlining template and stripping styleUrls should handle templateUrl in test file outside decorator 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 var testing_1 = require(\\"@angular/core/testing\\");
@@ -85,7 +88,7 @@ describe('AComponent', function () {
 "
 `;
 
-exports[`inlining template and stripping styles should inline non-relative templateUrl assignment and make it relative 1`] = `
+exports[`inlining template and stripping styleUrls should inline non-relative templateUrl assignment and make it relative 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -109,7 +112,7 @@ exports.AngularComponent = AngularComponent;
 "
 `;
 
-exports[`inlining template and stripping styles should inline templateUrl assignment 1`] = `
+exports[`inlining template and stripping styleUrls should inline templateUrl assignment 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -133,7 +136,47 @@ exports.AngularComponent = AngularComponent;
 "
 `;
 
-exports[`inlining template and stripping styles should strip styleUrl assignment 1`] = `
+exports[`inlining template and stripping styleUrls should not strip styles assignment 1`] = `
+"\\"use strict\\";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+var core_1 = require(\\"@angular/core\\");
+var AngularComponent = /** @class */ (function () {
+    function AngularComponent() {
+    }
+    AngularComponent = __decorate([
+        core_1.Component({
+            styles: [
+                'body { display: none }',
+                'html { background-color: red }'
+            ]
+        })
+    ], AngularComponent);
+    return AngularComponent;
+}());
+exports.AngularComponent = AngularComponent;
+"
+`;
+
+exports[`inlining template and stripping styleUrls should not transform styles outside decorator 1`] = `
+"var assignmentsToNotBeTransformed = {
+    styles: [{
+            color: 'red'
+        }]
+};
+var assignmentsToBeTransformed = {
+    styleUrls: [],
+    template: require('./some-styles.css')
+};
+"
+`;
+
+exports[`inlining template and stripping styleUrls should strip styleUrls assignment 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -149,30 +192,6 @@ var AngularComponent = /** @class */ (function () {
     AngularComponent = __decorate([
         core_1.Component({
             styleUrls: []
-        })
-    ], AngularComponent);
-    return AngularComponent;
-}());
-exports.AngularComponent = AngularComponent;
-"
-`;
-
-exports[`inlining template and stripping styles should strip styles assignment 1`] = `
-"\\"use strict\\";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, \\"__esModule\\", { value: true });
-var core_1 = require(\\"@angular/core\\");
-var AngularComponent = /** @class */ (function () {
-    function AngularComponent() {
-    }
-    AngularComponent = __decorate([
-        core_1.Component({
-            styles: []
         })
     ], AngularComponent);
     return AngularComponent;

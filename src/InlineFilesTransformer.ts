@@ -1,93 +1,94 @@
 /*
  * Code is inspired by
  * https://github.com/kulshekhar/ts-jest/blob/25e1c63dd3797793b0f46fa52fdee580b46f66ae/src/transformers/hoist-jest.ts
- * 
+ *
  */
 
-/* 
+/*
  * IMPLEMENTATION DETAILS:
- * This transformer handles two concerns: removing styles and inlining referenced templates.
+ * This transformer handles:
+ *   - inlining referenced template files and
+ *   - removing referenced style files.
  *
- * The assignments can be located anywhere in a file.
+ * The assignments 'templateUrl', 'styleUrls' can be located anywhere in a file.
  * Caveats:
- * All properties 'templateUrl', 'styles', 'styleUrls' ANYWHERE will be modified, even if they
+ * All properties 'templateUrl', 'styleUrls' ANYWHERE will be modified, even if they
  * are not used in the context of an Angular Component.
- * 
+ *
  * The AST has to simply look like this anywhere in a ts file:
- * 
+ *
  * PropertyAssignment
  *   Identifier
  *   Initializer
  */
 
-
 // only import types, for the rest use injected `ConfigSet.compilerModule`
-import TS, {
+import {
   Node,
   SourceFile,
   TransformationContext,
   Transformer,
   Visitor,
   PropertyAssignment,
-  Identifier,
-  StringLiteral,
-} from 'typescript'
+  Identifier
+} from 'typescript';
+import { getCreateStringLiteral, ConfigSet } from './TransformUtils';
 
 // replace original ts-jest ConfigSet with this simple interface, as it would require
 // jest-preset-angular to add several babel devDependencies to get the other types
 // inside the ConfigSet right
-interface ConfigSet {
-  compilerModule: typeof TS
-}
 
 /** Angular component decorator TemplateUrl property name */
-const TEMPLATE_URL = 'templateUrl'
+const TEMPLATE_URL = 'templateUrl';
 /** Angular component decorator StyleUrls property name */
-const STYLE_URLS = 'styleUrls'
-/** Angular component decorator Styles property name */
-const STYLES = 'styles'
+const STYLE_URLS = 'styleUrls';
 /** Angular component decorator Template property name */
-const TEMPLATE = 'template'
+const TEMPLATE = 'template';
 /** Node require function name */
-const REQUIRE = 'require'
+const REQUIRE = 'require';
 
 /**
- * Property names inside the decorator argument to transform
+ * Property names anywhere in an angular project to transform
  */
-const TRANSFORM_PROPS = [TEMPLATE_URL, STYLES, STYLE_URLS]
+const TRANSFORM_PROPS = [TEMPLATE_URL, STYLE_URLS];
 
 /**
  * Transformer ID
  * @internal
  */
-export const name = 'angular-component-inline-template-strip-styles'
+export const name = 'angular-component-inline-files';
 
 // increment this each time the code is modified
 /**
  * Transformer Version
  * @internal
  */
-export const version = 1
+export const version = 1;
 
 /**
  * The factory of hoisting transformer factory
  * @internal
  */
 export function factory(cs: ConfigSet) {
-
   /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */
-  const ts = cs.compilerModule
+  const ts = cs.compilerModule;
+
+  const createStringLiteral = getCreateStringLiteral(ts);
 
   /**
-   * Traverses the AST down to the relevant assignments in the decorator
-   * argument and returns them in an array.
+   * Traverses the AST down to the relevant assignments anywhere in the file
+   * and returns a boolean indicating if it should be transformed.
    */
-  function isPropertyAssignmentToTransform(node: Node): node is PropertyAssignment {
-    return ts.isPropertyAssignment(node) &&
+  function isPropertyAssignmentToTransform(
+    node: Node
+  ): node is PropertyAssignment {
+    return (
+      ts.isPropertyAssignment(node) &&
       ts.isIdentifier(node.name) &&
       TRANSFORM_PROPS.includes(node.name.text)
+    );
   }
 
   /**
@@ -95,44 +96,47 @@ export function factory(cs: ConfigSet) {
    * @param node the property assignment to change
    */
   function transfromPropertyAssignmentForJest(node: PropertyAssignment) {
+    const mutableAssignment = ts.getMutableClone(node);
 
-    const mutableAssignment = ts.getMutableClone(node)
-
-    const assignmentNameText = (mutableAssignment.name as Identifier).text
-
+    const assignmentNameText = (mutableAssignment.name as Identifier).text;
     switch (assignmentNameText) {
       case TEMPLATE_URL:
-        // reuse the right-hand-side literal from the assignment
-        let templatePathLiteral = mutableAssignment.initializer
+        // replace 'templateUrl' with 'template'
+
+        // reuse the right-hand-side literal (the filepath) from the assignment
+        let pathLiteral = mutableAssignment.initializer;
 
         // fix templatePathLiteral if it was a non-relative path
-        if (ts.isStringLiteral(mutableAssignment.initializer)) {
-          const templatePathStringLiteral: StringLiteral = mutableAssignment.initializer;
-          // match if it starts with ./ or ../ or /
-          if (templatePathStringLiteral.text &&
-              !templatePathStringLiteral.text.match(/^(\.\/|\.\.\/|\/)/)) {
-            // make path relative by appending './'
-            templatePathLiteral = ts.createStringLiteral(`./${templatePathStringLiteral.text}`)
+        if (ts.isStringLiteral(pathLiteral)) {
+          // match if it does not start with ./ or ../ or /
+          if (
+            pathLiteral.text &&
+            !pathLiteral.text.match(/^(\.\/|\.\.\/|\/)/)
+          ) {
+            // make path relative by prepending './'
+            pathLiteral = createStringLiteral(`./${pathLiteral.text}`);
           }
         }
 
-        // replace 'templateUrl' with 'template'
-        mutableAssignment.name = ts.createIdentifier(TEMPLATE)
         // replace current initializer with require(path)
-        mutableAssignment.initializer = ts.createCall(
+        const requireCall = ts.createCall(
           /* expression */ ts.createIdentifier(REQUIRE),
           /* type arguments */ undefined,
-          /* arguments array */ [templatePathLiteral]
-        )
+          /* arguments array */ [pathLiteral]
+        );
+
+        mutableAssignment.name = ts.createIdentifier(TEMPLATE);
+        mutableAssignment.initializer = requireCall;
         break;
-      case STYLES:
+
       case STYLE_URLS:
-        // replace initializer array with empty array
-        mutableAssignment.initializer = ts.createArrayLiteral()
+        // replace styleUrls value with emtpy array
+        // inlining all urls would be way more complicated and slower
+        mutableAssignment.initializer = ts.createArrayLiteral();
         break;
     }
 
-    return mutableAssignment
+    return mutableAssignment;
   }
 
   /**
@@ -141,32 +145,30 @@ export function factory(cs: ConfigSet) {
    * @param _ The owning source file
    */
   function createVisitor(ctx: TransformationContext, _: SourceFile) {
-
     /**
      * Our main visitor, which will be called recursively for each node in the source file's AST
      * @param node The node to be visited
      */
     const visitor: Visitor = node => {
-
-      let resultNode: Node
+      let resultNode = node;
 
       // before we create a deep clone to modify, we make sure that
       // this is an assignment which we want to transform
       if (isPropertyAssignmentToTransform(node)) {
-
         // get transformed node with changed properties
-        resultNode = transfromPropertyAssignmentForJest(node)
-      } else {
-        // look for interesting assignments inside this node
-        resultNode = ts.visitEachChild(node, visitor, ctx)
+        resultNode = transfromPropertyAssignmentForJest(node);
       }
 
+      // look for interesting assignments inside this node in any case
+      resultNode = ts.visitEachChild(resultNode, visitor, ctx);
+
       // finally return the currently visited node
-      return resultNode
-    }
-    return visitor
+      return resultNode;
+    };
+    return visitor;
   }
 
-  return (ctx: TransformationContext): Transformer<SourceFile> =>
-    (sf: SourceFile) => ts.visitNode(sf, createVisitor(ctx, sf))
+  return (ctx: TransformationContext): Transformer<SourceFile> => (
+    sf: SourceFile
+  ) => ts.visitNode(sf, createVisitor(ctx, sf));
 }

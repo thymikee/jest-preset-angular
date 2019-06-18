@@ -3,7 +3,10 @@ module.exports = {
     'ts-jest': {
       tsConfig: '<rootDir>/src/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: [require.resolve('./InlineHtmlStripStylesTransformer')],
+      astTransformers: [
+        require.resolve('./InlineFilesTransformer'),
+        require.resolve('./StripStylesTransformer'),
+      ],
     },
   },
   transform: {
