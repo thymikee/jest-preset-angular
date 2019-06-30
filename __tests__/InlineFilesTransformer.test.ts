@@ -1,11 +1,11 @@
 /*
  * Code is inspired by
  * https://github.com/kulshekhar/ts-jest/blob/25e1c63dd3797793b0f46fa52fdee580b46f66ae/src/transformers/hoist-jest.spec.ts
- * 
+ *
  */
 
-import * as tsc from 'typescript'
-import * as transformer from '../InlineHtmlStripStylesTransformer'
+import * as tsc from 'typescript';
+import * as transformer from '../InlineFilesTransformer';
 
 const CODE_WITH_TEMPLATE_URL = `
   import { Component } from '@angular/core';
@@ -15,7 +15,7 @@ const CODE_WITH_TEMPLATE_URL = `
   })
   export class AngularComponent {
   }
-`
+`;
 
 const CODE_WITH_NON_RELATIVE_TEMPLATE_URL = `
   import { Component } from '@angular/core';
@@ -25,7 +25,7 @@ const CODE_WITH_NON_RELATIVE_TEMPLATE_URL = `
   })
   export class AngularComponent {
   }
-`
+`;
 
 const CODE_WITH_STYLE_URLS = `
   import { Component } from '@angular/core';
@@ -38,20 +38,20 @@ const CODE_WITH_STYLE_URLS = `
   })
   export class AngularComponent {
   }
-`
+`;
 
 const CODE_WITH_STYLES = `
   import { Component } from '@angular/core';
 
   @Component({
     styles: [
-      'body: { display: none }',
-      'html: { background-color: red }'
+      'body { display: none }',
+      'html { background-color: red }'
     ]
   })
   export class AngularComponent {
   }
-`
+`;
 
 const CODE_WITH_ALL_DECORATOR_PROPERTIES = `
   import { Component } from '@angular/core';
@@ -66,8 +66,8 @@ const CODE_WITH_ALL_DECORATOR_PROPERTIES = `
       './basic-styles.scss'
     ],
     styles: [
-      'body: { display: none }',
-      'html: { background-color: red }'
+      'body { display: none }',
+      'html { background-color: red }'
     ],
     unaffectedProperty: 'whatever'
   })
@@ -76,7 +76,7 @@ const CODE_WITH_ALL_DECORATOR_PROPERTIES = `
   })
   export class AngularComponent {
   }
-`
+`;
 
 const CODE_WITH_CUSTOM_DECORATOR = `
   import { Component as CustomDecoratorName } from '@angular/core';
@@ -86,7 +86,7 @@ const CODE_WITH_CUSTOM_DECORATOR = `
   })
   export class AngularComponent {
   }
-`
+`;
 
 const CODE_TEST_WITH_TEMPLATE_URL_OVERRIDE = `
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -117,62 +117,73 @@ describe('AComponent', () => {
     expect(fixture).toMatchSnapshot();
   });
 });
-`
+`;
 
-
+const CODE_WITH_ASSIGNMENTS_OUTSIDE_DECORATOR = `
+  const assignmentsToNotBeTransformed = {
+    styles: [{
+      color: 'red'
+    }]
+  };
+  const assignmentsToBeTransformed = {
+    styleUrls: ['./some-styles.css'],
+    templateUrl: './some-styles.css'
+  };
+`;
 
 const createFactory = () => {
-  return transformer.factory({ compilerModule: tsc } as any)
-}
-const transpile = (source: string) => tsc.transpileModule(source, { transformers: { before: [createFactory()] } })
+  return transformer.factory({ compilerModule: tsc } as any);
+};
+const transpile = (source: string) =>
+  tsc.transpileModule(source, { transformers: { before: [createFactory()] } });
 
-describe('inlining template and stripping styles', () => {
-  it('should have correct signature', () => {
-    expect(transformer.name).toBe('angular-component-inline-template-strip-styles')
-    expect(typeof transformer.version).toBe('number')
-    expect(transformer.version).toBeGreaterThan(0)
-    expect(typeof transformer.factory).toBe('function')
-  })
 
-  it('should strip styleUrl assignment', () => {
-    const out = transpile(CODE_WITH_STYLE_URLS)
+describe('inlining template and stripping styleUrls', () => {
+  it('should strip styleUrls assignment', () => {
+    const out = transpile(CODE_WITH_STYLE_URLS);
 
-    expect(out.outputText).toMatchSnapshot()
-  })
-
-  it('should strip styles assignment', () => {
-    const out = transpile(CODE_WITH_STYLES)
-
-    expect(out.outputText).toMatchSnapshot()
-  })
+    expect(out.outputText).toMatchSnapshot();
+  });
 
   it('should inline templateUrl assignment', () => {
-    const out = transpile(CODE_WITH_TEMPLATE_URL)
+    const out = transpile(CODE_WITH_TEMPLATE_URL);
 
-    expect(out.outputText).toMatchSnapshot()
-  })
+    expect(out.outputText).toMatchSnapshot();
+  });
+
+  it('should not strip styles assignment', () => {
+    const out = transpile(CODE_WITH_STYLES);
+
+    expect(out.outputText).toMatchSnapshot();
+  });
 
   it('should inline non-relative templateUrl assignment and make it relative', () => {
-    const out = transpile(CODE_WITH_NON_RELATIVE_TEMPLATE_URL)
+    const out = transpile(CODE_WITH_NON_RELATIVE_TEMPLATE_URL);
 
-    expect(out.outputText).toMatchSnapshot()
-  })
+    expect(out.outputText).toMatchSnapshot();
+  });
 
   it('should handle all transformable decorator assignments', () => {
-    const out = transpile(CODE_WITH_ALL_DECORATOR_PROPERTIES)
+    const out = transpile(CODE_WITH_ALL_DECORATOR_PROPERTIES);
 
-    expect(out.outputText).toMatchSnapshot()
-  })
+    expect(out.outputText).toMatchSnapshot();
+  });
 
   it('should handle all decorator assignments in differently named decorators', () => {
-    const out = transpile(CODE_WITH_CUSTOM_DECORATOR)
+    const out = transpile(CODE_WITH_CUSTOM_DECORATOR);
 
-    expect(out.outputText).toMatchSnapshot()
-  })
+    expect(out.outputText).toMatchSnapshot();
+  });
 
   it('should handle templateUrl in test file outside decorator', () => {
-    const out = transpile(CODE_TEST_WITH_TEMPLATE_URL_OVERRIDE)
+    const out = transpile(CODE_TEST_WITH_TEMPLATE_URL_OVERRIDE);
 
-    expect(out.outputText).toMatchSnapshot()
-  })
-})
+    expect(out.outputText).toMatchSnapshot();
+  });
+
+  it('should not transform styles outside decorator', () => {
+    const out = transpile(CODE_WITH_ASSIGNMENTS_OUTSIDE_DECORATOR);
+
+    expect(out.outputText).toMatchSnapshot();
+  });
+});
