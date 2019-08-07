@@ -45,15 +45,22 @@ _Note: feel free to copy the `jestGlobalMocks.ts` file from the example director
 By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up by jest. To circumvent this you can either rename it to `src/karmaTest.ts` or hide it from jest by adding `<rootDir>/src/test.ts` to jest `testPathIgnorePatterns` option.
 
 
-## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
+## Overriding preset configuration values
+
+If you wish to override some of the preset configuration values in this preset use the template below and put them into the `jest.config.js` file. (You do not need to have the `jest` field in your `package.json` if you use this approach, you can remove it)
+You may run this configuration via the `--config` argument in jest e.g. `npx jest --config jest.config.js`.
+
+***Make note: If overriding any of the global `ts-jest` fields make sure to include all three fields, even if you are just overriding just one of them. This is due to JavaScript not supporting merging of deep objects.***
 
 ```js
 module.exports = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/src/setupJest.ts'],
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/src/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: [require.resolve('./InlineHtmlStripStylesTransformer')],
+      astTransformers: [require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')],
     },
   },
   transform: {
@@ -72,6 +79,25 @@ module.exports = {
     'jest-preset-angular/AngularSnapshotSerializer.js',
     'jest-preset-angular/HTMLCommentSerializer.js',
   ],
+  // ...other jest configuration values here
+};
+```
+
+Example of a custom `jest.config.js`, that changes the location of where the `setupJest.ts`, `tsconfig.spec.json` files are located, also changes the module file extensions type to only `js` and finally sets Jest's `verbose` to `true`. Invoked with `npx jest --config jest.config.js`:
+
+```js
+module.exports = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/path/to/the/file/somewhere-here/setupJest.ts'],
+  globals: {
+    'ts-jest': {
+      tsConfig: '<rootDir>/path/to/the/file/somewhere-there/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$',
+      astTransformers: [require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')],
+    },
+  },
+  moduleFileExtensions: ['js'],
+  verbose: true,
 };
 ```
 
