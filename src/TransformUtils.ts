@@ -1,4 +1,4 @@
-import TS from 'typescript';
+import * as TS from 'typescript';
 
 // replace original ts-jest ConfigSet with this simple interface, as it would require
 // jest-preset-angular to add several babel devDependencies to get the other types

@@ -30,7 +30,9 @@ import {
   Visitor,
   Identifier,
   ClassDeclaration,
-  PropertyAssignment
+  PropertyAssignment,
+  CallExpression,
+  ObjectLiteralExpression
 } from 'typescript';
 import { ConfigSet } from './TransformUtils';
 
@@ -84,11 +86,13 @@ export function factory(cs: ConfigSet) {
     return node.decorators
       .map(dec => dec.expression)
       .filter(ts.isCallExpression)
-      .filter(callExpr => ts.isCallExpression(callExpr) && ts.isIdentifier(callExpr.expression) && callExpr.expression.getText() === COMPONENT)
-      .reduce((acc, nxtCallExpr) => Array.prototype.concat.apply(acc, 
+      .filter((callExpr: CallExpression) =>
+        ts.isIdentifier(callExpr.expression) && (callExpr.expression as Identifier).getText() === COMPONENT
+      )
+      .reduce((acc, nxtCallExpr: CallExpression) => Array.prototype.concat.apply(acc, 
         nxtCallExpr.arguments
           .filter(ts.isObjectLiteralExpression)
-          .reduce((acc, nxtArg) => Array.prototype.concat.apply(acc,
+          .reduce((acc, nxtArg: ObjectLiteralExpression) => Array.prototype.concat.apply(acc,
             nxtArg.properties
               .filter(ts.isPropertyAssignment)
               .filter(propAss =>
@@ -105,7 +109,7 @@ export function factory(cs: ConfigSet) {
    * Clones the styles assignment and manipulates it.
    * @param node the property assignment to change
    */
-  function transfromStylesAssignmentForJest(node: ClassDeclaration) {
+  function transformStylesAssignmentForJest(node: ClassDeclaration) {
     const mutableNode = ts.getMutableClone(node)
     const assignments = getInDecoratorPropertyAssignmentsToTransform(mutableNode)
 
@@ -133,7 +137,7 @@ export function factory(cs: ConfigSet) {
       // this is an assignment which we want to transform
       if (isInDecoratorPropertyAssignmentToTransform(node)) {
         // get transformed node with changed properties
-        return transfromStylesAssignmentForJest(node);
+        return transformStylesAssignmentForJest(node);
       } else {
         // else look for assignments inside this node recursively
         return ts.visitEachChild(node, visitor, ctx);

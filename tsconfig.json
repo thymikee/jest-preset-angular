@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "outDir": ".",
+    "outDir": "./build",
     "strict": true,
     "lib": ["esnext"],
     "allowSyntheticDefaultImports": true,
@@ -11,5 +11,5 @@
     "types": ["node"]
   },
   "include": ["src"],
-  "exclude": []
+  "exclude": ["**/__tests__"]
 }
