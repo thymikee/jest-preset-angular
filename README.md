@@ -28,7 +28,7 @@ import 'jest-preset-angular';
 import './jestGlobalMocks'; // browser mocks globally available for every test
 ```
 
-_Note: feel free to copy the `jestGlobalMocks.ts` file from the example directory and save it next to the `setupJest.ts` file._
+_Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/example/src/jestGlobalMocks.ts) file from the example directory and save it next to the `setupJest.ts` file._
 
 ...and include this in your `package.json`:
 
