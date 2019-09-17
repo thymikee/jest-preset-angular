@@ -8,7 +8,7 @@ describe('importing ES6 reflect', () => {
     jest.mock('zone.js/dist/sync-test', () => true, { virtual: true });
     jest.mock('zone.js/dist/async-test', () => true, { virtual: true });
     jest.mock('zone.js/dist/fake-async-test', () => true, { virtual: true });
-    jest.mock('../zone-patch', () => true, { virtual: true });
+    jest.mock('./zone-patch', () => true, { virtual: true });
 
     jest.mock('core-js/es7/reflect', () => true, { virtual: true });
     jest.mock('core-js/proposals/reflect-metadata', () => true, { virtual: true });

@@ -86,8 +86,8 @@ export function factory(cs: ConfigSet) {
   ): node is PropertyAssignment {
     return (
       ts.isPropertyAssignment(node) &&
-      ts.isIdentifier(node.name) &&
-      TRANSFORM_PROPS.includes(node.name.text)
+      ts.isIdentifier((node as PropertyAssignment).name) &&
+      TRANSFORM_PROPS.includes(((node as PropertyAssignment).name as Identifier).text)
     );
   }
 

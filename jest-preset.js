@@ -4,8 +4,8 @@ module.exports = {
       tsConfig: '<rootDir>/src/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: [
-        require.resolve('./InlineFilesTransformer'),
-        require.resolve('./StripStylesTransformer'),
+        require.resolve('./build/InlineFilesTransformer'),
+        require.resolve('./build/StripStylesTransformer'),
       ],
     },
   },
@@ -22,8 +22,8 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    // 'jest-preset-angular/AngularNoNgAttributesSnapshotSerializer.js',
-    'jest-preset-angular/AngularSnapshotSerializer.js',
-    'jest-preset-angular/HTMLCommentSerializer.js',
+    // 'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
+    'jest-preset-angular/build/AngularSnapshotSerializer.js',
+    'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
 };

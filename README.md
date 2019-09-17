@@ -53,7 +53,10 @@ module.exports = {
     'ts-jest': {
       tsConfig: '<rootDir>/src/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: [require.resolve('./InlineHtmlStripStylesTransformer')],
+      astTransformers: [
+        require.resolve('./build/InlineFilesTransformer'),
+        require.resolve('./build/StripStylesTransformer')
+      ],
     },
   },
   transform: {
@@ -69,8 +72,8 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    'jest-preset-angular/AngularSnapshotSerializer.js',
-    'jest-preset-angular/HTMLCommentSerializer.js',
+    'jest-preset-angular/build/AngularSnapshotSerializer.js',
+    'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
 };
 ```
@@ -305,14 +308,17 @@ Override `globals` object in Jest config:
       "ts-jest": {
         "tsConfig": "<rootDir>/src/tsconfig.custom.json",
         "stringifyContentPathRegex": "\\.html$",
-        "astTransformers": ["jest-preset-angular/InlineHtmlStripStylesTransformer"],
+        "astTransformers": [
+          "jest-preset-angular/build/InlineFilesTransformer",
+          "jest-preset-angular/build/StripStylesTransformer"
+        ],
       }
     }
   }
 }
 ```
 
-If you choose to overide `globals` in order to point at a specific tsconfig, you will need to add `"astTransformers": ["jest-preset-angular/InlineHtmlStripStylesTransformer"]` to the `globals.ts-jest` section too, otherwise you will get parse errors on any html templates.
+If you choose to overide `globals` in order to point at a specific tsconfig, you will need to add the `astTransformers` to the `globals.ts-jest` section too, otherwise you will get parse errors on any html templates.
 
 ### Unexpected token [import|export|other]
 
@@ -411,7 +417,7 @@ module.exports = function(api) {
 {
   "jest": {
     "transform": {
-      "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js",
+      "^.+\\.(ts|html)$": "ts-jest",
       "^.+\\.js$": "babel-jest"
     },
   }
