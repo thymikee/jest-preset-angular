@@ -51,7 +51,7 @@ By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up
 module.exports = {
   globals: {
     'ts-jest': {
-      tsConfig: '<rootDir>/src/tsconfig.spec.json',
+      tsConfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: [
         require.resolve('./build/InlineFilesTransformer'),
@@ -306,7 +306,7 @@ Override `globals` object in Jest config:
   "jest": {
     "globals": {
       "ts-jest": {
-        "tsConfig": "<rootDir>/src/tsconfig.custom.json",
+        "tsConfig": "<rootDir>/tsconfig.custom.json",
         "stringifyContentPathRegex": "\\.html$",
         "astTransformers": [
           "jest-preset-angular/build/InlineFilesTransformer",
@@ -373,7 +373,7 @@ A default `tsconfig.spec.json` after modifying will look like this
 }
 ```
 
-By default Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transforemed, even though they're `node_modules`.
+By default Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transformed, even though they're `node_modules`.
 
 #### Allow JS files in your TS `compilerOptions`
 
