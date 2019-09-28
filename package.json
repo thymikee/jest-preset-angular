@@ -8,6 +8,7 @@
   "author": "Michał Pierzchała <thymikee@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "core-js": ">=2.0.0 < 4.0.0",
     "jest-environment-jsdom-thirteen": "^1.0.0",
     "pretty-format": "^24.0.0",
     "ts-jest": "^24.0.0"
@@ -21,7 +22,6 @@
   "peerDependencies": {
     "@angular/core": ">=2.0.0",
     "@angular/platform-browser-dynamic": ">=2.0.0",
-    "core-js": ">=2.0.0 < 4.0.0",
     "jest": "^24.1.0"
   },
   "jest": {

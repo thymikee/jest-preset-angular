@@ -1,15 +1,19 @@
 ## Changelog (master)
 
+#### Features
 * (**BREAKING**): Refine ast-transformer behavior: only transform `styles`-assignments inside @Component ([#261](https://github.com/thymikee/jest-preset-angular/pull/261)) and TypeScript v2.9 `createStringLiteral` is polyfilled if an older version is used ([#272](https://github.com/thymikee/jest-preset-angular/issues/272)).
-
 * (**BREAKING**): Restructure project with `src` and `build` folder ([#307](https://github.com/thymikee/jest-preset-angular/pull/307)). 
-
 * (**BREAKING**): Support `tsconfig.spec.json` in root folder by default ([#309](https://github.com/thymikee/jest-preset-angular/pull/309)). 
+* (**BREAKING**): Remove `core-js` peer dependency and instead add it as direct dependency ([#311](https://github.com/thymikee/jest-preset-angular/pull/309)). 
+
+#### Chore && Maintenance
+* Update example app to match Angular 8 Boilerplate ([#311](https://github.com/thymikee/jest-preset-angular/pull/309)).
 
 #### Migration Guide
 * If the `astTransformers` are referenced in a custom `jest` config, `[ 'jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']` have to be set instead.
 * Serializers, transformers and `setupJest` have to be referenced from the `jest-preset-angular/build/`-folder in a custom config. Existing references have to be aligned.
 * If your `tsconfig.spec.json` is located in `src`, move it to your root folder and adjust the referenced files and paths inside, or align your jest configuration as discussed in the [README.md](https://github.com/thymikee/jest-preset-angular/blob/master/README.md#custom-tsconfig).
+* In an Angular 8 project or higher, `core-js` should no longer be a dependency declared in `package.json`, unless it's imported manually in the code.
 
 ### v7.1.0
 

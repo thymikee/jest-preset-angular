@@ -2,9 +2,15 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "module": "es2015",
-    "baseUrl": "src"
+    "types": []
   },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "src/karmaTest.ts",
     "src/**/*.spec.ts"

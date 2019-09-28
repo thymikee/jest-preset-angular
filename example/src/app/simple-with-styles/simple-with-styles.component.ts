@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-simple-with-styles',
   templateUrl: './simple-with-styles.component.html',
   // we have to setup styles this way, since simple styles/styleUrs properties will be removed (jest does not unit test styles)
-  ['styles']: [`
+  styles: [`
     .some-class { color: red }
   `]
 })
