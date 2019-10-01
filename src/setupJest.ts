@@ -1,24 +1,6 @@
 'use strict';
 
-try {
-  require('core-js/es6/reflect');
-} catch (e) {
-  try {
-    require('core-js/es/reflect');
-  } catch(e) {
-    throw new Error('core-js es6-reflect not found!');
-  }
-}
-
-try {
-  require('core-js/es7/reflect');
-} catch (e) {
-  try {
-    require('core-js/proposals/reflect-metadata');
-  } catch (e) {
-    throw new Error('core-js es7-reflect not found!');
-  }
-}
+require('./reflectMetadata');
 
 require('zone.js/dist/zone.js');
 require('zone.js/dist/proxy.js');
