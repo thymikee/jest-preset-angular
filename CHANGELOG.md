@@ -8,6 +8,7 @@
 
 #### Chore && Maintenance
 * Update example app to match Angular 8 Boilerplate ([#311](https://github.com/thymikee/jest-preset-angular/pull/309)).
+* Get rid of karma, extract jest config, fix paths ([#316](https://github.com/thymikee/jest-preset-angular/pull/316))
 
 #### Migration Guide
 * If the `astTransformers` are referenced in a custom `jest` config, `[ 'jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']` have to be set instead.
