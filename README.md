@@ -55,8 +55,8 @@ module.exports = {
       tsConfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: [
-        require.resolve('./build/InlineFilesTransformer'),
-        require.resolve('./build/StripStylesTransformer')
+        'jest-preset-angular/build/InlineFilesTransformer',
+        'jest-preset-angular/build/StripStylesTransformer'
       ],
     },
   },
@@ -474,7 +474,7 @@ Reference: https://github.com/facebook/jest/issues/708
 
 ### Failing with Node v7 or lower
 
-By default we use JSDOM v13, which requires Node v8+. If you want to use Node in a lower version to run your tests, make sure to configure jest to use an older JSDOM version, either in your `jest.config.js`, `jest.config.json` or `package.json`:
+By default we use JSDOM v15, which requires Node v8+. If you want to use Node in a lower version to run your tests, make sure to configure jest to use an older JSDOM version, either in your `jest.config.js`, `jest.config.json` or `package.json`:
 
 ```json
 "testEnvironment": "jsdom"

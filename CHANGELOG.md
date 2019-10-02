@@ -4,11 +4,13 @@
 * (**BREAKING**): Refine ast-transformer behavior: only transform `styles`-assignments inside @Component ([#261](https://github.com/thymikee/jest-preset-angular/pull/261)) and TypeScript v2.9 `createStringLiteral` is polyfilled if an older version is used ([#272](https://github.com/thymikee/jest-preset-angular/issues/272)).
 * (**BREAKING**): Restructure project with `src` and `build` folder ([#307](https://github.com/thymikee/jest-preset-angular/pull/307)).
 * (**BREAKING**): Support `tsconfig.spec.json` in root folder by default ([#309](https://github.com/thymikee/jest-preset-angular/pull/309)).
+* (**BREAKING**): Enable AngularNoAngularNoNgAttributesSnapshotSerializer (created in [#97](https://github.com/thymikee/jest-preset-angular/pull/97)) by default ([#318](https://github.com/thymikee/jest-preset-angular/pull/318)). 
 * Remove `core-js` dependency by using internal, minimal reflect-metadata ([#315](https://github.com/thymikee/jest-preset-angular/pull/315)). 
 
 #### Chore && Maintenance
 * Update example app to match Angular 8 Boilerplate ([#311](https://github.com/thymikee/jest-preset-angular/pull/311)).
 * Update example app to not use karma, extract jest config, fix paths ([#316](https://github.com/thymikee/jest-preset-angular/pull/316))
+* Update jsdom to current version 15 ([#318](https://github.com/thymikee/jest-preset-angular/pull/318)).
 
 #### Migration Guide
 * If the `astTransformers` are referenced in a custom `jest` config, `[ 'jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer']` have to be set instead.
@@ -43,7 +45,7 @@
 #### Migration Guide
 
 * If `global` and `transform` are not set in your configuration in `jest.config.json`, `jest.config.js` or `package.json`, you are done.
-* If the `global` value of the configuration was overriden, adjust
+* If the `global` value of the configuration was overridden, adjust
   * The option `"__TRANSFORM_HTML__": true` is not required anymore. Instead the `"stringifyContentPathRegex": "\\.html$"` should be used inside the `ts-jest`-configuration.
   * Change the assignment identifier from `tsConfigFile` to `tsConfig`.
   * Add the `astTransformers: [require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')]` so Jest can work with `templateUrl`-assignments in Component decorators.
@@ -72,7 +74,7 @@
 
 ### v5.2.2
 
-* Fix: specify angular modules as peerDependancies ([#141](https://github.com/thymikee/jest-preset-angular/pull/141))
+* Fix: specify angular modules as peerDependencies ([#141](https://github.com/thymikee/jest-preset-angular/pull/141))
 * Fix: update `STYLE_URLS_REGEX` to not break on multiple new lines ([#139](https://github.com/thymikee/jest-preset-angular/pull/139))
 * Docs: add more troubleshooting docs ([#129](https://github.com/thymikee/jest-preset-angular/pull/129))
 
