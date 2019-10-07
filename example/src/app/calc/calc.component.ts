@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const image = require('assets/its_something.png');
+const image = require('src/assets/its_something.png');
 
 @Component({
   selector: 'app-calc',
