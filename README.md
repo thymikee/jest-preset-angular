@@ -233,6 +233,15 @@ describe('Component snapshots', () => {
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firstly priority). Please be advised that every entry in default configuration may be overridden to best suite your app's needs.
 
+### Can't resolve all parameters for SomeClass(?)
+
+This is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
+```typescript
+require('core-js/es/reflect');
+require('core-js/proposals/reflect-metadata');
+```
+Note that this might also be related to other issues with the dependency injection and parameter type reflection.
+
 ### @Input() bindings are not reflected into fixture when `ChangeDetectionStrategy.OnPush` is used
 
 This issue is not related to Jest, [it's a known Angular bug](https://github.com/angular/angular/issues/12313)
