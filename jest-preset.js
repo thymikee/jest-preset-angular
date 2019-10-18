@@ -4,15 +4,15 @@ module.exports = {
       tsConfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: [
-        require.resolve('./build/InlineFilesTransformer'),
-        require.resolve('./build/StripStylesTransformer'),
+        'jest-preset-angular/build/InlineFilesTransformer',
+        'jest-preset-angular/build/StripStylesTransformer',
       ],
     },
   },
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testEnvironment: 'jest-environment-jsdom-thirteen',
+  testEnvironment: 'jest-environment-jsdom-fifteen',
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
@@ -22,7 +22,7 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    // 'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
+    'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
     'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
