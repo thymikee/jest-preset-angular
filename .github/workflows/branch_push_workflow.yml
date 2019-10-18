@@ -1,0 +1,34 @@
+name: Branch push
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install
+      run: |
+        npm install
+    - name: Lint
+      run: npm run lint
+    - name: Build
+      run: |
+        npm run build-package
+    - name: Test
+      run: |
+        npm run test
+    - name: Release
+      run: |
+        npm run semantic-release
