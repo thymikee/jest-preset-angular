@@ -27,5 +27,10 @@ jobs:
         git checkout "${GITHUB_REF:11}"
     - name: Release
       if: github.ref == 'refs/heads/master'
+      env:
+        TRAVIS: true
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        TRAVIS_BRANCH: "${GITHUB_REF:11}"
       run: |
-        TRAVIS_BRANCH="${GITHUB_REF:11}" TRAVIS=true GH_TOKEN=${{ secrets.GH_TOKEN }} NPM_TOKEN=${{ secrets.NPM_TOKEN }} npm run semantic-release
+        npm run semantic-release
