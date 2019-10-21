@@ -1,0 +1,36 @@
+name: Branch push
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install
+      run: |
+        npm install
+    - name: Test
+      run: |
+        npm run test
+        git checkout "${GITHUB_REF:11}"
+    - name: Release
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+      env:
+        TRAVIS: true
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        TRAVIS_BRANCH: "${GITHUB_REF:11}"
+      run: |
+        npm run semantic-release
