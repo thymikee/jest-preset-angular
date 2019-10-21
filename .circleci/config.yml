@@ -9,6 +9,8 @@ jobs:
     executor: node-10
     steps:
       - checkout
+      - run: 'sudo yarn global add greenkeeper-lockfile@2'
+      - run: 'greenkeeper-lockfile-update'
       - restore_cache:
           keys:
             # if lock file changes, we still use increasingly general patterns to restore cache
@@ -43,21 +45,15 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      # disabling cache here as it created issues with the preset in the root
+      # skipping cache here as it created issues with the preset in the root
       # not being used, as older version in cache was available
-      #- restore_cache:
-      #    keys:
-      #      - yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      #      - yarn-cache-example-{{ .Branch }}-
+      - run: 'sudo yarn global add greenkeeper-lockfile@2'
+      - run: 'greenkeeper-lockfile-update'
       - run:
           name: Install Example Dependencies
           command: |
             cd example
             yarn install --frozen-lockfile
-      #- save_cache:
-      #    key: yarn-cache-example-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      #    paths:
-      #      - ./example/node_modules
       - run:
           name: Test Example
           command: |
