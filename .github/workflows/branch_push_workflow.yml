@@ -26,4 +26,4 @@ jobs:
         npm run test
     - name: Release
       run: |
-        npm run semantic-release
+        GH_TOKEN=${{ secrets.GH_TOKEN }} npm run semantic-release
