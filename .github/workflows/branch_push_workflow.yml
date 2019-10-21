@@ -24,6 +24,7 @@ jobs:
     - name: Test
       run: |
         npm run test
+        git branch -l
     - name: Release
       run: |
-        TRAVIS=true GH_TOKEN=${{ secrets.GH_TOKEN }} NPM_TOKEN=${{ secrets.NPM_TOKEN }} npm run semantic-release
+        TRAVIS_BRANCH=gh_actions TRAVIS=true GH_TOKEN=${{ secrets.GH_TOKEN }} NPM_TOKEN=${{ secrets.NPM_TOKEN }} npm run semantic-release
