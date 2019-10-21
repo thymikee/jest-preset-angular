@@ -1,15 +1,17 @@
 ## Changelog (master)
 
+### v8.0.0
+
 #### Features
 * (**BREAKING**): Refine ast-transformer behavior: only transform `styles`-assignments inside @Component ([#261](https://github.com/thymikee/jest-preset-angular/pull/261)) and TypeScript v2.9 `createStringLiteral` is polyfilled if an older version is used ([#272](https://github.com/thymikee/jest-preset-angular/issues/272)).
 * (**BREAKING**): Restructure project with `src` and `build` folder ([#307](https://github.com/thymikee/jest-preset-angular/pull/307)).
 * (**BREAKING**): Support `tsconfig.spec.json` in root folder by default ([#309](https://github.com/thymikee/jest-preset-angular/pull/309)).
-* (**BREAKING**): Enable AngularNoAngularNoNgAttributesSnapshotSerializer (created in [#97](https://github.com/thymikee/jest-preset-angular/pull/97)) by default ([#318](https://github.com/thymikee/jest-preset-angular/pull/318)). 
-* Remove `core-js` dependency by using internal, minimal reflect-metadata ([#315](https://github.com/thymikee/jest-preset-angular/pull/315)). 
+* (**BREAKING**): Enable AngularNoAngularNoNgAttributesSnapshotSerializer (created in [#97](https://github.com/thymikee/jest-preset-angular/pull/97)) by default ([#318](https://github.com/thymikee/jest-preset-angular/pull/318)).
+* Remove `core-js` dependency by using internal, minimal reflect-metadata ([#315](https://github.com/thymikee/jest-preset-angular/pull/315)).
 
 #### Chore && Maintenance
 * Update example app to match Angular 8 Boilerplate ([#311](https://github.com/thymikee/jest-preset-angular/pull/311)).
-* Update example app to not use karma, extract jest config, fix paths ([#316](https://github.com/thymikee/jest-preset-angular/pull/316))
+* Update example app to not use karma, extract jest config, fix paths ([#316](https://github.com/thymikee/jest-preset-angular/pull/316)).
 * Update jsdom to current version 15 ([#318](https://github.com/thymikee/jest-preset-angular/pull/318)).
 
 #### Migration Guide

@@ -46,7 +46,6 @@ By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up
 
 
 ## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
-> :warning: This is the latest configuration file from the master branch. If you are using the latest NPM package, please follow [this link](https://www.npmjs.com/package/jest-preset-angular#exposed-configuration) for the exposed configuration.
 
 ```js
 module.exports = {
