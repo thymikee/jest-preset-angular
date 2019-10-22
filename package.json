@@ -13,9 +13,15 @@
     "ts-jest": "^24.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-angular": "^8.2.0",
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/git": "^7.0.16",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.11.5",
+    "husky": "^3.0.9",
     "jest": "^24.0.0",
+    "semantic-release": "^15.13.27",
     "typescript": "^3.6.3"
   },
   "peerDependencies": {
@@ -36,6 +42,36 @@
     "build": "tsc",
     "prepare": "yarn build",
     "test": "jest",
-    "test:ci": "jest -i"
+    "test:ci": "jest -i",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      ["@semantic-release/changelog", {
+        "changelogTitle": "# Changelog\nAll changes to this project are documented in this file."
+      }],
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "message": "ci(release): ${nextRelease.version}\n\n${nextRelease.notes}\n\n[skip ci]",
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ]
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "greenkeeper": {
+    "commitMessages": {
+      "dependencyUpdate": "build(dep): update ${dependency} to version ${version}",
+      "devDependencyUpdate": "build(dev-dep): update ${dependency} to version ${version}",
+      "dependencyPin": "build(dep): pin ${dependency} to ${oldVersion}",
+      "devDependencyPin": "build(dev-dep): pin ${dependency} to ${oldVersion}"
+    }
   }
 }

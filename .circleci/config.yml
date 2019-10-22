@@ -61,6 +61,22 @@ jobs:
             yarn test:ci
             yarn test:coverage
 
+  publish:
+    executor: node-10
+    steps:
+      - checkout
+      - run:
+          name: run semantic release
+          command: |
+            yarn install
+            yarn semantic-release
+            # to make sure changes are at least logged in 
+            # case the commit push fails - remove later
+            echo "diff"
+            git --no-pager diff
+            echo "diff last commit"
+            git --no-pager diff HEAD^1
+
 workflows:
   version: 2
   install-and-test:
@@ -72,4 +88,8 @@ workflows:
       - install-test-example:
           requires:
             - install-dependencies
+      - publish:
+          requires:
+            - test-library
+            - install-test-example
 
