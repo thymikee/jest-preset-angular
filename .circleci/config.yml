@@ -47,19 +47,27 @@ jobs:
           at: .
       # skipping cache here as it created issues with the preset in the root
       # not being used, as older version in cache was available
-      - run: 'sudo yarn global add greenkeeper-lockfile@2'
-      - run: 'greenkeeper-lockfile-update'
+      - run: 
+          name: Greenkeeper - update lockfile
+          command: |
+            sudo yarn global add greenkeeper-lockfile@2
+            greenkeeper-lockfile-update
       - run:
           name: Install Example Dependencies
           command: |
             cd example
             yarn install --frozen-lockfile
       - run:
-          name: Test Example
+          name: Test Example - ts-jest preset
           command: |
             cd example
-            yarn test:ci
+            yarn test:ci:ts-jest
             yarn test:coverage
+      - run:
+          name: Test Example - babel preset
+          command: |
+            cd example
+            yarn test:ci:babel
 
 workflows:
   version: 2

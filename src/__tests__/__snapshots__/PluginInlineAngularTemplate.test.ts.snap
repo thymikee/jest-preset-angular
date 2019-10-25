@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`inlining template and stripping styleUrls should handle all decorator assignments in differently named decorators 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.AngularComponent = void 0;
+
+var _core = require(\\"@angular/core\\");
+
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+var AngularComponent = (_dec = (0, _core.Component)({
+  template: require(\\"./page.html\\")
+}), _dec(_class = function AngularComponent() {
+  _classCallCheck(this, AngularComponent);
+}) || _class);
+exports.AngularComponent = AngularComponent;"
+`;
+
+exports[`inlining template and stripping styleUrls should handle all transformable decorator assignments 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.AngularComponent = void 0;
+
+var _core = require(\\"@angular/core\\");
+
+var _dec, _dec2, _dec3, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+var AngularComponent = (_dec = SomeDecorator({
+  value: 'test'
+}), _dec2 = (0, _core.Component)({
+  template: require(\\"./page.html\\"),
+  styleUrls: [],
+  styles: ['body { display: none }', 'html { background-color: red }'],
+  unaffectedProperty: 'whatever'
+}), _dec3 = SomeOtherDecorator({
+  prop: 'ok'
+}), _dec(_class = _dec2(_class = _dec3(_class = function AngularComponent() {
+  _classCallCheck(this, AngularComponent);
+}) || _class) || _class) || _class);
+exports.AngularComponent = AngularComponent;"
+`;
+
+exports[`inlining template and stripping styleUrls should handle templateUrl in test file outside decorator 1`] = `
+"\\"use strict\\";
+
+var _testing = require(\\"@angular/core/testing\\");
+
+var _a = require(\\"./a.component\\");
+
+describe('AComponent', function () {
+  var fixture, instance;
+  beforeEach((0, _testing.async)(function () {
+    _testing.TestBed.configureTestingModule({
+      declarations: [_a.AComponent]
+    }).overrideComponent(_a.AComponent, {
+      set: {
+        template: require(\\"../__mocks__/alert-follow-stub.component.html\\")
+      }
+    });
+
+    fixture = _testing.TestBed.createComponent(_a.AComponent);
+    instance = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
+  it('should render the component', function () {
+    expect(fixture).toMatchSnapshot();
+  });
+});"
+`;
+
+exports[`inlining template and stripping styleUrls should inline non-relative templateUrl assignment and make it relative 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.AngularComponent = void 0;
+
+var _core = require(\\"@angular/core\\");
+
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+var AngularComponent = (_dec = (0, _core.Component)({
+  template: require(\\"./page.html\\")
+}), _dec(_class = function AngularComponent() {
+  _classCallCheck(this, AngularComponent);
+}) || _class);
+exports.AngularComponent = AngularComponent;"
+`;
+
+exports[`inlining template and stripping styleUrls should inline templateUrl assignment 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.AngularComponent = void 0;
+
+var _core = require(\\"@angular/core\\");
+
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+var AngularComponent = (_dec = (0, _core.Component)({
+  template: require(\\"./page.html\\")
+}), _dec(_class = function AngularComponent() {
+  _classCallCheck(this, AngularComponent);
+}) || _class);
+exports.AngularComponent = AngularComponent;"
+`;
+
+exports[`inlining template and stripping styleUrls should not strip styles assignment 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.AngularComponent = void 0;
+
+var _core = require(\\"@angular/core\\");
+
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+var AngularComponent = (_dec = (0, _core.Component)({
+  styles: ['body { display: none }', 'html { background-color: red }']
+}), _dec(_class = function AngularComponent() {
+  _classCallCheck(this, AngularComponent);
+}) || _class);
+exports.AngularComponent = AngularComponent;"
+`;
+
+exports[`inlining template and stripping styleUrls should not transform styles outside decorator 1`] = `
+"\\"use strict\\";
+
+var assignmentsToNotBeTransformed = {
+  styles: [{
+    color: 'red'
+  }]
+};
+var assignmentsToBeTransformed = {
+  styleUrls: [],
+  template: require(\\"./some-styles.css\\")
+};"
+`;
+
+exports[`inlining template and stripping styleUrls should strip styleUrls assignment 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.AngularComponent = void 0;
+
+var _core = require(\\"@angular/core\\");
+
+var _dec, _class;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+var AngularComponent = (_dec = (0, _core.Component)({
+  styleUrls: []
+}), _dec(_class = function AngularComponent() {
+  _classCallCheck(this, AngularComponent);
+}) || _class);
+exports.AngularComponent = AngularComponent;"
+`;

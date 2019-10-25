@@ -9,6 +9,9 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 
 _Note: This preset does not suport AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251)._
 
+This package actually contains two presets, one for `ts-jest`, which uses the official TypeScript compiler internally, and one for `babel`, which strips away the type annotations and simply transforms the JavaScript. If you are not sure, try to use `ts-jest`, to also type-check your test files.
+
+
 ## Installation
 
 ```bash
@@ -18,6 +21,26 @@ npm install -D jest jest-preset-angular @types/jest
 ```
 
 This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run with Angular projects.
+
+Additionally you need `ts-jest` or `babel` packages.
+
+### ts-jest
+```bash
+yarn add -D ts-jest
+#or
+npm install -D ts-jest
+```
+
+`ts-jest` uses the TypeScript compiler to generate JavaScript.
+
+### babel
+```bash
+yarn add -D @babel/core @babel/preset-typescript @babel/preset-env @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-transform-typescript-metadata babel-plugin-const-enum
+#or
+npm install -D @babel/core @babel/preset-typescript @babel/preset-env @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-transform-typescript-metadata babel-plugin-const-enum
+```
+
+`babel` uses the babel compiler to generate JavaScript, without type-checking your test files before doing so. You can still do type-checking using `tsc --noEmit`. For additional TypeScript-supported language features you might have to install even more babel packages. Note that `babel` also can differ slightly from `tsc`, e. g. in compiling a class to a function.
 
 ## Usage
 
@@ -35,8 +58,33 @@ _Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/
 ```json
 {
   "jest": {
-    "preset": "jest-preset-angular",
+    "preset": "jest-preset-angular/build/ts-jest",
     "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
+  }
+}
+```
+
+or for `babel`:
+```json
+{
+  "jest": {
+    "preset": "jest-preset-angular/build/babel",
+    "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
+  }
+}
+```
+
+When using babel, also a `babel.config.js` on the project root level is required:
+```js
+const { babelAngularConfig } = require('jest-preset-angular/build/babel/babel.config')
+module.exports = api => {
+  api.cache(false)
+  return {
+    presets: babelAngularConfig.presets,
+    plugins: [
+      ...babelAngularConfig.plugins,
+      // additional plugins
+    ]
   }
 }
 ```
@@ -45,7 +93,7 @@ _Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/
 By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up by jest. To circumvent this you can either rename it to `src/karmaTest.ts` or hide it from jest by adding `<rootDir>/src/test.ts` to jest `testPathIgnorePatterns` option.
 
 
-## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
+## Exposed [`ts-jest` configuration](https://github.com/thymikee/jest-preset-angular/blob/master/src/ts-jest/jest-preset.js)
 
 ```js
 module.exports = {
@@ -78,11 +126,13 @@ module.exports = {
 };
 ```
 
+Note that the [`babel` configuration](https://github.com/thymikee/jest-preset-angular/blob/master/src/babel/jest-preset.js) looks different.
+
 ### Brief explanation of config
 
 - `<rootDir>` is a special syntax for root of your project (here by default it's project's root /)
 - we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through ts-jest
-- `"transform"` – run every TS, JS, or HTML file through so called _preprocessor_ (we'll get there); this lets Jest understand non-JS syntax
+- `"transform"` – run every TS, JS, or HTML file through so called _preprocessor_, in our case just `ts-jest` or `babel-jest`; this lets Jest understand non-JS syntax
 - `"testMatch"` – we want to run Jest on files that matches this glob
 - `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex

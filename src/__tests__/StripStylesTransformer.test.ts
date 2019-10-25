@@ -5,7 +5,7 @@
  */
 
 import * as tsc from 'typescript';
-import * as transformer from '../StripStylesTransformer';
+import * as transformer from '../ts-jest/StripStylesTransformer';
 
 const CODE_WITH_STYLES_AND_OTHER_ASSIGNMENTS = `
   import { Component } from '@angular/core';
