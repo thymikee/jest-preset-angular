@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { HeroCategory, HeroColor } from "./hero-properties";
+import { Injectable } from '@angular/core';
+import { HeroCategory, HeroColor } from './hero-properties';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class HeroCategoryService {
   getCategoryForHero(heroName: string): HeroCategory {
     switch (heroName) {
-      case "Joker":
+      case 'Joker':
         return HeroCategory.Evil;
-      case "Batman":
+      case 'Batman':
         return HeroCategory.Good;
       default:
         return HeroCategory.Neutral;
@@ -18,11 +18,11 @@ export class HeroCategoryService {
 
   getColorForHero(heroName: string): HeroColor {
     switch (heroName) {
-      case "Joker":
+      case 'Joker':
         return HeroColor.Purple;
-      case "Batman":
+      case 'Batman':
         return HeroColor.Black;
-      case "Catwoman":
+      case 'Catwoman':
         return HeroColor.Black;
       default:
         return HeroColor.Transparent;

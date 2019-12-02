@@ -1,6 +1,6 @@
 {
   "name": "jest-preset-angular",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "description": "Jest preset configuration for Angular projects",
   "main": "build/index.js",
   "repository": "git@github.com:thymikee/jest-preset-angular.git",
@@ -9,7 +9,8 @@
   "license": "MIT",
   "dependencies": {
     "jest-environment-jsdom-fifteen": "^1.0.0",
-    "pretty-format": "^24.0.0"
+    "pretty-format": "^24.0.0",
+    "ts-jest": "^24.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -21,7 +22,6 @@
     "@types/jest": "^24.0.11",
     "@types/node": "^11.11.5",
     "jest": "^24.0.0",
-    "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
   },
   "peerDependencies": {

@@ -22,25 +22,18 @@ npm install -D jest jest-preset-angular @types/jest
 
 This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run with Angular projects.
 
-Additionally you need `ts-jest` or `babel` packages.
-
-### ts-jest
-```bash
-yarn add -D ts-jest
-#or
-npm install -D ts-jest
-```
-
-`ts-jest` uses the TypeScript compiler to generate JavaScript.
+Additionally you need `babel` packages if you want to use `babel`.
 
 ### babel
+`babel` uses the babel compiler to generate JavaScript, without type-checking your test files before doing so. This might result in a different test run performance. You can still run type-checking using `tsc --noEmit`. For additional TypeScript-supported language features you might have to install more babel packages. Note that `babel` also can differ slightly from `tsc`, e. g. in compiling a class to a function.
+
+To evaluate test performance, try to set [`isolatedModules: true` in the `ts-jest`-config](https://kulshekhar.github.io/ts-jest/user/config/isolatedModules), and compare it with the babel setup. Feedback of the transformer comparison in your project is welcome, see [#336](https://github.com/angular/angular/issues/336).
+
 ```bash
 yarn add -D @babel/core @babel/preset-typescript @babel/preset-env @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-transform-typescript-metadata babel-plugin-const-enum
 #or
 npm install -D @babel/core @babel/preset-typescript @babel/preset-env @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators babel-plugin-transform-typescript-metadata babel-plugin-const-enum
 ```
-
-`babel` uses the babel compiler to generate JavaScript, without type-checking your test files before doing so. You can still do type-checking using `tsc --noEmit`. For additional TypeScript-supported language features you might have to install even more babel packages. Note that `babel` also can differ slightly from `tsc`, e. g. in compiling a class to a function.
 
 ## Usage
 
@@ -58,7 +51,7 @@ _Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/
 ```json
 {
   "jest": {
-    "preset": "jest-preset-angular/build/ts-jest",
+    "preset": "jest-preset-angular",
     "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
   }
 }
