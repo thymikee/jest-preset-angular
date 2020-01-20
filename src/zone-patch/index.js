@@ -48,9 +48,9 @@ function wrapTestInZone(testBody) {
   if (testBody === undefined) {
     return;
   }
-  return testBody.length === 0
-    ? () => testProxyZone.run(testBody, null)
-    : done => testProxyZone.run(testBody, null, [done]);
+  return function() {
+    return testProxyZone.run(testBody, null, arguments);
+  };
 }
 
 const bindDescribe = originalJestFn =>
