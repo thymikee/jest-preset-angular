@@ -69,8 +69,6 @@ describe('Service: HeroService', () => {
     [1, { id: 1, name: 'Test Hero 1' }],
     [2, { id: 2, name: 'Test Hero 2' }]
   ])('should call the GET hero api and return the result', (id: number, testData: any) => {
-    debugger;
-    console.log('id, testData', id, testData, (window as any).Zone.current.name);
     let actualData = {};
 
     service.getHero(1).subscribe(data => (actualData = data));
