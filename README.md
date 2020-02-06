@@ -62,7 +62,6 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testEnvironment: 'jest-environment-jsdom-thirteen',
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
@@ -476,7 +475,7 @@ Reference: https://github.com/facebook/jest/issues/708
 By default we use JSDOM v15, which requires Node v8+. If you want to use Node in a lower version to run your tests, make sure to configure jest to use an older JSDOM version, either in your `jest.config.js`, `jest.config.json` or `package.json`:
 
 ```json
-"testEnvironment": "jsdom"
+"testEnvironment": <jsdom_environment_package_<_15>
 ```
 
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
