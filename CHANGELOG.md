@@ -1,5 +1,13 @@
 ## Changelog (master)
 
+### v8.1.0
+
+#### Features
+* Add preset `babel` as transpilation alternative to `ts-jest` ([#317](https://github.com/thymikee/jest-preset-angular/pull/317)).
+
+#### Migration Guide
+* The preset reference in the jest config has to be updated from `"jest-preset-angular"` to `"jest-preset-angular/build/ts-jest"`. To use babel, replace `ts-jest` with `babel`. Furthermore, when using `ts-jest`, it has to be added as `devDependency` to the project, or `babel` packages alternatively (see README.md).
+
 ### v8.0.0
 
 #### Features

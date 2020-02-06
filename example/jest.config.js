@@ -1,5 +1,7 @@
+const { getTestMode } = require('./get-test-mode');
+
 module.exports = {
-  preset: "jest-preset-angular",
+  preset: `jest-preset-angular/build/${getTestMode()}`,
   snapshotSerializers: [
     "jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js",
     "jest-preset-angular/build/AngularSnapshotSerializer.js",

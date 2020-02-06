@@ -1,11 +1,5 @@
-/*
- * Code is inspired by
- * https://github.com/kulshekhar/ts-jest/blob/25e1c63dd3797793b0f46fa52fdee580b46f66ae/src/transformers/hoist-jest.spec.ts
- *
- */
-
-import * as tsc from 'typescript';
-import * as transformer from '../ts-jest/InlineFilesTransformer';
+import inlineAngularTemplatePlugin from '../babel/plugin-inline-angular-template';
+import { transformSync as babelTransform } from '@babel/core';
 
 const CODE_WITH_TEMPLATE_URL = `
   import { Component } from '@angular/core';
@@ -131,59 +125,63 @@ const CODE_WITH_ASSIGNMENTS_OUTSIDE_DECORATOR = `
   };
 `;
 
-const createFactory = () => {
-  return transformer.factory({ compilerModule: tsc } as any);
+const defaultBabelOptions = {
+  filename: 'testee.component.ts',
+  presets: ["@babel/preset-env", "@babel/preset-typescript"],
+  plugins: [
+    ["@babel/plugin-proposal-decorators", { legacy: true }],
+    inlineAngularTemplatePlugin
+  ]
 };
-const transpile = (source: string) =>
-  tsc.transpileModule(source, { transformers: { before: [createFactory()] } });
-
+const transpile = (source: string) => babelTransform(source, defaultBabelOptions);
+  
 
 describe('inlining template and stripping styleUrls', () => {
   it('should strip styleUrls assignment', () => {
     const out = transpile(CODE_WITH_STYLE_URLS);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should inline templateUrl assignment', () => {
     const out = transpile(CODE_WITH_TEMPLATE_URL);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should not strip styles assignment', () => {
     const out = transpile(CODE_WITH_STYLES);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should inline non-relative templateUrl assignment and make it relative', () => {
     const out = transpile(CODE_WITH_NON_RELATIVE_TEMPLATE_URL);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should handle all transformable decorator assignments', () => {
     const out = transpile(CODE_WITH_ALL_DECORATOR_PROPERTIES);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should handle all decorator assignments in differently named decorators', () => {
     const out = transpile(CODE_WITH_CUSTOM_DECORATOR);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should handle templateUrl in test file outside decorator', () => {
     const out = transpile(CODE_TEST_WITH_TEMPLATE_URL_OVERRIDE);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 
   it('should not transform styles outside decorator', () => {
     const out = transpile(CODE_WITH_ASSIGNMENTS_OUTSIDE_DECORATOR);
 
-    expect(out.outputText).toMatchSnapshot();
+    expect(out.code).toMatchSnapshot();
   });
 });

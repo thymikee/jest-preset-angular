@@ -8,8 +8,10 @@
     "build": "ng build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --runInBand",
-    "test:coverage": "jest --coverage"
+    "test:ci": "yarn test:ci:ts-jest && yarn test:ci:babel",
+    "test:ci:babel": "cross-env JPA_TEST_MODE=babel jest --runInBand",
+    "test:ci:ts-jest": "cross-env JPA_TEST_MODE=ts-jest jest --runInBand",
+    "test:coverage": "cross-env JPA_TEST_MODE=ts-jest jest --coverage"
   },
   "private": true,
   "dependencies": {
@@ -30,10 +32,21 @@
     "@angular/cli": "~8.3.4",
     "@angular/compiler-cli": "~8.2.5",
     "@angular/language-service": "~8.2.5",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
     "@types/jest": "^24.0.0",
     "@types/node": "^11.0.0",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-const-enum": "^0.0.2",
+    "babel-plugin-transform-typescript-metadata": "^0.2.2",
+    "cross-env": "^6.0.3",
     "jest": "^24.0.0",
     "jest-preset-angular": "file:../",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
     "ts-node": "^8.0.3",
     "typescript": "~3.5.3"
   }
