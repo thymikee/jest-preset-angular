@@ -9,6 +9,7 @@
 #### Chore && Maintenance
 
 * Update project `devDependencies`.
+* Update example app dependencies.
 
 ### v8.0.0
 
