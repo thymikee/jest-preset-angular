@@ -12,7 +12,6 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testEnvironment: 'jest-environment-jsdom-fifteen',
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
