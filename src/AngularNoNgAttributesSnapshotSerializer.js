@@ -4,7 +4,7 @@ const jestDOMElementSerializer = require('pretty-format').plugins.DOMElement;
 
 const attributesToRemovePatterns = ['ng-reflect', '_nghost', '_ngcontent', 'ng-version'];
 const attributesToClean = {
-  class: [/^.*-\w*\d+-\d+$/], // e.g. "ng-tns-c25-1"
+  class: [/^.*-\w*\d+-\d+$/, /^ng-star-inserted$/], // e.g. "ng-tns-c25-1 or ng-star-inserted, literally"
   id: [/^.*-\d+$/], // e.g. "mat-input-4", "cdk-step-content-0-0"
   for: [/^.*-\d+$/], // e.g. "mat-form-field-label-9"
   'aria-owns': [/^.*-\d+$/], // e.g. "mat-input-4"
@@ -34,8 +34,8 @@ const serialize = (node, ...rest) => {
       attribute.value = attribute.value
         .split(' ')
         .filter(attrValue => {
-          return !attributesToClean[attribute.name].some(attributeCleanRegex =>
-            attributeCleanRegex.test(attrValue),
+          return !attributesToClean[attribute.name].some(attributeCleanRegex => 
+              attributeCleanRegex.test(attrValue),
           );
         })
         .join(' ');
