@@ -1,5 +1,16 @@
 ## Changelog (master)
 
+#### Features
+
+* Update `peerDependencies` for `jest` to v25.
+* Update `dependencies` for `pretty-format` and `ts-jest` to v25.
+* Remove `jest-environment-jsdom-fifteen` from dependencies and preset, closes ([#325](https://github.com/thymikee/jest-preset-angular/issues/325))
+
+#### Chore && Maintenance
+
+* Update project `devDependencies`.
+* Update example app dependencies.
+
 ### v8.0.0
 
 #### Features
