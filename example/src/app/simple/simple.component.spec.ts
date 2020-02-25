@@ -3,7 +3,7 @@ import { async, ComponentFixture } from '@angular/core/testing';
 import { ConfigureFn, configureTests } from '@lib/testing';
 
 import { SimpleComponent } from './simple.component';
-import { Component } from '@angular/core';
+import { AnotherComponent } from './another.component';
 
 describe('SimpleComponent', () => {
   let component: SimpleComponent;
@@ -35,12 +35,6 @@ describe('SimpleComponent', () => {
     expect(fixture.nativeElement).toMatchSnapshot();
   });
 });
-
-@Component({
-  selector: 'another-comp',
-  template: ''
-})
-class AnotherComponent {}
 
 describe.each([[SimpleComponent, AnotherComponent]])('Test components', ComponentType => {
   let component: any;
