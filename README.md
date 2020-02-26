@@ -234,7 +234,7 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 ### Can't resolve all parameters for SomeClass(?)
 
-For Angular 8 users, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost.  You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
+With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost.  You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
 
 ```
   "compilerOptions": {
