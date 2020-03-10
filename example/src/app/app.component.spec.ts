@@ -1,10 +1,5 @@
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  async,
-  fakeAsync,
-  tick,
-  ComponentFixture,
-} from '@angular/core/testing';
+import { async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ConfigureFn, configureTests } from '@lib/testing';
@@ -20,7 +15,7 @@ describe('AppComponent', () => {
       testBed.configureTestingModule({
         declarations: [AppComponent],
         imports: [NoopAnimationsModule],
-        schemas: [NO_ERRORS_SCHEMA],
+        schemas: [NO_ERRORS_SCHEMA]
       });
     };
 
@@ -50,8 +45,9 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('app works!');
   }));
 
-  it('looks async but is synchronous', <any>fakeAsync(
-    (): void => {
+  it(
+    'looks async but is synchronous',
+    <any>fakeAsync((): void => {
       let flag = false;
       setTimeout(() => {
         flag = true;
@@ -61,8 +57,28 @@ describe('AppComponent', () => {
       expect(flag).toBe(false);
       tick(50);
       expect(flag).toBe(true);
-    }
-  ));
+    })
+  );
+
+  it(
+    'async should work',
+    <any>async((): void => {
+      let flag = false;
+      setTimeout(() => {
+        flag = true;
+        expect(flag).toBe(true);
+      }, 100);
+    })
+  );
+
+  it('test with done should work', (done): void => {
+    let flag = false;
+    setTimeout(() => {
+      flag = true;
+      expect(flag).toBe(true);
+      done();
+    }, 100);
+  });
 });
 
 test.todo('a sample todo');
