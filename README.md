@@ -233,7 +233,14 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 ### Can't resolve all parameters for SomeClass(?)
 
-This is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
+With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost.  You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
+
+```
+  "compilerOptions": {
+    "emitDecoratorMetadata": true
+```
+
+In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
 ```typescript
 require('core-js/es/reflect');
 require('core-js/proposals/reflect-metadata');
