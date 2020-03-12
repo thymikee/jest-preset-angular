@@ -1,10 +1,16 @@
 ## Changelog (master)
 
+### v8.1.1
+
+#### Fixes
+
+* Zone.js patch handles test with `done` correctly ([#357](https://github.com/thymikee/jest-preset-angular/pull/357))
+
 ### v8.1.0
 
 #### Features
 
-* run `test.each` in Proxyzone ([#340](https://github.com/thymikee/jest-preset-angular/pull/340)).
+* Run `test.each` in Proxyzone ([#340](https://github.com/thymikee/jest-preset-angular/pull/340)).
 * Update `peerDependencies` for `jest` to v25 ([#346](https://github.com/thymikee/jest-preset-angular/pull/346)).
 * Update `dependencies` for `pretty-format` and `ts-jest` to v25 ([#346](https://github.com/thymikee/jest-preset-angular/pull/346)).
 * Remove `jest-environment-jsdom-fifteen` from dependencies and preset, closes ([#325](https://github.com/thymikee/jest-preset-angular/issues/325))
