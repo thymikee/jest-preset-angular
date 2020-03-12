@@ -94,6 +94,15 @@ describe('AppComponent', () => {
     expect(arg2).toBe(2);
   });
 
+  it.each([2])('it.each with 1D array', arg1 => {
+    expect(arg1).toBe(2);
+  });
+
+  (it.each([2]) as any)('it.each with 1D array and done', (arg1, done) => {
+    expect(arg1).toBe(2);
+    done();
+  });
+
   (it.each([[1, 2]]) as any)('it.each with done', (arg1, arg2, done) => {
     expect(arg1).toBe(1);
     expect(arg2).toBe(2);

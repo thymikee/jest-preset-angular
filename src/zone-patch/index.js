@@ -109,6 +109,18 @@ const bindTest = originalJestFn =>
   function(...eachArgs) {
     return function(...args) {
       const testBody = args[1];
+      if (
+        testBody.length > 0 &&
+        Array.isArray(eachArgs) &&
+        eachArgs.length > 0 &&
+        eachArgs[0].length > 0
+      ) {
+        // check whether eachArgs is a 1D array
+        if (!Array.isArray(eachArgs[0][0])) {
+          // transfer eachArgs from 1D to 2D array
+          eachArgs = eachArgs.map(row => row.map(a => [a]));
+        }
+      }
       args[1] = wrapTestInZone(args[1], ...eachArgs);
       if (testBody.length > 0 || (eachArgs.length > 0 && eachArgs[0].length > 0)) {
         eachArgs.forEach(row => {
