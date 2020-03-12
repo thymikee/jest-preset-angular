@@ -44,13 +44,51 @@ function wrapDescribeInZone(describeBody) {
 // Create a proxy zone in which to run `test` blocks so that the tests function
 // can retroactively install different zones.
 const testProxyZone = ambientZone.fork(new ProxyZoneSpec());
-function wrapTestInZone(testBody) {
+function wrapTestInZone(testBody, eachArgs) {
   if (testBody === undefined) {
     return;
   }
-  return function(...args) {
-    return testProxyZone.run(testBody, null, args);
-  };
+
+  if (!eachArgs || eachArgs.length === 0 || eachArgs[0].length === 0) {
+    // If we are not handling `test.each`, then the parameter of `testBody`
+    // will be 0 or 1, if it is 1, then we need to return a function with
+    // done parameter
+    return testBody.length === 0
+      ? () => testProxyZone.run(testBody, null)
+      : done => testProxyZone.run(testBody, null, [done]);
+  } else {
+    // Dynamically create a Function to contain the same length
+    // of the parameters as the testBody
+    // For example:
+    // ```
+    // test.each([[1, 2]])('test.each', (arg1, arg2) => {});
+    // ```
+    // In this case we need to return a function like this
+    // ```
+    // return function(arg1, arg2) {
+    //   return testProxyZone.run(testBody, null, [arg1, arg2]);
+    // }
+    // ```
+    const len = eachArgs[0].length;
+    const args = [];
+    let argString = '';
+    for (let i = 0; i < len; i++) {
+      args.push('arg' + i);
+      argString += 'arg' + i;
+      if (i !== len - 1) {
+        argString += ', ';
+      }
+    }
+    args.push('testBody');
+    args.push('testProxyZone');
+    if (len < testBody.length) {
+      args.push('done');
+      argString += ', done';
+    }
+    const funcBody = `
+      return testProxyZone.run(testBody, null, [${argString}])`;
+    return new Function(args, funcBody);
+  }
 }
 
 /**
@@ -70,7 +108,29 @@ const bindDescribe = originalJestFn =>
 const bindTest = originalJestFn =>
   function(...eachArgs) {
     return function(...args) {
-      args[1] = wrapTestInZone(args[1]);
+      const testBody = args[1];
+      if (
+        testBody.length > 0 &&
+        Array.isArray(eachArgs) &&
+        eachArgs.length > 0 &&
+        eachArgs[0].length > 0
+      ) {
+        // check whether eachArgs is a 1D array
+        if (!Array.isArray(eachArgs[0][0])) {
+          // transfer eachArgs from 1D to 2D array
+          eachArgs = eachArgs.map(row => row.map(a => [a]));
+        }
+      }
+      args[1] = wrapTestInZone(args[1], ...eachArgs);
+      if (testBody.length > 0 || (eachArgs.length > 0 && eachArgs[0].length > 0)) {
+        eachArgs.forEach(row => {
+          const modifiedRow = row.map(a => {
+            a.push(testBody);
+            a.push(testProxyZone);
+          });
+          return modifiedRow;
+        });
+      }
       return originalJestFn.apply(this, eachArgs).apply(this, args);
     };
   };
