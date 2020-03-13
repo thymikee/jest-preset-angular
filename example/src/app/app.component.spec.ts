@@ -108,6 +108,22 @@ describe('AppComponent', () => {
     expect(arg2).toBe(2);
     done();
   });
+
+  it.each`
+    foo  | bar
+    ${1} | ${2}
+  `('it.each should work with table as a tagged template literal', ({foo, bar}) => {
+    expect(foo).toBe(1);
+    expect(bar).toBe(2);
+  });
+
+  it.each`
+    foo  | bar
+    ${1} | ${2}
+  `('(async) it.each should work with table as a tagged template literal', async ({foo, bar}) => {
+    expect(foo).toBe(1);
+    expect(bar).toBe(2);
+  });
 });
 
 test.todo('a sample todo');
