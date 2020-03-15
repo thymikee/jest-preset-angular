@@ -1,5 +1,11 @@
 ## Changelog (master)
 
+### v8.1.2
+
+#### Fixes
+
+* Simplify zone patch test method implementation to cover tests with string literals ([#361](https://github.com/thymikee/jest-preset-angular/pull/361))
+
 ### v8.1.1
 
 #### Fixes
