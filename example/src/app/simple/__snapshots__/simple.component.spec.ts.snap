@@ -2,7 +2,7 @@
 
 exports[`SimpleComponent snapshot on nativeElement should be without ng-version 1`] = `
 <div
-  id="root2"
+  id="root-ng-internal-isolated-2"
 >
   <p>
      simple works!
@@ -12,7 +12,9 @@ exports[`SimpleComponent snapshot on nativeElement should be without ng-version 
 `;
 
 exports[`SimpleComponent snapshots 1`] = `
-<app-simple>
+<app-simple
+  __ngContext__={[Function LRootView]}
+>
   <p>
      simple works!
   
