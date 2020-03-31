@@ -1,5 +1,11 @@
 ## Changelog (master)
 
+### v8.1.3
+
+#### Fixes
+
+* Make `AngularSnapshotSerializer` compatible with Ivy ([#366](https://github.com/thymikee/jest-preset-angular/pull/366))
+
 ### v8.1.2
 
 #### Fixes
