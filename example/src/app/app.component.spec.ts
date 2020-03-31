@@ -1,6 +1,6 @@
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, ɵivyEnabled as ivyEnabled } from '@angular/core';
 
 import { ConfigureFn, configureTests } from '@lib/testing';
 
@@ -25,6 +25,10 @@ describe('AppComponent', () => {
       fixture.detectChanges();
     });
   }));
+
+  it('Ivy should be enabled', () => {
+    expect(ivyEnabled).toBeTruthy();
+  });
 
   it('should create the app', async(() => {
     const app = component;
