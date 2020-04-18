@@ -39,11 +39,11 @@ const serialize = (node, ...rest) => {
           );
         })
         .join(' ');
-	  if (attribute.value === '') {
+      if (attribute.value === '') {
         nodeCopy.attributes.removeNamedItem(attribute.name);
-	  } else {
+      } else {
         nodeCopy.attributes.setNamedItem(attribute);
-	  }
+      }
     });
 
   return jestDOMElementSerializer.serialize(nodeCopy, ...rest);
