@@ -4,12 +4,12 @@ const jestDOMElementSerializer = require('pretty-format').plugins.DOMElement;
 
 const attributesToRemovePatterns = ['ng-reflect', '_nghost', '_ngcontent', 'ng-version'];
 const attributesToClean = {
-  class: [/^.*-\w*\d+-\d+$/, /^ng-star-inserted$/], // e.g. "ng-tns-c25-1" or "ng-star-inserted", literally
-  id: [/^.*-\d+$/], // e.g. "mat-input-4", "cdk-step-content-0-0"
-  for: [/^.*-\d+$/], // e.g. "mat-form-field-label-9"
-  'aria-owns': [/^.*-\d+$/], // e.g. "mat-input-4"
-  'aria-labelledby': [/^.*-\d+$/], // e.g. "mat-input-4", "cdk-step-label-0-0"
-  'aria-controls': [/^.*-\d+$/], // e.g. "cdk-step-content-2-0"
+  class: [/^(?:mat|cdk|ng).*-\w*\d+-\d+$/, /^ng-star-inserted$/], // e.g. "ng-tns-c25-1" or "ng-star-inserted", literally
+  id: [/^(?:mat|cdk|ng).*-\d+$/], // e.g. "mat-input-4", "cdk-step-content-0-0"
+  for: [/^(?:mat|cdk|ng).*-\d+$/], // e.g. "mat-form-field-label-9"
+  'aria-owns': [/^(?:mat|cdk|ng).*-\d+$/], // e.g. "mat-input-4"
+  'aria-labelledby': [/^(?:mat|cdk|ng).*-\d+$/], // e.g. "mat-input-4", "cdk-step-label-0-0"
+  'aria-controls': [/^(?:mat|cdk|ng).*-\d+$/], // e.g. "cdk-step-content-2-0"
 };
 
 const hasAttributesToRemove = (attribute) =>
@@ -39,7 +39,11 @@ const serialize = (node, ...rest) => {
           );
         })
         .join(' ');
-      nodeCopy.attributes.setNamedItem(attribute);
+	  if (attribute.value === '') {
+        nodeCopy.attributes.removeNamedItem(attribute.name);
+	  } else {
+        nodeCopy.attributes.setNamedItem(attribute);
+	  }
     });
 
   return jestDOMElementSerializer.serialize(nodeCopy, ...rest);
