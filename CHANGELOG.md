@@ -1,11 +1,16 @@
 ## Changelog (master)
 
+### v8.2.0
+
+#### Features
+
+* Make `AngularSnapshotSerializer` remove auto-generated angular classes in addition to attributes
+
 ### v8.1.3
 
 #### Fixes
 
 * Make `AngularSnapshotSerializer` compatible with Ivy ([#366](https://github.com/thymikee/jest-preset-angular/pull/366))
-* Make `AngularSnapshotSerializer` remove auto-generated angular classes in addition to attributes
 
 ### v8.1.2
 
