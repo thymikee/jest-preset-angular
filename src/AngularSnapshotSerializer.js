@@ -20,26 +20,45 @@ const printAttributes = (val, attributes, print, indent, colors, opts) => {
     .join('');
 };
 
-const print = (val, print, indent, opts, colors) => {
+const ivyEnabled = () => {
+  // Should be required lazily, since it will throw an exception
+  // `Cannot resolve parameters...`.
+  const { ɵivyEnabled } = require('@angular/core');
+  return !!ɵivyEnabled;
+};
+
+// Ivy component definition was stored on the `ngComponentDef`
+// property before `9.0.0-next.10`. Since `9.0.0-next.10` it was
+// renamed to `ɵcmp`.
+const getComponentDef = type => type.ngComponentDef || type.ɵcmp;
+
+const print = (fixture, print, indent, opts, colors) => {
+  let nodes = '';
   let componentAttrs = '';
+  let componentName = '';
 
-  const componentName = val.componentRef._elDef.element.name;
-  const nodes = (val.componentRef._view.nodes || [])
-    .filter(node => node && node.hasOwnProperty('renderElement'))
-    .map(node => Array.from(node.renderElement.childNodes).map(print).join(''))
-    .join(opts.edgeSpacing);
+  if (ivyEnabled()) {
+    const componentDef = getComponentDef(fixture.componentRef.componentType);
+    componentName = componentDef.selectors[0][0];
+    nodes = Array.from(fixture.componentRef.location.nativeElement.childNodes)
+      .map(print)
+      .join('');
+  } else {
+    componentName = fixture.componentRef._elDef.element.name;
+    nodes = (fixture.componentRef._view.nodes || [])
+      .filter(node => node && node.hasOwnProperty('renderElement'))
+      .map(node =>
+        Array.from(node.renderElement.childNodes)
+          .map(print)
+          .join('')
+      )
+      .join(opts.edgeSpacing);
+  }
 
-  const attributes = Object.keys(val.componentInstance);
+  const attributes = Object.keys(fixture.componentInstance);
 
   if (attributes.length) {
-    componentAttrs += printAttributes(
-      val,
-      attributes,
-      print,
-      indent,
-      colors,
-      opts
-    );
+    componentAttrs += printAttributes(fixture, attributes, print, indent, colors, opts);
   }
 
   return (

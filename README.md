@@ -62,7 +62,6 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testEnvironment: 'jest-environment-jsdom-thirteen',
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
@@ -234,7 +233,14 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 ### Can't resolve all parameters for SomeClass(?)
 
-This is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
+With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost.  You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
+
+```
+  "compilerOptions": {
+    "emitDecoratorMetadata": true
+```
+
+In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
 ```typescript
 require('core-js/es/reflect');
 require('core-js/proposals/reflect-metadata');
@@ -471,12 +477,16 @@ The same declaration can be applied to other vendor libraries.
 
 Reference: https://github.com/facebook/jest/issues/708
 
-### Failing with Node v7 or lower
+### Configure other JSDOM versions
 
-By default we use JSDOM v15, which requires Node v8+. If you want to use Node in a lower version to run your tests, make sure to configure jest to use an older JSDOM version, either in your `jest.config.js`, `jest.config.json` or `package.json`:
+**Jest** v25 by default uses **JSDOM** 15 to support Node 8, which should also be compatible with Jest 24 and earlier.
 
-```json
-"testEnvironment": "jsdom"
+If you need a newer JSDOM than the one that ships with Jest and run Node >=10, you can install `jest-environment-jsdom-sixteen` package, and edit your Jest config like so:
+
+```
+{
+  "testEnvironment": "jest-environment-jsdom-sixteen"
+}
 ```
 
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.

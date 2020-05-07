@@ -2,6 +2,7 @@
 
 exports[`MediumComponent snapshot test 1`] = `
 <app-medium
+  __ngContext__={[Function LRootView]}
   anotherVar="false"
   someVar={[Function Boolean]}
 >
@@ -9,7 +10,6 @@ exports[`MediumComponent snapshot test 1`] = `
     class="some-wrapper-class"
   >
      diary works! 
-    
     <div
       class="inner-class"
     >
@@ -21,6 +21,7 @@ exports[`MediumComponent snapshot test 1`] = `
         some html
       </span>
     </div>
+    
     <div>
       one more case case
     </div>

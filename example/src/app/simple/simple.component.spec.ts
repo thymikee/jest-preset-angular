@@ -1,28 +1,27 @@
 import { async, ComponentFixture } from '@angular/core/testing';
 
-import {ConfigureFn, configureTests} from '@lib/testing';
+import { ConfigureFn, configureTests } from '@lib/testing';
 
 import { SimpleComponent } from './simple.component';
+import { AnotherComponent } from './another.component';
 
 describe('SimpleComponent', () => {
   let component: SimpleComponent;
   let fixture: ComponentFixture<SimpleComponent>;
 
-  beforeEach(
-    async(() => {
-      const configure: ConfigureFn = testBed => {
-        testBed.configureTestingModule({
-          declarations: [ SimpleComponent ]
-        });
-      };
-
-      configureTests(configure).then(testBed => {
-        fixture = testBed.createComponent(SimpleComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+  beforeEach(async(() => {
+    const configure: ConfigureFn = testBed => {
+      testBed.configureTestingModule({
+        declarations: [SimpleComponent]
       });
-    })
-  );
+    };
+
+    configureTests(configure).then(testBed => {
+      fixture = testBed.createComponent(SimpleComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -34,5 +33,28 @@ describe('SimpleComponent', () => {
 
   it('snapshot on nativeElement should be without ng-version', () => {
     expect(fixture.nativeElement).toMatchSnapshot();
+  });
+});
+
+describe.each([[SimpleComponent, AnotherComponent]])('Test components', ComponentType => {
+  let component: any;
+  let fixture: ComponentFixture<any>;
+
+  beforeEach(async(() => {
+    const configure: ConfigureFn = testBed => {
+      testBed.configureTestingModule({
+        declarations: [ComponentType]
+      });
+    };
+
+    configureTests(configure).then(testBed => {
+      fixture = testBed.createComponent(ComponentType);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });
