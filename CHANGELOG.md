@@ -1,5 +1,9 @@
 ## Changelog (master)
 
+#### Features
+
+* Support Jest 26 ([#374](https://github.com/thymikee/jest-preset-angular/pull/374))
+
 ### v8.2.0
 
 #### Features
