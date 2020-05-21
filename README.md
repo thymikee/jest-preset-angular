@@ -25,8 +25,8 @@ This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run
 In `src` directory create `setupJest.ts` file with following contents:
 
 ```ts
-import "jest-preset-angular";
-import "./jestGlobalMocks"; // browser mocks globally available for every test
+import 'jest-preset-angular';
+import './jestGlobalMocks'; // browser mocks globally available for every test
 ```
 
 _Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/example/src/jestGlobalMocks.ts) file from the example directory and save it next to the `setupJest.ts` file._
@@ -43,37 +43,37 @@ _Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/
 ```
 
 ### Avoid karma conflicts
-
 By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up by jest. To circumvent this you can either rename it to `src/karmaTest.ts` or hide it from jest by adding `<rootDir>/src/test.ts` to jest `testPathIgnorePatterns` option.
+
 
 ## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
 
 ```js
 module.exports = {
   globals: {
-    "ts-jest": {
-      tsConfig: "<rootDir>/tsconfig.spec.json",
-      stringifyContentPathRegex: "\\.html$",
+    'ts-jest': {
+      tsConfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$',
       astTransformers: [
-        "jest-preset-angular/build/InlineFilesTransformer",
-        "jest-preset-angular/build/StripStylesTransformer",
+        'jest-preset-angular/build/InlineFilesTransformer',
+        'jest-preset-angular/build/StripStylesTransformer'
       ],
     },
   },
   transform: {
-    "^.+\\.(ts|js|html)$": "ts-jest",
+    '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  moduleFileExtensions: ["ts", "html", "js", "json"],
+  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
-    "^src/(.*)$": "<rootDir>/src/$1",
-    "^app/(.*)$": "<rootDir>/src/app/$1",
-    "^assets/(.*)$": "<rootDir>/src/assets/$1",
-    "^environments/(.*)$": "<rootDir>/src/environments/$1",
+    '^src/(.*)$': '<rootDir>/src/$1',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+    '^assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
-  transformIgnorePatterns: ["node_modules/(?!@ngrx)"],
+  transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    "jest-preset-angular/build/AngularSnapshotSerializer.js",
-    "jest-preset-angular/build/HTMLCommentSerializer.js",
+    'jest-preset-angular/build/AngularSnapshotSerializer.js',
+    'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
 };
 ```
@@ -108,7 +108,7 @@ Example:
 
 ```ts
 // some initialization code
-test("renders markup to snapshot", () => {
+test('renders markup to snapshot', () => {
   const fixture = TestBed.createComponent(AppComponent);
   expect(fixture).toMatchSnapshot();
 });
@@ -161,7 +161,7 @@ This is indeed very repetitive, so you can extract this in a helper function:
 ```ts
 // test-config.helper.ts
 
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
 type CompilerOptions = Partial<{
   providers: any[];
@@ -234,7 +234,7 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 ### Can't resolve all parameters for SomeClass(?)
 
-With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost. You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
+With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost.  You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
 
 ```
   "compilerOptions": {
@@ -242,12 +242,10 @@ With Angular 8 and higher, a [change to the way the Angular CLI works](https://g
 ```
 
 In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
-
 ```typescript
-require("core-js/es/reflect");
-require("core-js/proposals/reflect-metadata");
+require('core-js/es/reflect');
+require('core-js/proposals/reflect-metadata');
 ```
-
 Note that this might also be related to other issues with the dependency injection and parameter type reflection.
 
 ### @Input() bindings are not reflected into fixture when `ChangeDetectionStrategy.OnPush` is used
@@ -274,7 +272,7 @@ The currenly used JSDOM version handles this, but older versions used before v7 
 Add this to your `jestGlobalMocks` file
 
 ```js
-Object.defineProperty(document.body.style, "transform", {
+Object.defineProperty(document.body.style, 'transform', {
   value: () => {
     return {
       enumerable: true,
@@ -291,15 +289,15 @@ Reference: https://github.com/angular/material2/issues/7101
 TypeScript supports absolute imports. The preset (starting from v3.0.0) by default understands absolute imports referring to `src`, `app`, `assets` and `environments` directory, so instead:
 
 ```ts
-import MyComponent from "../../src/app/my.component";
-import MyStuff from "../../src/testing/my.stuff";
+import MyComponent from '../../src/app/my.component';
+import MyStuff from '../../src/testing/my.stuff';
 ```
 
 you can use:
 
 ```ts
-import MyComponent from "app/my.component";
-import MyStuff from "src/testing/my.stuff";
+import MyComponent from 'app/my.component';
+import MyStuff from 'src/testing/my.stuff';
 ```
 
 However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
@@ -329,7 +327,7 @@ Override `globals` object in Jest config:
         "astTransformers": [
           "jest-preset-angular/build/InlineFilesTransformer",
           "jest-preset-angular/build/StripStylesTransformer"
-        ]
+        ],
       }
     }
   }
@@ -412,12 +410,11 @@ Some vendors publish their sources without transpiling. You need to say jest to 
 1. Install dependencies required by Jest official documentation for [Babel integration](https://jest-bot.github.io/jest/docs/babel.html).
 
 2. Install `@babel/preset-env` and add `babel.config.js` (or modify existing if needed) with the following content:
-
 ```js
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache(true);
 
-  const presets = ["@babel/preset-env"];
+  const presets = ['@babel/preset-env'];
   const plugins = [];
 
   return {
@@ -425,9 +422,10 @@ module.exports = function (api) {
     plugins,
   };
 };
+
 ```
 
-_Note: do not use a `.babelrc` file otherwise the packages that you specify in the next step will not be picked up. CF [Babel documentation](https://babeljs.io/docs/en/configuration#what-s-your-use-case) and the comment `You want to compile node_modules? babel.config.js is for you!`_.
+*Note: do not use a `.babelrc` file otherwise the packages that you specify in the next step will not be picked up. CF [Babel documentation](https://babeljs.io/docs/en/configuration#what-s-your-use-case) and the comment `You want to compile node_modules? babel.config.js is for you!`*.
 
 3. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 
@@ -449,16 +447,16 @@ Note: This fix is only relevant to Angular v5 and lower.
 Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setupJest.ts` file:
 
 ```js
-import "jest-preset-angular";
+import 'jest-preset-angular';
 
 // common rxjs imports
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/catch";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 // ...
 
-import "./jestGlobalMocks";
+import './jestGlobalMocks';
 ```
 
 ### Allow vendor libraries like jQuery, etc...
@@ -466,13 +464,13 @@ import "./jestGlobalMocks";
 The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
 
 ```js
-window.$ = require("path/to/jquery");
+window.$ = require('path/to/jquery');
 ```
 
 or
 
 ```js
-import $ from "jquery";
+import $ from 'jquery';
 global.$ = global.jQuery = $;
 ```
 
