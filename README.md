@@ -104,7 +104,7 @@ If you look at your `src/test.ts` (or similar bootstrapping test file) file you'
 
 Example:
 
-`calc-component.spec.ts`
+`calc.component.spec.ts`
 
 ```ts
 // some initialization code
@@ -125,8 +125,6 @@ exports[`CalcComponent should snap 1`] = `
 >
   <p
     class="a-default-class"
-    ng-reflect-klass="a-default-class"
-    ng-reflect-ng-class="[object Object]"
   >
     calc works!
   </p>
@@ -234,7 +232,7 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 ### Can't resolve all parameters for SomeClass(?)
 
-With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost.  You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
+With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost. If you do *not* use `isolatedModules: true` in your `tsconfig.spec.json`, the `jest-preset-angular` transformers handle this the Angular way. If you do compile with isolated modules, you can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
 
 ```
   "compilerOptions": {

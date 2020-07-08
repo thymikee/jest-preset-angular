@@ -1,11 +1,7 @@
-import * as TS from 'typescript';
+import type * as _ts from 'typescript';
+type TTypeScript = typeof _ts;
+type CreateStringLiteral = typeof _ts.createStringLiteral;
 
-// replace original ts-jest ConfigSet with this simple interface, as it would require
-// jest-preset-angular to add several babel devDependencies to get the other types
-// inside the ConfigSet right
-export interface ConfigSet {
-  compilerModule: typeof TS;
-}
 
 /**
  * returns the compiler function to create a string literal. If an old version
@@ -14,13 +10,13 @@ export interface ConfigSet {
  * @param ts TypeScript compiler module
  */
 export function getCreateStringLiteral(
-  ts: typeof TS
-): typeof TS.createStringLiteral {
+  ts: TTypeScript
+): CreateStringLiteral {
   if (ts.createStringLiteral && typeof ts.createStringLiteral === 'function') {
     return ts.createStringLiteral;
   }
   return function createStringLiteral(text: string) {
-    const node = <TS.StringLiteral>(
+    const node = <_ts.StringLiteral>(
       ts.createNode(ts.SyntaxKind.StringLiteral, -1, -1)
     );
     node.text = text;

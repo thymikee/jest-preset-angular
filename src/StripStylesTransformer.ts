@@ -22,7 +22,7 @@
  */
 
 // only import types, for the rest use injected `ConfigSet.compilerModule`
-import {
+import type {
   Node,
   SourceFile,
   TransformationContext,
@@ -34,7 +34,10 @@ import {
   CallExpression,
   ObjectLiteralExpression
 } from 'typescript';
-import { ConfigSet } from './TransformUtils';
+import type * as _ts from 'typescript';
+import type { ConfigSet } from 'ts-jest/dist/config/config-set';
+
+type TTypeScript = typeof _ts;
 
 /** Angular component decorator Styles property name */
 const STYLES = 'styles';
@@ -44,23 +47,10 @@ const COMPONENT = 'Component';
 const TRANSFORM_IN_DECORATOR_PROPS = [STYLES];
 
 /**
- * Transformer ID
- * @internal
- */
-export const name = 'angular-component-strip-styles';
-
-// increment this each time the code is modified
-/**
- * Transformer Version
- * @internal
- */
-export const version = 1;
-
-/**
  * The factory of hoisting transformer factory
  * @internal
  */
-export function factory(cs: ConfigSet) {
+export function factory(cs: ConfigSet & { compilerModule: TTypeScript }) {
   /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */

@@ -23,7 +23,7 @@
  */
 
 // only import types, for the rest use injected `ConfigSet.compilerModule`
-import {
+import type {
   Node,
   SourceFile,
   TransformationContext,
@@ -32,7 +32,11 @@ import {
   PropertyAssignment,
   Identifier
 } from 'typescript';
-import { getCreateStringLiteral, ConfigSet } from './TransformUtils';
+import type * as _ts from 'typescript';
+import type { ConfigSet } from 'ts-jest/dist/config/config-set';
+import { getCreateStringLiteral } from './TransformUtils';
+
+type TTypeScript = typeof _ts;
 
 // replace original ts-jest ConfigSet with this simple interface, as it would require
 // jest-preset-angular to add several babel devDependencies to get the other types
@@ -53,23 +57,10 @@ const REQUIRE = 'require';
 const TRANSFORM_PROPS = [TEMPLATE_URL, STYLE_URLS];
 
 /**
- * Transformer ID
- * @internal
- */
-export const name = 'angular-component-inline-files';
-
-// increment this each time the code is modified
-/**
- * Transformer Version
- * @internal
- */
-export const version = 1;
-
-/**
  * The factory of hoisting transformer factory
  * @internal
  */
-export function factory(cs: ConfigSet) {
+export function factory(cs: ConfigSet & { compilerModule: TTypeScript }) {
   /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */
@@ -95,7 +86,7 @@ export function factory(cs: ConfigSet) {
    * Clones the assignment and manipulates it depending on its name.
    * @param node the property assignment to change
    */
-  function transfromPropertyAssignmentForJest(node: PropertyAssignment) {
+  function transformPropertyAssignmentForJest(node: PropertyAssignment) {
     const mutableAssignment = ts.getMutableClone(node);
 
     const assignmentNameText = (mutableAssignment.name as Identifier).text;
@@ -156,7 +147,7 @@ export function factory(cs: ConfigSet) {
       // this is an assignment which we want to transform
       if (isPropertyAssignmentToTransform(node)) {
         // get transformed node with changed properties
-        resultNode = transfromPropertyAssignmentForJest(node);
+        resultNode = transformPropertyAssignmentForJest(node);
       }
 
       // look for interesting assignments inside this node in any case

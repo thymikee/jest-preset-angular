@@ -6,6 +6,7 @@ module.exports = {
       astTransformers: [
         'jest-preset-angular/build/InlineFilesTransformer',
         'jest-preset-angular/build/StripStylesTransformer',
+        'jest-preset-angular/build/AngularConstructorParametersTransformer',
       ],
     },
   },

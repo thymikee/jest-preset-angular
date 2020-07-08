@@ -1,5 +1,9 @@
 ## Changelog (master)
 
+#### Features
+
+* Use Angular constructor parameters transformer ([#406](https://github.com/thymikee/jest-preset-angular/pull/406))
+
 ### v8.2.1
 
 #### Features
