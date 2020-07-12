@@ -1,3 +1,37 @@
-/example
-/src
-circle.yml
+# Tests
+e2e
+example
+
+# sources are inlined
+src
+
+# Developement scripts
+scripts
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules
+jspm_packages
+
+# Editor config
+.vscode
+.idea
+.editorconfig
+
+# CI
+.circleci
+
+# Others
+*.tgz
+.npmignore
+.npmrc
+greenkeeper.json
+jest.config.js
+tsconfig.json
+.github
+.gitattributes
