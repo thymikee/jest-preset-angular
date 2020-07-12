@@ -1,40 +1,48 @@
 #!/usr/bin/env node
 'use strict'
 
-const { existsSync, realpathSync } = require('fs')
+const execa = require('execa')
+const { realpathSync } = require('fs')
+const { removeSync } = require('fs-extra')
 const { resolve, join } = require('path')
 
-const { spawnSync } = require('./lib/spawn-sync')
 const { projectsToRun } = require('./lib/paths')
 const logger = require('./lib/logger')
 const { createBundle } = require('./lib/bundle')
-const npm = require('./lib/npm')
 
 const jestArgs = process.argv.slice(3)
 
-const executeTest = (monorepoRealPath, bundle) => {
+const executeTest = (projectRealPath, bundle) => {
   // we change current directory
-  process.chdir(monorepoRealPath)
+  process.chdir(projectRealPath)
 
   // reading package.json
-  const projectPkg = require(join(monorepoRealPath, 'package.json'))
+  const projectPkg = require(join(projectRealPath, 'package.json'))
   if (!projectPkg.name) projectPkg.name = 'unknown'
   if (!projectPkg.version) projectPkg.version = 'unknown'
 
   logger.log()
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', monorepoRealPath, '='.repeat(20))
+  logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectRealPath, '='.repeat(20))
   logger.log()
 
-  // then we install it in the repo
-  logger.log('ensuring all depedencies of target project are installed')
-  npm.spawnSync(['install', '--no-package-lock', '--no-shrinkwrap', '--no-save'], true,{ cwd: monorepoRealPath })
+  // Need to clean up node_modules first before installing package, otherwise npm will throw error.
+  removeSync(join(projectRealPath, 'node_modules'))
+
+  /**
+   * Bundle needs to be installed first, otherwise node_modules won't be correct. In short, npm -> yarn works but not
+   * the other way
+   */
   logger.log('installing bundled version of jest-preset-angular')
-  npm.spawnSync(['install', '--no-package-lock', '--no-shrinkwrap', '--no-save', bundle], true, { cwd: monorepoRealPath })
+
+  execa.sync('npm', ['install', '--no-package-lock', '--no-shrinkwrap', '--no-save', bundle], { cwd: projectRealPath })
+
+  // then we install it in the repo
+  logger.log('ensuring all dependencies of target project are installed')
+
+  execa.sync('yarn', ['install', '--frozen-lockfile'], { cwd: projectRealPath })
 
   // then we can run the tests
-  const useYarn = existsSync(join(monorepoRealPath, 'yarn.lock'))
-  const cmdLine = projectPkg.scripts && projectPkg.scripts.test ? [useYarn ? 'yarn' : 'npm', 'test'] : ['jest']
+  const cmdLine = projectPkg.scripts && projectPkg.scripts.test ? ['yarn', 'test'] : ['jest']
   if (jestArgs.length) {
     cmdLine.push('--')
     cmdLine.push(...jestArgs)
@@ -43,22 +51,25 @@ const executeTest = (monorepoRealPath, bundle) => {
   logger.log('starting the tests using:', ...cmdLine)
   logger.log()
 
-  spawnSync(cmdLine.shift(), cmdLine, {
-    cwd: monorepoRealPath,
-    stdio: 'inherit',
-    env: process.env,
-  })
+  try {
+    execa.sync(cmdLine.shift(), cmdLine, {
+      cwd: projectRealPath,
+      stdio: 'inherit',
+      env: process.env,
+    })
+  } catch (e) {
+    logger.log(e.message)
+  }
 }
 
 const cwd = process.cwd()
-// first we need to create a bundle
 const bundle = createBundle()
-projectsToRun.forEach((monorepoPath) => {
-  let monorepoRealPath
+projectsToRun.forEach((projectPath) => {
+  let projectRealPath
   try {
-    monorepoRealPath = realpathSync(resolve(cwd, monorepoPath))
+    projectRealPath = realpathSync(resolve(cwd, projectPath))
   } catch (e) {
-    monorepoRealPath = undefined
+    projectRealPath = undefined
   }
-  executeTest(monorepoRealPath, bundle)
+  executeTest(projectRealPath, bundle)
 })

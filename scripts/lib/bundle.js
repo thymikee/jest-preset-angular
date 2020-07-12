@@ -1,4 +1,4 @@
-const npm = require('./npm')
+const execa = require('execa')
 const logger = require('./logger')
 const { rootDir } = require('./paths')
 const { join } = require('path')
@@ -8,7 +8,7 @@ const { join } = require('path')
 
 function createBundle(log = logger.log.bind(logger)) {
   log('creating jest-preset-angular bundle')
-  const res = npm.spawnSync(['-s', 'pack'], true,{ cwd: rootDir })
+  const res = execa.sync('npm', ['-s', 'pack'], true,{ cwd: rootDir })
 
   return join(rootDir, res.stdout.toString().trim())
 }
