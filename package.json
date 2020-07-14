@@ -8,13 +8,16 @@
   "author": "Michał Pierzchała <thymikee@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "pretty-format": "^26.0.0",
-    "ts-jest": "^26.0.0"
+    "pretty-format": "26.x",
+    "ts-jest": "26.x"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "@types/node": "^14.0.4",
-    "jest": "^26.0.1",
+    "@types/jest": "26.x",
+    "@types/node": "12.x",
+    "execa": "4.x",
+    "fs-extra": "9.x",
+    "jest": "26.x",
+    "lodash.memoize": "4.x",
     "typescript": "~3.8.3"
   },
   "peerDependencies": {
@@ -32,9 +35,11 @@
     "rootDir": "src/__tests__"
   },
   "scripts": {
+    "prebuild": "node scripts/clean-build.js",
+    "prepare": "npm run build",
     "build": "tsc",
-    "prepare": "yarn build",
     "test": "jest",
-    "test:ci": "jest -i"
+    "test:ci": "jest -i",
+    "test:e2e": "node scripts/e2e.js"
   }
 }
