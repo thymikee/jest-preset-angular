@@ -10,6 +10,6 @@ module.exports = {
     "^@lib/(.*)$": "<rootDir>/src/lib/$1"
   },
   setupFilesAfterEnv: [
-    "<rootDir>/src/setupJest.ts"
+    "<rootDir>/setup-jest.ts"
   ]
 }

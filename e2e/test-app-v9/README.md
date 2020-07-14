@@ -1,6 +1,6 @@
 # Example
 
-This is an example app using `jest-preset-angular`. It is not supposed to be a boilerplate for an Angular app tested with jest, but could be used as a rough reference for configuration.
+This is a test app using `jest-preset-angular`. It is not supposed to be a boilerplate for an Angular app tested with jest, but could be used as a rough reference for configuration.
 
 The jest configuration itself is located in the `jest.config.js`.
 

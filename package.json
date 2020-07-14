@@ -36,8 +36,8 @@
   },
   "scripts": {
     "prebuild": "node scripts/clean-build.js",
-    "prepare": "npm run build",
     "build": "tsc",
+    "prepare": "yarn build",
     "test": "jest",
     "test:ci": "jest -i",
     "test:e2e": "node scripts/e2e.js"

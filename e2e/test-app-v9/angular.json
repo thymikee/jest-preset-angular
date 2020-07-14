@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "example": {
+    "test-app-v9": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/example",
+            "outputPath": "dist/test-app-v9",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,22 +62,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "example:build"
+            "browserTarget": "test-app-v9:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "example:build:production"
+              "browserTarget": "test-app-v9:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example:build"
+            "browserTarget": "test-app-v9:build"
           }
         }
       }
     }
   },
-  "defaultProject": "example"
+  "defaultProject": "test-app-v9"
 }
