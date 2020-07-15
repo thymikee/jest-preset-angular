@@ -50,7 +50,7 @@ jobs:
       - run: 'sudo yarn global add greenkeeper-lockfile@2'
       - run: 'greenkeeper-lockfile-update'
       - run:
-          name: Test Example Apps
+          name: Run tests on test apps
           command: |
             yarn test:e2e
 

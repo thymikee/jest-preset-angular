@@ -14,7 +14,7 @@ You run the tests on test apps with `yarn test:e2e` (or `npm run test:e2e)`. In 
 
 What will happen in order is as following:
 
-1. Each project will install its dependencies
+1. Each test project will install its dependencies
 2. Each test suite in each test project runs according to `jest` config of that project.
 
 
