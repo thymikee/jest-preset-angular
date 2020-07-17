@@ -3,16 +3,14 @@
 
 const execa = require('execa')
 const { realpathSync } = require('fs')
-const { removeSync } = require('fs-extra')
 const { resolve, join } = require('path')
 
 const { projectsToRun } = require('./lib/paths')
 const logger = require('./lib/logger')
-const { createBundle } = require('./lib/bundle')
 
 const jestArgs = process.argv.slice(3)
 
-const executeTest = (projectRealPath, bundle) => {
+const executeTest = (projectRealPath) => {
   // we change current directory
   process.chdir(projectRealPath)
 
@@ -24,17 +22,6 @@ const executeTest = (projectRealPath, bundle) => {
   logger.log()
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectRealPath, '='.repeat(20))
   logger.log()
-
-  // Need to clean up node_modules first before installing package, otherwise npm will throw error.
-  removeSync(join(projectRealPath, 'node_modules'))
-
-  /**
-   * Bundle needs to be installed first, otherwise node_modules won't be correct. In short, npm -> yarn works but not
-   * the other way
-   */
-  logger.log('installing bundled version of jest-preset-angular')
-
-  execa.sync('npm', ['install', '--no-package-lock', '--no-shrinkwrap', '--no-save', bundle], { cwd: projectRealPath })
 
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed')
@@ -51,19 +38,14 @@ const executeTest = (projectRealPath, bundle) => {
   logger.log('starting the tests using:', ...cmdLine)
   logger.log()
 
-  try {
-    execa.sync(cmdLine.shift(), cmdLine, {
-      cwd: projectRealPath,
-      stdio: 'inherit',
-      env: process.env,
-    })
-  } catch (e) {
-    logger.log(e.message)
-  }
+  execa.sync(cmdLine.shift(), cmdLine, {
+    cwd: projectRealPath,
+    stdio: 'inherit',
+    env: process.env,
+  })
 }
 
 const cwd = process.cwd()
-const bundle = createBundle()
 projectsToRun.forEach((projectPath) => {
   let projectRealPath
   try {
@@ -71,5 +53,5 @@ projectsToRun.forEach((projectPath) => {
   } catch (e) {
     projectRealPath = undefined
   }
-  executeTest(projectRealPath, bundle)
+  executeTest(projectRealPath)
 })

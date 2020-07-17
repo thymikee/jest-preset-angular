@@ -40,7 +40,7 @@ jobs:
           name: Test Library
           command: yarn test:ci
 
-  install-test-example:
+  install-test-apps:
     executor: node-10
     steps:
       - attach_workspace:
@@ -50,16 +50,9 @@ jobs:
       - run: 'sudo yarn global add greenkeeper-lockfile@2'
       - run: 'greenkeeper-lockfile-update'
       - run:
-          name: Install Example Dependencies
+          name: Run tests on test apps
           command: |
-            cd example
-            yarn install --frozen-lockfile
-      - run:
-          name: Test Example
-          command: |
-            cd example
-            yarn test:ci
-            yarn test:coverage
+            yarn test:e2e
 
 workflows:
   version: 2
@@ -69,7 +62,7 @@ workflows:
       - test-library:
           requires:
             - install-dependencies
-      - install-test-example:
+      - install-test-apps:
           requires:
             - install-dependencies
 

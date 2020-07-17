@@ -26,10 +26,10 @@ In `src` directory create `setupJest.ts` file with following contents:
 
 ```ts
 import 'jest-preset-angular';
-import './jestGlobalMocks'; // browser mocks globally available for every test
+import './jest-global-mocks'; // browser mocks globally available for every test
 ```
 
-_Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/example/src/jestGlobalMocks.ts) file from the example directory and save it next to the `setupJest.ts` file._
+_Note: feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/jest-global-mocks.ts) file from the test app directory and save it next to the `setupJest.ts` file._
 
 ...and include this in your `package.json`:
 
@@ -37,7 +37,7 @@ _Note: feel free to copy the [`jestGlobalMocks.ts`](https://github.com/thymikee/
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
+    "setupFilesAfterEnv": ["<rootDir>/src/setup-jest.ts"]
   }
 }
 ```
@@ -88,7 +88,7 @@ module.exports = {
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
 - `"setupFilesAfterEnv"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
 - `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
-- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc). This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable. To remove such specific attributes use `AngularNoNgAttributesSnapshotSerializer` serializer. You need to add `AngularNoNgAttributesSnapshotSerializer` serializer manually (see [`example` app configuration](https://github.com/thymikee/jest-preset-angular/blob/master/example/package.json#L47-L51)).
+- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc). This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable. To remove such specific attributes use `AngularNoNgAttributesSnapshotSerializer` serializer. You need to add `AngularNoNgAttributesSnapshotSerializer` serializer manually (see [`test` app configuration](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/package.json#L47-L51)).
 
 ## [AST Transformer](https://github.com/thymikee/jest-preset-angular/blob/master/src/InlineHtmlStripStylesTransformer.ts)
 
@@ -100,7 +100,7 @@ If you look at your `src/test.ts` (or similar bootstrapping test file) file you'
 
 ## Snapshot testing
 
-**Since version 1.1.0** it's possible to [snapshot test](http://facebook.github.io/jest/docs/snapshot-testing.html#snapshot-testing-with-jest) your Angular components. Please note it's still under active development and may be a subject of change. You can lookup [example](/example/src/app) for details
+**Since version 1.1.0** it's possible to [snapshot test](http://facebook.github.io/jest/docs/snapshot-testing.html#snapshot-testing-with-jest) your Angular components. Please note it's still under active development and may be a subject of change. You can lookup [test app](/e2e/test-app-v9/src/app) for details
 
 Example:
 
@@ -461,7 +461,7 @@ import './jestGlobalMocks';
 
 ### Allow vendor libraries like jQuery, etc...
 
-The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
+The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setup-jest.ts` you can declare jQuery:
 
 ```js
 window.$ = require('path/to/jquery');
