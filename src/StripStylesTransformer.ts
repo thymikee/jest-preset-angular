@@ -2,16 +2,16 @@
  * Code is inspired by
  * https://github.com/kulshekhar/ts-jest/blob/25e1c63dd3797793b0f46fa52fdee580b46f66ae/src/transformers/hoist-jest.ts
  *
- * 
+ *
  * IMPLEMENTATION DETAILS:
  * This transformer handles one concern: removing styles.
  *
  * The property 'styles' inside a @Component(...) Decorator argument will
  * be modified, even if they are not used in the context of an
  * Angular Component.
- * 
+ *
  * This is the required AST to trigger the transformation:
- * 
+ *
  * ClassDeclaration
  *   Decorator
  *     CallExpression
@@ -22,7 +22,7 @@
  */
 
 // only import types, for the rest use injected `ConfigSet.compilerModule`
-import {
+import type {
   Node,
   SourceFile,
   TransformationContext,
@@ -34,7 +34,7 @@ import {
   CallExpression,
   ObjectLiteralExpression
 } from 'typescript';
-import { ConfigSet } from './TransformUtils';
+import type { ConfigSet } from './TransformUtils';
 
 /** Angular component decorator Styles property name */
 const STYLES = 'styles';
@@ -89,7 +89,7 @@ export function factory(cs: ConfigSet) {
       .filter((callExpr: CallExpression) =>
         ts.isIdentifier(callExpr.expression) && (callExpr.expression as Identifier).getText() === COMPONENT
       )
-      .reduce((acc, nxtCallExpr: CallExpression) => Array.prototype.concat.apply(acc, 
+      .reduce((acc, nxtCallExpr: CallExpression) => Array.prototype.concat.apply(acc,
         nxtCallExpr.arguments
           .filter(ts.isObjectLiteralExpression)
           .reduce((acc, nxtArg: ObjectLiteralExpression) => Array.prototype.concat.apply(acc,

@@ -23,7 +23,7 @@
  */
 
 // only import types, for the rest use injected `ConfigSet.compilerModule`
-import {
+import type {
   Node,
   SourceFile,
   TransformationContext,

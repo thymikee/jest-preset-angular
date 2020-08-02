@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": ".",
     "module": "commonjs",
     "outDir": "./build",
     "strict": true,
-    "lib": ["esnext"],
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "importsNotUsedAsValues": "error",
+    "lib": ["esnext"],
     "types": ["node"]
   },
   "include": ["src"],
