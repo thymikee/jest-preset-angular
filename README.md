@@ -494,3 +494,9 @@ package, e.g. `jest-environment-jsdom-sixteen` and edit your Jest config like so
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
 
 Reference: https://jestjs.io/docs/en/configuration.html#testenvironment-string, https://github.com/jsdom/jsdom/blob/master/Changelog.md#1200
+
+### Using Ionic
+
+If you're testing components that use [Ionic v4+](https://ionicframework.com/docs/components), add `"node_modules/(?!@ionic/core)"` to `transformIgnorePatterns` in your jest config. Otherwise, you may find that jest hangs up without running any test suites.
+
+Additionally, if you reference any ionic custom element types (i.e. `HTMLIonInputElement`), add `@ionic/core` to `compilerOptions.types` in your `tsconfig.spec.json`.
