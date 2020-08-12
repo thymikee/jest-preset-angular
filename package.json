@@ -1,24 +1,20 @@
 {
-  "name": "jest-preset-angular",
-  "version": "8.2.1",
-  "description": "Jest preset configuration for Angular projects",
-  "main": "index.js",
-  "repository": "git@github.com:thymikee/jest-preset-angular.git",
-  "homepage": "https://github.com/thymikee/jest-preset-angular",
-  "author": "Michał Pierzchała <thymikee@gmail.com>",
   "license": "MIT",
+  "private": true,
+  "keywords": [
+    "jest",
+    "typescript",
+    "angular",
+    "testing"
+  ],
   "scripts": {
-    "prebuild": "node scripts/clean-build.js",
+    "prebuild": "rimraf src/build",
     "build": "tsc",
     "prepare": "yarn build",
     "test": "jest",
     "test:ci": "jest -i",
     "test:e2e": "node scripts/e2e.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
-  },
-  "dependencies": {
-    "pretty-format": "26.x",
-    "ts-jest": "26.x"
   },
   "devDependencies": {
     "@commitlint/cli": "9.x",
@@ -27,10 +23,10 @@
     "@types/node": "12.x",
     "conventional-changelog-cli": "2.x",
     "execa": "4.x",
-    "fs-extra": "9.x",
     "husky": "4.x",
     "jest": "26.x",
     "lodash.memoize": "4.x",
+    "ts-jest": "26.x",
     "typescript": "~3.8.3"
   },
   "husky": {
@@ -38,11 +34,6 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "post-commit": "git reset"
     }
-  },
-  "peerDependencies": {
-    "@angular/core": ">=2.0.0",
-    "@angular/platform-browser-dynamic": ">=2.0.0",
-    "jest": "^26.0.0"
   },
   "jest": {
     "preset": "ts-jest",

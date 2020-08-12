@@ -1,6 +1,6 @@
 'use strict';
 
-require('./reflectMetadata');
+require('./reflect-metadata');
 
 require('zone.js/dist/zone.js');
 require('zone.js/dist/proxy.js');
