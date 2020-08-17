@@ -37,7 +37,7 @@ _Note: feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymike
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/src/setup-jest.ts"]
+    "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
   }
 }
 ```
@@ -96,7 +96,7 @@ Jest doesn't run in browser nor through dev server. It uses jsdom to abstract br
 
 ## Angular testing environment setup
 
-If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.js`](https://github.com/thymikee/jest-preset-angular/blob/master/setupJest.js). What we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
+If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/src/setupJest.ts). What we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
 
 ## Snapshot testing
 
@@ -461,7 +461,7 @@ import './jestGlobalMocks';
 
 ### Allow vendor libraries like jQuery, etc...
 
-The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setup-jest.ts` you can declare jQuery:
+The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
 
 ```js
 window.$ = require('path/to/jquery');
