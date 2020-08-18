@@ -22,14 +22,14 @@ This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run
 
 ## Usage
 
-In `src` directory create `setupJest.ts` file with following contents:
+In `src` directory create `setup-jest.ts` file with following contents:
 
 ```ts
 import 'jest-preset-angular';
 import './jest-global-mocks'; // browser mocks globally available for every test
 ```
 
-_Note: feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/jest-global-mocks.ts) file from the test app directory and save it next to the `setupJest.ts` file._
+_Note: feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/jest-global-mocks.ts) file from the test app directory and save it next to the `setup-jest.ts` file._
 
 ...and include this in your `package.json`:
 
@@ -37,7 +37,7 @@ _Note: feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymike
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/src/setupJest.ts"]
+    "setupFilesAfterEnv": ["<rootDir>/src/setup-jest.ts"]
   }
 }
 ```
@@ -96,7 +96,7 @@ Jest doesn't run in browser nor through dev server. It uses jsdom to abstract br
 
 ## Angular testing environment setup
 
-If you look at your `src/test.ts` (or similar bootstrapping test file) file you'll see similarities to [`setupJest.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/src/setupJest.ts). What we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
+If you look at [`setup-jest.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/src/setup-jest.ts), what we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
 
 ## Snapshot testing
 
@@ -241,7 +241,7 @@ With Angular 8 and higher, a [change to the way the Angular CLI works](https://g
     "emitDecoratorMetadata": true
 ```
 
-In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setupJest.ts`:
+In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setup-jest.ts`:
 ```typescript
 require('core-js/es/reflect');
 require('core-js/proposals/reflect-metadata');
@@ -444,7 +444,7 @@ module.exports = function(api) {
 
 Note: This fix is only relevant to Angular v5 and lower.
 
-Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setupJest.ts` file:
+Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setup-jest.ts` file:
 
 ```js
 import 'jest-preset-angular';
@@ -461,7 +461,7 @@ import './jestGlobalMocks';
 
 ### Allow vendor libraries like jQuery, etc...
 
-The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setupJest.ts` you can declare jQuery:
+The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setup-jest.ts` you can declare jQuery:
 
 ```js
 window.$ = require('path/to/jquery');
@@ -494,9 +494,3 @@ package, e.g. `jest-environment-jsdom-sixteen` and edit your Jest config like so
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
 
 Reference: https://jestjs.io/docs/en/configuration.html#testenvironment-string, https://github.com/jsdom/jsdom/blob/master/Changelog.md#1200
-
-### Using Ionic
-
-If you're testing components that use [Ionic v4+](https://ionicframework.com/docs/components), add `"node_modules/(?!@ionic/core)"` to `transformIgnorePatterns` in your jest config. Otherwise, you may find that jest hangs up without running any test suites.
-
-Additionally, if you reference any ionic custom element types (i.e. `HTMLIonInputElement`), add `@ionic/core` to `compilerOptions.types` in your `tsconfig.spec.json`.

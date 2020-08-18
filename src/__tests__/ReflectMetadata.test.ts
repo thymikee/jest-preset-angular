@@ -1,4 +1,4 @@
-import '../reflectMetadata';
+import '../reflect-metadata';
 
 describe('using minimal reflect metadata', () => {
 
