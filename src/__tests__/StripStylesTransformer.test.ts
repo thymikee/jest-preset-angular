@@ -41,10 +41,9 @@ const CODE_WITH_ASSIGNMENT_OUTSIDE_DECORATOR = `
 `;
 
 const createFactory = () => {
-  return transformer.factory({ compilerModule: tsc } as any);
+  return transformer.factory({ compilerModule: tsc } as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 };
-const transpile = (source: string) =>
-  tsc.transpileModule(source, { transformers: { before: [createFactory()] } });
+const transpile = (source: string) => tsc.transpileModule(source, { transformers: { before: [createFactory()] } });
 
 describe('inlining template and stripping styles', () => {
   it('should not strip styleUrls assignment', () => {

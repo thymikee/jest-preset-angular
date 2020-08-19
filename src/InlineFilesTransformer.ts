@@ -30,7 +30,7 @@ import type {
   Transformer,
   Visitor,
   PropertyAssignment,
-  Identifier
+  LiteralLikeNode,
 } from 'typescript';
 import { getCreateStringLiteral, ConfigSet } from './TransformUtils';
 
@@ -69,7 +69,7 @@ export const version = 1;
  * The factory of hoisting transformer factory
  * @internal
  */
-export function factory(cs: ConfigSet) {
+export function factory(cs: ConfigSet): (ctx: TransformationContext) => Transformer<SourceFile> {
   /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */
@@ -81,14 +81,8 @@ export function factory(cs: ConfigSet) {
    * Traverses the AST down to the relevant assignments anywhere in the file
    * and returns a boolean indicating if it should be transformed.
    */
-  function isPropertyAssignmentToTransform(
-    node: Node
-  ): node is PropertyAssignment {
-    return (
-      ts.isPropertyAssignment(node) &&
-      ts.isIdentifier((node as PropertyAssignment).name) &&
-      TRANSFORM_PROPS.includes(((node as PropertyAssignment).name as Identifier).text)
-    );
+  function isPropertyAssignmentToTransform(node: Node): node is PropertyAssignment {
+    return ts.isPropertyAssignment(node) && ts.isIdentifier(node.name) && TRANSFORM_PROPS.includes(node.name.text);
   }
 
   /**
@@ -97,32 +91,31 @@ export function factory(cs: ConfigSet) {
    */
   function transfromPropertyAssignmentForJest(node: PropertyAssignment) {
     const mutableAssignment = ts.getMutableClone(node);
-
-    const assignmentNameText = (mutableAssignment.name as Identifier).text;
+    const assignmentNameText = (mutableAssignment.name as LiteralLikeNode).text;
     switch (assignmentNameText) {
       case TEMPLATE_URL:
         // replace 'templateUrl' with 'template'
 
         // reuse the right-hand-side literal (the filepath) from the assignment
+        // eslint-disable-next-line no-case-declarations
         let pathLiteral = mutableAssignment.initializer;
 
         // fix templatePathLiteral if it was a non-relative path
         if (ts.isStringLiteral(pathLiteral)) {
           // match if it does not start with ./ or ../ or /
-          if (
-            pathLiteral.text &&
-            !pathLiteral.text.match(/^(\.\/|\.\.\/|\/)/)
-          ) {
+          // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
+          if (pathLiteral.text && !pathLiteral.text.match(/^(\.\/|\.\.\/|\/)/)) {
             // make path relative by prepending './'
             pathLiteral = createStringLiteral(`./${pathLiteral.text}`);
           }
         }
 
         // replace current initializer with require(path)
+        // eslint-disable-next-line no-case-declarations
         const requireCall = ts.createCall(
           /* expression */ ts.createIdentifier(REQUIRE),
           /* type arguments */ undefined,
-          /* arguments array */ [pathLiteral]
+          /* arguments array */ [pathLiteral],
         );
 
         mutableAssignment.name = ts.createIdentifier(TEMPLATE);
@@ -133,6 +126,8 @@ export function factory(cs: ConfigSet) {
         // replace styleUrls value with emtpy array
         // inlining all urls would be way more complicated and slower
         mutableAssignment.initializer = ts.createArrayLiteral();
+        break;
+      default:
         break;
     }
 
@@ -149,7 +144,7 @@ export function factory(cs: ConfigSet) {
      * Our main visitor, which will be called recursively for each node in the source file's AST
      * @param node The node to be visited
      */
-    const visitor: Visitor = node => {
+    const visitor: Visitor = (node) => {
       let resultNode = node;
 
       // before we create a deep clone to modify, we make sure that
@@ -165,10 +160,10 @@ export function factory(cs: ConfigSet) {
       // finally return the currently visited node
       return resultNode;
     };
+
     return visitor;
   }
 
-  return (ctx: TransformationContext): Transformer<SourceFile> => (
-    sf: SourceFile
-  ) => ts.visitNode(sf, createVisitor(ctx, sf));
+  return (ctx: TransformationContext): Transformer<SourceFile> => (sf: SourceFile) =>
+    ts.visitNode(sf, createVisitor(ctx, sf));
 }

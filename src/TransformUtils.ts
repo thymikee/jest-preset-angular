@@ -13,18 +13,16 @@ export interface ConfigSet {
  * behavior of the `createStringLiteral` function.
  * @param ts TypeScript compiler module
  */
-export function getCreateStringLiteral(
-  ts: typeof TS
-): typeof TS.createStringLiteral {
+export function getCreateStringLiteral(ts: typeof TS): typeof TS.createStringLiteral {
   if (ts.createStringLiteral && typeof ts.createStringLiteral === 'function') {
     return ts.createStringLiteral;
   }
+
   return function createStringLiteral(text: string) {
-    const node = <TS.StringLiteral>(
-      ts.createNode(ts.SyntaxKind.StringLiteral, -1, -1)
-    );
+    const node = <TS.StringLiteral>ts.createNode(ts.SyntaxKind.StringLiteral, -1, -1);
     node.text = text;
     node.flags |= ts.NodeFlags.Synthesized;
+
     return node;
   };
 }

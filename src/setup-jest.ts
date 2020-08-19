@@ -11,9 +11,7 @@ require('./zone-patch');
 
 const getTestBed = require('@angular/core/testing').getTestBed;
 const BrowserDynamicTestingModule = require('@angular/platform-browser-dynamic/testing').BrowserDynamicTestingModule;
-const platformBrowserDynamicTesting = require('@angular/platform-browser-dynamic/testing').platformBrowserDynamicTesting;
+const platformBrowserDynamicTesting = require('@angular/platform-browser-dynamic/testing')
+  .platformBrowserDynamicTesting;
 
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
-);
+getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());

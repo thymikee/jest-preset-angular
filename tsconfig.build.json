@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./src/build"
+  },
+  "include": ["src"],
+  "exclude": ["**/__tests__", "src/index.js", "src/jest-preset.js"]
+}

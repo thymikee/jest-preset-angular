@@ -2,6 +2,7 @@
  * Patch Jest's describe/test/beforeEach/afterEach functions so test code
  * always runs in a testZone (ProxyZone).
  */
+/* global Zone */
 
 if (Zone === undefined) {
   throw new Error('Missing: Zone (zone.js)');
@@ -36,7 +37,7 @@ const ambientZone = Zone.current;
 // inside of a `describe` but outside of a `beforeEach` or `it`.
 const syncZone = ambientZone.fork(new SyncTestZoneSpec('jest.describe'));
 function wrapDescribeInZone(describeBody) {
-  return function(...args) {
+  return function (...args) {
     return syncZone.run(describeBody, null, args);
   };
 }
@@ -49,31 +50,33 @@ function wrapTestInZone(testBody) {
     return;
   }
 
-  const wrappedFunc = function() {
+  const wrappedFunc = function () {
     return testProxyZone.run(testBody, null, arguments);
   };
   try {
     Object.defineProperty(wrappedFunc, 'length', {
       configurable: true,
       writable: true,
-      enumerable: false
+      enumerable: false,
     });
     wrappedFunc.length = testBody.length;
   } catch (e) {
     return testBody.length === 0
       ? () => testProxyZone.run(testBody, null)
-      : done => testProxyZone.run(testBody, null, [done]);
+      : (done) => testProxyZone.run(testBody, null, [done]);
   }
+
   return wrappedFunc;
 }
 
 /**
  * bind describe method to wrap describe.each function
  */
-const bindDescribe = originalJestFn =>
-  function(...eachArgs) {
-    return function(...args) {
+const bindDescribe = (originalJestFn) =>
+  function (...eachArgs) {
+    return function (...args) {
       args[1] = wrapDescribeInZone(args[1]);
+
       return originalJestFn.apply(this, eachArgs).apply(this, args);
     };
   };
@@ -81,18 +84,20 @@ const bindDescribe = originalJestFn =>
 /**
  * bind test method to wrap test.each function
  */
-const bindTest = originalJestFn =>
-  function(...eachArgs) {
-    return function(...args) {
+const bindTest = (originalJestFn) =>
+  function (...eachArgs) {
+    return function (...args) {
       args[1] = wrapTestInZone(args[1]);
+
       return originalJestFn.apply(this, eachArgs).apply(this, args);
     };
   };
 
-['xdescribe', 'fdescribe', 'describe'].forEach(methodName => {
+['xdescribe', 'fdescribe', 'describe'].forEach((methodName) => {
   const originaljestFn = env[methodName];
-  env[methodName] = function(...args) {
+  env[methodName] = function (...args) {
     args[1] = wrapDescribeInZone(args[1]);
+
     return originaljestFn.apply(this, args);
   };
   env[methodName].each = bindDescribe(originaljestFn.each);
@@ -102,10 +107,11 @@ const bindTest = originalJestFn =>
   }
 });
 
-['xit', 'fit', 'xtest', 'test', 'it'].forEach(methodName => {
+['xit', 'fit', 'xtest', 'test', 'it'].forEach((methodName) => {
   const originaljestFn = env[methodName];
-  env[methodName] = function(...args) {
+  env[methodName] = function (...args) {
     args[1] = wrapTestInZone(args[1]);
+
     return originaljestFn.apply(this, args);
   };
   env[methodName].each = bindTest(originaljestFn.each);
@@ -114,16 +120,17 @@ const bindTest = originalJestFn =>
     env[methodName].only = env['fit'];
     env[methodName].skip = env['xit'];
 
-    env[methodName].todo = function(...args) {
+    env[methodName].todo = function (...args) {
       return originaljestFn.todo.apply(this, args);
     };
   }
 });
 
-['beforeEach', 'afterEach', 'beforeAll', 'afterAll'].forEach(methodName => {
+['beforeEach', 'afterEach', 'beforeAll', 'afterAll'].forEach((methodName) => {
   const originaljestFn = env[methodName];
-  env[methodName] = function(...args) {
+  env[methodName] = function (...args) {
     args[0] = wrapTestInZone(args[0]);
+
     return originaljestFn.apply(this, args);
   };
 });

@@ -32,7 +32,7 @@ import type {
   ClassDeclaration,
   PropertyAssignment,
   CallExpression,
-  ObjectLiteralExpression
+  ObjectLiteralExpression,
 } from 'typescript';
 import type { ConfigSet } from './TransformUtils';
 
@@ -60,7 +60,7 @@ export const version = 1;
  * The factory of hoisting transformer factory
  * @internal
  */
-export function factory(cs: ConfigSet) {
+export function factory(cs: ConfigSet): (ctx: TransformationContext) => Transformer<SourceFile> {
   /**
    * Our compiler (typescript, or a module with typescript-like interface)
    */
@@ -84,25 +84,34 @@ export function factory(cs: ConfigSet) {
     }
 
     return node.decorators
-      .map(dec => dec.expression)
+      .map((dec) => dec.expression)
       .filter(ts.isCallExpression)
-      .filter((callExpr: CallExpression) =>
-        ts.isIdentifier(callExpr.expression) && (callExpr.expression as Identifier).getText() === COMPONENT
+      .filter(
+        (callExpr: CallExpression) =>
+          ts.isIdentifier(callExpr.expression) && callExpr.expression.getText() === COMPONENT,
       )
-      .reduce((acc, nxtCallExpr: CallExpression) => Array.prototype.concat.apply(acc,
-        nxtCallExpr.arguments
-          .filter(ts.isObjectLiteralExpression)
-          .reduce((acc, nxtArg: ObjectLiteralExpression) => Array.prototype.concat.apply(acc,
-            nxtArg.properties
-              .filter(ts.isPropertyAssignment)
-              .filter(propAss =>
-                ts.isIdentifier(propAss.name) &&
-                TRANSFORM_IN_DECORATOR_PROPS.includes(
-                  (propAss.name as Identifier).text
-                )
-              )
-          ), [] as PropertyAssignment[])
-      ), [] as PropertyAssignment[])
+      .reduce(
+        (acc, nxtCallExpr: CallExpression) =>
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          Array.prototype.concat.apply(
+            acc,
+            nxtCallExpr.arguments.filter(ts.isObjectLiteralExpression).reduce(
+              (acc, nxtArg: ObjectLiteralExpression) =>
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                Array.prototype.concat.apply(
+                  acc,
+                  nxtArg.properties
+                    .filter(ts.isPropertyAssignment)
+                    .filter(
+                      (propAss) =>
+                        ts.isIdentifier(propAss.name) && TRANSFORM_IN_DECORATOR_PROPS.includes(propAss.name.text),
+                    ),
+                ),
+              [] as PropertyAssignment[],
+            ),
+          ),
+        [] as PropertyAssignment[],
+      );
   }
 
   /**
@@ -110,16 +119,17 @@ export function factory(cs: ConfigSet) {
    * @param node the property assignment to change
    */
   function transformStylesAssignmentForJest(node: ClassDeclaration) {
-    const mutableNode = ts.getMutableClone(node)
-    const assignments = getInDecoratorPropertyAssignmentsToTransform(mutableNode)
+    const mutableNode = ts.getMutableClone(node);
+    const assignments = getInDecoratorPropertyAssignmentsToTransform(mutableNode);
 
-    assignments.forEach(assignment => {
+    assignments.forEach((assignment: PropertyAssignment) => {
       if ((assignment.name as Identifier).text === STYLES) {
         // replace initializer array with empty array
-        assignment.initializer = ts.createArrayLiteral()
+        assignment.initializer = ts.createArrayLiteral();
       }
-    })
-    return mutableNode
+    });
+
+    return mutableNode;
   }
 
   /**
@@ -132,7 +142,7 @@ export function factory(cs: ConfigSet) {
      * Main visitor, which will be called recursively for each node in the source file's AST
      * @param node The node to be visited
      */
-    const visitor: Visitor = node => {
+    const visitor: Visitor = (node) => {
       // before we create a deep clone to modify, we make sure that
       // this is an assignment which we want to transform
       if (isInDecoratorPropertyAssignmentToTransform(node)) {
@@ -143,10 +153,10 @@ export function factory(cs: ConfigSet) {
         return ts.visitEachChild(node, visitor, ctx);
       }
     };
+
     return visitor;
   }
 
-  return (ctx: TransformationContext): Transformer<SourceFile> => (
-    sf: SourceFile
-  ) => ts.visitNode(sf, createVisitor(ctx, sf));
+  return (ctx: TransformationContext): Transformer<SourceFile> => (sf: SourceFile) =>
+    ts.visitNode(sf, createVisitor(ctx, sf));
 }

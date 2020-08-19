@@ -1,9 +1,5 @@
-declare const rootDir: string
-declare const distDir: string
-declare const projectsToRun: string[]
+declare const rootDir: string;
+declare const distDir: string;
+declare const projectsToRun: string[];
 
-export {
-  rootDir,
-  distDir,
-  projectsToRun,
-}
+export { rootDir, distDir, projectsToRun };
