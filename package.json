@@ -47,15 +47,6 @@
       "post-commit": "git reset"
     }
   },
-  "jest": {
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "<rootDir>/tsconfig.spec.json"
-      }
-    },
-    "rootDir": "src/__tests__"
-  },
   "lint-staged": {
     "*.{ts,js}": [
       "eslint --fix",
