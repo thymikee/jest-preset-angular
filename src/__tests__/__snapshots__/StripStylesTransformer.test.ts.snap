@@ -18,6 +18,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AngularComponent = void 0;
 var core_1 = require(\\"@angular/core\\");
 var AngularComponent = /** @class */ (function () {
     function AngularComponent() {
@@ -42,5 +43,14 @@ var AngularComponent = /** @class */ (function () {
     return AngularComponent;
 }());
 exports.AngularComponent = AngularComponent;
+"
+`;
+
+exports[`inlining template and stripping styles should not transform styles outside decorator 1`] = `
+"var assignmentsToNotBeTransformed = {
+    styles: [{
+            color: 'red'
+        }]
+};
 "
 `;

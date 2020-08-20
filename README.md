@@ -8,7 +8,7 @@ A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](h
 
 This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
 
-_Note: This preset does not suport AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251)._
+_Note: This preset does not support AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251)._
 
 ## Installation
 
@@ -54,10 +54,12 @@ module.exports = {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: [
-        'jest-preset-angular/build/InlineFilesTransformer',
-        'jest-preset-angular/build/StripStylesTransformer'
-      ],
+      astTransformers: {
+        before: [
+          'jest-preset-angular/build/InlineFilesTransformer',
+          'jest-preset-angular/build/StripStylesTransformer',
+        ],
+      },
     },
   },
   transform: {

@@ -10,7 +10,7 @@
 'use strict';
 
 const HTML_ELEMENT_REGEXP = /Comment/;
-const test = value =>
+const test = (value) =>
   value !== undefined &&
   value !== null &&
   value.nodeType === 8 &&
@@ -21,5 +21,5 @@ const print = () => '';
 
 module.exports = {
   print: print,
-  test: test
+  test: test,
 };

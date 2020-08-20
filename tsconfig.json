@@ -3,7 +3,6 @@
     "target": "es5",
     "baseUrl": ".",
     "module": "commonjs",
-    "outDir": "./src/build",
     "strict": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -16,7 +15,5 @@
     "importsNotUsedAsValues": "error",
     "lib": ["esnext"],
     "types": ["node"]
-  },
-  "include": ["src"],
-  "exclude": ["**/__tests__", "src/index.js", "src/jest-preset.js"]
+  }
 }

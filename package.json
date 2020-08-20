@@ -9,8 +9,10 @@
   ],
   "scripts": {
     "prebuild": "rimraf src/build",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "prepare": "yarn build",
+    "lint": "eslint --ext .js,.ts .",
+    "lint:fix": "eslint --fix --ext .js,.ts .",
     "test": "jest",
     "test:ci": "jest -i",
     "test:e2e": "node scripts/e2e.js",
@@ -21,16 +23,26 @@
     "@commitlint/config-conventional": "9.x",
     "@types/jest": "26.x",
     "@types/node": "12.x",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
     "conventional-changelog-cli": "2.x",
+    "eslint": "7.x",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-jest": "latest",
+    "eslint-plugin-jsdoc": "latest",
+    "eslint-plugin-prettier": "latest",
     "execa": "4.x",
     "husky": "4.x",
     "jest": "26.x",
+    "lint-staged": "latest",
     "lodash.memoize": "4.x",
+    "prettier": "2.x",
     "ts-jest": "26.x",
-    "typescript": "~3.8.3"
+    "typescript": "3.x"
   },
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "post-commit": "git reset"
     }
@@ -43,6 +55,12 @@
       }
     },
     "rootDir": "src/__tests__"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "engines": {
     "node": ">= 10"

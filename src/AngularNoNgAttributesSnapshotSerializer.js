@@ -13,31 +13,26 @@ const attributesToClean = {
 };
 
 const hasAttributesToRemove = (attribute) =>
-  attributesToRemovePatterns
-    .some(removePattern => attribute.name.startsWith(removePattern));
-const hasAttributesToClean = (attribute) => {
-  return Object.keys(attributesToClean).some(
-    removePatternKey => attribute.name === removePatternKey,
-  );
-};
+  attributesToRemovePatterns.some((removePattern) => attribute.name.startsWith(removePattern));
+const hasAttributesToClean = (attribute) =>
+  Object.keys(attributesToClean).some((removePatternKey) => attribute.name === removePatternKey);
 
 const serialize = (node, ...rest) => {
   const nodeCopy = node.cloneNode(true);
   // Remove angular-specific attributes
   Object.values(nodeCopy.attributes)
     .filter(hasAttributesToRemove)
-    .forEach(attribute => nodeCopy.attributes.removeNamedItem(attribute.name));
+    .forEach((attribute) => nodeCopy.attributes.removeNamedItem(attribute.name));
   // Remove angular auto-added classes
   Object.values(nodeCopy.attributes)
     .filter(hasAttributesToClean)
-    .forEach(attribute => {
+    .forEach((attribute) => {
       attribute.value = attribute.value
         .split(' ')
-        .filter(attrValue => {
-          return !attributesToClean[attribute.name].some(attributeCleanRegex => 
-              attributeCleanRegex.test(attrValue),
-          );
-        })
+        .filter(
+          (attrValue) =>
+            !attributesToClean[attribute.name].some((attributeCleanRegex) => attributeCleanRegex.test(attrValue))
+        )
         .join(' ');
       if (attribute.value === '') {
         nodeCopy.attributes.removeNamedItem(attribute.name);
@@ -49,14 +44,14 @@ const serialize = (node, ...rest) => {
   return jestDOMElementSerializer.serialize(nodeCopy, ...rest);
 };
 
-const serializeTestFn = (val) => {
-  return val.attributes !== undefined && Object.values(val.attributes)
-    .some(attribute => hasAttributesToRemove(attribute) || hasAttributesToClean(attribute))
-};
-const test = val =>
-  jestDOMElementSerializer.test(val) && serializeTestFn(val);
+const serializeTestFn = (val) =>
+  val.attributes !== undefined &&
+  Object.values(val.attributes).some(
+    (attribute) => hasAttributesToRemove(attribute) || hasAttributesToClean(attribute)
+  );
+const test = (val) => jestDOMElementSerializer.test(val) && serializeTestFn(val);
 
 module.exports = {
-  serialize: serialize,
-  test: test
+  serialize,
+  test,
 };
