@@ -326,10 +326,12 @@ Override `globals` object in Jest config:
       "ts-jest": {
         "tsConfig": "<rootDir>/tsconfig.custom.json",
         "stringifyContentPathRegex": "\\.html$",
-        "astTransformers": [
-          "jest-preset-angular/build/InlineFilesTransformer",
-          "jest-preset-angular/build/StripStylesTransformer"
-        ],
+        "astTransformers": {
+          "before": [
+            "jest-preset-angular/build/InlineFilesTransformer",
+            "jest-preset-angular/build/StripStylesTransformer"
+          ]
+        }
       }
     }
   }
