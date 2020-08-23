@@ -1,3 +1,13 @@
+## [8.3.1](https://github.com/thymikee/jest-preset-angular/compare/v8.2.1...v8.3.1) (2020-08-23)
+
+
+### Bug Fixes
+
+* Correct wrong published content in **v8.3.0**
+
+
+
+
 # [8.3.0](https://github.com/thymikee/jest-preset-angular/compare/v8.2.1...v8.3.0) (2020-08-23)
 
 
