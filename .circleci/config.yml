@@ -9,8 +9,6 @@ jobs:
     executor: node-10
     steps:
       - checkout
-      - run: 'sudo yarn global add greenkeeper-lockfile@2'
-      - run: 'greenkeeper-lockfile-update'
       - restore_cache:
           keys:
             # if lock file changes, we still use increasingly general patterns to restore cache
@@ -45,10 +43,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      # skipping cache here as it created issues with the preset in the root
-      # not being used, as older version in cache was available
-      - run: 'sudo yarn global add greenkeeper-lockfile@2'
-      - run: 'greenkeeper-lockfile-update'
       - run:
           name: Run tests on test apps
           command: |

@@ -1,12 +1,6 @@
 {
   "license": "MIT",
   "private": true,
-  "keywords": [
-    "jest",
-    "typescript",
-    "angular",
-    "testing"
-  ],
   "scripts": {
     "prebuild": "rimraf src/build",
     "build": "tsc -p tsconfig.build.json",

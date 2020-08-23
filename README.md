@@ -1,7 +1,7 @@
 # jest-preset-angular
 
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
-[![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular) [![Greenkeeper badge](https://badges.greenkeeper.io/thymikee/jest-preset-angular.svg)](https://greenkeeper.io/)
+[![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular)
 ![Dependabot status](https://badgen.net/dependabot/thymikee/jest-preset-angular?icon=dependabot)
 
 A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](https://angular.io/) projects.
@@ -10,15 +10,20 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 
 _Note: This preset does not support AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251)._
 
-## Installation
+## Getting Started
 
-```bash
-yarn add -D jest jest-preset-angular @types/jest
-# or
-npm install -D jest jest-preset-angular @types/jest
-```
+| | using npm | using yarn |
+|---:|---|---|
+| **Prerequisites** | `npm i -D jest @types/jest` | `yarn add -D jest @types/jest` |
+| **Installing** | `npm i -D jest-preset-angular` | `yarn add -D jest-preset-angular` |
+| **Running tests** | `npm t` or `npx jest` | `yarn test` or `yarn jest` |
 
-This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run with Angular projects.
+## Built With
+
+* [TypeScript](https://www.typescriptlang.org/) - JavaScript that scales
+* [Jest](https://jestjs.io/) - Delightful JavaScript Testing
+* [Angular](https://angular.io/) - development platform for building mobile and desktop web applications using TypeScript/JavaScript and other languages.
+* [ts-jest](https://kulshekhar.github.io/ts-jest) - Jest processor for TypeScript
 
 ## Usage
 
@@ -498,3 +503,19 @@ package, e.g. `jest-environment-jsdom-sixteen` and edit your Jest config like so
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
 
 Reference: https://jestjs.io/docs/en/configuration.html#testenvironment-string, https://github.com/jsdom/jsdom/blob/master/Changelog.md#1200
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors/maintainers
+
+* **Michał Pierzchała** - [thymikee](https://github.com/thymikee)
+* **Ahn** - [ahnpnl](https://github.com/ahnpnl)
+* **Thomas** - [wtho](https://github.com/wtho)
+
+See also the list of [contributors](https://github.com/thymikee/jest-preset-angular/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
