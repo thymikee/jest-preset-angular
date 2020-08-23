@@ -1,11 +1,10 @@
 # E2E tests
 
-
 ## Directory structure
 
+- `test-app-v10-zone-v11`: test app using Angular v10 and zone.js v0.11.1 with basic setup with `jest` and `jest-preset-angular`.
 - `test-app-v10`: test app using Angular v10 with basic setup with `jest` and `jest-preset-angular`.
 - `test-app-v9`: test app using Angular v9 with basic setup with `jest` and `jest-preset-angular`.
-
 
 ## Running tests
 
@@ -16,7 +15,6 @@ What will happen in order is as following:
 
 1. Each test project will install its dependencies
 2. Each test suite in each test project runs according to `jest` config of that project.
-
 
 ## Why
 
