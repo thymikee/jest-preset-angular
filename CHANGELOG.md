@@ -1,3 +1,17 @@
+# [8.3.0](https://github.com/thymikee/jest-preset-angular/compare/v8.2.1...v8.3.0) (2020-08-23)
+
+
+### Features
+
+* add support for zone.js 0.11.1 ([#448](https://github.com/thymikee/jest-preset-angular/issues/448)) ([3879976](https://github.com/thymikee/jest-preset-angular/commit/3879976f80e2b41533e6a4c564993490d1ab8cc3))
+
+
+### Bug Fixes
+
+* change `astTransformers` in preset config ([#443](https://github.com/thymikee/jest-preset-angular/pull/443)) ([276784](https://github.com/thymikee/jest-preset-angular/commit/1011d15bb8102c4762f19b3997bd161a2b276784)), closes [#439](https://github.com/thymikee/jest-preset-angular/issues/439)
+
+
+
 ## [8.2.1](https://github.com/thymikee/jest-preset-angular/compare/v8.2.0...v8.2.1) (2020-06-19)
 
 
