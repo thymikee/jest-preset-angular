@@ -1,7 +1,7 @@
 # jest-preset-angular
 
 [![CircleCI Build Status](https://circleci.com/gh/thymikee/jest-preset-angular.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/thymikee/jest-preset-angular)
-[![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular) [![Greenkeeper badge](https://badges.greenkeeper.io/thymikee/jest-preset-angular.svg)](https://greenkeeper.io/)
+[![NPM version](https://img.shields.io/npm/v/jest-preset-angular.svg)](https://www.npmjs.com/package/jest-preset-angular)
 ![Dependabot status](https://badgen.net/dependabot/thymikee/jest-preset-angular?icon=dependabot)
 
 A preset of [Jest](http://facebook.github.io/jest) configuration for [Angular](https://angular.io/) projects.
