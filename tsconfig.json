@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "baseUrl": ".",
-    "module": "commonjs",
+    "baseUrl": "./",
     "strict": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "importsNotUsedAsValues": "error",
     "skipLibCheck": true,
-    "removeComments": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
     "lib": ["esnext"],
     "types": ["node"]
   }
