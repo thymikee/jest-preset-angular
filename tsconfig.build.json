@@ -2,9 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./src/build",
-    "allowJs": true,
     "target": "ES5",
-    "module": "CommonJS"
+    "allowJs": true,
+    "removeComments": true,
+    "stripInternal": true
   },
   "include": ["src"],
   "exclude": ["**/__tests__", "src/index.js", "src/jest-preset.js"]
