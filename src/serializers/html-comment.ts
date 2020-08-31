@@ -4,22 +4,15 @@
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
- *
  */
-
-'use strict';
-
 const HTML_ELEMENT_REGEXP = /Comment/;
-const test = (value) =>
-  value !== undefined &&
-  value !== null &&
-  value.nodeType === 8 &&
-  value.constructor !== undefined &&
-  HTML_ELEMENT_REGEXP.test(value.constructor.name);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+const test = (value: any): boolean =>
+  value?.nodeType === 8 && value.constructor !== undefined && HTML_ELEMENT_REGEXP.test(value.constructor.name);
 
-const print = () => '';
+const print = (): string => '';
 
-module.exports = {
-  print: print,
-  test: test,
+export = {
+  print,
+  test,
 };

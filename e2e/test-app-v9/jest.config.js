@@ -1,15 +1,11 @@
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  preset: "jest-preset-angular",
-  snapshotSerializers: [
-    "jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js",
-    "jest-preset-angular/build/AngularSnapshotSerializer.js",
-    "jest-preset-angular/build/HTMLCommentSerializer.js"
-  ],
+  preset: 'jest-preset-angular',
   moduleNameMapper: {
-    "\\.(jpg|jpeg|png)$": "<rootDir>/__mocks__/image.js",
-    "^@lib/(.*)$": "<rootDir>/src/lib/$1"
+    '\\.(jpg|jpeg|png)$': '<rootDir>/__mocks__/image.js',
+    '^@lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   setupFilesAfterEnv: [
-    "<rootDir>/setup-jest.ts"
-  ]
-}
+    '<rootDir>/setup-jest.ts',
+  ],
+};

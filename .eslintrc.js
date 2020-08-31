@@ -34,6 +34,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': ["error", { "argsIgnorePattern": "^_" }],
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
       },
       plugins: ['@typescript-eslint', 'jest', 'jsdoc'],
     }

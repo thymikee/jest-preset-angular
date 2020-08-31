@@ -1,3 +1,5 @@
+const snapshotSerializers = require('./build/serializers');
+
 module.exports = {
   globals: {
     'ts-jest': {
@@ -22,9 +24,5 @@ module.exports = {
     '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
-  snapshotSerializers: [
-    'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
-    'jest-preset-angular/build/AngularSnapshotSerializer.js',
-    'jest-preset-angular/build/HTMLCommentSerializer.js',
-  ],
+  snapshotSerializers,
 };
