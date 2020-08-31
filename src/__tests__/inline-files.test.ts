@@ -5,7 +5,7 @@
  */
 
 import * as tsc from 'typescript';
-import * as transformer from '../InlineFilesTransformer';
+import * as transformer from '../transformers/inline-files';
 
 const CODE_WITH_TEMPLATE_URL = `
   import { Component } from '@angular/core';
