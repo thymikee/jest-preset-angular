@@ -1,4 +1,4 @@
-import '../reflect-metadata';
+import '../utils/reflect-metadata';
 
 describe('using minimal reflect metadata', () => {
   // to avoid type conflicts with global.Reflect comfortably

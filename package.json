@@ -1,6 +1,16 @@
 {
   "license": "MIT",
-  "private": true,
+  "name": "jest-preset-angular",
+  "version": "8.3.1",
+  "description": "Jest preset configuration for Angular projects",
+  "main": "index.js",
+  "repository": "git@github.com:thymikee/jest-preset-angular.git",
+  "homepage": "https://github.com/thymikee/jest-preset-angular",
+  "author": "Michał Pierzchała <thymikee@gmail.com>",
+  "contributors": [
+    "Ahn <anhpnnd@gmail.com> (https://github.com/ahnpnl)",
+    "Thomas <thomas@wtho.de> (https://github.com/wtho)"
+  ],
   "keywords": [
     "jest",
     "typescript",
@@ -8,15 +18,24 @@
     "testing"
   ],
   "scripts": {
-    "prebuild": "rimraf src/build",
-    "build": "tsc -p tsconfig.build.json",
+    "prebuild": "node scripts/clean.js",
     "prepare": "yarn build",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --fix --ext .js,.ts .",
     "test": "jest",
     "test:ci": "jest -i",
     "test:e2e": "node scripts/e2e.js",
-    "changelog": "cd src && conventional-changelog -p angular -i ../CHANGELOG.md -s -r 1"
+    "changelog": "conventional-changelog -p angular -i ../CHANGELOG.md -s -r 1"
+  },
+  "dependencies": {
+    "pretty-format": "26.x",
+    "ts-jest": "26.x"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=2.0.0",
+    "@angular/platform-browser-dynamic": ">=2.0.0",
+    "jest": "^26.0.0"
   },
   "devDependencies": {
     "@angular/core": "^10.0.14",
@@ -33,13 +52,13 @@
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prettier": "latest",
     "execa": "4.x",
+    "glob": "latest",
     "husky": "4.x",
     "jest": "26.x",
     "lint-staged": "latest",
     "lodash.memoize": "4.x",
     "prettier": "2.x",
     "rxjs": "6.x",
-    "ts-jest": "26.x",
     "typescript": "3.x",
     "zone.js": "~0.10.3"
   },

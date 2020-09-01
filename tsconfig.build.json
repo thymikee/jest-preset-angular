@@ -1,12 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./src/build",
+    "outDir": "./build",
     "target": "ES5",
     "allowJs": true,
     "removeComments": true,
     "stripInternal": true
   },
   "include": ["src"],
-  "exclude": ["**/__tests__", "src/index.js", "src/jest-preset.js"]
+  "exclude": ["**/__tests__", "src/index.js"]
 }

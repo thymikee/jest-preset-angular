@@ -1,13 +1,11 @@
+const glob = require('glob');
+const { lstatSync } = require('fs');
 const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..', '..');
 const distDir = path.join(rootDir, 'build');
 const e2eRootDir = path.join(rootDir, 'e2e');
-const projectsToRun = [
-  `${e2eRootDir}/test-app-v9`,
-  `${e2eRootDir}/test-app-v10`,
-  `${e2eRootDir}/test-app-v10-zone-v11`,
-];
+const projectsToRun = glob.sync(`${e2eRootDir}/*`).filter((path) => lstatSync(path).isDirectory());
 
 module.exports = {
   rootDir,
