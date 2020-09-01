@@ -1,14 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlining template and stripping styles should not transform styles outside decorator 1`] = `
-"var assignmentsToNotBeTransformed = {
-    styles: [{
-            color: 'red'
-        }]
-};
-"
-`;
-
 exports[`inlining template and stripping styles should not strip styleUrls assignment 1`] = `
 "\\"use strict\\";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

@@ -1,4 +1,5 @@
 const snapshotSerializers = require('./build/serializers');
+const customTransformers = require('./build/transformers');
 
 module.exports = {
   globals: {
@@ -6,10 +7,7 @@ module.exports = {
       tsConfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: {
-        before: [
-          'jest-preset-angular/build/InlineFilesTransformer',
-          'jest-preset-angular/build/StripStylesTransformer',
-        ],
+        before: customTransformers,
       },
     },
   },

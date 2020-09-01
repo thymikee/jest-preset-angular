@@ -32,7 +32,7 @@ import type {
   PropertyAssignment,
   LiteralLikeNode,
 } from 'typescript';
-import { getCreateStringLiteral, ConfigSet } from './TransformUtils';
+import { getCreateStringLiteral, ConfigSet } from './transform-utils';
 
 // replace original ts-jest ConfigSet with this simple interface, as it would require
 // jest-preset-angular to add several babel devDependencies to get the other types
