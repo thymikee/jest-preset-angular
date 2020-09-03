@@ -1,6 +1,6 @@
 'use strict';
 
-require('./reflect-metadata');
+require('../utils/reflect-metadata');
 
 try {
   // If the user are using zone.js 0.11.1+
@@ -15,7 +15,7 @@ try {
   require('zone.js/dist/sync-test');
   require('zone.js/dist/async-test');
   require('zone.js/dist/fake-async-test');
-  require('./zone-patch');
+  require('../zone-patch');
 }
 
 const getTestBed = require('@angular/core/testing').getTestBed;

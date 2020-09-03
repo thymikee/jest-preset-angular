@@ -1,5 +1,5 @@
-const snapshotSerializers = require('./build/serializers');
 const customTransformers = require('./build/transformers');
+const snapshotSerializers = require('./build/serializers');
 
 module.exports = {
   globals: {
