@@ -1,31 +1,41 @@
+// eslint-disable-next-line @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars
+declare namespace Reflect {
+  // here we extend the global Reflect definition by these two functions used in Angular
+  function metadata(
+    metadataKey: string,
+    metadataValue: unknown,
+  ): (target: Record<string, unknown>, key: string | undefined) => void;
+  function getOwnMetadata(metadata: unknown, target: Record<string, unknown>, key: string | undefined): unknown;
+}
+
 const METADATA_KEY_PARAMTYPES = 'design:paramtypes';
-const CTOR_PARAMETERS_JPA = 'ctorParametersJPA';
 
 // weird workaround to avoid 'ReferenceError: globalThis is not defined' in node version < 11
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
 (global as any).globalThis = (global as any).globalThis || undefined;
 
 const _global = globalThis || global; // globalThis available since node v12/TS v3.4
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const reflect: any = _global['Reflect']; // reflect type in global has not these methods
+const reflect = _global['Reflect']; // reflect type in global has not these methods
+
+const metadataValueStore = new WeakMap<Record<string, unknown>, unknown>();
 
 // let's not blindly override, maybe there is already a reflect lib in use
 // but just overriding one of the two functions does not serve any purpose
 if (!reflect.metadata && !reflect.getOwnMetadata) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  reflect.metadata = (metadataKey: any, metadataValue: any) => (target: any, key: any) => {
+  reflect.metadata = (metadataKey: string, metadataValue: unknown) => (
+    target: Record<string, unknown>,
+    key: string | undefined,
+  ) => {
     if (metadataKey === METADATA_KEY_PARAMTYPES && key === undefined) {
       // key undefined is ctor
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      target[CTOR_PARAMETERS_JPA] = metadataValue;
+      metadataValueStore.set(target, metadataValue);
     }
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  reflect.getOwnMetadata = (metadata: any, target: any, key: any) => {
-    if (metadata === METADATA_KEY_PARAMTYPES && key === undefined) {
+  reflect.getOwnMetadata = (metadata: unknown, target: Record<string, unknown>, key: string | undefined) => {
+    if (metadata === METADATA_KEY_PARAMTYPES && key === undefined && metadataValueStore.has(target)) {
       // key undefined is ctor
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return target[CTOR_PARAMETERS_JPA];
+      return metadataValueStore.get(target);
     }
   };
 }
