@@ -24,7 +24,7 @@ This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run
 In `src` directory create `setup-jest.ts` file with following contents:
 
 ```ts
-import 'jest-preset-angular';
+import 'jest-preset-angular/config/setup-jest';
 import './jest-global-mocks'; // browser mocks globally available for every test
 ```
 
@@ -450,7 +450,7 @@ Note: This fix is only relevant to Angular v5 and lower.
 Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setup-jest.ts` file:
 
 ```js
-import 'jest-preset-angular';
+import 'jest-preset-angular/config/setup-jest';
 
 // common rxjs imports
 import 'rxjs/add/operator/map';
