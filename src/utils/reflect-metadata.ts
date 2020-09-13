@@ -11,11 +11,11 @@ declare namespace Reflect {
 const METADATA_KEY_PARAMTYPES = 'design:paramtypes';
 
 // weird workaround to avoid 'ReferenceError: globalThis is not defined' in node version < 11
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-(global as any).globalThis = (global as any).globalThis || undefined;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).globalThis = global.globalThis || undefined;
 
-const _global = globalThis || global; // globalThis available since node v12/TS v3.4
-const reflect = _global['Reflect']; // reflect type in global has not these methods
+const globalRef = globalThis || global; // globalThis available since node v12/TS v3.4
+const reflect = globalRef['Reflect']; // reflect type in global has not these methods
 
 const metadataValueStore = new WeakMap<Record<string, unknown>, unknown>();
 
