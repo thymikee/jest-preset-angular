@@ -23,6 +23,10 @@ const executeTest = (projectRealPath) => {
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectRealPath, '='.repeat(20));
   logger.log();
 
+  logger.log('removing existing node_modules of target project');
+
+  execa.sync('rimraf', ['node_modules'], { cwd: projectRealPath });
+
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
 
