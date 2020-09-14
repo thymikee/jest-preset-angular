@@ -98,6 +98,7 @@ const print = (
     componentName = fixture.componentRef._elDef.element?.name;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     nodes = (fixture.componentRef._view.nodes || [])
+      // eslint-disable-next-line no-prototype-builtins
       .filter((node: VEDebugNode) => node?.hasOwnProperty('renderElement'))
       .map((node: VEDebugNode) => Array.from(node.renderElement.childNodes).map(print).join(''))
       .join(opts.edgeSpacing);
