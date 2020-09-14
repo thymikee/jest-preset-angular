@@ -15,10 +15,11 @@ jobs:
             - yarn-cache-lib-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - yarn-cache-lib-{{ .Branch }}-
       - run:
-          name: Install dependencies
+          name: Install dependencies and lint codebase
           command: |
             yarn --version
             yarn install --frozen-lockfile
+            yarn lint
       - save_cache:
           key: yarn-cache-lib-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
