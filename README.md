@@ -51,7 +51,7 @@ By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up
 module.exports = {
   globals: {
     'ts-jest': {
-      tsConfig: '<rootDir>/tsconfig.spec.json',
+      tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: {
         before: [
@@ -323,7 +323,7 @@ Override `globals` object in Jest config:
   "jest": {
     "globals": {
       "ts-jest": {
-        "tsConfig": "<rootDir>/tsconfig.custom.json",
+        "tsconfig": "<rootDir>/tsconfig.custom.json",
         "stringifyContentPathRegex": "\\.html$",
         "astTransformers": {
           "before": [
