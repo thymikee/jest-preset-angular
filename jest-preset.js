@@ -4,7 +4,7 @@ const snapshotSerializers = require('./build/serializers');
 module.exports = {
   globals: {
     'ts-jest': {
-      tsConfig: '<rootDir>/tsconfig.spec.json',
+      tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: {
         before: customTransformers,
