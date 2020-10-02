@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgJestConfig readTsConfig should return config including Angular compiler config with tsconfig as a string from ts-jest option 1`] = `
+Object {
+  "composite": undefined,
+  "declaration": false,
+  "declarationDir": undefined,
+  "declarationMap": undefined,
+  "emitDeclarationOnly": undefined,
+  "enableIvy": false,
+  "fullTemplateTypeCheck": true,
+  "inlineSourceMap": false,
+  "inlineSources": true,
+  "module": 1,
+  "noEmit": false,
+  "out": undefined,
+  "outFile": undefined,
+  "removeComments": false,
+  "sourceMap": true,
+  "sourceRoot": undefined,
+  "strictInjectionParameters": true,
+  "target": 1,
+  "tsBuildInfoFile": undefined,
+}
+`;
+
+exports[`NgJestConfig readTsConfig should return config including Angular compiler config with tsconfig as an object from ts-jest option 1`] = `
+Object {
+  "composite": undefined,
+  "declaration": false,
+  "declarationDir": undefined,
+  "declarationMap": undefined,
+  "emitDeclarationOnly": undefined,
+  "enableIvy": true,
+  "fullTemplateTypeCheck": true,
+  "inlineSourceMap": false,
+  "inlineSources": true,
+  "module": 1,
+  "noEmit": false,
+  "out": undefined,
+  "outFile": undefined,
+  "removeComments": false,
+  "resolveJsonModule": true,
+  "sourceMap": true,
+  "sourceRoot": undefined,
+  "strictInjectionParameters": true,
+  "target": 1,
+  "tsBuildInfoFile": undefined,
+}
+`;
+
+exports[`NgJestConfig readTsConfig should return config including Angular compiler config without tsconfig defined in ts-jest option 1`] = `
+Object {
+  "composite": undefined,
+  "declaration": false,
+  "declarationDir": undefined,
+  "declarationMap": undefined,
+  "emitDeclarationOnly": undefined,
+  "enableIvy": true,
+  "esModuleInterop": true,
+  "forceConsistentCasingInFileNames": true,
+  "importHelpers": true,
+  "importsNotUsedAsValues": 2,
+  "inlineSourceMap": false,
+  "inlineSources": true,
+  "lib": Array [
+    "lib.esnext.d.ts",
+    "lib.dom.d.ts",
+  ],
+  "module": 1,
+  "noEmit": false,
+  "noFallthroughCasesInSwitch": true,
+  "noImplicitReturns": true,
+  "noUnusedLocals": true,
+  "noUnusedParameters": true,
+  "out": undefined,
+  "outFile": undefined,
+  "removeComments": false,
+  "skipLibCheck": true,
+  "sourceMap": true,
+  "sourceRoot": undefined,
+  "strict": true,
+  "target": 1,
+  "tsBuildInfoFile": undefined,
+  "types": Array [
+    "node",
+    "jest",
+  ],
+}
+`;
