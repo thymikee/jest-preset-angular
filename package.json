@@ -3,7 +3,7 @@
   "name": "jest-preset-angular",
   "version": "8.3.1",
   "description": "Jest preset configuration for Angular projects",
-  "main": "index.js",
+  "main": "build/index.js",
   "repository": "git@github.com:thymikee/jest-preset-angular.git",
   "homepage": "https://github.com/thymikee/jest-preset-angular",
   "author": "Michał Pierzchała <thymikee@gmail.com>",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "pretty-format": "26.x",
-    "ts-jest": "26.x"
+    "ts-jest": "^26.2.0"
   },
   "peerDependencies": {
     "@angular/core": ">=8.0.0",
@@ -41,6 +41,8 @@
     "@angular/core": "^10.0.14",
     "@commitlint/cli": "11.x",
     "@commitlint/config-angular": "11.x",
+    "@jest/transform": "26.x",
+    "@jest/types": "26.x",
     "@types/jest": "26.x",
     "@types/node": "12.x",
     "@typescript-eslint/eslint-plugin": "4.x",
