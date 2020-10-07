@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgJestCompiler with isolatedModule false should downlevel decorators for @Injectable decorated class 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.MyService = exports.ClassInject = void 0;
+var tslib_1 = require(\\"tslib\\");
+var core_1 = require(\\"@angular/core\\");
+var ClassInject = /** @class */ (function () {
+    function ClassInject() {
+    }
+    return ClassInject;
+}());
+exports.ClassInject = ClassInject;
+var MyService = /** @class */ (function () {
+    // eslint-disable-next-line
+    function MyService(_v) {
+    }
+    MyService.ctorParameters = function () { return [
+        { type: ClassInject }
+    ]; };
+    MyService = tslib_1.__decorate([
+        core_1.Injectable()
+    ], MyService);
+    return MyService;
+}());
+exports.MyService = MyService;
+//# "
+`;
+
+exports[`NgJestCompiler with isolatedModule false should hoist correctly 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+jest.mock('./foo');
+var foo_1 = require(\\"./foo\\");
+console.log(foo_1.getFoo());
+//# "
+`;
+
+exports[`NgJestCompiler with isolatedModule false should return compiled result for existing file which is known by Program 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+var tslib_1 = require(\\"tslib\\");
+var core_1 = require(\\"@angular/core\\");
+var AppComponent = /** @class */ (function () {
+    function AppComponent() {
+        this.title = 'test-app-v10';
+    }
+    AppComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+        })
+    ], AppComponent);
+    return AppComponent;
+}());
+exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`NgJestCompiler with isolatedModule false should return compiled result for new file which is not known by Program 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+var tslib_1 = require(\\"tslib\\");
+var core_1 = require(\\"@angular/core\\");
+var AppComponent = /** @class */ (function () {
+    function AppComponent() {
+        this.title = 'test-app-v10';
+    }
+    AppComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss'],
+        })
+    ], AppComponent);
+    return AppComponent;
+}());
+exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for existing file which is known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;
+
+exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is not known by Program 1`] = `"foo.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;
+
+exports[`NgJestCompiler with isolatedModules true should hoist correctly 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+jest.mock('./foo');
+var foo_1 = require(\\"./foo\\");
+console.log(foo_1.getFoo());
+//# "
+`;
+
+exports[`NgJestCompiler with isolatedModules true should return result 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.MyService = exports.ClassInject = void 0;
+var tslib_1 = require(\\"tslib\\");
+var core_1 = require(\\"@angular/core\\");
+var ClassInject = /** @class */ (function () {
+    function ClassInject() {
+    }
+    return ClassInject;
+}());
+exports.ClassInject = ClassInject;
+var MyService = /** @class */ (function () {
+    // eslint-disable-next-line
+    function MyService(_v) {
+    }
+    MyService = tslib_1.__decorate([
+        core_1.Injectable()
+    ], MyService);
+    return MyService;
+}());
+exports.MyService = MyService;
+//# "
+`;

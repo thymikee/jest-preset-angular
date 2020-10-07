@@ -1,17 +1,18 @@
-import type { ParsedConfiguration } from '@angular/compiler-cli';
-import type { CacheKeyOptions, TransformedSource, Transformer, TransformOptions } from '@jest/transform';
+import type { TransformedSource, Transformer, TransformOptions } from '@jest/transform';
 import type { Config } from '@jest/types';
-import createCacheKey from '@jest/create-cache-key-function';
+import { DECLARATION_TYPE_EXT, JS_JSX_REGEX } from 'ts-jest/dist/constants';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
+import { stringify } from 'ts-jest/dist/utils/json';
+import { JsonableValue } from 'ts-jest/dist/utils/jsonable-value';
 
 import { NgJestConfig } from './config/ng-jest-config';
-import { JsonObject } from './utils/json-object';
-import { stringify } from './utils/json';
+import { NgJestCompiler } from './compiler/ng-jest-compiler';
 
 interface CachedConfigSet {
   ngJestConfig: NgJestConfig;
-  jestConfig: JsonObject<Config.ProjectConfig>;
-  transformerConfig: JsonObject<Config.ProjectConfig & ParsedConfiguration>;
+  jestConfig: JsonableValue<Config.ProjectConfig>;
+  transformerCfgStr: string;
+  ngJestCompiler: NgJestCompiler;
 }
 
 class AngularJestTransformer extends TsJestTransformer implements Transformer {
@@ -19,40 +20,36 @@ class AngularJestTransformer extends TsJestTransformer implements Transformer {
    * cache config set between each test run
    */
   private static readonly _cachedConfigSets: CachedConfigSet[] = [];
-  private _transformerCfgStr!: string;
-  // @ts-expect-error Temporarily use ts-expect-error because we will use this later
-  private _ngJestConfig!: NgJestConfig;
+  private _ngJestCompiler!: NgJestCompiler;
 
   process(
-    input: string,
+    fileContent: string,
     filePath: Config.Path,
     jestConfig: Config.ProjectConfig,
     transformOptions?: TransformOptions,
   ): TransformedSource | string {
-    return super.process(input, filePath, jestConfig, transformOptions);
+    const isDefinitionFile = filePath.endsWith(DECLARATION_TYPE_EXT);
+    const isJsFile = JS_JSX_REGEX.test(filePath);
+    const ngJestCfg = this.configsFor(jestConfig);
+    const shouldStringifyContent = ngJestCfg.shouldStringifyContent(filePath);
+
+    return shouldStringifyContent || isDefinitionFile || (!ngJestCfg.parsedTsConfig.options.allowJs && isJsFile)
+      ? super.process(fileContent, filePath, jestConfig, transformOptions)
+      : this._ngJestCompiler.getCompiledOutput(filePath, fileContent);
   }
 
-  getCacheKey(
-    fileContent: string,
-    filePath: string,
-    _jestConfigStr: string,
-    transformOptions: CacheKeyOptions,
-  ): string {
-    this.createOrResolveTransformerCfg(transformOptions.config);
-
-    return createCacheKey()(fileContent, filePath, this._transformerCfgStr, {
-      config: transformOptions.config,
-      instrument: false,
-    });
-  }
-
-  private createOrResolveTransformerCfg(jestConfig: Config.ProjectConfig): void {
+  /**
+   * Override `ts-jest` method to load our `NgJestConfig` class
+   */
+  configsFor(jestConfig: Config.ProjectConfig): NgJestConfig {
     const ccs: CachedConfigSet | undefined = AngularJestTransformer._cachedConfigSets.find(
       (cs) => cs.jestConfig.value === jestConfig,
     );
+    let ngJestConfig: NgJestConfig;
     if (ccs) {
-      this._transformerCfgStr = ccs.transformerConfig.serialized;
-      this._ngJestConfig = ccs.ngJestConfig;
+      this._transformCfgStr = ccs.transformerCfgStr;
+      this._ngJestCompiler = ccs.ngJestCompiler;
+      ngJestConfig = ccs.ngJestConfig;
     } else {
       // try to look-it up by stringified version
       const stringifiedJestCfg = stringify(jestConfig);
@@ -64,23 +61,29 @@ class AngularJestTransformer extends TsJestTransformer implements Transformer {
         // this happens because jest first calls getCacheKey with stringified version of
         // the config, and then it calls the transformer with the proper object
         serializedCcs.jestConfig.value = jestConfig;
-        this._transformerCfgStr = serializedCcs.transformerConfig.serialized;
-        this._ngJestConfig = serializedCcs.ngJestConfig;
+        this._transformCfgStr = serializedCcs.transformerCfgStr;
+        this._ngJestCompiler = serializedCcs.ngJestCompiler;
+        ngJestConfig = serializedCcs.ngJestConfig;
       } else {
-        const ngJestConfig = new NgJestConfig(jestConfig);
-        const transformerCfg = new JsonObject({
+        // create the new record in the index
+        this.logger.info('no matching config-set found, creating a new one');
+
+        ngJestConfig = new NgJestConfig(jestConfig);
+        this._ngJestCompiler = new NgJestCompiler(ngJestConfig);
+        this._transformCfgStr = new JsonableValue({
           ...jestConfig,
           ...ngJestConfig.parsedTsConfig,
-        });
+        }).serialized;
         AngularJestTransformer._cachedConfigSets.push({
-          jestConfig: new JsonObject(jestConfig),
+          jestConfig: new JsonableValue(jestConfig),
           ngJestConfig,
-          transformerConfig: transformerCfg,
+          transformerCfgStr: this._transformCfgStr,
+          ngJestCompiler: this._ngJestCompiler,
         });
-        this._transformerCfgStr = transformerCfg.serialized;
-        this._ngJestConfig = ngJestConfig;
       }
     }
+
+    return ngJestConfig;
   }
 }
 
