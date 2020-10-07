@@ -13,7 +13,7 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest',
+    '^.+\\.(ts|js|html)$': 'jest-preset-angular',
   },
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
