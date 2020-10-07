@@ -29,14 +29,16 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
   },
   "dependencies": {
-    "@jest/create-cache-key-function": "^26.5.0",
     "pretty-format": "26.x",
-    "ts-jest": "^26.2.0"
+    "ts-jest": "^26.4.3"
   },
   "peerDependencies": {
     "@angular/core": ">=8.0.0",
     "@angular/platform-browser-dynamic": ">=8.0.0",
     "jest": "^26.0.0"
+  },
+  "optionalDependencies": {
+    "webpack": "^4.0.0"
   },
   "devDependencies": {
     "@angular/compiler": "^10.1.4",
@@ -46,6 +48,7 @@
     "@commitlint/config-angular": "11.x",
     "@jest/transform": "26.x",
     "@jest/types": "26.x",
+    "@ngtools/webpack": "^10.1.4",
     "@types/jest": "26.x",
     "@types/node": "14.x",
     "@typescript-eslint/eslint-plugin": "4.x",

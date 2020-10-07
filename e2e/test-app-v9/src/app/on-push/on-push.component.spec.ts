@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture } from '@angular/core/testing';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 import { ConfigureFn, configureTests } from '@lib/testing';
