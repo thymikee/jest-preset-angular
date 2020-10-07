@@ -2,7 +2,7 @@ import type { ParsedConfiguration } from '@angular/compiler-cli';
 import { formatDiagnostics, readConfiguration } from '@angular/compiler-cli';
 import type { Config } from '@jest/types';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
-import { ParsedCommandLine, ModuleKind, ScriptTarget } from 'typescript';
+import { ModuleKind, ParsedCommandLine, ScriptTarget } from 'typescript';
 
 export class NgJestConfig extends ConfigSet {
   private parsedNgConfig!: ParsedConfiguration;

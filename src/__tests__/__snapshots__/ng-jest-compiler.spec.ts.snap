@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgJestCompiler should return compiled result 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+var tslib_1 = require(\\"tslib\\");
+var core_1 = require(\\"@angular/core\\");
+var AppComponent = /** @class */ (function () {
+    function AppComponent() {
+        this.title = 'test-app-v10';
+    }
+    AppComponent = tslib_1.__decorate([
+        core_1.Component({
+            selector: 'app-root',
+            template: require('./app.component.html'),
+            styleUrls: [],
+        })
+    ], AppComponent);
+    return AppComponent;
+}());
+exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`NgJestCompiler should throw diagnostics error when initializing the compiler 1`] = `
+"[96msrc/__tests__/__mocks__/foo.component.ts[0m:[93m9[0m:[93m3[0m - [91merror[0m[90m TS2322: [0mType '\\"test-app-v10\\"' is not assignable to type 'number'.
+
+[7m9[0m   title: number = 'test-app-v10';
+[7m [0m [91m  ~~~~~[0m"
+`;
+
+exports[`NgJestCompiler should throw error for individual file on compiling 1`] = `
+"[96msrc/__tests__/__mocks__/foo.component.ts[0m:[93m9[0m:[93m3[0m - [91merror[0m[90m TS2322: [0mType '\\"test-app-v10\\"' is not assignable to type 'number'.
+
+[7m9[0m   title: number = 'test-app-v10';
+[7m [0m [91m  ~~~~~[0m"
+`;
