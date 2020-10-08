@@ -3,6 +3,7 @@ import { formatDiagnostics, readConfiguration } from '@angular/compiler-cli';
 import type { Config } from '@jest/types';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import { ModuleKind, ParsedCommandLine, ScriptTarget } from 'typescript';
+import { stringify } from '../utils/json';
 
 export class NgJestConfig extends ConfigSet {
   private parsedNgConfig!: ParsedConfiguration;
@@ -10,6 +11,13 @@ export class NgJestConfig extends ConfigSet {
   constructor(private jestConfig: Config.ProjectConfig) {
     super(jestConfig);
     this.setupOptions(jestConfig);
+  }
+
+  get ngJestConfigStr(): string {
+    return stringify({
+      ...this.jestConfig,
+      ...this.parsedTsConfig,
+    });
   }
 
   /**

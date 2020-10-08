@@ -1,7 +1,6 @@
 import {
   CompilerHost,
   CompilerOptions,
-  constructorParametersDownlevelTransform,
   createCompilerHost,
   Diagnostic,
   readConfiguration,
@@ -14,6 +13,7 @@ import { factory as inlineFiles } from '../transformers/inline-files';
 import { factory as stripStyles } from '../transformers/strip-styles';
 import { gatherDiagnostics } from './diagnostics';
 import { TSError } from '../utils/ts-error';
+import { factory as downlevelCtor } from '../transformers/downlevel-ctor';
 
 /**
  * @internal
@@ -62,15 +62,26 @@ export class NgJestCompiler {
     this._setupOptions(this.configSet);
   }
 
-  getCompiledFile(fileName: string): string | undefined {
-    this._createOrUpdateProgram(false);
+  getCompiledFile(fileName: string): string {
+    // Get the root files from the ts config.
+    // When a new root name (like a lazy route) is added, it won't be available from
+    // following imports on the existing files, so we need to get the new list of root files.
+    const config = readConfiguration(this._tsConfigPath);
+    this._rootNames = config.rootNames;
+    this._createOrUpdateProgram();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._allDiagnostics.push(...gatherDiagnostics(this._program!, DiagnosticMode.Semantic));
     if (!hasErrors(this._allDiagnostics)) {
       const emitResult: string[] = [];
-      // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-      const sourceFile = this._program!.getSourceFile(fileName);
-      // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      let sourceFile = this._program!.getSourceFile(fileName);
+      if (!sourceFile) {
+        this._rootNames.push(fileName);
+        const oldTsProgram = this._program;
+        this._program = ts.createProgram(this._rootNames, this._compilerOptions, this._compilerHost, oldTsProgram);
+        sourceFile = this._program.getSourceFile(fileName);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._program!.emit(
         sourceFile,
         (_fileName: string, data: string, _writeByteOrderMark: boolean) => {
@@ -85,7 +96,7 @@ export class NgJestCompiler {
     } else {
       this._raiseDiagnostics();
 
-      return;
+      return '';
     }
   }
 
@@ -115,7 +126,7 @@ export class NgJestCompiler {
     this._compilerHost = createCompilerHost({
       options: this._compilerOptions,
     });
-    this._createOrUpdateProgram(true);
+    this._createOrUpdateProgram();
     // Make transformers only after creating Program
     this._makeTransformers();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -125,14 +136,7 @@ export class NgJestCompiler {
     this._raiseDiagnostics();
   }
 
-  private _createOrUpdateProgram(isInitialized: boolean): void {
-    // Get the root files from the ts config.
-    // When a new root name (like a lazy route) is added, it won't be available from
-    // following imports on the existing files, so we need to get the new list of root files.
-    if (!isInitialized) {
-      const config = readConfiguration(this._tsConfigPath);
-      this._rootNames = config.rootNames;
-    }
+  private _createOrUpdateProgram(): void {
     const oldTsProgram = this._program;
     this._program = ts.createProgram(this._rootNames, this._compilerOptions, this._compilerHost, oldTsProgram);
   }
@@ -144,12 +148,8 @@ export class NgJestCompiler {
     // Downlevel constructor parameters for DI support
     // This is required to support forwardRef in ES2015 due to TDZ issues
     // This wrapper is needed here due to the program not being available until after the transformers are created.
-    const downlevelFactory: ts.TransformerFactory<ts.SourceFile> = (context) => {
-      const factory = constructorParametersDownlevelTransform(this._program as ts.Program);
-
-      return factory(context);
-    };
-    this._transformers.push(downlevelFactory);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this._transformers.push(downlevelCtor(this._program!));
   }
 
   private _createTsError(diagnostics: Array<ts.Diagnostic | Diagnostic>): TSError {

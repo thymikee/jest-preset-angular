@@ -27,7 +27,16 @@ exports[`NgJestCompiler should throw diagnostics error when initializing the com
 "[96msrc/__tests__/__mocks__/foo.component.ts[0m:[93m9[0m:[93m3[0m - [91merror[0m[90m TS2322: [0mType '\\"test-app-v10\\"' is not assignable to type 'number'.
 
 [7m9[0m   title: number = 'test-app-v10';
-[7m [0m [91m  ~~~~~[0m"
+[7m [0m [91m  ~~~~~[0m
+[96msrc/utils/json.ts[0m:[93m4[0m:[93m8[0m - [91merror[0m[90m TS1259: [0mModule '\\"fast-json-stable-stringify\\"' can only be default-imported using the 'esModuleInterop' flag
+
+[7m4[0m import stableStringify from 'fast-json-stable-stringify';
+[7m [0m [91m       ~~~~~~~~~~~~~~~[0m
+
+  [96mnode_modules/fast-json-stable-stringify/index.d.ts[0m:[93m3[0m:[93m3[0m
+    [7m3[0m   export = stringify;
+    [7m [0m [96m  ~~~~~~~~~~~~~~~~~~~[0m
+    This module is declared with using 'export =', and can only be used with a default import when using the 'esModuleInterop' flag."
 `;
 
 exports[`NgJestCompiler should throw error for individual file on compiling 1`] = `

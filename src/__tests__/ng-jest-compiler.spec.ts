@@ -4,7 +4,7 @@ import * as performCompile from '@angular/compiler-cli/src/perform_compile';
 import { NgJestCompiler, SOURCE_MAPPING_PREFIX } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
 
-const configFilePath = join(__dirname, 'tsconfig.json');
+const configFilePath = join(__dirname, 'tsconfig-ve.json');
 const ngJestConfig = new NgJestConfig({
   globals: {
     'ts-jest': {
