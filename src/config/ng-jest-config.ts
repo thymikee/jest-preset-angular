@@ -5,7 +5,7 @@ import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import { ParsedCommandLine, ModuleKind, ScriptTarget } from 'typescript';
 
 export class NgJestConfig extends ConfigSet {
-  private parsedNgConfig!: ParsedConfiguration;
+  private _parsedNgConfig!: ParsedConfiguration;
 
   constructor(private jestConfig: Config.ProjectConfig) {
     super(jestConfig);
@@ -16,7 +16,7 @@ export class NgJestConfig extends ConfigSet {
    * Override `ts-jest` parsedTsConfig so that it always returns Angular compiler config
    */
   get parsedTsConfig(): ParsedConfiguration {
-    return this.parsedNgConfig;
+    return this._parsedNgConfig;
   }
 
   private setupOptions(jestConfig: Config.ProjectConfig): void {
@@ -32,27 +32,27 @@ export class NgJestConfig extends ConfigSet {
     if (typeof extraTsconfig === 'string') {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error `ts-jest` doesn't expose typing for resolvePath
-      this.parsedNgConfig = readConfiguration(super.resolvePath(extraTsconfig));
+      this._parsedNgConfig = readConfiguration(super.resolvePath(extraTsconfig));
     } else {
-      this.parsedNgConfig = readConfiguration(this.jestConfig.cwd ?? process.cwd());
+      this._parsedNgConfig = readConfiguration(this.jestConfig.cwd ?? process.cwd());
       if (extraTsconfig) {
-        this.parsedNgConfig = {
-          ...this.parsedNgConfig,
+        this._parsedNgConfig = {
+          ...this._parsedNgConfig,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           options: {
-            ...this.parsedNgConfig.options,
+            ...this._parsedNgConfig.options,
             ...extraTsconfig,
           } as Record<string, any>, // eslint-disable-line @typescript-eslint/no-explicit-any
         };
       }
     }
-    if (this.parsedNgConfig.errors?.length) {
-      throw new Error(formatDiagnostics(this.parsedNgConfig.errors));
+    if (this._parsedNgConfig.errors?.length) {
+      throw new Error(formatDiagnostics(this._parsedNgConfig.errors));
     }
-    this.parsedNgConfig = {
-      ...this.parsedNgConfig,
+    this._parsedNgConfig = {
+      ...this._parsedNgConfig,
       options: {
-        ...this.parsedNgConfig.options,
+        ...this._parsedNgConfig.options,
         module: ModuleKind.CommonJS,
         target: ScriptTarget.ES5,
       },

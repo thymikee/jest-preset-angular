@@ -26,7 +26,7 @@ describe('NgJestConfig', () => {
 
     test('should return config including Angular compiler config with tsconfig as an object from ts-jest option', () => {
       const ngJestConfig = new NgJestConfig({
-        cwd: __dirname,
+        cwd: '.',
         globals: {
           'ts-jest': {
             tsconfig: {
@@ -40,7 +40,7 @@ describe('NgJestConfig', () => {
 
       delete config.options.basePath;
       delete config.options.baseUrl;
-      expect(config.options.configFilePath).toEqual(join(__dirname, 'tsconfig.json'));
+      expect(config.options.configFilePath).toEqual(join(__dirname, '..', '..', 'tsconfig.json'));
       delete config.options.configFilePath;
       delete config.options.genDir;
       expect(config.options).toMatchSnapshot();
@@ -52,7 +52,7 @@ describe('NgJestConfig', () => {
 
       delete config.options.basePath;
       delete config.options.baseUrl;
-      expect(config.options.configFilePath).toEqual(join(process.cwd(), 'tsconfig.json'));
+      expect(config.options.configFilePath).toEqual(join(__dirname, '..', '..', 'tsconfig.json'));
       delete config.options.configFilePath;
       delete config.options.genDir;
       expect(config.options).toMatchSnapshot();
