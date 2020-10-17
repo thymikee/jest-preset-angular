@@ -2,7 +2,8 @@
 'use strict';
 
 const execa = require('execa');
-const { realpathSync } = require('fs');
+const { existsSync, realpathSync, mkdirSync } = require('fs');
+const { copySync } = require('fs-extra');
 const { resolve, join } = require('path');
 
 const { projectsToRun } = require('./lib/paths');
@@ -23,14 +24,20 @@ const executeTest = (projectRealPath) => {
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectRealPath, '='.repeat(20));
   logger.log();
 
-  logger.log('removing existing node_modules of target project');
-
-  execa.sync('rimraf', ['node_modules'], { cwd: projectRealPath });
-
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
 
   execa.sync('yarn', ['install', '--frozen-lockfile'], { cwd: projectRealPath });
+
+  logger.log('copying distributed assets to target project');
+
+  const presetDir = join(projectRealPath, 'node_modules', 'jest-preset-angular');
+  if (!existsSync(presetDir)) {
+    mkdirSync(presetDir);
+  }
+  copySync(join(cwd, 'jest-preset.js'), `${presetDir}/jest-preset.js`);
+  copySync(join(cwd, 'setup-jest.js'), `${presetDir}/setup-jest.js`);
+  copySync(join(cwd, 'build'), `${presetDir}/build`);
 
   // then we can run the tests
   const cmdLine = projectPkg.scripts && projectPkg.scripts.test ? ['yarn', 'test'] : ['jest'];
@@ -50,6 +57,11 @@ const executeTest = (projectRealPath) => {
 };
 
 const cwd = process.cwd();
+
+logger.log('creating jest-preset-angular bundle');
+
+execa.sync('yarn', ['build']);
+
 projectsToRun.forEach((projectPath) => {
   let projectRealPath;
   try {
