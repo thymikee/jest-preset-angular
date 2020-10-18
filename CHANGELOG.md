@@ -1,3 +1,111 @@
+# [9.0.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v8.3.1...v9.0.0-next.0) (2020-10-18)
+
+
+### Chore
+
+* Follow Angular support policy ([#468](https://github.com/thymikee/jest-preset-angular/issues/468)) ([013e6d1](https://github.com/thymikee/jest-preset-angular/commit/013e6d15fc52268304d5fb205b855419386a0be2))
+
+
+### BREAKING CHANGES
+
+We are working on Ivy compatibility for this preset. This requires introducing a different Jest transformer than the default
+one from `ts-jest`. To get updates on this work, please subscribe to [#409](https://github.com/thymikee/jest-preset-angular/issues/409)
+
+* Users who are using `import 'jest-preset-angular'` should change to `import 'jest-preset-angular/setup-jest'`
+* Drop support for Angular < 8.0, see https://angular.io/guide/releases#support-policy-and-schedule
+* **transformers:** One is using all `jest-preset-angular` transformers should change jest config to have:
+```
+// jest.config.js
+const customTransformers = require('./build/transformers');
+
+module.exports = {
+     // [...]
+     globals: {
+        'ts-jest': {
+            tsConfig: '<rootDir>/tsconfig.spec.json',
+            stringifyContentPathRegex: '\\.html$',
+            astTransformers: {
+               before: customTransformers,
+            },
+         },
+     },
+}
+```
+
+One is using one of `jest-preset-angular` transformers should change jest config to have:
+```
+// jest.config.js
+module.exports = {
+     // [...]
+     globals: {
+        'ts-jest': {
+            tsConfig: '<rootDir>/tsconfig.spec.json',
+            stringifyContentPathRegex: '\\.html$',
+            astTransformers: {
+               before: [
+                  'jest-preset-angular/build/transformers/inline-files'
+               ],
+            },
+         },
+     },
+}
+```
+or
+```
+// package.json
+{
+     "jest" {
+         // [...]
+         "globals": {
+              "ts-jest": {
+                   "tsConfig": "<rootDir>/tsconfig.spec.json",
+                   "stringifyContentPathRegex": "\\.html$",
+                   "astTransformers": {
+                        "before": [
+                            "jest-preset-angular/build/transformers/inline-files"
+                        ]
+                   }
+              }
+         }
+     }
+}
+```
+* **serializers:** One is using all `jest-preset-angular` snapshot serializers should change jest config to have:
+```
+// jest.config.js
+const jestPresetAngularSerializers = require('jest-preset-angular/build/serializers')
+
+module.exports = {
+     // [...]
+     snapshotSerializers: jestPresetAngularSerializers,
+}
+```
+
+One is using one of `jest-preset-angular` snapshot serializers should change jest config to have:
+```
+// jest.config.js
+module.exports = {
+     // [...]
+     snapshotSerializers: [
+          'jest-preset-angular/build/serializers/html-comment'
+     ]
+}
+```
+or
+```
+// package.json
+{
+      // [...]
+     "jest": {
+           snapshotSerializers: [
+                "jest-preset-angular/build/serializers/html-comment"
+           ]
+      }
+}
+```
+
+
+
 ## [8.3.1](https://github.com/thymikee/jest-preset-angular/compare/v8.2.1...v8.3.1) (2020-08-23)
 
 
