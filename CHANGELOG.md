@@ -1,3 +1,12 @@
+## [8.3.2](https://github.com/thymikee/jest-preset-angular/compare/v8.3.1...v8.3.2) (2020-10-23)
+
+
+### Chores
+
+* **config**: switch to `tsconfig` for `jest-preset.js`
+
+
+
 ## [8.3.1](https://github.com/thymikee/jest-preset-angular/compare/v8.2.1...v8.3.1) (2020-08-23)
 
 
