@@ -2,6 +2,6 @@
 
 const execa = require('execa');
 
-const paths = require('./lib/paths');
+const paths = require('./paths');
 
 execa.sync('rimraf', [paths.distDir]);
