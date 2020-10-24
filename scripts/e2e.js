@@ -6,8 +6,8 @@ const { existsSync, realpathSync, mkdirSync } = require('fs');
 const { copySync } = require('fs-extra');
 const { resolve, join } = require('path');
 
-const { projectsToRun } = require('./lib/paths');
-const logger = require('./lib/logger');
+const { projectsToRun } = require('./paths');
+const logger = require('./logger');
 
 const jestArgs = process.argv.slice(3);
 
