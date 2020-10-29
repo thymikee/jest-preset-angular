@@ -1,3 +1,41 @@
+# [9.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.1) (2020-10-29)
+
+
+### Features
+
+* **compiler:** introduce `NgJestCompiler` for code compilation ([02d272e](https://github.com/thymikee/jest-preset-angular/commit/02d272eb9ec4b14dbf1d2d620266750e1873abe6)), closes [#108](https://github.com/thymikee/jest-preset-angular/issues/108) [#288](https://github.com/thymikee/jest-preset-angular/issues/288) [#322](https://github.com/thymikee/jest-preset-angular/issues/322) [#353](https://github.com/thymikee/jest-preset-angular/issues/353)
+
+
+### BREAKING CHANGES
+
+* **compiler:** With the new jest transformer, `jest-preset-angular` now switches to default to use this new transformer and no longer use `ts-jest` to transform codes.
+
+Users who are currently doing in jest config
+```
+// jest.config.js
+module.exports = {
+    // [...]
+    transform: {
+      '^.+\\.(ts|js|html)$': 'ts-jest',
+    },
+}
+```
+
+should change to
+```
+// jest.config.js
+module.exports = {
+    // [...]
+    transform: {
+      '^.+\\.(ts|js|html)$': 'jest-preset-angular',
+    },
+}
+```
+
+`isolatedModule: true` will still use `ts-jest` to compile `ts` to `js` but you won't get full compatibility with Ivy.
+
+
+
 ## [8.3.2](https://github.com/thymikee/jest-preset-angular/compare/v8.3.1...v8.3.2) (2020-10-23)
 
 
