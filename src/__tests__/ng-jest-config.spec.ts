@@ -1,3 +1,4 @@
+import { normalizeSeparators } from '@angular/compiler-cli/src/ngtsc/util/src/path';
 import { join } from 'path';
 
 import { NgJestConfig } from '../config/ng-jest-config';
@@ -18,7 +19,7 @@ describe('NgJestConfig', () => {
 
       delete config.options.basePath;
       delete config.options.baseUrl;
-      expect(config.options.configFilePath).toEqual(configFilePath);
+      expect(config.options.configFilePath as string).toEqual(normalizeSeparators(configFilePath));
       delete config.options.configFilePath;
       delete config.options.genDir;
       expect(config.options).toMatchSnapshot();
@@ -40,7 +41,9 @@ describe('NgJestConfig', () => {
 
       delete config.options.basePath;
       delete config.options.baseUrl;
-      expect(config.options.configFilePath).toEqual(join(__dirname, '..', '..', 'tsconfig.json'));
+      expect(config.options.configFilePath as string).toEqual(
+        normalizeSeparators(join(__dirname, '..', '..', 'tsconfig.json')),
+      );
       delete config.options.configFilePath;
       delete config.options.genDir;
       expect(config.options).toMatchSnapshot();
@@ -52,7 +55,9 @@ describe('NgJestConfig', () => {
 
       delete config.options.basePath;
       delete config.options.baseUrl;
-      expect(config.options.configFilePath).toEqual(join(__dirname, '..', '..', 'tsconfig.json'));
+      expect(config.options.configFilePath as string).toEqual(
+        normalizeSeparators(join(__dirname, '..', '..', 'tsconfig.json')),
+      );
       delete config.options.configFilePath;
       delete config.options.genDir;
       expect(config.options).toMatchSnapshot();
