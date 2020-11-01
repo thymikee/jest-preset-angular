@@ -23,8 +23,7 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --fix --ext .js,.ts .",
-    "test": "jest",
-    "test:ci": "jest -i",
+    "test:unit": "jest -i",
     "test:e2e": "node scripts/e2e.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
   },
