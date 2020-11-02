@@ -3,7 +3,7 @@
 <p align="center">A preset of Jest configuration for Angular projects.</p>
 
 <p align="center">
-    <a href="https://actions-badge.atrox.dev/thymikee/jest-preset-angular/goto?ref=master"><img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fthymikee%2Fjest-preset-angular%2Fbadge%3Fref%3Dmaster&style=plastic" /></a>
+    <a href="https://actions-badge.atrox.dev/thymikee/jest-preset-angular/goto?ref=master"><img alt="Build Status" src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fthymikee%2Fjest-preset-angular%2Fbadge%3Fref%3Dmaster&style=flat-square" /></a>
     <a href="https://www.npmjs.com/package/jest-preset-angular"><img src="https://img.shields.io/npm/v/jest-preset-angular/latest.svg?style=flat-square" alt="NPM Version" /></a>
     <a href="https://www.npmjs.com/package/jest-preset-angular"><img src="https://img.shields.io/npm/v/jest-preset-angular/next.svg?style=flat-square" alt="NPM Version" /></a>
     <a href="https://github.com/thymikee/jest-preset-angular/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/jest-preset-angular.svg?style=flat-square" alt="GitHub license" /></a>
