@@ -37,6 +37,9 @@
     "@angular/platform-browser-dynamic": ">=8.0.0",
     "jest": "^26.0.0"
   },
+  "optionalDependencies": {
+    "webpack": "^4.0.0"
+  },
   "devDependencies": {
     "@angular/compiler": "^10.1.4",
     "@angular/compiler-cli": "^10.1.4",
@@ -45,6 +48,7 @@
     "@commitlint/config-angular": "11.x",
     "@jest/transform": "26.x",
     "@jest/types": "26.x",
+    "@ngtools/webpack": "^10.2.0",
     "@types/jest": "26.x",
     "@types/node": "14.x",
     "@typescript-eslint/eslint-plugin": "4.x",
