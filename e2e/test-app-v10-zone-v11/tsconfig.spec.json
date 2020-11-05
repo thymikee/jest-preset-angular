@@ -9,9 +9,8 @@
       "node"
     ]
   },
-  "files": [
-    "src/polyfills.ts",
-    "setup-jest.ts"
-  ],
-  "include": []
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
 }
