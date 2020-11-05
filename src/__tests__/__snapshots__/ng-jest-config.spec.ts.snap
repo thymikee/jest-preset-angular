@@ -2,11 +2,28 @@
 
 exports[`NgJestConfig readTsConfig should return config including Angular compiler config with tsconfig as a string from ts-jest option 1`] = `
 Object {
-  "enableIvy": false,
-  "fullTemplateTypeCheck": true,
+  "enableIvy": true,
+  "esModuleInterop": true,
+  "experimentalDecorators": true,
+  "forceConsistentCasingInFileNames": true,
+  "importHelpers": true,
+  "importsNotUsedAsValues": 2,
+  "lib": Array [
+    "lib.esnext.d.ts",
+    "lib.dom.d.ts",
+  ],
   "module": 1,
-  "strictInjectionParameters": true,
+  "noFallthroughCasesInSwitch": true,
+  "noImplicitReturns": true,
+  "noUnusedLocals": true,
+  "noUnusedParameters": true,
+  "skipLibCheck": true,
+  "strict": true,
   "target": 1,
+  "types": Array [
+    "node",
+    "jest",
+  ],
 }
 `;
 
