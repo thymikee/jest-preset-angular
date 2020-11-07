@@ -6,9 +6,13 @@
     "module": "commonjs",
     "types": [
       "jest",
+      "jquery",
       "node"
     ]
   },
+  "files": [
+    "src/global.ts"
+  ],
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
