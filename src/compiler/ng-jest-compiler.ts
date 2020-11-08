@@ -100,7 +100,7 @@ export class NgJestCompiler {
     this._logger.debug({ parsedTsConfig }, '_setupOptions: initializing compiler config');
 
     this._compilerOptions = { ...parsedTsConfig.options };
-    this._rootNames = parsedTsConfig.rootNames;
+    this._rootNames = parsedTsConfig.rootNames.filter((rootName) => !this.ngJestConfig.isTestFile(rootName));
     if (this._compilerOptions.strictMetadataEmit) {
       this._logger.warn(
         `Using Angular compiler option 'strictMetadataEmit' for applications might cause undefined behavior.`,
