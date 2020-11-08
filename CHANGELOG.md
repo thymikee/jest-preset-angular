@@ -1,3 +1,14 @@
+# [9.0.0-next.2](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.2) (2020-11-08)
+
+
+### Performance Improvements
+
+* **compiler:** cache module resolution with custom compiler host ([22941cc](https://github.com/thymikee/jest-preset-angular/commit/22941ccf2a1fbf8e0c9893670ce6b9056be66534))
+* **compiler:** only include test files when initializing `Program` ([4cc5a1a](https://github.com/thymikee/jest-preset-angular/commit/4cc5a1a7578d45801f7437f9816b11c4d92dfeca))
+
+
+
+
 # [9.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.1) (2020-10-29)
 
 
@@ -565,6 +576,3 @@ or
 
 
 ## 0.0.1 (2017-03-30)
-
-
-
