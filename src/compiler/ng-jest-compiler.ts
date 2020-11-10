@@ -1,7 +1,6 @@
-import { CompilerHost, CompilerOptions, createCompilerHost, Diagnostic } from '@angular/compiler-cli';
+import { CompilerHost, CompilerOptions, createCompilerHost } from '@angular/compiler-cli';
 import { hasErrors } from '@ngtools/webpack/src/diagnostics';
 import type { Logger } from 'bs-logger';
-import { DECLARATION_TYPE_EXT } from 'ts-jest/dist/constants';
 import { updateOutput } from 'ts-jest/dist/compiler/instance';
 import type { TTypeScript } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
@@ -16,7 +15,6 @@ export class NgJestCompiler {
   private _compilerHost: CompilerHost | undefined;
   private _tsHost: NgJestCompilerHost | undefined;
   private _rootNames: string[] = [];
-  private _allDiagnostics: Array<ts.Diagnostic | Diagnostic> = [];
   private readonly _logger: Logger;
   private readonly _ts: TTypeScript;
 
@@ -30,6 +28,7 @@ export class NgJestCompiler {
 
   getCompiledOutput(fileName: string, fileContent: string): string {
     if (this._program) {
+      const allDiagnostics = [];
       if (!this._rootNames.includes(fileName)) {
         this._logger.debug({ fileName }, 'getCompiledOutput: update memory host, rootFiles and Program');
 
@@ -38,45 +37,42 @@ export class NgJestCompiler {
         this._tsHost!.updateMemoryHost(fileName, fileContent);
         this._createOrUpdateProgram();
       }
+
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling using Program');
 
-      if (fileName.endsWith(DECLARATION_TYPE_EXT)) {
-        return '';
+      const sourceFile = this._program.getSourceFile(fileName);
+      const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
+        before: [
+          // hoisting from `ts-jest` or other before transformers
+          ...(this.ngJestConfig.customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
+          /**
+           * Downlevel constructor parameters for DI support. This is required to support forwardRef in ES2015 due to
+           * TDZ issues. This wrapper is needed here due to the program not being available until after
+           * the transformers are created. Also because program can be updated so we can't push this transformer in
+           * _createCompilerHost
+           */
+          downlevelCtor(this._program),
+        ],
+      });
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const compiledOutput: [string, string] = this._tsHost!.getEmittedResult();
+      if (this.ngJestConfig.shouldReportDiagnostics(fileName)) {
+        this._logger.debug({ fileName }, 'getCompiledOutput: getting diagnostics');
+
+        allDiagnostics.push(
+          ...emitResult.diagnostics,
+          ...this._program.getSyntacticDiagnostics(sourceFile),
+          ...this._program.getSemanticDiagnostics(sourceFile),
+        );
+      }
+      if (!hasErrors(allDiagnostics)) {
+        this._logger.debug({ fileName }, 'getCompiledOutput: update compiled output including inline source map');
+
+        return updateOutput(compiledOutput[0], fileName, compiledOutput[1]);
       } else {
-        const sourceFile = this._program.getSourceFile(fileName);
-        const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
-          before: [
-            // hoisting from `ts-jest` or other before transformers
-            ...(this.ngJestConfig.customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
-            /**
-             * Downlevel constructor parameters for DI support. This is required to support forwardRef in ES2015 due to
-             * TDZ issues. This wrapper is needed here due to the program not being available until after
-             * the transformers are created. Also because program can be updated so we can't push this transformer in
-             * _createCompilerHost
-             */
-            downlevelCtor(this._program),
-          ],
-        });
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const compiledOutput: [string, string] = this._tsHost!.getEmittedResult();
-        if (this.ngJestConfig.shouldReportDiagnostics(fileName)) {
-          this._logger.debug({ fileName }, 'getCompiledOutput: getting diagnostics');
+        this.ngJestConfig.raiseDiagnostics(allDiagnostics, fileName);
 
-          this._allDiagnostics.push(
-            ...emitResult.diagnostics,
-            ...this._program.getSyntacticDiagnostics(sourceFile),
-            ...this._program.getSemanticDiagnostics(sourceFile),
-          );
-        }
-        if (!hasErrors(this._allDiagnostics)) {
-          this._logger.debug({ fileName }, 'getCompiledOutput: update compiled output including inline source map');
-
-          return updateOutput(compiledOutput[0], fileName, compiledOutput[1]);
-        } else {
-          this.ngJestConfig.raiseDiagnostics(this._allDiagnostics as ts.Diagnostic[], fileName);
-
-          return '';
-        }
+        return '';
       }
     } else {
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling as isolated module');
