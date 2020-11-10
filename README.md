@@ -13,39 +13,88 @@ This is a part of the article: [Testing Angular faster with Jest](https://www.xf
 
 _Note: This preset does not support AngularJS (1.x). If you want to set up Jest with AngularJS, please see [this blog post](https://medium.com/aya-experience/testing-an-angularjs-app-with-jest-3029a613251)._
 
-## Installation
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [Configuration](#configuration)
+    - [Avoid karma conflicts](#avoid-karma-conflicts)
+- [Expose Configuration](#exposed-configuration)
+    - [Brief explanation of config](#brief-explanation-of-config)
+- [AST Transformers](#ast-transformers)
+- [Angular Testing Environment Setup](#angular-testing-environment-setup)
+- [Snapshot Testing](#snapshot-testing)
+    - [Removing empty lines and white-spaces in component snapshots](#removing-empty-lines-and-white-spaces-in-component-snapshots)
+- [Troubleshooting](#troubleshooting)
+    - [Can't resolve all parameters for SomeClass(?)](#cant-resolve-all-parameters-for-someclass)
+    - [@Input() bindings are not reflected into fixture when `ChangeDetectionStrategy.OnPush` is used](#input-bindings-are-not-reflected-into-fixture-when-changedetectionstrategyonpush-is-used)
+    - [The animation trigger "transformMenu" has failed](#the-animation-trigger-transformmenu-has-failed)
+    - [Absolute imports](#absolute-imports)
+    - [Custom tsconfig](#custom-tsconfig)
+    - [Unexpected token [import|export|other]](#unexpected-token-importexportother)
+        - [Adjust your `tsconfig.spec.json`](#adjust-your-tsconfigspecjson)
+        - [Adjust your `transformIgnorePatterns` whitelist](#adjust-your-transformignorepatterns-whitelist)
+        - [Allow JS files in your TS `compilerOptions`](#allow-js-files-in-your-ts-compileroptions)
+        - [Transpile js files through `babel-jest`](#transpile-js-files-through-babel-jest)
+    - [Observable ... is not a function](#observable--is-not-a-function)
+    - [Allow vendor libraries like jQuery, etc...](#allow-vendor-libraries-like-jquery-etc)
+    - [Configure other JSDOM versions](#configure-other-jsdom-versions)
+- [License](#license)
+
+
+## Getting Started
+
+### Installation
+
+Install using [`yarn`](https://yarnpkg.com/en/package/jest-preset-angular):
 
 ```bash
-yarn add -D jest jest-preset-angular @types/jest
-# or
-npm install -D jest jest-preset-angular @types/jest
+yarn add -D jest jest-preset-angular
 ```
 
-This will install `jest`, `@types/jest`, `ts-jest` as dependencies needed to run with Angular projects.
+Or [`npm`](https://www.npmjs.com/package/jest-preset-angular):
 
-## Usage
+```bash
+npm install -D jest jest-preset-angular
+```
 
-In `src` directory create `setup-jest.ts` file with following contents:
+### Configuration
+
+In your project root, create `setup-jest.ts` file with following contents:
 
 ```ts
-import 'jest-preset-angular/setup-jest';
+import 'jest-preset-angular';
 import './jest-global-mocks'; // browser mocks globally available for every test
 ```
 
 _Note: feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/jest-global-mocks.ts) file from the test app directory and save it next to the `setup-jest.ts` file._
 
-...and include this in your `package.json`:
+Add the following section:
+
+- to your root `jest.config.js`
+
+```js
+// jest.config.js
+module.exports = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts']
+}
+```
+
+- or to your root `package.json`
 
 ```json
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/src/setup-jest.ts"]
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
   }
 }
 ```
 
 ### Avoid karma conflicts
+
 By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up by jest. To circumvent this you can either rename it to `src/karmaTest.ts` or hide it from jest by adding `<rootDir>/src/test.ts` to jest `testPathIgnorePatterns` option.
 
 
@@ -77,6 +126,7 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
+    'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
     'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
@@ -86,22 +136,38 @@ module.exports = {
 ### Brief explanation of config
 
 - `<rootDir>` is a special syntax for root of your project (here by default it's project's root /)
+
 - we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through ts-jest
+
 - `"transform"` – run every TS, JS, or HTML file through so called _preprocessor_ (we'll get there); this lets Jest understand non-JS syntax
+
 - `"testMatch"` – we want to run Jest on files that matches this glob
+
 - `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files
+
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex
+
 - `"setupFilesAfterEnv"` – this is the heart of our config, in this file we'll setup and patch environment within tests are running
+
 - `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx) are released as TypeScript files, not pure JavaScript; in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler like any other module in our project.
-- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc). This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable. To remove such specific attributes use `AngularNoNgAttributesSnapshotSerializer` serializer. You need to add `AngularNoNgAttributesSnapshotSerializer` serializer manually (see [`test` app configuration](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/package.json#L47-L51)).
 
-## [AST Transformer](https://github.com/thymikee/jest-preset-angular/blob/master/src/InlineHtmlStripStylesTransformer.ts)
+- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular 
+adds some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc). 
+This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable. 
+To remove such specific attributes use `AngularNoNgAttributesSnapshotSerializer` serializer. 
+You need to add `AngularNoNgAttributesSnapshotSerializer` serializer manually (see [`test` app configuration](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/package.json#L47-L51)).
 
-Jest doesn't run in browser nor through dev server. It uses jsdom to abstract browser environment. So we have to cheat a little and inline our templates and get rid of styles (we're not testing CSS) because otherwise Angular will try to make XHR call for our templates and fail miserably.
+
+## AST Transformers
+
+Jest doesn't run in browser nor through dev server. It uses jsdom to abstract browser environment. So we have to cheat 
+a little and inline our templates and get rid of styles (we're not testing CSS) because otherwise Angular will try 
+to make XHR call for our templates and fail miserably.
+
 
 ## Angular testing environment setup
 
-If you look at [`setup-jest.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/src/config/setup-jest.ts), what we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
+If you look at [`setup-jest.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/src/config/setup-jest.ts), what we're doing here is we're adding globals required by Angular. With the included [jest-zone-patch](https://github.com/thymikee/jest-preset-angular/tree/master/src/zone-patch) we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
 
 ## Snapshot testing
 
@@ -233,6 +299,7 @@ describe('Component snapshots', () => {
 })
 ```
 
+
 ## Troubleshooting
 
 Problems may arise if you're using custom builds (this preset is tailored for `angular-cli` as firstly priority). Please be advised that every entry in default configuration may be overridden to best suite your app's needs.
@@ -272,7 +339,7 @@ beforeEach(async(() => {
 
 ### The animation trigger "transformMenu" has failed
 
-The currenly used JSDOM version handles this, but older versions used before v7 of this preset was missing transform property. To patch it for Angular Material, use this workaround.
+The currently used JSDOM version handles this, but older versions used before v7 of this preset was missing transform property. To patch it for Angular Material, use this workaround.
 
 Add this to your `jestGlobalMocks` file
 
@@ -364,22 +431,17 @@ A default `tsconfig.spec.json` after modifying will look like this
 
 ```
 {
-  "extends": "../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "types": [
       "jest",
-      "jquery",
       "jsdom",
       "node"
     ]
   },
-  "files": [
-    "polyfills.ts"
-  ],
   "include": [
-    "**/*.spec.ts",
     "**/*.d.ts"
   ]
 ```
@@ -414,7 +476,7 @@ This tells `ts-jest` (a preprocessor this preset using to transform TS files) to
 
 Some vendors publish their sources without transpiling. You need to say jest to transpile such files manually since `typescript` (and thus `ts-jest` used by this preset) do not transpile them.
 
-1. Install dependencies required by Jest official documentation for [Babel integration](https://jest-bot.github.io/jest/docs/babel.html).
+1. Install dependencies required by the official Jest documentation for [Babel integration](https://jest-bot.github.io/jest/docs/babel.html).
 
 2. Install `@babel/preset-env` and add `babel.config.js` (or modify existing if needed) with the following content:
 ```js
@@ -501,3 +563,8 @@ package, e.g. `jest-environment-jsdom-sixteen` and edit your Jest config like so
 If you use JSDOM v11 or lower, you might have to mock `localStorage` or `sessionStorage` on your own or using some third-party library by loading it in `setupFilesAfterEnv`.
 
 Reference: https://jestjs.io/docs/en/configuration.html#testenvironment-string, https://github.com/jsdom/jsdom/blob/master/Changelog.md#1200
+
+
+## License
+
+jest-preset-angular is [MIT licensed](./LICENSE).
