@@ -11,6 +11,7 @@ module.exports = {
       },
     },
   },
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
