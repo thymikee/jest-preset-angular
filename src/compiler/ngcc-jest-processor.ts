@@ -17,13 +17,12 @@ function findNodeModulesDirectory(startPoint: string): string {
     current = dirname(current);
   }
 
-  throw new Error(`Cannot locate the 'node_modules' directory.`);
+  throw new Error(
+    `Cannot locate the 'node_modules' directory. Please make sure you are running jest from root level of your project`,
+  );
 }
 
-if (!existsSync(join(process.cwd(), 'angular.json'))) {
-  throw new Error('ngcc-jest-processor should be only run from root directory');
-}
-
+process.stdout.write('ngcc-jest-processor: running ngcc\n');
 // We spawn instead of using the API because:
 // - NGCC Async uses clustering which is problematic when used via the API which means
 // that we cannot setup multiple cluster masters with different options.

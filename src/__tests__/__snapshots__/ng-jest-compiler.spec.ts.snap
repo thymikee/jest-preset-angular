@@ -4,26 +4,21 @@ exports[`NgJestCompiler with isolatedModule false should downlevel decorators fo
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 exports.MyService = exports.ClassInject = void 0;
-var tslib_1 = require(\\"tslib\\");
-var core_1 = require(\\"@angular/core\\");
-var ClassInject = /** @class */ (function () {
-    function ClassInject() {
-    }
-    return ClassInject;
-}());
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+class ClassInject {
+}
 exports.ClassInject = ClassInject;
-var MyService = /** @class */ (function () {
+let MyService = class MyService {
     // eslint-disable-next-line
-    function MyService(_v) {
-    }
-    MyService.ctorParameters = function () { return [
-        { type: ClassInject }
-    ]; };
-    MyService = tslib_1.__decorate([
-        core_1.Injectable()
-    ], MyService);
-    return MyService;
-}());
+    constructor(_v) { }
+};
+MyService.ctorParameters = () => [
+    { type: ClassInject }
+];
+MyService = tslib_1.__decorate([
+    core_1.Injectable()
+], MyService);
 exports.MyService = MyService;
 //# "
 `;
@@ -32,7 +27,7 @@ exports[`NgJestCompiler with isolatedModule false should hoist correctly 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 jest.mock('./foo');
-var foo_1 = require(\\"./foo\\");
+const foo_1 = require(\\"./foo\\");
 console.log(foo_1.getFoo());
 //# "
 `;
@@ -41,21 +36,20 @@ exports[`NgJestCompiler with isolatedModule false should return compiled result 
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 exports.AppComponent = void 0;
-var tslib_1 = require(\\"tslib\\");
-var core_1 = require(\\"@angular/core\\");
-var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let AppComponent = class AppComponent {
+    constructor() {
         this.title = 'test-app-v10';
     }
-    AppComponent = tslib_1.__decorate([
-        core_1.Component({
-            selector: 'app-root',
-            templateUrl: './app.component.html',
-            styleUrls: ['./app.component.scss'],
-        })
-    ], AppComponent);
-    return AppComponent;
-}());
+};
+AppComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.scss'],
+    })
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# "
 `;
@@ -64,21 +58,20 @@ exports[`NgJestCompiler with isolatedModule false should return compiled result 
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 exports.AppComponent = void 0;
-var tslib_1 = require(\\"tslib\\");
-var core_1 = require(\\"@angular/core\\");
-var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let AppComponent = class AppComponent {
+    constructor() {
         this.title = 'test-app-v10';
     }
-    AppComponent = tslib_1.__decorate([
-        core_1.Component({
-            selector: 'app-root',
-            templateUrl: './app.component.html',
-            styleUrls: ['./app.component.scss'],
-        })
-    ], AppComponent);
-    return AppComponent;
-}());
+};
+AppComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.scss'],
+    })
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# "
 `;
@@ -91,7 +84,7 @@ exports[`NgJestCompiler with isolatedModules true should hoist correctly 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 jest.mock('./foo');
-var foo_1 = require(\\"./foo\\");
+const foo_1 = require(\\"./foo\\");
 console.log(foo_1.getFoo());
 //# "
 `;
@@ -100,23 +93,18 @@ exports[`NgJestCompiler with isolatedModules true should return result 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 exports.MyService = exports.ClassInject = void 0;
-var tslib_1 = require(\\"tslib\\");
-var core_1 = require(\\"@angular/core\\");
-var ClassInject = /** @class */ (function () {
-    function ClassInject() {
-    }
-    return ClassInject;
-}());
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+class ClassInject {
+}
 exports.ClassInject = ClassInject;
-var MyService = /** @class */ (function () {
+let MyService = class MyService {
     // eslint-disable-next-line
-    function MyService(_v) {
-    }
-    MyService = tslib_1.__decorate([
-        core_1.Injectable()
-    ], MyService);
-    return MyService;
-}());
+    constructor(_v) { }
+};
+MyService = tslib_1.__decorate([
+    core_1.Injectable()
+], MyService);
 exports.MyService = MyService;
 //# "
 `;
