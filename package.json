@@ -28,6 +28,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
   },
   "dependencies": {
+    "globalthis": "^1.0.1",
     "jest-environment-jsdom": "^26.6.2",
     "pretty-format": "26.x",
     "ts-jest": "^26.4.4"
@@ -49,8 +50,8 @@
     "@commitlint/config-angular": "11.x",
     "@jest/transform": "26.x",
     "@jest/types": "26.x",
-    "@types/jest": "26.x",
     "@ngtools/webpack": "^10.2.0",
+    "@types/jest": "26.x",
     "@types/node": "14.x",
     "@typescript-eslint/eslint-plugin": "4.x",
     "@typescript-eslint/parser": "4.x",
