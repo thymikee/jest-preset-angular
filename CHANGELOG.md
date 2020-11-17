@@ -1,3 +1,19 @@
+# [9.0.0-next.3](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.3) (2020-11-17)
+
+
+### Bug Fixes
+
+* **compiler:** fallback to ES2015 when no target is defined ([d8c4975](https://github.com/thymikee/jest-preset-angular/commit/d8c497515ac981d8903d9c37190be39bde60ca51)), closes [#622](https://github.com/thymikee/jest-preset-angular/issues/622)
+* add `@ngtools/webpack` to peerDependencies list ([003527d](https://github.com/thymikee/jest-preset-angular/commit/003527d5329461e3b9a5c17404d0b64553192234)), closes [#622](https://github.com/thymikee/jest-preset-angular/issues/622)
+
+
+### Features
+
+* **compiler:** provide ngcc-jest-processor util ([5c6ae01](https://github.com/thymikee/jest-preset-angular/commit/5c6ae01a0ee665879b32b6b4a75270fc1acdb1db))
+
+
+
+
 # [9.0.0-next.2](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.2) (2020-11-08)
 
 
