@@ -9,7 +9,7 @@ export class NgJestConfig extends ConfigSet {
    */
   parsedTsConfig!: ParsedConfiguration;
 
-  constructor(public readonly jestCfg: Config.ProjectConfig) {
+  constructor(readonly jestCfg: Config.ProjectConfig) {
     super(jestCfg);
   }
 

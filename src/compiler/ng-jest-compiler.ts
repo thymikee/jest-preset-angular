@@ -18,7 +18,7 @@ export class NgJestCompiler {
   private readonly _logger: Logger;
   private readonly _ts: TTypeScript;
 
-  constructor(private readonly ngJestConfig: NgJestConfig) {
+  constructor(readonly ngJestConfig: NgJestConfig) {
     this._logger = this.ngJestConfig.logger;
     this._ts = this.ngJestConfig.compilerModule;
     this._setupOptions(this.ngJestConfig);
@@ -79,8 +79,10 @@ export class NgJestCompiler {
 
       const result: ts.TranspileOutput = this._ts.transpileModule(fileContent, {
         fileName,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         transformers: this.ngJestConfig.customTransformers,
         compilerOptions: this._compilerOptions,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         reportDiagnostics: this.ngJestConfig.shouldReportDiagnostics(fileName),
       });
       if (result.diagnostics && this.ngJestConfig.shouldReportDiagnostics(fileName)) {

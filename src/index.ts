@@ -20,8 +20,6 @@ class NgJestTransformer extends TsJestTransformer implements Transformer {
    * cache config set between each test run
    */
   private static readonly _cachedConfigSets: CachedConfigSet[] = [];
-  // @ts-expect-error Temporarily use ts-expect-error because we will use this later
-  private _ngJestConfig!: NgJestConfig;
   private _ngJestCompiler!: NgJestCompiler;
 
   process(
@@ -31,9 +29,12 @@ class NgJestTransformer extends TsJestTransformer implements Transformer {
     transformOptions?: TransformOptions,
   ): TransformedSource | string {
     const isDefinitionFile = filePath.endsWith(DECLARATION_TYPE_EXT);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const isJsFile = JS_JSX_REGEX.test(filePath);
     const ngJestCfg = this.configsFor(jestConfig);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const shouldStringifyContent = ngJestCfg.shouldStringifyContent(filePath);
+
     return shouldStringifyContent || isDefinitionFile || (!ngJestCfg.parsedTsConfig.options.allowJs && isJsFile)
       ? super.process(fileContent, filePath, jestConfig, transformOptions)
       : this._ngJestCompiler.getCompiledOutput(filePath, fileContent);
@@ -78,6 +79,7 @@ class NgJestTransformer extends TsJestTransformer implements Transformer {
         NgJestTransformer._cachedConfigSets.push({
           jestConfig: new JsonableValue(jestConfig),
           ngJestConfig,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           transformerCfgStr: this._transformCfgStr,
           ngJestCompiler: this._ngJestCompiler,
         });

@@ -3,6 +3,35 @@ import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 
 describe('NgJestTransformer', () => {
+  describe('configsFor', () => {
+    test(
+      'should return the same config set for same values with different jest config objects' +
+        ' but their serialized versions are the same',
+      () => {
+        const obj1 = { globals: {}, testMatch: [], testRegex: [] };
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const obj2 = { ...obj1, globals: Object.create(null) };
+        // eslint-disable-next-line
+        const cs1 = require('../').configsFor(obj1);
+        // eslint-disable-next-line
+        const cs2 = require('../').configsFor(obj2);
+
+        expect(cs2).toBe(cs1);
+      },
+    );
+
+    test('should return the same config set for same values with jest config objects', () => {
+      const obj1 = { globals: {}, testMatch: [], testRegex: [] };
+      const obj2 = { ...obj1 };
+      // eslint-disable-next-line
+      const cs1 = require('../').configsFor(obj1);
+      // eslint-disable-next-line
+      const cs2 = require('../').configsFor(obj2);
+
+      expect(cs2).toBe(cs1);
+    });
+  });
+
   describe('getCacheKey', () => {
     test('should call getCacheKey method from parent class TsJestTransformer', () => {
       TsJestTransformer.prototype.getCacheKey = jest.fn();
@@ -25,37 +54,6 @@ describe('NgJestTransformer', () => {
         input.jestConfigStr,
         input.options,
       );
-    });
-  });
-
-  describe('configsFor', () => {
-    test(
-      'should return the same config set for same values with different jest config objects' +
-        ' but their serialized versions are the same',
-      () => {
-        const obj1 = {
-          config: { cwd: '/foo/.', rootDir: '/bar//dummy/..', globals: {}, testMatch: [], testRegex: [] },
-        };
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const obj2 = { ...obj1, config: { ...obj1.config, globals: Object.create(null) } };
-        // eslint-disable-next-line
-      const cs1 = require('../').configsFor(obj1);
-        // eslint-disable-next-line
-      const cs2 = require('../').configsFor(obj2);
-
-        expect(cs2).toBe(cs1);
-      },
-    );
-
-    test('should return the same config set for same values with jest config objects', () => {
-      const obj1 = { config: { cwd: '/foo/.', rootDir: '/bar//dummy/..', globals: {}, testMatch: [], testRegex: [] } };
-      const obj2 = { ...obj1 };
-      // eslint-disable-next-line
-      const cs1 = require('../').configsFor(obj1);
-      // eslint-disable-next-line
-      const cs2 = require('../').configsFor(obj2);
-
-      expect(cs2).toBe(cs1);
     });
   });
 
@@ -132,5 +130,5 @@ describe('NgJestTransformer', () => {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(NgJestCompiler.prototype.getCompiledOutput).not.toHaveBeenCalled();
     });
-  })
+  });
 });
