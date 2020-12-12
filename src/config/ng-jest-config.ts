@@ -1,60 +1,61 @@
-import type { ParsedConfiguration } from '@angular/compiler-cli';
-import { formatDiagnostics, readConfiguration } from '@angular/compiler-cli';
+import { formatDiagnostics, ParsedConfiguration, readConfiguration } from '@angular/compiler-cli';
 import type { Config } from '@jest/types';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
-import { ParsedCommandLine, ModuleKind, ScriptTarget } from 'typescript';
+import type { CompilerOptions } from 'typescript';
 
 export class NgJestConfig extends ConfigSet {
-  private _parsedNgConfig!: ParsedConfiguration;
+  /**
+   * Override `ts-jest` property
+   */
+  parsedTsConfig!: ParsedConfiguration;
 
-  constructor(private jestConfig: Config.ProjectConfig) {
-    super(jestConfig);
-    this.setupOptions(jestConfig);
+  constructor(public readonly jestCfg: Config.ProjectConfig) {
+    super(jestCfg);
   }
 
   /**
-   * Override `ts-jest` parsedTsConfig so that it always returns Angular compiler config
+   * Override `ts-jest` behavior because we use `readConfiguration` which will read and resolve tsconfig.
    */
-  get parsedTsConfig(): ParsedConfiguration {
-    return this._parsedNgConfig;
-  }
+  protected _resolveTsConfig(compilerOptions?: CompilerOptions, resolvedConfigFile?: string): ParsedConfiguration {
+    this.logger.debug(
+      '_resolveTsConfig: read and resolve config from tsconfig using @angular/compiler-cli readConfiguration',
+    );
 
-  private setupOptions(jestConfig: Config.ProjectConfig): void {
-    const { globals } = jestConfig;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const extraTsconfig: string | ParsedCommandLine | undefined =
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      globals && globals['ts-jest'] ? (globals as Record<string, any>)['ts-jest'].tsconfig : undefined;
-    /**
-     * By default, readConfiguration will pick up `tsconfig.json` from current directory. Because we are getting config
-     * via `ts-jest`, we need to manually get `tsconfig` from `ts-jest` options from `jest` config.
-     */
-    if (typeof extraTsconfig === 'string') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error `ts-jest` doesn't expose typing for resolvePath
-      this._parsedNgConfig = readConfiguration(super.resolvePath(extraTsconfig));
+    let result: ParsedConfiguration;
+    if (resolvedConfigFile) {
+      result = readConfiguration(resolvedConfigFile);
     } else {
-      this._parsedNgConfig = readConfiguration(this.jestConfig.cwd ?? process.cwd());
-      if (extraTsconfig) {
-        this._parsedNgConfig = {
-          ...this._parsedNgConfig,
+      result = readConfiguration(this.cwd);
+      if (compilerOptions) {
+        result = {
+          ...result,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           options: {
-            ...this._parsedNgConfig.options,
-            ...extraTsconfig,
+            ...result.options,
+            ...compilerOptions,
           } as Record<string, any>, // eslint-disable-line @typescript-eslint/no-explicit-any
         };
       }
     }
-    if (this._parsedNgConfig.errors?.length) {
-      throw new Error(formatDiagnostics(this._parsedNgConfig.errors));
+    if (result.errors?.length) {
+      throw new Error(formatDiagnostics(result.errors));
     }
-    this._parsedNgConfig = {
-      ...this._parsedNgConfig,
+
+    return {
+      ...result,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       options: {
-        ...this._parsedNgConfig.options,
-        module: ModuleKind.CommonJS,
-        target: ScriptTarget.ES5,
+        ...result.options,
+        ...this._overriddenCompilerOptions,
+        // Overwrite outDir so we can find generated files next to their .ts origin in compilerHost.
+        outDir: '',
+        suppressOutputPathCheck: true,
+        // For performance, disable AOT decorator downleveling transformer for applications in the CLI.
+        // The transformer is not needed for VE or Ivy in this plugin since Angular decorators are removed.
+        // While the transformer would make no changes, it would still need to walk each source file AST.
+        annotationsAs: 'decorators' as const,
+        module: result.options.module ?? this.compilerModule.ModuleKind.CommonJS,
+        target: result.options.target ?? this.compilerModule.ScriptTarget.ES2015,
       },
     };
   }
