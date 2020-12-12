@@ -83,7 +83,7 @@ module.exports = {
 
 - or to your root `package.json`
 
-```json
+```json5
 {
   "jest": {
     "preset": "jest-preset-angular",
@@ -115,21 +115,22 @@ By Angular CLI defaults you'll have a `src/test.ts` file which will be picked up
 ## Exposed [configuration](https://github.com/thymikee/jest-preset-angular/blob/master/jest-preset.js)
 
 ```js
+const customTransformers = require('./build/transformers');
+const snapshotSerializers = require('./build/serializers');
+
 module.exports = {
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
       astTransformers: {
-        before: [
-          'jest-preset-angular/build/InlineFilesTransformer',
-          'jest-preset-angular/build/StripStylesTransformer',
-        ],
+        before: customTransformers,
       },
     },
   },
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest',
+    '^.+\\.(ts|js|html)$': 'jest-preset-angular',
   },
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {
@@ -139,11 +140,7 @@ module.exports = {
     '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
-  snapshotSerializers: [
-    'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
-    'jest-preset-angular/build/AngularSnapshotSerializer.js',
-    'jest-preset-angular/build/HTMLCommentSerializer.js',
-  ],
+  snapshotSerializers,
 };
 ```
 
@@ -293,7 +290,6 @@ describe('Component snapshots', () => {
       const configure: ConfigureFn = testBed => {
         testBed.configureTestingModule({
           declarations: [FooComponent],
-          imports: [...],
           schemas: [NO_ERRORS_SCHEMA],
         });
       };
@@ -388,7 +384,7 @@ import MyStuff from 'src/testing/my.stuff';
 
 However, if your directory structure differ from that provided by `angular-cli` you can adjust `moduleNameMapper` in Jest config:
 
-```json
+```json5
 {
   "jest": {
     "moduleNameMapper": {
@@ -403,7 +399,7 @@ However, if your directory structure differ from that provided by `angular-cli` 
 
 Override `globals` object in Jest config:
 
-```json
+```json5
 {
   "jest": {
     "globals": {
@@ -462,7 +458,7 @@ A default `tsconfig.spec.json` after modifying will look like this
 
 #### Adjust your `transformIgnorePatterns` whitelist:
 
-```json
+```json5
 {
   "jest": {
     "transformIgnorePatterns": [
@@ -472,11 +468,11 @@ A default `tsconfig.spec.json` after modifying will look like this
 }
 ```
 
-By default Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transformed, even though they're `node_modules`.
+By default, Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transformed, even though they're `node_modules`.
 
 #### Allow JS files in your TS `compilerOptions`
 
-```json
+```json5
 {
   "compilerOptions": {
     "allowJs": true
@@ -493,6 +489,7 @@ Some vendors publish their sources without transpiling. You need to say jest to 
 1. Install dependencies required by the official Jest documentation for [Babel integration](https://jest-bot.github.io/jest/docs/babel.html).
 
 2. Install `@babel/preset-env` and add `babel.config.js` (or modify existing if needed) with the following content:
+
 ```js
 module.exports = function(api) {
   api.cache(true);
@@ -505,7 +502,6 @@ module.exports = function(api) {
     plugins,
   };
 };
-
 ```
 
 *Note: do not use a `.babelrc` file otherwise the packages that you specify in the next step will not be picked up. CF [Babel documentation](https://babeljs.io/docs/en/configuration#what-s-your-use-case) and the comment `You want to compile node_modules? babel.config.js is for you!`*.
@@ -513,13 +509,11 @@ module.exports = function(api) {
 3. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 
 ```js
-{
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|html)$": "ts-jest",
-      "^.+\\.js$": "babel-jest"
-    },
-  }
+module.exports = {
+  transform: {
+    "^.+\\.(ts|html)$": "ts-jest",
+    "^.+\\.js$": "babel-jest"
+  },
 }
 ```
 
