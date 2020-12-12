@@ -36,6 +36,7 @@ const executeTest = (projectRealPath) => {
     mkdirSync(presetDir);
   }
   copySync(join(cwd, 'jest-preset.js'), `${presetDir}/jest-preset.js`);
+  copySync(join(cwd, 'ngcc-jest-processor.js'), `${presetDir}/ngcc-jest-processor.js`);
   copySync(join(cwd, 'setup-jest.js'), `${presetDir}/setup-jest.js`);
   copySync(join(cwd, 'package.json'), `${presetDir}/package.json`);
   copySync(join(cwd, 'build'), `${presetDir}/build`);

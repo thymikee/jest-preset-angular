@@ -19,6 +19,7 @@ _Note: This preset does not support AngularJS (1.x). If you want to set up Jest 
 - [Getting Started](#getting-started)
     - [Installation](#installation)
     - [Configuration](#configuration)
+    - [Run ngcc before tests run](#run-ngcc-before-test-run)
     - [Avoid karma conflicts](#avoid-karma-conflicts)
 - [Expose Configuration](#exposed-configuration)
     - [Brief explanation of config](#brief-explanation-of-config)
@@ -90,6 +91,21 @@ module.exports = {
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
   }
+}
+```
+
+### Run ngcc before test run
+
+`jest-preset-angular` provides util script `ngcc-jest-processor` which can help to run `ngcc` before running tests.
+`ngcc-jest-processor` will compile any Angular format packages to `umd` format which is compatible with `CommonJS` that
+Jest is using.
+
+Add to the top of your root `jest.config.js`:
+```js
+require('jest-preset-angular/ngcc-jest-processor');
+
+module.exports = {
+  // jest config options
 }
 ```
 
