@@ -22,13 +22,11 @@ class NgJestTransformer extends TsJestTransformer implements Transformer {
   private static readonly _cachedConfigSets: CachedConfigSet[] = [];
   private _ngJestCompiler!: NgJestCompiler;
 
-  process(
-    fileContent: string,
-    filePath: Config.Path,
-    jestConfig: Config.ProjectConfig,
-    transformOptions?: TransformOptions,
-  ): TransformedSource | string {
+  // @ts-expect-error this comment can be removed with ts-jest 27
+  process(fileContent: string, filePath: Config.Path, transformOptions: TransformOptions): TransformedSource | string {
     const isDefinitionFile = filePath.endsWith(DECLARATION_TYPE_EXT);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const jestConfig = transformOptions.config;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const isJsFile = JS_JSX_REGEX.test(filePath);
     const ngJestCfg = this.configsFor(jestConfig);
@@ -38,6 +36,11 @@ class NgJestTransformer extends TsJestTransformer implements Transformer {
     return shouldStringifyContent || isDefinitionFile || (!ngJestCfg.parsedTsConfig.options.allowJs && isJsFile)
       ? super.process(fileContent, filePath, jestConfig, transformOptions)
       : this._ngJestCompiler.getCompiledOutput(filePath, fileContent);
+  }
+
+  // @ts-expect-error this comment can be removed with ts-jest 27
+  getCacheKey(fileContent: string, filePath: string, transformOptions: TransformOptions): string {
+    return super.getCacheKey(fileContent, filePath, '', transformOptions);
   }
 
   /**
