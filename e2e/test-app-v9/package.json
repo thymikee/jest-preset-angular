@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest --no-cache",
+    "test": "jest --clearCache && jest",
     "lint": "ng lint"
   },
   "private": true,
@@ -30,7 +30,7 @@
     "@angular/language-service": "~9.1.12",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.19.3",
-    "jest": "^26.6.2",
+    "jest": "^27.0.0-next.2",
     "ts-node": "^9.0.0",
     "typescript": "~3.8.3"
   }

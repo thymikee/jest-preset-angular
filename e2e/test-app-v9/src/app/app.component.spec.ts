@@ -84,14 +84,20 @@ describe('AppComponent', () => {
     }, 100);
   });
 
-  it('async with done should work', async done => {
-    let flag = false;
-    setTimeout(() => {
-      flag = true;
-      expect(flag).toBe(true);
-      done();
-    }, 100);
-  });
+  /*
+   * This test doesn't work with jest-circus `testRunner`. If you want to test async with done callback, please use
+   * testRunner `jest-jasmine2`.
+   *
+   * More information see discussion https://github.com/facebook/jest/issues/10529
+   */
+  // it('async with done should not work with jest-circus', async done => {
+  //   let flag = false;
+  //   setTimeout(() => {
+  //     flag = true;
+  //     expect(flag).toBe(true);
+  //     done();
+  //   }, 100);
+  // });
 
   it.each([[1, 2]])('it.each', (arg1, arg2) => {
     expect(arg1).toBe(1);
