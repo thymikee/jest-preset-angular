@@ -1,3 +1,32 @@
+# [9.0.0-next.4](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.4) (2020-12-18)
+
+
+### Build System
+
+* **devs-infra:** build package with target `es2015` ([#620](https://github.com/thymikee/jest-preset-angular/issues/620)) ([779fd8c](https://github.com/thymikee/jest-preset-angular/commit/779fd8c2f878d21587e24eda4121dc73166dfa53))
+
+
+### Features
+
+* **compiler:** allow `isolatedModules: true` to have ESM support ([#680](https://github.com/thymikee/jest-preset-angular/issues/680)) ([d5e1b0e](https://github.com/thymikee/jest-preset-angular/commit/d5e1b0ef054e11c56c5cb9777ac2ad2c5cbd8994))
+* support Jest 27 ([#676](https://github.com/thymikee/jest-preset-angular/issues/676)) ([1a6b10e](https://github.com/thymikee/jest-preset-angular/commit/1a6b10ef66c266a7736f2ef4aed178db836d0c6c))
+* **utils:** improve `ngcc-jest-processor` util script to exclude some Jest args ([#662](https://github.com/thymikee/jest-preset-angular/issues/662)) ([cf1bb4c](https://github.com/thymikee/jest-preset-angular/commit/cf1bb4c36e1e68804658da02c6ca3a2bd783a6e2))
+
+
+### Performance Improvements
+
+* **compiler:** reuse `cacheFS` from jest to reduce file system reading ([#679](https://github.com/thymikee/jest-preset-angular/issues/679)) ([f5d9d4b](https://github.com/thymikee/jest-preset-angular/commit/f5d9d4b9c0b5440ab14ddb4a636ea84d384e3408))
+* **config:** set `skipLibCheck: true` if not defined in tsconfig ([#678](https://github.com/thymikee/jest-preset-angular/issues/678)) ([0df3ce1](https://github.com/thymikee/jest-preset-angular/commit/0df3ce159c6778893dc08e35bdb99d0f3e0285b5))
+
+
+### BREAKING CHANGES
+
+* `isolatedModule: true` will still use `ts-jest` to compile `ts` to `js` but you won't get full compatibility with Ivy.
+* `jest-preset-angular` no longer ships with `es5` build but now with `es2015`
+* Require Jest 27
+
+
+
 # [9.0.0-next.3](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.3) (2020-11-17)
 
 
