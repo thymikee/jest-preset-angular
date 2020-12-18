@@ -49,6 +49,7 @@ export class NgJestConfig extends ConfigSet {
         // Overwrite outDir so we can find generated files next to their .ts origin in compilerHost.
         outDir: '',
         suppressOutputPathCheck: true,
+        skipLibCheck: result.options.skipLibCheck ?? true,
         // For performance, disable AOT decorator downleveling transformer for applications in the CLI.
         // The transformer is not needed for VE or Ivy in this plugin since Angular decorators are removed.
         // While the transformer would make no changes, it would still need to walk each source file AST.

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NgJestConfig readTsConfig should return config including Angular compiler config with tsconfig as a string from ts-jest option 1`] = `
+exports[`NgJestConfig _resolveTsConfig should return config including Angular compiler config with tsconfig as a string from ts-jest option 1`] = `
 Object {
   "annotationsAs": "decorators",
   "declaration": false,
@@ -36,7 +36,7 @@ Object {
 }
 `;
 
-exports[`NgJestConfig readTsConfig should return config including Angular compiler config with tsconfig as an object from ts-jest option 1`] = `
+exports[`NgJestConfig _resolveTsConfig should return config including Angular compiler config with tsconfig as an object from ts-jest option 1`] = `
 Object {
   "annotationsAs": "decorators",
   "declaration": false,
@@ -60,7 +60,6 @@ Object {
   "noUnusedParameters": true,
   "outDir": "",
   "removeComments": false,
-  "resolveJsonModule": true,
   "skipLibCheck": true,
   "sourceMap": true,
   "strict": true,
@@ -73,7 +72,43 @@ Object {
 }
 `;
 
-exports[`NgJestConfig readTsConfig should return config including Angular compiler config without tsconfig defined in ts-jest option 1`] = `
+exports[`NgJestConfig _resolveTsConfig should return config including Angular compiler config with tsconfig as an object from ts-jest option 2`] = `
+Object {
+  "annotationsAs": "decorators",
+  "declaration": false,
+  "enableIvy": true,
+  "esModuleInterop": true,
+  "experimentalDecorators": true,
+  "forceConsistentCasingInFileNames": true,
+  "importHelpers": true,
+  "importsNotUsedAsValues": 2,
+  "inlineSourceMap": false,
+  "inlineSources": true,
+  "lib": Array [
+    "lib.esnext.d.ts",
+    "lib.dom.d.ts",
+  ],
+  "module": 1,
+  "noEmit": false,
+  "noFallthroughCasesInSwitch": true,
+  "noImplicitReturns": true,
+  "noUnusedLocals": true,
+  "noUnusedParameters": true,
+  "outDir": "",
+  "removeComments": false,
+  "skipLibCheck": false,
+  "sourceMap": true,
+  "strict": true,
+  "suppressOutputPathCheck": true,
+  "target": 2,
+  "types": Array [
+    "node",
+    "jest",
+  ],
+}
+`;
+
+exports[`NgJestConfig _resolveTsConfig should return config including Angular compiler config without tsconfig defined in ts-jest option 1`] = `
 Object {
   "annotationsAs": "decorators",
   "declaration": false,
