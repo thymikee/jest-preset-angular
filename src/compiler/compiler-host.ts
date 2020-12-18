@@ -9,12 +9,11 @@ import type { CompilerOptions } from '@angular/compiler-cli';
 
 export class NgJestCompilerHost implements ts.CompilerHost {
   private readonly _sourceFileCache: Map<string, ts.SourceFile> = new Map<string, ts.SourceFile>();
-  private readonly _memoryHost: Map<string, string | undefined> = new Map<string, string | undefined>();
   private readonly _emittedResult: [string, string] = ['', ''];
   private readonly _ts: TTypeScript;
   private readonly _moduleResolutionCache: ts.ModuleResolutionCache;
 
-  constructor(private logger: Logger, private ngJestCfg: NgJestConfig) {
+  constructor(readonly logger: Logger, readonly ngJestCfg: NgJestConfig, readonly jestCacheFS: Map<string, string>) {
     this._ts = this.ngJestCfg.compilerModule;
     this._moduleResolutionCache = this._ts.createModuleResolutionCache(this.ngJestCfg.cwd, (x) => x);
   }
@@ -24,10 +23,10 @@ export class NgJestCompilerHost implements ts.CompilerHost {
   }
 
   updateMemoryHost(fileName: string, fileContent: string): void {
-    const previousContents = this._memoryHost.get(fileName);
+    const previousContents = this.jestCacheFS.get(fileName);
     const contentsChanged = previousContents !== fileContent;
     if (contentsChanged) {
-      this._memoryHost.set(fileName, fileContent);
+      this.jestCacheFS.set(fileName, fileContent);
     }
   }
 
@@ -92,15 +91,18 @@ export class NgJestCompilerHost implements ts.CompilerHost {
 
   readFile(fileName: string): string | undefined {
     const normalizedFileName = normalize(fileName);
-    let fileContent = this._memoryHost.get(normalizedFileName);
-    if (!fileContent) {
-      this.logger.debug(
-        { fileName: normalizedFileName },
-        'readFile: file does not exist in memory cache, read file with file system',
-      );
+    let fileContent = this.jestCacheFS.get(normalizedFileName);
 
+    this.logger.debug(
+      { fileName: normalizedFileName },
+      'readFile: file does not exist in memory cache, read file with file system',
+    );
+
+    if (!fileContent) {
       fileContent = this._ts.sys.readFile(normalizedFileName) ?? undefined;
-      this._memoryHost.set(normalizedFileName, fileContent);
+      if (fileContent) {
+        this.jestCacheFS.set(normalizedFileName, fileContent);
+      }
     }
 
     return fileContent;

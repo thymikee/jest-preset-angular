@@ -45,7 +45,7 @@ describe('NgJestCompiler', () => {
     // Isolated modules true doesn't have downlevel ctor so this snapshot test should produce different input than with Program
     test('should return result', () => {
       const fileName = join(__dirname, '__mocks__', 'foo.service.ts');
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
@@ -60,7 +60,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [fileName],
       };
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
@@ -79,7 +79,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [],
       };
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
@@ -94,7 +94,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [fileName],
       };
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
@@ -109,7 +109,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [],
       };
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       expect(() =>
         compiler.getCompiledOutput('foo.ts', readFileSync(fileName, 'utf-8')),
@@ -122,7 +122,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [fileName],
       };
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       expect(() =>
         compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8')),
@@ -136,7 +136,7 @@ describe('NgJestCompiler', () => {
         rootNames: [fileName],
       };
       ngJestConfig.shouldReportDiagnostics = jest.fn().mockReturnValueOnce(false);
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       expect(() => compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))).not.toThrowError();
     });
@@ -148,7 +148,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [fileName],
       };
-      const compiler = new NgJestCompiler(ngJestConfig);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;

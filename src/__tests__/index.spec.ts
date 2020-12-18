@@ -10,6 +10,7 @@ describe('NgJestTransformer', () => {
       () => {
         const obj1 = {
           config: { cwd: process.cwd(), extensionsToTreatAsEsm: [], globals: {}, testMatch: [], testRegex: [] },
+          cacheFS: new Map(),
         };
         const obj2 = { ...obj1, config: { ...obj1.config, globals: {} } };
         // eslint-disable-next-line
@@ -24,6 +25,7 @@ describe('NgJestTransformer', () => {
     test('should return the same config set for same values with jest config objects', () => {
       const obj1 = {
         config: { cwd: process.cwd(), extensionsToTreatAsEsm: [], globals: {}, testMatch: [], testRegex: [] },
+        cacheFS: new Map(),
       };
       const obj2 = { ...obj1 };
       // eslint-disable-next-line
@@ -84,7 +86,7 @@ describe('NgJestTransformer', () => {
       const input = {
         fileContent: 'const foo = 1',
         // eslint-disable-next-line
-        options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo' },
+        options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo', cacheFS: new Map(), },
       };
       // eslint-disable-next-line
       const ngJestTransformer = require('../');
@@ -121,7 +123,7 @@ describe('NgJestTransformer', () => {
       };
       const input = {
         // eslint-disable-next-line
-        options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo' },
+        options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo', cacheFS: new Map(), },
       };
       // eslint-disable-next-line
       const ngJestTransformer = require('../');
