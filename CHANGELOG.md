@@ -21,7 +21,7 @@
 
 ### BREAKING CHANGES
 
-* `isolatedModule: true` will still use `ts-jest` to compile `ts` to `js` but you won't get full compatibility with Ivy.
+* By default, if `skipLibCheck` is not defined in tsconfig, `jest-preset-angular` will set it to `true`. If one wants to have it as `false`, one can set explicitly in tsconfig.
 * `jest-preset-angular` no longer ships with `es5` build but now with `es2015`
 * Require Jest 27
 
