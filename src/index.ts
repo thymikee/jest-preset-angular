@@ -37,7 +37,7 @@ class NgJestTransformer extends TsJestTransformer {
 
     return shouldStringifyContent || isDefinitionFile || (!ngJestCfg.parsedTsConfig.options.allowJs && isJsFile)
       ? super.process(fileContent, filePath, transformOptions)
-      : this._compiler.getCompiledOutput(filePath, fileContent);
+      : this._compiler.getCompiledOutput(filePath, fileContent, transformOptions.supportsStaticESM);
   }
 
   /**

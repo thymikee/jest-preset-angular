@@ -95,7 +95,7 @@ describe('NgJestTransformer', () => {
       ngJestTransformer.process(input.fileContent, fileName, input.options);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(NgJestCompiler.prototype.getCompiledOutput).toHaveBeenCalledWith(fileName, input.fileContent);
+      expect(NgJestCompiler.prototype.getCompiledOutput).toHaveBeenCalledWith(fileName, input.fileContent, undefined);
     });
 
     test.each([
