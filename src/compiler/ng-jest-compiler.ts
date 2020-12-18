@@ -18,7 +18,7 @@ export class NgJestCompiler implements CompilerInstance {
   private readonly _logger: Logger;
   private readonly _ts: TTypeScript;
 
-  constructor(readonly ngJestConfig: NgJestConfig) {
+  constructor(readonly ngJestConfig: NgJestConfig, readonly jestCacheFS: Map<string, string>) {
     this._logger = this.ngJestConfig.logger;
     this._ts = this.ngJestConfig.compilerModule;
     this._setupOptions(this.ngJestConfig);
@@ -117,7 +117,7 @@ export class NgJestCompiler implements CompilerInstance {
         '_setupOptions: creating Compiler Host using @angular/compiler-cli createCompilerHost',
       );
 
-      this._tsHost = new NgJestCompilerHost(this._logger, this.ngJestConfig);
+      this._tsHost = new NgJestCompilerHost(this._logger, this.ngJestConfig, this.jestCacheFS);
       this._compilerHost = createCompilerHost({
         options: this._compilerOptions,
         tsHost: this._tsHost,

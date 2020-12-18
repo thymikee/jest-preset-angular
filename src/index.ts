@@ -74,7 +74,7 @@ class NgJestTransformer extends TsJestTransformer {
         this._logger.info('no matching config-set found, creating a new one');
 
         ngJestConfig = new NgJestConfig(jestConfig);
-        this._compiler = new NgJestCompiler(ngJestConfig);
+        this._compiler = new NgJestCompiler(ngJestConfig, transformOptions.cacheFS);
         this._transformCfgStr = new JsonableValue({
           ...jestConfig,
           ...ngJestConfig.parsedTsConfig,
