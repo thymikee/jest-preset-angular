@@ -1,7 +1,7 @@
 import { formatDiagnostics, ParsedConfiguration, readConfiguration } from '@angular/compiler-cli';
-import type { Config } from '@jest/types';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import type { CompilerOptions } from 'typescript';
+import type { ProjectConfigTsJest } from 'ts-jest/dist/types';
 
 export class NgJestConfig extends ConfigSet {
   /**
@@ -9,7 +9,7 @@ export class NgJestConfig extends ConfigSet {
    */
   parsedTsConfig!: ParsedConfiguration;
 
-  constructor(readonly jestCfg: Config.ProjectConfig) {
+  constructor(readonly jestCfg: ProjectConfigTsJest) {
     super(jestCfg);
   }
 
@@ -46,7 +46,6 @@ export class NgJestConfig extends ConfigSet {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       options: {
         ...result.options,
-        ...this._overriddenCompilerOptions,
         // Overwrite outDir so we can find generated files next to their .ts origin in compilerHost.
         outDir: '',
         suppressOutputPathCheck: true,

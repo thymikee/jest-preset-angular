@@ -3,30 +3,33 @@ import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 
 describe('NgJestTransformer', () => {
-  describe('configsFor', () => {
+  describe('_configsFor', () => {
     test(
       'should return the same config set for same values with different jest config objects' +
         ' but their serialized versions are the same',
       () => {
-        const obj1 = { globals: {}, testMatch: [], testRegex: [] };
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const obj2 = { ...obj1, globals: Object.create(null) };
+        const obj1 = {
+          config: { cwd: process.cwd(), extensionsToTreatAsEsm: [], globals: {}, testMatch: [], testRegex: [] },
+        };
+        const obj2 = { ...obj1, config: { ...obj1.config, globals: {} } };
         // eslint-disable-next-line
-        const cs1 = require('../').configsFor(obj1);
+        const cs1 = require('../')._configsFor(obj1);
         // eslint-disable-next-line
-        const cs2 = require('../').configsFor(obj2);
+        const cs2 = require('../')._configsFor(obj2);
 
         expect(cs2).toBe(cs1);
       },
     );
 
     test('should return the same config set for same values with jest config objects', () => {
-      const obj1 = { globals: {}, testMatch: [], testRegex: [] };
+      const obj1 = {
+        config: { cwd: process.cwd(), extensionsToTreatAsEsm: [], globals: {}, testMatch: [], testRegex: [] },
+      };
       const obj2 = { ...obj1 };
       // eslint-disable-next-line
-      const cs1 = require('../').configsFor(obj1);
+      const cs1 = require('../')._configsFor(obj1);
       // eslint-disable-next-line
-      const cs2 = require('../').configsFor(obj2);
+      const cs2 = require('../')._configsFor(obj2);
 
       expect(cs2).toBe(cs1);
     });
@@ -58,6 +61,13 @@ describe('NgJestTransformer', () => {
   });
 
   describe('process', () => {
+    const baseJestCfg = {
+      cwd: './',
+      testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      testRegex: ['(/__tests__/.*|(\\\\.|/)(test|spec))\\\\.[jt]sx?$'],
+      extensionsToTreatAsEsm: [],
+    };
+
     beforeEach(() => {
       jest.spyOn(NgJestCompiler.prototype, 'getCompiledOutput').mockReturnValueOnce('');
     });
@@ -68,23 +78,19 @@ describe('NgJestTransformer', () => {
 
     test.each(['foo.ts', 'foo.js'])('should compile ts or js with allowJs by NgJestCompiler', (fileName) => {
       const jestCfg = {
-        cwd: './',
-        testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
-        testRegex: ['(/__tests__/.*|(\\\\.|/)(test|spec))\\\\.[jt]sx?$'],
+        ...baseJestCfg,
         globals: { 'ts-jest': { tsconfig: { allowJs: true } } },
       };
       const input = {
         fileContent: 'const foo = 1',
-        jestConfigStr: '{"cwd": "./"}',
         // eslint-disable-next-line
         options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo' },
       };
       // eslint-disable-next-line
       const ngJestTransformer = require('../');
-      ngJestTransformer.getCacheKey(input.fileContent, fileName, input.jestConfigStr, input.options);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ngJestTransformer.process(input.fileContent, fileName, jestCfg as any);
+      ngJestTransformer.process(input.fileContent, fileName, input.options);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(NgJestCompiler.prototype.getCompiledOutput).toHaveBeenCalledWith(fileName, input.fileContent);
@@ -105,9 +111,7 @@ describe('NgJestTransformer', () => {
       },
     ])('should compile other files with ts-jest', ({ fileName, fileContent }) => {
       const jestCfg = {
-        cwd: './',
-        testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
-        testRegex: ['(/__tests__/.*|(\\\\.|/)(test|spec))\\\\.[jt]sx?$'],
+        ...baseJestCfg,
         globals: {
           'ts-jest': {
             tsconfig: { allowJs: false },
@@ -116,16 +120,14 @@ describe('NgJestTransformer', () => {
         },
       };
       const input = {
-        jestConfigStr: '{"cwd": "./"}',
         // eslint-disable-next-line
         options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo' },
       };
       // eslint-disable-next-line
       const ngJestTransformer = require('../');
-      ngJestTransformer.getCacheKey(fileContent, fileName, input.jestConfigStr, input.options);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ngJestTransformer.process(fileContent, fileName, jestCfg as any);
+      ngJestTransformer.process(fileContent, fileName, input.options);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(NgJestCompiler.prototype.getCompiledOutput).not.toHaveBeenCalled();

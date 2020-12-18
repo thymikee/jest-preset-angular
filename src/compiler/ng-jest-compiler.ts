@@ -1,15 +1,15 @@
 import { CompilerHost, CompilerOptions, createCompilerHost } from '@angular/compiler-cli';
 import { hasErrors } from '@ngtools/webpack/src/diagnostics';
 import type { Logger } from 'bs-logger';
-import { updateOutput } from 'ts-jest/dist/compiler/instance';
-import type { TTypeScript } from 'ts-jest/dist/types';
+import { updateOutput } from 'ts-jest/dist/compiler/compiler-utils';
+import type { CompilerInstance, TTypeScript, ResolvedModulesMap } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
 import { factory as downlevelCtor } from '../transformers/downlevel-ctor';
 import { NgJestCompilerHost } from './compiler-host';
 
-export class NgJestCompiler {
+export class NgJestCompiler implements CompilerInstance {
   private _compilerOptions!: CompilerOptions;
   private _program: ts.Program | undefined;
   private _compilerHost: CompilerHost | undefined;
@@ -24,6 +24,13 @@ export class NgJestCompiler {
     this._setupOptions(this.ngJestConfig);
 
     this._logger.debug('created NgJestCompiler');
+  }
+
+  getResolvedModulesMap(fileContent: string, fileName: string): ResolvedModulesMap {
+    this._tsHost?.updateMemoryHost(fileName, fileContent);
+
+    // eslint-disable-next-line
+    return (this._program?.getSourceFile(fileName) as any)?.resolvedModules;
   }
 
   getCompiledOutput(fileName: string, fileContent: string): string {

@@ -2,7 +2,7 @@
 'use strict';
 
 const execa = require('execa');
-const { existsSync, realpathSync, mkdirSync } = require('fs');
+const { realpathSync, mkdirSync } = require('fs');
 const { copySync } = require('fs-extra');
 const { resolve, join } = require('path');
 
@@ -27,14 +27,16 @@ const executeTest = (projectRealPath) => {
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
 
-  execa.sync('yarn', ['install', '--frozen-lockfile'], { cwd: projectRealPath });
+  execa.sync('yarn', ['install'], { cwd: projectRealPath });
+
+  logger.log('cleaning old build assets in target project');
+
+  const presetDir = join(projectRealPath, 'node_modules', 'jest-preset-angular');
+  execa.sync('rimraf', [presetDir]);
+  mkdirSync(presetDir);
 
   logger.log('copying distributed assets to target project');
 
-  const presetDir = join(projectRealPath, 'node_modules', 'jest-preset-angular');
-  if (!existsSync(presetDir)) {
-    mkdirSync(presetDir);
-  }
   copySync(join(cwd, 'jest-preset.js'), `${presetDir}/jest-preset.js`);
   copySync(join(cwd, 'ngcc-jest-processor.js'), `${presetDir}/ngcc-jest-processor.js`);
   copySync(join(cwd, 'setup-jest.js'), `${presetDir}/setup-jest.js`);

@@ -28,15 +28,15 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
   },
   "dependencies": {
-    "jest-environment-jsdom": "^26.6.2",
-    "pretty-format": "26.x",
-    "ts-jest": "^26.4.4"
+    "jest-environment-jsdom": "^27.0.0-next.1",
+    "pretty-format": "27.0.0-next.1",
+    "ts-jest": "^27.0.0-next.2"
   },
   "peerDependencies": {
     "@angular-devkit/build-angular": ">=0.901.12",
     "@angular/core": ">=9.0.0",
     "@angular/platform-browser-dynamic": ">=9.0.0",
-    "jest": "^26.0.0"
+    "jest": "27.0.0-next.2"
   },
   "optionalDependencies": {
     "webpack": "^4.0.0"
@@ -47,8 +47,8 @@
     "@angular/core": "^10.2.3",
     "@commitlint/cli": "11.x",
     "@commitlint/config-angular": "11.x",
-    "@jest/transform": "26.x",
-    "@jest/types": "26.x",
+    "@jest/transform": "27.0.0-next.2",
+    "@jest/types": "27.0.0-next.1",
     "@ngtools/webpack": "^10.2.0",
     "@types/jest": "26.x",
     "@types/node": "14.x",
@@ -63,7 +63,7 @@
     "execa": "5.x",
     "glob": "latest",
     "husky": "4.x",
-    "jest": "26.x",
+    "jest": "27.0.0-next.2",
     "lint-staged": "latest",
     "prettier": "2.x",
     "rxjs": "6.x",

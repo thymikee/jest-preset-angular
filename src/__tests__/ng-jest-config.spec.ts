@@ -10,6 +10,9 @@ describe('NgJestConfig', () => {
   describe('readTsConfig', () => {
     test('should return config including Angular compiler config with tsconfig as a string from ts-jest option', () => {
       const ngJestConfig = new NgJestConfig({
+        testMatch: [],
+        testRegex: [],
+        extensionsToTreatAsEsm: [],
         globals: {
           'ts-jest': {
             tsconfig: specifiedTsCfgPath,
@@ -30,6 +33,9 @@ describe('NgJestConfig', () => {
     test('should return config including Angular compiler config with tsconfig as an object from ts-jest option', () => {
       const ngJestConfig = new NgJestConfig({
         cwd: '.',
+        testMatch: [],
+        testRegex: [],
+        extensionsToTreatAsEsm: [],
         globals: {
           'ts-jest': {
             tsconfig: {
@@ -50,7 +56,12 @@ describe('NgJestConfig', () => {
     });
 
     test('should return config including Angular compiler config without tsconfig defined in ts-jest option', () => {
-      const ngJestConfig = new NgJestConfig(Object.create(null));
+      const ngJestConfig = new NgJestConfig({
+        testMatch: [],
+        testRegex: [],
+        extensionsToTreatAsEsm: [],
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
       const config = ngJestConfig.parsedTsConfig;
 
       delete config.options.basePath;
