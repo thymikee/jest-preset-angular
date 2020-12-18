@@ -57,6 +57,10 @@ exports[`NgJestCompiler with isolatedModule false should throw diagnostics error
 
 exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is not known by Program 1`] = `"foo.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;
 
-exports[`NgJestCompiler with isolatedModules true should hoist correctly 1`] = `1`;
-
-exports[`NgJestCompiler with isolatedModules true should return result 1`] = `1`;
+exports[`NgJestCompiler with isolatedModules true should use hoisting transformer from ts-jest 1`] = `
+Object {
+  "before": Array [
+    [Function],
+  ],
+}
+`;

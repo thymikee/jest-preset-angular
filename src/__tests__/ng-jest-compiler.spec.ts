@@ -23,7 +23,8 @@ describe('NgJestCompiler', () => {
   describe('with isolatedModules true', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let transpileModuleSpy: jest.SpyInstance<any>;
-    const ngJestConfig = new NgJestConfig({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const baseJestCfg = {
       ...jestCfgStub,
       globals: {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -32,7 +33,7 @@ describe('NgJestCompiler', () => {
           isolatedModules: true,
         },
       },
-    });
+    };
 
     beforeEach(() => {
       transpileModuleSpy = ts.transpileModule = jest.fn().mockReturnValueOnce({
@@ -42,19 +43,41 @@ describe('NgJestCompiler', () => {
       });
     });
 
-    // Isolated modules true doesn't have downlevel ctor so this snapshot test should produce different input than with Program
-    test('should return result', () => {
+    test('should call transpileModule with CommonJS module', () => {
+      const ngJestConfig = new NgJestConfig(baseJestCfg);
       const fileName = join(__dirname, '__mocks__', 'foo.service.ts');
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
+      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
 
       expect(transpileModuleSpy).toHaveBeenCalled();
-      expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).toMatchSnapshot();
+      expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).toEqual(ts.ModuleKind.CommonJS);
     });
 
-    test('should hoist correctly', () => {
+    test('should call transpileModule with ESM module', () => {
+      const ngJestConfig = new NgJestConfig({
+        ...baseJestCfg,
+        globals: {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'ts-jest': {
+            ...baseJestCfg.globals['ts-jest'],
+            useESM: true,
+          },
+        },
+      });
+      const fileName = join(__dirname, '__mocks__', 'foo.service.ts');
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
+
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), true)!;
+
+      expect(transpileModuleSpy).toHaveBeenCalled();
+      expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).not.toEqual(ts.ModuleKind.CommonJS);
+    });
+
+    test('should use hoisting transformer from ts-jest', () => {
+      const ngJestConfig = new NgJestConfig(baseJestCfg);
       const fileName = join(__dirname, '__mocks__', 'foo.spec.ts');
       ngJestConfig.parsedTsConfig = {
         ...ngJestConfig.parsedTsConfig,
@@ -63,10 +86,10 @@ describe('NgJestCompiler', () => {
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
+      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
 
-      expect(transpileModuleSpy).toHaveBeenCalled();
-      expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).toMatchSnapshot();
+      // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
+      expect(transpileModuleSpy.mock.calls[0][1].transformers).toMatchSnapshot();
     });
   });
 
@@ -82,7 +105,7 @@ describe('NgJestCompiler', () => {
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
+      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
 
       // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
       expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
@@ -97,7 +120,7 @@ describe('NgJestCompiler', () => {
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
+      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
 
       // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
       expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
@@ -112,7 +135,7 @@ describe('NgJestCompiler', () => {
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       expect(() =>
-        compiler.getCompiledOutput('foo.ts', readFileSync(fileName, 'utf-8')),
+        compiler.getCompiledOutput('foo.ts', readFileSync(fileName, 'utf-8'), false),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -125,7 +148,7 @@ describe('NgJestCompiler', () => {
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       expect(() =>
-        compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8')),
+        compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -138,7 +161,7 @@ describe('NgJestCompiler', () => {
       ngJestConfig.shouldReportDiagnostics = jest.fn().mockReturnValueOnce(false);
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
-      expect(() => compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))).not.toThrowError();
+      expect(() => compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)).not.toThrowError();
     });
 
     // Verify if we use `ts-jest` hoisting transformer
@@ -151,7 +174,7 @@ describe('NgJestCompiler', () => {
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'))!;
+      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
 
       // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
       expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();

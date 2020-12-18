@@ -33,7 +33,7 @@ export class NgJestCompiler implements CompilerInstance {
     return (this._program?.getSourceFile(fileName) as any)?.resolvedModules;
   }
 
-  getCompiledOutput(fileName: string, fileContent: string): string {
+  getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
     if (this._program) {
       const allDiagnostics = [];
       if (!this._rootNames.includes(fileName)) {
@@ -82,13 +82,28 @@ export class NgJestCompiler implements CompilerInstance {
         return '';
       }
     } else {
+      let moduleKind = this._compilerOptions.module;
+      if (supportsStaticESM && this.ngJestConfig.useESM) {
+        moduleKind =
+          !moduleKind ||
+          (moduleKind &&
+            ![this._ts.ModuleKind.ES2015, this._ts.ModuleKind.ES2020, this._ts.ModuleKind.ESNext].includes(moduleKind))
+            ? this._ts.ModuleKind.ESNext
+            : moduleKind;
+      } else {
+        moduleKind = this._ts.ModuleKind.CommonJS;
+      }
+
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling as isolated module');
 
       const result: ts.TranspileOutput = this._ts.transpileModule(fileContent, {
         fileName,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         transformers: this.ngJestConfig.customTransformers,
-        compilerOptions: this._compilerOptions,
+        compilerOptions: {
+          ...this._compilerOptions,
+          module: moduleKind,
+        },
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         reportDiagnostics: this.ngJestConfig.shouldReportDiagnostics(fileName),
       });
