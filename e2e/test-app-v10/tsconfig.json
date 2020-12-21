@@ -1,3 +1,4 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -7,6 +8,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
@@ -14,12 +16,6 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "my-lib": [
-        "dist/my-lib/my-lib",
-        "dist/my-lib"
-      ]
-    }
+    ]
   }
 }

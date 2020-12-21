@@ -1,5 +1,4 @@
 import { CompilerHost, CompilerOptions, createCompilerHost } from '@angular/compiler-cli';
-import { hasErrors } from '@ngtools/webpack/src/diagnostics';
 import type { Logger } from 'bs-logger';
 import { updateOutput } from 'ts-jest/dist/compiler/compiler-utils';
 import type { CompilerInstance, TTypeScript, ResolvedModulesMap } from 'ts-jest/dist/types';
@@ -72,7 +71,7 @@ export class NgJestCompiler implements CompilerInstance {
           ...this._program.getSemanticDiagnostics(sourceFile),
         );
       }
-      if (!hasErrors(allDiagnostics)) {
+      if (!allDiagnostics.length) {
         this._logger.debug({ fileName }, 'getCompiledOutput: update compiled output including inline source map');
 
         return updateOutput(compiledOutput[0], fileName, compiledOutput[1]);

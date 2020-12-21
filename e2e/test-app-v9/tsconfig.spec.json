@@ -1,3 +1,4 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
@@ -5,13 +6,16 @@
     "module": "commonjs",
     "types": [
       "jest",
+      "jquery",
       "node"
     ],
-    "emitDecoratorMetadata": true,
     "allowJs": true
   },
+  "files": [
+    "src/global.ts"
+  ],
   "include": [
-    "src/**/*.spec.ts",
+    "../__tests__/**/*.spec.ts",
     "src/**/*.d.ts"
   ]
 }
