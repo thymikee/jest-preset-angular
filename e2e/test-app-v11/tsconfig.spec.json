@@ -8,13 +8,14 @@
       "jest",
       "jquery",
       "node"
-    ]
+    ],
+    "allowJs": true
   },
   "files": [
     "src/global.ts"
   ],
   "include": [
-    "src/**/*.spec.ts",
+    "../__tests__/**/*.spec.ts",
     "src/**/*.d.ts"
   ]
 }
