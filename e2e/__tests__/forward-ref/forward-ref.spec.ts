@@ -1,8 +1,13 @@
 import { forwardRef, Inject, Injector } from '@angular/core';
 
-const skipNg9 = process.env.NG_9 ? test.skip : test
+const shouldSkipTest = process.env.NG_VERSION === 'v9' || process.env.SKIP_TEST === 'true';
+const skipTest = shouldSkipTest ? test.skip : test
 
-skipNg9('forwardRef should work with ES2015 only with Angular 10+, Angular 9 works with ES5 only', () => {
+if (shouldSkipTest) {
+  process.stdout.write('\nforwardRef only works in non-isolatedModules mode with ES2015 in Angular 10+, with Angular 9 requires ES5\n');
+}
+
+skipTest('forwardRef should work', () => {
   class Door {
     lock: Lock;
 

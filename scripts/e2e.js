@@ -24,11 +24,9 @@ const executeTest = (projectRealPath) => {
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectRealPath, '='.repeat(20));
   logger.log();
 
-  if (projectRealPath.includes('test-app-v9')) {
-    logger.log('setting environment variable');
-
-    process.env.NG_9 = 'true';
-  }
+  logger.log('setting NG_VERSION environment variable');
+  const projectName = projectRealPath.match(/([^\\/]*)\/*$/)[1];
+  process.env.NG_VERSION = projectName.substring(projectName.lastIndexOf('-') + 1);
 
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
@@ -56,16 +54,47 @@ const executeTest = (projectRealPath) => {
   copySync(join(cwd, 'e2e', '__tests__'), testCasesDest);
 
   // then we can run the tests
-  const cmdLine = projectPkg.scripts && projectPkg.scripts.test ? ['yarn', 'test'] : ['jest'];
+  const cmdCjsUnIso = ['yarn', 'test-cjs-uniso'];
+  const cmdCjsIso = ['yarn', 'test-cjs-iso'];
+  const cmdESMIso = ['yarn', 'test-esm-iso'];
   if (jestArgs.length) {
-    cmdLine.push('--');
-    cmdLine.push(...jestArgs);
+    cmdCjsUnIso.push('--');
+    cmdCjsIso.push('--');
+    cmdESMIso.push('--');
+    cmdCjsUnIso.push(...jestArgs);
+    cmdCjsIso.push(...jestArgs);
+    cmdESMIso.push(...jestArgs);
   }
 
-  logger.log('starting the tests using:', ...cmdLine);
+  logger.log('starting non isolatedModules tests');
+  logger.log();
+  logger.log('starting the CJS tests using:', ...cmdCjsUnIso);
   logger.log();
 
-  execa.sync(cmdLine.shift(), cmdLine, {
+  execa.sync(cmdCjsUnIso.shift(), cmdCjsUnIso, {
+    cwd: projectRealPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  logger.log('starting isolatedModules tests');
+  logger.log();
+  logger.log('setting SKIP_TEST environment variable for isolatedModules true');
+  process.env.SKIP_TEST = 'true';
+
+  logger.log('starting the CommonJS tests using:', ...cmdCjsIso);
+  logger.log();
+
+  execa.sync(cmdCjsIso.shift(), cmdCjsIso, {
+    cwd: projectRealPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  logger.log('starting the ESM tests using:', ...cmdCjsIso);
+  logger.log();
+
+  execa.sync(cmdESMIso.shift(), cmdESMIso, {
     cwd: projectRealPath,
     stdio: 'inherit',
     env: process.env,
@@ -74,7 +103,8 @@ const executeTest = (projectRealPath) => {
   logger.log('cleaning up');
 
   execa.sync('rimraf', [testCasesDest]);
-  delete process.env.NG_9;
+  delete process.env.NG_VERSION;
+  delete process.env.SKIP_TEST;
 };
 
 const cwd = process.cwd();
