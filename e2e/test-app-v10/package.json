@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest --clearCache && jest",
+    "test-cjs-uniso": "jest --clearCache && jest -c=jest-cjs-uniso.config.js",
+    "test-cjs-iso": "jest --clearCache && jest -c=jest-cjs-iso.config.js",
+    "test-esm-iso": "jest --clearCache && jest -c=jest-esm-iso.config.js",
     "lint": "ng lint"
   },
   "private": true,
