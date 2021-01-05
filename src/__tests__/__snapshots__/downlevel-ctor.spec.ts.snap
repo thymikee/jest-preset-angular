@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Downlevel ctor transformer should/should not use downlevel ctor transformer from Angular for isolatedModules false/true 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.Lock = exports.Door = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let Door = class Door {
+    // Door attempts to inject Lock, despite it not being defined yet.
+    // forwardRef makes this possible.
+    constructor(lock) {
+        this.lock = lock;
+    }
+};
+Door = tslib_1.__decorate([
+    tslib_1.__param(0, core_1.Inject(core_1.forwardRef(() => Lock)))
+], Door);
+exports.Door = Door;
+// Only at this point Lock is defined.
+class Lock {
+}
+exports.Lock = Lock;
+//# "
+`;
+
+exports[`Downlevel ctor transformer should/should not use downlevel ctor transformer from Angular for isolatedModules false/true 2`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.Lock = exports.Door = void 0;
+const core_1 = require(\\"@angular/core\\");
+class Door {
+    // Door attempts to inject Lock, despite it not being defined yet.
+    // forwardRef makes this possible.
+    constructor(lock) {
+        this.lock = lock;
+    }
+}
+exports.Door = Door;
+Door.ctorParameters = () => [
+    { type: Lock, decorators: [{ type: core_1.Inject, args: [core_1.forwardRef(() => Lock),] }] }
+];
+// Only at this point Lock is defined.
+class Lock {
+}
+exports.Lock = Lock;
+//# "
+`;

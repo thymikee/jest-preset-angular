@@ -1,4 +1,3 @@
-const customTransformers = require('./build/transformers');
 const snapshotSerializers = require('./build/serializers');
 
 module.exports = {
@@ -6,9 +5,6 @@ module.exports = {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: {
-        before: customTransformers,
-      },
     },
   },
   testEnvironment: 'jsdom',

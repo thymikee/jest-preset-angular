@@ -6,6 +6,8 @@ import type * as ts from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
 import { factory as downlevelCtor } from '../transformers/downlevel-ctor';
+import { factory as inlineFiles } from '../transformers/inline-files';
+import { factory as stripStyles } from '../transformers/strip-styles';
 import { NgJestCompilerHost } from './compiler-host';
 
 export class NgJestCompiler implements CompilerInstance {
@@ -33,6 +35,16 @@ export class NgJestCompiler implements CompilerInstance {
   }
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
+    const customTransformers = this.ngJestConfig.customTransformers;
+    const transformers = {
+      ...customTransformers,
+      before: [
+        // hoisting from `ts-jest` or other before transformers
+        ...(customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
+        inlineFiles(this.ngJestConfig),
+        stripStyles(this.ngJestConfig),
+      ],
+    };
     if (this._program) {
       const allDiagnostics = [];
       if (!this._rootNames.includes(fileName)) {
@@ -48,9 +60,10 @@ export class NgJestCompiler implements CompilerInstance {
 
       const sourceFile = this._program.getSourceFile(fileName);
       const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
+        ...transformers,
         before: [
           // hoisting from `ts-jest` or other before transformers
-          ...(this.ngJestConfig.customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
+          ...transformers.before,
           /**
            * Downlevel constructor parameters for DI support. This is required to support forwardRef in ES2015 due to
            * TDZ issues. This wrapper is needed here due to the program not being available until after
@@ -97,8 +110,7 @@ export class NgJestCompiler implements CompilerInstance {
 
       const result: ts.TranspileOutput = this._ts.transpileModule(fileContent, {
         fileName,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        transformers: this.ngJestConfig.customTransformers,
+        transformers,
         compilerOptions: {
           ...this._compilerOptions,
           module: moduleKind,

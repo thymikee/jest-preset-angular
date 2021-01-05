@@ -1,23 +1,10 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { SOURCE_MAPPING_PREFIX } from 'ts-jest/dist/compiler/compiler-utils';
 import ts from 'typescript';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const jestCfgStub = {
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
-  testRegex: ['(/__tests__/.*|(\\\\.|/)(test|spec))\\\\.[jt]sx?$'],
-  globals: {
-    'ts-jest': {
-      diagnostics: {
-        pretty: false,
-      },
-    },
-  },
-} as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+import { jestCfgStub } from './__helpers__/test-constants';
 
 describe('NgJestCompiler', () => {
   describe('with isolatedModules true', () => {
@@ -75,109 +62,79 @@ describe('NgJestCompiler', () => {
       expect(transpileModuleSpy).toHaveBeenCalled();
       expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).not.toEqual(ts.ModuleKind.CommonJS);
     });
-
-    test('should use hoisting transformer from ts-jest', () => {
-      const ngJestConfig = new NgJestConfig(baseJestCfg);
-      const fileName = join(__dirname, '__mocks__', 'foo.spec.ts');
-      ngJestConfig.parsedTsConfig = {
-        ...ngJestConfig.parsedTsConfig,
-        rootNames: [fileName],
-      };
-      const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
-
-      // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
-      expect(transpileModuleSpy.mock.calls[0][1].transformers).toMatchSnapshot();
-    });
   });
 
   describe('with isolatedModule false', () => {
+    const sourceMapStub =
+      '{"version":3,"file":"app.component.js","sourceRoot":"","sources":["app.component.ts"],"names":[],"mappings":";;;;AAAA,wCAA0C;IAO7B,YAAY,SAAZ,YAAY;;QACvB,UAAK,GAAG,cAAc,CAAC;IACzB,CAAC;CAAA,CAAA;AAFY,YAAY;IALxB,gBAAS,CAAC;QACT,QAAQ,EAAE,UAAU;QACpB,WAAW,EAAE,sBAAsB;QACnC,SAAS,EAAE,CAAC,sBAAsB,CAAC;KACpC,CAAC;GACW,YAAY,CAExB;AAFY,oCAAY","sourcesContent":["import { Component } from \'@angular/core\';\\n\\n@Component({\\n  selector: \'app-root\',\\n  templateUrl: \'./app.component.html\',\\n  styleUrls: [\'./app.component.scss\'],\\n})\\nexport class AppComponent {\\n  title = \'test-app-v10\';\\n}\\n"]}';
+    const compiledOutputStub =
+      '"use strict";\n' +
+      'Object.defineProperty(exports, "__esModule", { value: true });\n' +
+      'exports.AppComponent = void 0;\n' +
+      'const tslib_1 = require("tslib");\n' +
+      'const core_1 = require("@angular/core");\n' +
+      'let AppComponent = class AppComponent {\n' +
+      '    constructor() {\n' +
+      "        this.title = 'test-app-v10';\n" +
+      '    }\n' +
+      '};\n' +
+      'AppComponent = tslib_1.__decorate([\n' +
+      '    core_1.Component({\n' +
+      "        selector: 'app-root',\n" +
+      "        templateUrl: './app.component.html',\n" +
+      "        styleUrls: ['./app.component.scss'],\n" +
+      '    })\n' +
+      '], AppComponent);\n' +
+      'exports.AppComponent = AppComponent;\n' +
+      '//# sourceMappingURL=app.component.js.map\n';
+
     const ngJestConfig = new NgJestConfig(jestCfgStub);
+    const noErrorFileName = join(__dirname, '__mocks__', 'app.component.ts');
+    const noErrorFileContent = readFileSync(noErrorFileName, 'utf-8');
+    const hasErrorFileName = join(__dirname, '__mocks__', 'foo.component.ts');
+    const hasErrorFileContent = readFileSync(hasErrorFileName, 'utf-8');
 
-    test('should return compiled result for new file which is not known by Program', () => {
-      const fileName = join(__dirname, '__mocks__', 'app.component.ts');
+    test.each([noErrorFileName, undefined])(
+      'should return compiled result for new file which is not known or known by Program',
+      (fileName) => {
+        ngJestConfig.parsedTsConfig = {
+          ...ngJestConfig.parsedTsConfig,
+          rootNames: fileName ? [fileName] : [],
+        };
+        const compiler = new NgJestCompiler(ngJestConfig, new Map());
+        // @ts-expect-error bypass type checking to access private property
+        compiler._tsHost.getEmittedResult = jest.fn().mockReturnValueOnce([compiledOutputStub, sourceMapStub]);
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        compiler.getCompiledOutput(noErrorFileName, noErrorFileContent, false)!;
+
+        // @ts-expect-error bypass type checking to access private property
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(compiler._tsHost.getEmittedResult).toHaveBeenCalled();
+      },
+    );
+
+    test.each([hasErrorFileName, undefined])('should throw diagnostics error for new file which is', (fileName) => {
       ngJestConfig.parsedTsConfig = {
         ...ngJestConfig.parsedTsConfig,
-        rootNames: [],
-      };
-      const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
-
-      // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
-      expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
-    });
-
-    test('should return compiled result for existing file which is known by Program', () => {
-      const fileName = join(__dirname, '__mocks__', 'app.component.ts');
-      ngJestConfig.parsedTsConfig = {
-        ...ngJestConfig.parsedTsConfig,
-        rootNames: [fileName],
-      };
-      const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
-
-      // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
-      expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
-    });
-
-    test('should throw diagnostics error for new file which is not known by Program', () => {
-      const fileName = join(__dirname, '__mocks__', 'foo.component.ts');
-      ngJestConfig.parsedTsConfig = {
-        ...ngJestConfig.parsedTsConfig,
-        rootNames: [],
+        rootNames: fileName ? [fileName] : [],
       };
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       expect(() =>
-        compiler.getCompiledOutput('foo.ts', readFileSync(fileName, 'utf-8'), false),
-      ).toThrowErrorMatchingSnapshot();
-    });
-
-    test('should throw diagnostics error for existing file which is known by Program', () => {
-      const fileName = join(__dirname, '__mocks__', 'foo.component.ts');
-      ngJestConfig.parsedTsConfig = {
-        ...ngJestConfig.parsedTsConfig,
-        rootNames: [fileName],
-      };
-      const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-      expect(() =>
-        compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false),
-      ).toThrowErrorMatchingSnapshot();
+        compiler.getCompiledOutput(hasErrorFileName, hasErrorFileContent, false),
+      ).toThrowErrorMatchingSnapshot(fileName ? 'known by Program' : 'not known by Program');
     });
 
     test('should not throw diagnostics error when shouldReportDiagnostics return false', () => {
-      const fileName = join(__dirname, '__mocks__', 'foo.component.ts');
       ngJestConfig.parsedTsConfig = {
         ...ngJestConfig.parsedTsConfig,
-        rootNames: [fileName],
+        rootNames: [hasErrorFileName],
       };
       ngJestConfig.shouldReportDiagnostics = jest.fn().mockReturnValueOnce(false);
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
-      expect(() => compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)).not.toThrowError();
-    });
-
-    // Verify if we use `ts-jest` hoisting transformer
-    test('should hoist correctly', () => {
-      const fileName = join(__dirname, '__mocks__', 'foo.spec.ts');
-      ngJestConfig.parsedTsConfig = {
-        ...ngJestConfig.parsedTsConfig,
-        rootNames: [fileName],
-      };
-      const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const emittedResult = compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
-
-      // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
-      expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
+      expect(() => compiler.getCompiledOutput(hasErrorFileName, hasErrorFileContent, false)).not.toThrowError();
     });
   });
 });

@@ -8,9 +8,6 @@ module.exports = {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig-cjs.spec.json',
       stringifyContentPathRegex: '\\.html$',
-      astTransformers: {
-        before: require('jest-preset-angular/build/transformers'),
-      },
       isolatedModules: true,
     }
   },
