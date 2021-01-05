@@ -9,6 +9,7 @@ import { factory as downlevelCtor } from '../transformers/downlevel-ctor';
 import { factory as inlineFiles } from '../transformers/inline-files';
 import { factory as stripStyles } from '../transformers/strip-styles';
 import { NgJestCompilerHost } from './compiler-host';
+import { replaceResources } from '../transformers/replace-resources';
 
 export class NgJestCompiler implements CompilerInstance {
   private _compilerOptions!: CompilerOptions;
@@ -36,15 +37,9 @@ export class NgJestCompiler implements CompilerInstance {
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
     const customTransformers = this.ngJestConfig.customTransformers;
-    const transformers = {
-      ...customTransformers,
-      before: [
-        // hoisting from `ts-jest` or other before transformers
-        ...(customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
-        inlineFiles(this.ngJestConfig),
-        stripStyles(this.ngJestConfig),
-      ],
-    };
+    const isAppPath = (fileName: string) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const getTypeChecker = () => this._program!.getTypeChecker();
     if (this._program) {
       const allDiagnostics = [];
       if (!this._rootNames.includes(fileName)) {
@@ -60,10 +55,9 @@ export class NgJestCompiler implements CompilerInstance {
 
       const sourceFile = this._program.getSourceFile(fileName);
       const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
-        ...transformers,
+        ...customTransformers,
         before: [
-          // hoisting from `ts-jest` or other before transformers
-          ...transformers.before,
+          ...(customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
           /**
            * Downlevel constructor parameters for DI support. This is required to support forwardRef in ES2015 due to
            * TDZ issues. This wrapper is needed here due to the program not being available until after
@@ -71,6 +65,7 @@ export class NgJestCompiler implements CompilerInstance {
            * _createCompilerHost
            */
           downlevelCtor(this._program),
+          replaceResources(isAppPath, getTypeChecker),
         ],
       });
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -110,7 +105,15 @@ export class NgJestCompiler implements CompilerInstance {
 
       const result: ts.TranspileOutput = this._ts.transpileModule(fileContent, {
         fileName,
-        transformers,
+        transformers: {
+          ...customTransformers,
+          before: [
+            // hoisting from `ts-jest` or other before transformers
+            ...(customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
+            inlineFiles(this.ngJestConfig),
+            stripStyles(this.ngJestConfig),
+          ],
+        },
         compilerOptions: {
           ...this._compilerOptions,
           module: moduleKind,
@@ -127,7 +130,7 @@ export class NgJestCompiler implements CompilerInstance {
     }
   }
 
-  private _setupOptions({ parsedTsConfig }: NgJestConfig) {
+  private _setupOptions({ parsedTsConfig }: NgJestConfig): void {
     this._logger.debug({ parsedTsConfig }, '_setupOptions: initializing compiler config');
 
     this._compilerOptions = { ...parsedTsConfig.options };

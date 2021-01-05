@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Injector } from '@angular/core';
 
-const shouldSkipTest = process.env.NG_VERSION === 'v9' || process.env.SKIP_TEST === 'true';
+const shouldSkipTest = process.env.NG_VERSION === 'v9' || process.env.ISOLATED_MODULES === 'true';
 const skipTest = shouldSkipTest ? test.skip : test
 
 if (shouldSkipTest) {
