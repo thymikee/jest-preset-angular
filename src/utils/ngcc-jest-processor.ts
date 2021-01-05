@@ -43,7 +43,7 @@ if (canRunNgcc) {
        * Currently Jest requires `commonjs` so we only need to ask `ngcc` to produce `umd` outputs. Later when switching
        * to ESM, we can change to different properties to produce ESM outputs.
        */
-      ...['main'],
+      ...['es2015', 'main'],
       '--first-only' /** compileAllFormats */,
       'false', // make sure that `ngcc` runs on subfolders as well
       '--async',
