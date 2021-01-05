@@ -8,5 +8,5 @@ module.exports = {
       tsconfig: 'tsconfig.spec.json',
     },
   },
-  testPathIgnorePatterns: ['/e2e/', '/src/__tests__/__mocks__/'],
+  testPathIgnorePatterns: ['/e2e/', '/src/__tests__/__mocks__/', '/src/__tests__/__helpers__/'],
 };
