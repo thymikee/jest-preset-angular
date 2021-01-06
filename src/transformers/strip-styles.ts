@@ -34,12 +34,10 @@ import type {
   CallExpression,
   ObjectLiteralExpression,
 } from 'typescript';
-import type { ConfigSet } from './transform-utils';
+import type { ConfigSet } from 'ts-jest/dist/config/config-set';
 
-/** Angular component decorator Styles property name */
-const STYLES = 'styles';
-/** Angular component decorator name */
-const COMPONENT = 'Component';
+import { STYLES, COMPONENT } from '../constants';
+
 /** All props to be transformed inside a decorator */
 const TRANSFORM_IN_DECORATOR_PROPS = [STYLES];
 

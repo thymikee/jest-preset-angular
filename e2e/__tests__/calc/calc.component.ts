@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-
-const image = require('e2e/test-app-v10/src/assets/its_something.png');
+import * as image from 'e2e/test-app-v10/src/assets/its_something.png';
 
 @Component({
   selector: 'app-calc',
@@ -23,7 +21,6 @@ export class CalcComponent implements OnInit {
   @Input() hasAClass = false;
   prop1: number;
   image: string;
-  observable$: Observable<string>;
 
   constructor() {
     this.init();

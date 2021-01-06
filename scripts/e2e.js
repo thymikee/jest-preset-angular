@@ -25,15 +25,18 @@ const executeTest = (projectRealPath) => {
   logger.log();
 
   logger.log('setting NG_VERSION environment variable');
+  logger.log();
   const projectName = projectRealPath.match(/([^\\/]*)\/*$/)[1];
   process.env.NG_VERSION = projectName.substring(projectName.lastIndexOf('-') + 1);
 
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
+  logger.log();
 
   execa.sync('yarn', ['install'], { cwd: projectRealPath });
 
   logger.log('cleaning old assets in target project');
+  logger.log();
 
   const testCasesDest = join(projectRealPath, 'src', '__tests__');
   const presetDir = join(projectRealPath, 'node_modules', 'jest-preset-angular');
@@ -42,6 +45,7 @@ const executeTest = (projectRealPath) => {
   mkdirSync(presetDir);
 
   logger.log('copying distributed assets to target project');
+  logger.log();
 
   copySync(join(cwd, 'jest-preset.js'), `${presetDir}/jest-preset.js`);
   copySync(join(cwd, 'ngcc-jest-processor.js'), `${presetDir}/ngcc-jest-processor.js`);
@@ -50,6 +54,7 @@ const executeTest = (projectRealPath) => {
   copySync(join(cwd, 'build'), `${presetDir}/build`);
 
   logger.log('copying test cases to target project');
+  logger.log();
 
   copySync(join(cwd, 'e2e', '__tests__'), testCasesDest);
 
@@ -66,7 +71,7 @@ const executeTest = (projectRealPath) => {
     // cmdESMIso.push(...jestArgs);
   }
 
-  logger.log('starting non isolatedModules tests');
+  logger.log('STARTING NONE ISOLATED MODULES TESTS');
   logger.log();
   logger.log('starting the CJS tests using:', ...cmdCjsUnIso);
   logger.log();
@@ -77,11 +82,13 @@ const executeTest = (projectRealPath) => {
     env: process.env,
   });
 
-  logger.log('starting isolatedModules tests');
   logger.log();
-  logger.log('setting SKIP_TEST environment variable for isolatedModules true');
-  process.env.SKIP_TEST = 'true';
+  logger.log('STARTING ISOLATED MODULES TESTS');
+  logger.log();
+  logger.log('setting ISOLATED_MODULES environment variable for isolatedModules true');
+  process.env.ISOLATED_MODULES = 'true';
 
+  logger.log();
   logger.log('starting the CommonJS tests using:', ...cmdCjsIso);
   logger.log();
 
@@ -104,7 +111,7 @@ const executeTest = (projectRealPath) => {
 
   execa.sync('rimraf', [testCasesDest]);
   delete process.env.NG_VERSION;
-  delete process.env.SKIP_TEST;
+  delete process.env.ISOLATED_MODULES;
 };
 
 const cwd = process.cwd();

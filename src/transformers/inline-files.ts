@@ -31,21 +31,15 @@ import type {
   Visitor,
   PropertyAssignment,
   LiteralLikeNode,
+  StringLiteral,
 } from 'typescript';
-import { getCreateStringLiteral, ConfigSet } from './transform-utils';
+import type { ConfigSet } from 'ts-jest/dist/config/config-set';
+
+import { TEMPLATE_URL, STYLE_URLS, REQUIRE, TEMPLATE } from '../constants';
 
 // replace original ts-jest ConfigSet with this simple interface, as it would require
 // jest-preset-angular to add several babel devDependencies to get the other types
 // inside the ConfigSet right
-
-/** Angular component decorator TemplateUrl property name */
-const TEMPLATE_URL = 'templateUrl';
-/** Angular component decorator StyleUrls property name */
-const STYLE_URLS = 'styleUrls';
-/** Angular component decorator Template property name */
-const TEMPLATE = 'template';
-/** Node require function name */
-const REQUIRE = 'require';
 
 /**
  * Property names anywhere in an angular project to transform
@@ -74,8 +68,20 @@ export function factory(cs: ConfigSet): (ctx: TransformationContext) => Transfor
    * Our compiler (typescript, or a module with typescript-like interface)
    */
   const ts = cs.compilerModule;
+  function getCreateStringLiteral(): typeof ts.createStringLiteral {
+    if (ts.createStringLiteral && typeof ts.createStringLiteral === 'function') {
+      return ts.createStringLiteral;
+    }
 
-  const createStringLiteral = getCreateStringLiteral(ts);
+    return function createStringLiteral(text: string) {
+      const node = <StringLiteral>ts.createNode(ts.SyntaxKind.StringLiteral, -1, -1);
+      node.text = text;
+      node.flags |= ts.NodeFlags.Synthesized;
+
+      return node;
+    };
+  }
+  const createStringLiteral = getCreateStringLiteral();
 
   /**
    * Traverses the AST down to the relevant assignments anywhere in the file
