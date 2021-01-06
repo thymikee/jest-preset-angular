@@ -23,6 +23,7 @@
  */
 
 // only import types, for the rest use injected `ConfigSet.compilerModule`
+import type { ConfigSet } from 'ts-jest/dist/config/config-set';
 import type {
   Node,
   SourceFile,
@@ -33,7 +34,6 @@ import type {
   LiteralLikeNode,
   StringLiteral,
 } from 'typescript';
-import type { ConfigSet } from 'ts-jest/dist/config/config-set';
 
 import { TEMPLATE_URL, STYLE_URLS, REQUIRE, TEMPLATE } from '../constants';
 

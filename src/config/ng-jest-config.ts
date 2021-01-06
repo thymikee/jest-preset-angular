@@ -1,7 +1,7 @@
 import { formatDiagnostics, ParsedConfiguration, readConfiguration } from '@angular/compiler-cli';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
-import type { CompilerOptions } from 'typescript';
 import type { ProjectConfigTsJest } from 'ts-jest/dist/types';
+import type { CompilerOptions } from 'typescript';
 
 export class NgJestConfig extends ConfigSet {
   /**

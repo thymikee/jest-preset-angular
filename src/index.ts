@@ -6,8 +6,8 @@ import type { TransformOptionsTsJest, ProjectConfigTsJest } from 'ts-jest/dist/t
 import { stringify } from 'ts-jest/dist/utils/json';
 import { JsonableValue } from 'ts-jest/dist/utils/jsonable-value';
 
-import { NgJestConfig } from './config/ng-jest-config';
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
+import { NgJestConfig } from './config/ng-jest-config';
 
 interface CachedConfigSet {
   ngJestConfig: NgJestConfig;

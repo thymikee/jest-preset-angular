@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Hero } from './hero';
+import type { Hero } from './hero';
 import { HeroService } from './hero.service';
 
 @Component({
   selector: 'app-heroes',
-  templateUrl: './heroes.component.html'
+  templateUrl: './heroes.component.html',
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
+  heroes: Hero[] | undefined;
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getHeroes();
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
+    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
   }
 }

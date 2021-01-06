@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import * as image from 'e2e/test-app-v10/src/assets/its_something.png';
 
 @Component({
@@ -11,13 +11,13 @@ import * as image from 'e2e/test-app-v10/src/assets/its_something.png';
       }"
     >
       calc works!
-      {{prop1}}
+      {{ prop1 }}
       another text node
-      {{image}}
+      {{ image }}
     </p>
-  `
+  `,
 })
-export class CalcComponent implements OnInit {
+export class CalcComponent {
   @Input() hasAClass = false;
   prop1: number;
   image: string;
@@ -28,10 +28,7 @@ export class CalcComponent implements OnInit {
     this.image = image;
   }
 
-  ngOnInit() {
-  }
-
-  init() {
+  init(): string {
     return 'Imma method';
   }
 }

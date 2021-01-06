@@ -1,9 +1,11 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
+
 import { SOURCE_MAPPING_PREFIX } from 'ts-jest/dist/compiler/compiler-utils';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
+
 import { jestCfgStub } from './__helpers__/test-constants';
 
 describe('Hoisting', () => {

@@ -1,6 +1,6 @@
-import type { Colors } from 'pretty-format';
 import type { Type, ComponentRef, ɵCssSelectorList, DebugNode } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
+import type { Colors } from 'pretty-format';
 
 /**
  * The follow interfaces are customized heavily inspired by @angular/core/core.d.ts

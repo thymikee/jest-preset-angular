@@ -12,13 +12,13 @@ describe('Service: HeroService', () => {
 
   const expectedDataAll = [
     { id: 1, name: 'Test hero 1' },
-    { id: 2, name: 'Test hero 2' }
+    { id: 2, name: 'Test hero 2' },
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
-      providers: [HeroService]
+      providers: [HeroService],
     });
 
     backend = TestBed.get(HttpTestingController);
@@ -40,10 +40,10 @@ describe('Service: HeroService', () => {
   test('should call the GET heroes api and return all results', () => {
     let actualDataAll = {};
 
-    service.getHeroes().subscribe(data => (actualDataAll = data));
+    service.getHeroes().subscribe((data) => (actualDataAll = data));
 
     backend
-      .expectOne((req: HttpRequest<any>) => {
+      .expectOne((req: HttpRequest<unknown>) => {
         return req.url === `${heroesUrl}` && req.method === 'GET';
       }, `GET all hero data from ${heroesUrl}`)
       .flush(expectedDataAll);
@@ -54,10 +54,10 @@ describe('Service: HeroService', () => {
   test('should call the GET hero api with id and return the result', () => {
     let actualData = {};
 
-    service.getHero(1).subscribe(data => (actualData = data));
+    service.getHero(1).subscribe((data) => (actualData = data));
 
     backend
-      .expectOne((req: HttpRequest<any>) => {
+      .expectOne((req: HttpRequest<unknown>) => {
         return req.url === `${heroesUrl}` && req.method === 'GET' && req.params.get('id') === '1';
       }, `GET hero data from ${heroesUrl}?id=1`)
       .flush(expectedData);
@@ -67,14 +67,14 @@ describe('Service: HeroService', () => {
 
   test.each([
     [1, { id: 1, name: 'Test Hero 1' }],
-    [2, { id: 2, name: 'Test Hero 2' }]
-  ])('should call the GET hero api and return the result', (id: number, testData: any) => {
+    [2, { id: 2, name: 'Test Hero 2' }],
+  ])('should call the GET hero api and return the result', (id: number, testData: Record<string, number | string>) => {
     let actualData = {};
 
-    service.getHero(1).subscribe(data => (actualData = data));
+    service.getHero(1).subscribe((data) => (actualData = data));
 
     backend
-      .expectOne((req: HttpRequest<any>) => {
+      .expectOne((req: HttpRequest<unknown>) => {
         return req.url === `${heroesUrl}` && req.method === 'GET';
       }, `GET hero data from ${heroesUrl}?id=${id}`)
       .flush(testData);
@@ -85,7 +85,7 @@ describe('Service: HeroService', () => {
   test('should send an expected GET request and throw error to console when an error occurs', () => {
     service.getHero(1).subscribe();
 
-    const getHeroRequest = backend.expectOne((req: HttpRequest<any>) => {
+    const getHeroRequest = backend.expectOne((req: HttpRequest<unknown>) => {
       return req.url === `${heroesUrl}` && req.method === 'GET' && req.params.get('id') === '1';
     }, `GET hero data from ${heroesUrl}?id=1`);
 
@@ -96,12 +96,9 @@ describe('Service: HeroService', () => {
   });
 
   test('should return an observable of undefined and print error to console', () => {
-    const result = service.handleError(
-      new HttpErrorResponse({ error: 'Error occurs' }),
-      'test method'
-    );
+    const result = service.handleError(new HttpErrorResponse({ error: 'Error occurs' }), 'test method');
 
     expect(console.error).toHaveBeenCalled();
-    result.subscribe(value => expect(value).toBeUndefined());
+    result.subscribe((value) => expect(value).toBeUndefined());
   });
 });

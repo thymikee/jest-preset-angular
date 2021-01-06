@@ -1,24 +1,25 @@
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { async, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ɵivyEnabled as ivyEnabled } from '@angular/core';
+import { async, ComponentFixture } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ConfigureFn, configureTests } from '../__helpers__';
 
 import { AnimationsComponent } from './animations.component';
-import { ConfigureFn, configureTests } from '../__helpers__';
 
 describe('AnimationsComponent', () => {
   let fixture: ComponentFixture<AnimationsComponent>;
   let component: AnimationsComponent;
 
   beforeEach(async(() => {
-    const configure: ConfigureFn = testBed => {
+    const configure: ConfigureFn = (testBed) => {
       testBed.configureTestingModule({
         declarations: [AnimationsComponent],
         imports: [NoopAnimationsModule],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       });
     };
 
-    configureTests(configure).then(testBed => {
+    configureTests(configure).then((testBed) => {
       fixture = testBed.createComponent(AnimationsComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();

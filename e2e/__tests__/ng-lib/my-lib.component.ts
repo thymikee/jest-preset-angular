@@ -1,24 +1,15 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 
 import { DisableableDirective } from './disableable.directive';
 
 @Component({
   selector: 'lib-my-lib',
-  template: `
-    <p>
-      my-lib works!
-    </p>
-  `,
-  styles: [
-  ]
+  template: ` <p>my-lib works!</p> `,
+  styles: [],
 })
-export class MyLibComponent extends DisableableDirective implements OnInit {
-
+export class MyLibComponent extends DisableableDirective {
   constructor(public elementRef: ElementRef) {
     super(elementRef);
-  }
-
-  ngOnInit(): void {
   }
 
   toggle(): void {

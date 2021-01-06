@@ -1,1 +1,1 @@
-export * from './config.helpers'
+export * from './config.helpers';
