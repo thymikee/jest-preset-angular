@@ -1,3 +1,21 @@
+# [9.0.0-next.5](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.4...v9.0.0-next.5) (2021-01-06)
+
+
+### Features
+
+* **compiler:** use `replace-resources` transformer from Angular ([#708](https://github.com/thymikee/jest-preset-angular/issues/708)) ([1b20c19](https://github.com/thymikee/jest-preset-angular/commit/1b20c196586487a119f7e5e545c2a7fcfe6359fb))
+* **utils:** add `es2015` to `ngcc` script's properties ([#701](https://github.com/thymikee/jest-preset-angular/issues/701)) ([a13070b](https://github.com/thymikee/jest-preset-angular/commit/a13070b4174633e80d37ede754d57b3c2374803f))
+
+
+### BREAKING CHANGES
+
+* `isolatedModules: true` will use `inline-files` and `strip-styles` transformers as default transformers.
+* `isolatedModules: false` will use `replace-resources` transformer from `@ngtools/webpack` (besides the existing `downlevel-ctor` transformer). This will make `jest-preset-angular` become closer to what Angular CLI does with Karma + Jasmine.
+* For users who migrate from **v8.3.2** to **9.0.0**, any references to `'jest-preset-angular/build/InlineFilesTransformer'` and `'jest-preset-angular/build/StripStylesTransformer'` should be removed from jest config.
+* For users who migrate from **9.0.0-next.4**, any references to `jest-preset-angular/build/transformers/inline-files` and `jest-preset-angular/build/transformers/inline-files` should be removed from jest config.
+
+
+
 # [9.0.0-next.4](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.4) (2020-12-18)
 
 
@@ -8,7 +26,6 @@
 
 ### Features
 
-* **compiler:** allow `isolatedModules: true` to have ESM support ([#680](https://github.com/thymikee/jest-preset-angular/issues/680)) ([d5e1b0e](https://github.com/thymikee/jest-preset-angular/commit/d5e1b0ef054e11c56c5cb9777ac2ad2c5cbd8994))
 * support Jest 27 ([#676](https://github.com/thymikee/jest-preset-angular/issues/676)) ([1a6b10e](https://github.com/thymikee/jest-preset-angular/commit/1a6b10ef66c266a7736f2ef4aed178db836d0c6c))
 * **utils:** improve `ngcc-jest-processor` util script to exclude some Jest args ([#662](https://github.com/thymikee/jest-preset-angular/issues/662)) ([cf1bb4c](https://github.com/thymikee/jest-preset-angular/commit/cf1bb4c36e1e68804658da02c6ca3a2bd783a6e2))
 
