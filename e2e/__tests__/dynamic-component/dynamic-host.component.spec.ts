@@ -1,12 +1,13 @@
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { DynamicHostComponent } from './dynamic-host.component';
 import { DynamicHostModule } from './dynamic-host.module';
 
 describe('Dynamic components', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ DynamicHostModule ],
+      imports: [DynamicHostModule],
     });
   });
 

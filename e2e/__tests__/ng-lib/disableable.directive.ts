@@ -7,15 +7,17 @@ import { Directive, ElementRef, Input } from '@angular/core';
  */
 @Directive()
 export abstract class DisableableDirective {
-
   /** Binds to the HTML disabled property OR disabled attribute, if present. */
   @Input()
   public set disabled(v: boolean) {
     const elt = this.elementRef.nativeElement;
+    // eslint-disable-next-line
     const disabledProp = (elt as any).disabled;
-    if (typeof (disabledProp) === 'boolean') {
+    if (typeof disabledProp === 'boolean') {
       // Set disabled property
+      // eslint-disable-next-line
       (elt as any).disabled = v;
+
       return;
     }
 
@@ -24,13 +26,15 @@ export abstract class DisableableDirective {
   }
   public get disabled(): boolean {
     const elt = this.elementRef.nativeElement;
+    // eslint-disable-next-line
     const disabledProp = (elt as any).disabled;
-    if (typeof (disabledProp) === 'boolean') {
+    if (typeof disabledProp === 'boolean') {
       return disabledProp;
     }
     const disabledAttr = elt.getAttribute('disabled');
+
     return disabledAttr === 'true';
   }
 
-  constructor(public elementRef: ElementRef<HTMLElement>) { }
+  constructor(public elementRef: ElementRef<HTMLElement>) {}
 }

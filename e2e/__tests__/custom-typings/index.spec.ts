@@ -1,5 +1,6 @@
+// eslint-disable-next-line
 function foo() {
-    $.ajax<number>('/foo');
+  $.ajax<number>('/foo');
 }
 
 test('foo', () => {

@@ -1,5 +1,6 @@
 describe('Done callback', () => {
-  test('test with done should work', (done): void => {
+  // eslint-disable-next-line
+  test('with done should work', (done): void => {
     let flag = false;
     setTimeout(() => {
       flag = true;
@@ -7,4 +8,4 @@ describe('Done callback', () => {
       done();
     }, 100);
   });
-})
+});

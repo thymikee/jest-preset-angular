@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test-cjs-uniso": "jest --clearCache && jest -c=jest-cjs-uniso.config.js",
+    "test-cjs-uniso": "jest --clearCache && jest -c=jest-cjs-uniso.config.js -u",
     "test-cjs-iso": "jest --clearCache && jest -c=jest-cjs-iso.config.js",
     "lint": "ng lint"
   },

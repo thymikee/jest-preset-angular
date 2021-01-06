@@ -1,11 +1,12 @@
-import type { Logger } from 'bs-logger';
 import { normalize } from 'path';
-import type { TTypeScript } from 'ts-jest/dist/types';
+
+import type { CompilerOptions } from '@angular/compiler-cli';
+import type { Logger } from 'bs-logger';
 import { LINE_FEED } from 'ts-jest/dist/constants';
+import type { TTypeScript } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
-import type { CompilerOptions } from '@angular/compiler-cli';
 
 export class NgJestCompilerHost implements ts.CompilerHost {
   private readonly _sourceFileCache: Map<string, ts.SourceFile> = new Map<string, ts.SourceFile>();
@@ -118,7 +119,7 @@ export class NgJestCompilerHost implements ts.CompilerHost {
     _reusedNames: string[] | undefined,
     redirectedReference: ts.ResolvedProjectReference | undefined,
     options: CompilerOptions,
-  ): (ts.ResolvedModule | undefined)[] {
+  ): Array<ts.ResolvedModule | undefined> {
     return moduleNames.map((moduleName) => {
       const { resolvedModule } = this._ts.resolveModuleName(
         moduleName,
@@ -138,7 +139,7 @@ export class NgJestCompilerHost implements ts.CompilerHost {
     containingFile: string,
     redirectedReference: ts.ResolvedProjectReference | undefined,
     options: CompilerOptions,
-  ): (ts.ResolvedTypeReferenceDirective | undefined)[] {
+  ): Array<ts.ResolvedTypeReferenceDirective | undefined> {
     return typeReferenceDirectiveNames.map((typeDirectiveName) => {
       const { resolvedTypeReferenceDirective } = this._ts.resolveTypeReferenceDirective(
         typeDirectiveName,

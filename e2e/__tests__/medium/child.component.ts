@@ -8,12 +8,13 @@ import { Component, Input } from '@angular/core';
       <div>
         rly
         <p>complex</p>
-        <div>component
+        <div>
+          component
           <div>oh my god!</div>
         </div>
       </div>
     </div>
-  `
+  `,
 })
 export class ChildComponent {
   @Input() someInput = null;

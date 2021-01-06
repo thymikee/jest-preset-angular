@@ -1,10 +1,12 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
+
 import { SOURCE_MAPPING_PREFIX } from 'ts-jest/dist/compiler/compiler-utils';
 
-import { NgJestConfig } from '../config/ng-jest-config';
-import { jestCfgStub } from './__helpers__/test-helpers';
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
+import { NgJestConfig } from '../config/ng-jest-config';
+
+import { jestCfgStub } from './__helpers__/test-helpers';
 
 describe('Replace resources transformer', () => {
   const fileName = join(__dirname, '__mocks__', 'app.component.ts');

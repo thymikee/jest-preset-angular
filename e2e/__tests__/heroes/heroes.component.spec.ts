@@ -1,17 +1,18 @@
-import {async, ComponentFixture} from '@angular/core/testing';
-import {HeroesComponent} from './heroes.component';
+import { async, ComponentFixture } from '@angular/core/testing';
+import { Subject } from 'rxjs';
+
 import { ConfigureFn, configureTests } from '../__helpers__';
-import {Hero} from './hero';
-import {HeroService} from './hero.service';
-import {Subject} from 'rxjs';
+
+import type { Hero } from './hero';
+import { HeroService } from './hero.service';
+import { HeroesComponent } from './heroes.component';
 
 describe('HeroesComponent', () => {
-  let component: HeroesComponent;
   let fixture: ComponentFixture<HeroesComponent>;
 
   const mockHeroesSubject = new Subject<Hero[]>();
   const mockHeroService = {
-    getHeroes: jest.fn(() => mockHeroesSubject)
+    getHeroes: jest.fn(() => mockHeroesSubject),
   };
 
   const allHeroes: Hero[] = [
@@ -22,20 +23,19 @@ describe('HeroesComponent', () => {
     {
       id: 2,
       name: 'Test hero 2',
-    }
+    },
   ];
 
   beforeEach(async(() => {
-    const configure: ConfigureFn = testBed => {
+    const configure: ConfigureFn = (testBed) => {
       testBed.configureTestingModule({
         declarations: [HeroesComponent],
-        providers: [{provide: HeroService, useValue: mockHeroService}]
+        providers: [{ provide: HeroService, useValue: mockHeroService }],
       });
     };
 
-    configureTests(configure).then(testBed => {
+    configureTests(configure).then((testBed) => {
       fixture = testBed.createComponent(HeroesComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
   }));

@@ -1,5 +1,6 @@
-import { normalizeSeparators } from '@angular/compiler-cli/src/ngtsc/util/src/path';
 import { join } from 'path';
+
+import { normalizeSeparators } from '@angular/compiler-cli/src/ngtsc/util/src/path';
 
 import { NgJestConfig } from '../config/ng-jest-config';
 

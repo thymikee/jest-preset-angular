@@ -7,9 +7,8 @@ describe('NgReflectAsTextComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgReflectAsTextComponent ]
-    })
-    .compileComponents();
+      declarations: [NgReflectAsTextComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

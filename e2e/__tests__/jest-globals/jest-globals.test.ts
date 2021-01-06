@@ -1,19 +1,21 @@
 describe('Jest globals', () => {
-  it.each([[1, 2]])('it.each', (arg1, arg2) => {
+  it.each([[1, 2]])('with 2D array', (arg1, arg2) => {
     expect(arg1).toBe(1);
     expect(arg2).toBe(2);
   });
 
-  it.each([2])('it.each with 1D array', arg1 => {
+  it.each([2])('with 1D array', (arg1) => {
     expect(arg1).toBe(2);
   });
 
-  (it.each([2]) as any)('it.each with 1D array and done', (arg1, done) => {
+  // eslint-disable-next-line
+  (it.each([2]) as any)('it.each with 1D array and done', (arg1: any, done: () => void) => {
     expect(arg1).toBe(2);
     done();
   });
 
-  (it.each([[1, 2]]) as any)('it.each with done', (arg1, arg2, done) => {
+  // eslint-disable-next-line
+  (it.each([[1, 2]]) as any)('it.each with done', (arg1: any, arg2: any, done: () => void) => {
     expect(arg1).toBe(1);
     expect(arg2).toBe(2);
     done();
@@ -27,16 +29,12 @@ describe('Jest globals', () => {
     expect(bar).toBe(2);
   });
 
-  (it.each`
-    foo  | bar
-    ${1} | ${2}
-  ` as any)(
-    'it.each should work with table as a tagged template literal with done',
-    ({ foo, bar }, done) => {
+  // eslint-disable-next-line
+  (it.each`foo  | bar ${1} | ${2}` as any)('it.each should work with table as a tagged template literal with done', ({ foo, bar }: any, done: () => void) => {
       expect(foo).toBe(1);
       expect(bar).toBe(2);
       done();
-    }
+    },
   );
 
   it.each`
@@ -48,4 +46,4 @@ describe('Jest globals', () => {
   });
 
   test.todo('a sample todo');
-})
+});

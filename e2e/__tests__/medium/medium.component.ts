@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
       <div>one more case case</div>
       <div><app-child-component someInput="someVar"></app-child-component></div>
     </div>
-  `
+  `,
 })
 export class MediumComponent {
   someVar = true;

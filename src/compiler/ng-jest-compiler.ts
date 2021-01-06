@@ -7,9 +7,10 @@ import type * as ts from 'typescript';
 import type { NgJestConfig } from '../config/ng-jest-config';
 import { factory as downlevelCtor } from '../transformers/downlevel-ctor';
 import { factory as inlineFiles } from '../transformers/inline-files';
-import { factory as stripStyles } from '../transformers/strip-styles';
-import { NgJestCompilerHost } from './compiler-host';
 import { replaceResources } from '../transformers/replace-resources';
+import { factory as stripStyles } from '../transformers/strip-styles';
+
+import { NgJestCompilerHost } from './compiler-host';
 
 export class NgJestCompiler implements CompilerInstance {
   private _compilerOptions!: CompilerOptions;
@@ -57,7 +58,7 @@ export class NgJestCompiler implements CompilerInstance {
       const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
         ...customTransformers,
         before: [
-          ...(customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
+          ...(customTransformers.before as Array<ts.TransformerFactory<ts.SourceFile>>),
           /**
            * Downlevel constructor parameters for DI support. This is required to support forwardRef in ES2015 due to
            * TDZ issues. This wrapper is needed here due to the program not being available until after
@@ -109,7 +110,7 @@ export class NgJestCompiler implements CompilerInstance {
           ...customTransformers,
           before: [
             // hoisting from `ts-jest` or other before transformers
-            ...(customTransformers.before as ts.TransformerFactory<ts.SourceFile>[]),
+            ...(customTransformers.before as Array<ts.TransformerFactory<ts.SourceFile>>),
             inlineFiles(this.ngJestConfig),
             stripStyles(this.ngJestConfig),
           ],
