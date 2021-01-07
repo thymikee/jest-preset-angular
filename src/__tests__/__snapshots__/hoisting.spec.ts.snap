@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Hoisting should hoist correctly 1`] = `
+exports[`Hoisting should hoist correctly with isolatedModules false 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+const globals_1 = require(\\"@jest/globals\\");
+globals_1.jest.mock('./foo');
+const foo_1 = require(\\"./foo\\");
+console.log(foo_1.getFoo());
+//# "
+`;
+
+exports[`Hoisting should hoist correctly with isolatedModules true 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 const globals_1 = require(\\"@jest/globals\\");

@@ -1,29 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Replace resources transformer should use inline-files + strip-styles for isolatedModules true 1`] = `
-"\\"use strict\\";
-Object.defineProperty(exports, \\"__esModule\\", { value: true });
-exports.AppComponent = void 0;
-const tslib_1 = require(\\"tslib\\");
-const core_1 = require(\\"@angular/core\\");
-let AppComponent = class AppComponent {
-    constructor() {
-        this.title = 'test-app-v10';
-    }
-};
-AppComponent = tslib_1.__decorate([
-    core_1.Component({
-        selector: 'app-root',
-        template: require('./app.component.html'),
-        styleUrls: [],
-        styles: [],
-    })
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# "
-`;
-
-exports[`Replace resources transformer should use replaceResources transformer from @angular/compiler-cli for isolatedModules false 1`] = `
+exports[`Replace resources transformer with isolatedModules false should use replaceResources transformer from @angular/compiler-cli with useESM false 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
 exports.AppComponent = void 0;
@@ -42,5 +19,69 @@ AppComponent = tslib_1.__decorate([
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`Replace resources transformer with isolatedModules false should use replaceResources transformer from @angular/compiler-cli with useESM true 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        template: require(\\"./app.component.html\\"),
+        styles: []
+    })
+], AppComponent);
+exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`Replace resources transformer with isolatedModules true should use replaceResources transformer from @angular/compiler-cli with useESM false 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        template: require(\\"./app.component.html\\"),
+        styles: []
+    })
+], AppComponent);
+exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`Replace resources transformer with isolatedModules true should use replaceResources transformer from @angular/compiler-cli with useESM true 1`] = `
+"import { __decorate } from \\"tslib\\";
+import __NG_CLI_RESOURCE__0 from \\"./app.component.html\\";
+import { Component } from '@angular/core';
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = __decorate([
+    Component({
+        selector: 'app-root',
+        template: __NG_CLI_RESOURCE__0,
+        styles: []
+    })
+], AppComponent);
+export { AppComponent };
 //# "
 `;

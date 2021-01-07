@@ -10,11 +10,8 @@ import { NgJestConfig } from '../config/ng-jest-config';
 import { jestCfgStub } from './__helpers__/test-constants';
 import { mockFolder } from './__helpers__/test-helpers';
 
-import SpyInstance = jest.SpyInstance;
-
 describe('NgJestCompiler', () => {
   describe('with isolatedModules true', () => {
-    let transpileModuleSpy: SpyInstance;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const baseJestCfg = {
       ...jestCfgStub,
@@ -27,46 +24,36 @@ describe('NgJestCompiler', () => {
       },
     };
 
-    beforeEach(() => {
-      // @ts-expect-error testing purpose
-      transpileModuleSpy = ts.transpileModule = jest.fn().mockReturnValueOnce({
-        outputText: 'var foo = 1',
-        diagnostics: [],
-        sourceMapText: '{}',
-      });
-    });
-
-    test('should call transpileModule with CommonJS module', () => {
-      const ngJestConfig = new NgJestConfig(baseJestCfg);
-      const fileName = join(mockFolder, 'foo.service.ts');
-      const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), false)!;
-
-      expect(transpileModuleSpy).toHaveBeenCalled();
-      expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).toEqual(ts.ModuleKind.CommonJS);
-    });
-
-    test('should call transpileModule with ESM module', () => {
+    test.each([true, false])('should call transpileModule with useESM %p', (useESM) => {
       const ngJestConfig = new NgJestConfig({
         ...baseJestCfg,
         globals: {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           'ts-jest': {
             ...baseJestCfg.globals['ts-jest'],
-            useESM: true,
+            useESM,
           },
         },
       });
       const fileName = join(mockFolder, 'foo.service.ts');
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
+      // @ts-expect-error testing purpose
+      compiler._transpileModule = jest.fn().mockReturnValueOnce({
+        outputText: 'var foo = 1',
+        diagnostics: [],
+        sourceMapText: '{}',
+      });
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), true)!;
+      compiler.getCompiledOutput(fileName, readFileSync(fileName, 'utf-8'), useESM)!;
 
-      expect(transpileModuleSpy).toHaveBeenCalled();
-      expect(transpileModuleSpy.mock.calls[0][1].compilerOptions.module).not.toEqual(ts.ModuleKind.CommonJS);
+      // @ts-expect-error testing purpose
+      expect(compiler._transpileModule).toHaveBeenCalled();
+      // @ts-expect-error testing purpose
+      const moduleKind = compiler._transpileModule.mock.calls[0][1].compilerOptions.module;
+      useESM
+        ? expect(moduleKind).not.toEqual(ts.ModuleKind.CommonJS)
+        : expect(moduleKind).toEqual(ts.ModuleKind.CommonJS);
     });
   });
 

@@ -7,20 +7,27 @@ import type * as ts from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
 import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
-import { factory as inlineFiles } from '../transformers/inline-files';
 import { replaceResources } from '../transformers/replace-resources';
-import { factory as stripStyles } from '../transformers/strip-styles';
 
 import { NgJestCompilerHost } from './compiler-host';
 
+interface PatchedTranspileOptions {
+  fileName: string;
+  compilerOptions: ts.CompilerOptions;
+  moduleName?: string;
+  renamedDependencies?: ts.MapLike<string>;
+}
+
 export class NgJestCompiler implements CompilerInstance {
   private _compilerOptions!: CompilerOptions;
-  private _program: ts.Program | undefined;
+  private _program!: ts.Program;
   private _compilerHost: CompilerHost | undefined;
   private _tsHost: NgJestCompilerHost | undefined;
   private _rootNames: string[] = [];
   private readonly _logger: Logger;
   private readonly _ts: TTypeScript;
+  private readonly isAppPath = (fileName: string) =>
+    !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
 
   constructor(readonly ngJestConfig: NgJestConfig, readonly jestCacheFS: Map<string, string>) {
     this._logger = this.ngJestConfig.logger;
@@ -39,7 +46,6 @@ export class NgJestCompiler implements CompilerInstance {
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
     const customTransformers = this.ngJestConfig.customTransformers;
-    const isAppPath = (fileName: string) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const getTypeChecker = () => this._program!.getTypeChecker();
     if (this._program) {
@@ -67,7 +73,7 @@ export class NgJestCompiler implements CompilerInstance {
            * _createCompilerHost
            */
           constructorParametersDownlevelTransform(this._program),
-          replaceResources(isAppPath, getTypeChecker),
+          replaceResources(this.isAppPath, getTypeChecker),
         ],
       });
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -105,24 +111,17 @@ export class NgJestCompiler implements CompilerInstance {
 
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling as isolated module');
 
-      const result: ts.TranspileOutput = this._ts.transpileModule(fileContent, {
-        fileName,
-        transformers: {
-          ...customTransformers,
-          before: [
-            // hoisting from `ts-jest` or other before transformers
-            ...(customTransformers.before as Array<ts.TransformerFactory<ts.SourceFile>>),
-            inlineFiles(this.ngJestConfig),
-            stripStyles(this.ngJestConfig),
-          ],
+      const result: ts.TranspileOutput = this._transpileModule(
+        fileContent,
+        {
+          fileName,
+          compilerOptions: {
+            ...this._compilerOptions,
+            module: moduleKind,
+          },
         },
-        compilerOptions: {
-          ...this._compilerOptions,
-          module: moduleKind,
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        reportDiagnostics: this.ngJestConfig.shouldReportDiagnostics(fileName),
-      });
+        customTransformers,
+      );
       if (result.diagnostics && this.ngJestConfig.shouldReportDiagnostics(fileName)) {
         this.ngJestConfig.raiseDiagnostics(result.diagnostics, fileName, this._logger);
       }
@@ -163,5 +162,118 @@ export class NgJestCompiler implements CompilerInstance {
     this._logger.debug(`_createOrUpdateProgram: ${oldTsProgram ? 'update' : 'create'} TypeScript Program`);
 
     this._program = this._ts.createProgram(this._rootNames, this._compilerOptions, this._compilerHost, oldTsProgram);
+  }
+
+  /**
+   * Copy from https://github.com/microsoft/TypeScript/blob/master/src/services/transpile.ts
+   * This is required because the exposed function `transpileModule` from TypeScript doesn't allow to access `Program`
+   * and we need `Program` to be able to use Angular `replace-resources` transformer.
+   */
+  private _transpileModule(
+    fileContent: string,
+    transpileOptions: PatchedTranspileOptions,
+    customTransformers: ts.CustomTransformers,
+  ): ts.TranspileOutput {
+    const diagnostics: ts.Diagnostic[] = [];
+    const options: ts.CompilerOptions = transpileOptions.compilerOptions
+      ? // @ts-expect-error internal TypeScript API
+        this._ts.fixupCompilerOptions(transpileOptions.compilerOptions, diagnostics)
+      : {};
+
+    // mix in default options
+    const defaultOptions = this._ts.getDefaultCompilerOptions();
+    for (const key in defaultOptions) {
+      // @ts-expect-error internal TypeScript API
+      if (this._ts.hasProperty(defaultOptions, key) && options[key] === undefined) {
+        options[key] = defaultOptions[key];
+      }
+    }
+
+    // @ts-expect-error internal TypeScript API
+    for (const option of this._ts.transpileOptionValueCompilerOptions) {
+      options[option.name] = option.transpileOptionValue;
+    }
+
+    // transpileModule does not write anything to disk so there is no need to verify that there are no conflicts between input and output paths.
+    options.suppressOutputPathCheck = true;
+
+    // Filename can be non-ts file.
+    options.allowNonTsExtensions = true;
+
+    // if jsx is specified then treat file as .tsx
+    const inputFileName =
+      transpileOptions.fileName ||
+      (transpileOptions.compilerOptions && transpileOptions.compilerOptions.jsx ? 'module.tsx' : 'module.ts');
+    const sourceFile = this._ts.createSourceFile(inputFileName, fileContent, options.target!); // TODO: GH#18217
+    if (transpileOptions.moduleName) {
+      sourceFile.moduleName = transpileOptions.moduleName;
+    }
+
+    if (transpileOptions.renamedDependencies) {
+      // @ts-expect-error internal TypeScript API
+      sourceFile.renamedDependencies = new Map(getEntries(transpileOptions.renamedDependencies));
+    }
+
+    // @ts-expect-error internal TypeScript API
+    const newLine = this._ts.getNewLineCharacter(options);
+
+    // Output
+    let outputText: string | undefined;
+    let sourceMapText: string | undefined;
+
+    // Create a compilerHost object to allow the compiler to read and write files
+    const compilerHost: ts.CompilerHost = {
+      // @ts-expect-error internal TypeScript API
+      getSourceFile: (fileName) => (fileName === this._ts.normalizePath(inputFileName) ? sourceFile : undefined),
+      writeFile: (name, text) => {
+        // @ts-expect-error internal TypeScript API
+        if (this._ts.fileExtensionIs(name, '.map')) {
+          // @ts-expect-error internal TypeScript API
+          this._ts.Debug.assertEqual(sourceMapText, undefined, 'Unexpected multiple source map outputs, file:', name);
+          sourceMapText = text;
+        } else {
+          // @ts-expect-error internal TypeScript API
+          this._ts.Debug.assertEqual(outputText, undefined, 'Unexpected multiple outputs, file:', name);
+          outputText = text;
+        }
+      },
+      getDefaultLibFileName: () => 'lib.d.ts',
+      useCaseSensitiveFileNames: () => false,
+      getCanonicalFileName: (fileName) => fileName,
+      getCurrentDirectory: () => '',
+      getNewLine: () => newLine,
+      fileExists: (fileName): boolean => fileName === inputFileName,
+      readFile: () => '',
+      directoryExists: () => true,
+      getDirectories: () => [],
+    };
+
+    const program = this._ts.createProgram([inputFileName], options, compilerHost);
+    if (this.ngJestConfig.shouldReportDiagnostics(inputFileName)) {
+      // @ts-expect-error internal TypeScript API
+      this._ts.addRange(/*to*/ diagnostics, /*from*/ program.getSyntacticDiagnostics(sourceFile));
+      // @ts-expect-error internal TypeScript API
+      this._ts.addRange(/*to*/ diagnostics, /*from*/ program.getOptionsDiagnostics());
+    }
+    // Emit
+    program.emit(
+      /*targetSourceFile*/ undefined,
+      /*writeFile*/ undefined,
+      /*cancellationToken*/ undefined,
+      /*emitOnlyDtsFiles*/ undefined,
+      {
+        ...customTransformers,
+        before: [
+          // hoisting from `ts-jest` or other before transformers
+          ...(customTransformers.before as Array<ts.TransformerFactory<ts.SourceFile>>),
+          replaceResources(this.isAppPath, program.getTypeChecker),
+        ],
+      },
+    );
+
+    // @ts-expect-error internal TypeScript API
+    if (outputText === undefined) return this._ts.Debug.fail('Output generation failed');
+
+    return { outputText, diagnostics, sourceMapText };
   }
 }
