@@ -20,7 +20,7 @@ interface PatchedTranspileOptions {
 
 export class NgJestCompiler implements CompilerInstance {
   private _compilerOptions!: CompilerOptions;
-  private _program!: ts.Program;
+  private _program: ts.Program | undefined;
   private _compilerHost: CompilerHost | undefined;
   private _tsHost: NgJestCompilerHost | undefined;
   private _rootNames: string[] = [];
@@ -46,8 +46,6 @@ export class NgJestCompiler implements CompilerInstance {
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
     const customTransformers = this.ngJestConfig.customTransformers;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const getTypeChecker = () => this._program!.getTypeChecker();
     if (this._program) {
       const allDiagnostics = [];
       if (!this._rootNames.includes(fileName)) {
@@ -73,7 +71,7 @@ export class NgJestCompiler implements CompilerInstance {
            * _createCompilerHost
            */
           constructorParametersDownlevelTransform(this._program),
-          replaceResources(this.isAppPath, getTypeChecker),
+          replaceResources(this.isAppPath, this._program.getTypeChecker),
         ],
       });
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -194,7 +192,10 @@ export class NgJestCompiler implements CompilerInstance {
       options[option.name] = option.transpileOptionValue;
     }
 
-    // transpileModule does not write anything to disk so there is no need to verify that there are no conflicts between input and output paths.
+    /**
+     * transpileModule does not write anything to disk so there is no need to verify that there are no conflicts between
+     * input and output paths.
+     */
     options.suppressOutputPathCheck = true;
 
     // Filename can be non-ts file.
@@ -204,6 +205,7 @@ export class NgJestCompiler implements CompilerInstance {
     const inputFileName =
       transpileOptions.fileName ||
       (transpileOptions.compilerOptions && transpileOptions.compilerOptions.jsx ? 'module.tsx' : 'module.ts');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const sourceFile = this._ts.createSourceFile(inputFileName, fileContent, options.target!); // TODO: GH#18217
     if (transpileOptions.moduleName) {
       sourceFile.moduleName = transpileOptions.moduleName;
