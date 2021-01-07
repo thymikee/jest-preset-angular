@@ -1,4 +1,5 @@
-import { formatDiagnostics, ParsedConfiguration, readConfiguration } from '@angular/compiler-cli';
+import { NodeJSFileSystem, setFileSystem } from '@angular/compiler-cli/src/ngtsc/file_system';
+import { formatDiagnostics, readConfiguration, ParsedConfiguration } from '@angular/compiler-cli/src/perform_compile';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import type { ProjectConfigTsJest } from 'ts-jest/dist/types';
 import type { CompilerOptions } from 'typescript';
@@ -17,6 +18,18 @@ export class NgJestConfig extends ConfigSet {
    * Override `ts-jest` behavior because we use `readConfiguration` which will read and resolve tsconfig.
    */
   protected _resolveTsConfig(compilerOptions?: CompilerOptions, resolvedConfigFile?: string): ParsedConfiguration {
+    /**
+     * To be able to use `readConfiguration` function from `@angular/cli`, we need to setup file system. For `CommonJS`,
+     * it is not a problem to import directly the function from `@angular/cli`. However, with `ESM`, we will get an
+     * error that `readConfiguration` function is not exposed. So workaround is:
+     * - Any functions which is imported from `@angular/cli` should be pointed directly to the real path, not
+     * to the `index.d.ts`.
+     * - Setup file system should be called explicitly.
+     *
+     * See https://github.com/angular/angular/issues/32352#issuecomment-525624772
+     */
+    setFileSystem(new NodeJSFileSystem());
+
     this.logger.debug(
       '_resolveTsConfig: read and resolve config from tsconfig using @angular/compiler-cli readConfiguration',
     );

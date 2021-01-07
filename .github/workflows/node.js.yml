@@ -78,8 +78,10 @@ jobs:
         run: yarn
       - name: build
         run: yarn build
-      - name: run unit tests
-        run: yarn test:unit
+      - name: run unit tests with CommomJS
+        run: yarn test-cjs:unit
+      - name: run unit tests with ESM
+        run: yarn test-esm:unit
       - name: run e2e tests
         run: yarn test:e2e
         env:

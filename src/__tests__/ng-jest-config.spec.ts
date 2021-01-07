@@ -5,8 +5,8 @@ import { normalizeSeparators } from '@angular/compiler-cli/src/ngtsc/util/src/pa
 import { NgJestConfig } from '../config/ng-jest-config';
 
 describe('NgJestConfig', () => {
-  const specifiedTsCfgPath = join(__dirname, '..', '..', 'tsconfig.spec.json');
-  const defaultTsCfgPath = join(__dirname, '..', '..', 'tsconfig.json');
+  const specifiedTsCfgPath = join(process.cwd(), 'tsconfig.spec.json');
+  const defaultTsCfgPath = join(process.cwd(), 'tsconfig.json');
 
   describe('_resolveTsConfig', () => {
     test('should return config including Angular compiler config with tsconfig as a string from ts-jest option', () => {

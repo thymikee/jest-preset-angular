@@ -1,5 +1,3 @@
-require('./ngcc-jest-processor');
-
 /** @type {import('ts-jest/dist/types').ProjectConfigTsJest} */
 module.exports = {
   preset: 'ts-jest',

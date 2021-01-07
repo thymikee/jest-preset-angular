@@ -4,7 +4,7 @@
  *
  */
 
-import * as tsc from 'typescript';
+import tsc from 'typescript';
 
 import * as transformer from '../transformers/strip-styles';
 

@@ -7,9 +7,10 @@ import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
 
 import { jestCfgStub } from './__helpers__/test-constants';
+import { mockFolder } from './__helpers__/test-helpers';
 
 describe('Downlevel ctor transformer', () => {
-  const fileName = join(__dirname, '__mocks__', 'forward-ref.ts');
+  const fileName = join(mockFolder, 'forward-ref.ts');
   const fileContent = readFileSync(fileName, 'utf-8');
 
   test.each([true, false])(
