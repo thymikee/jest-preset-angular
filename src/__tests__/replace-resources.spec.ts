@@ -13,43 +13,28 @@ describe('Replace resources transformer', () => {
   const fileName = join(mockFolder, 'app.component.ts');
   const fileContent = readFileSync(fileName, 'utf-8');
 
-  test('should use replaceResources transformer from @angular/compiler-cli for isolatedModules false', () => {
-    const ngJestConfig = new NgJestConfig({
-      ...jestCfgStub,
-      globals: {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        'ts-jest': {
-          ...jestCfgStub.globals['ts-jest'],
-          isolatedModules: false,
-        },
+  describe.each([true, false])('with isolatedModules %p', (isolatedModules) => {
+    test.each([true, false])(
+      'should use replaceResources transformer from @angular/compiler-cli with useESM %p',
+      (useESM) => {
+        const ngJestConfig = new NgJestConfig({
+          ...jestCfgStub,
+          globals: {
+            'ts-jest': {
+              ...jestCfgStub.globals['ts-jest'],
+              isolatedModules,
+              useESM,
+            },
+          },
+        });
+        const compiler = new NgJestCompiler(ngJestConfig, new Map());
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const emittedResult = compiler.getCompiledOutput(fileName, fileContent, useESM)!;
+
+        // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
+        expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
       },
-    });
-    const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const emittedResult = compiler.getCompiledOutput(fileName, fileContent, false)!;
-
-    // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
-    expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
-  });
-
-  test('should use inline-files + strip-styles for isolatedModules true', () => {
-    const ngJestConfig = new NgJestConfig({
-      ...jestCfgStub,
-      globals: {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        'ts-jest': {
-          ...jestCfgStub.globals['ts-jest'],
-          isolatedModules: true,
-        },
-      },
-    });
-    const compiler = new NgJestCompiler(ngJestConfig, new Map());
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const emittedResult = compiler.getCompiledOutput(fileName, fileContent, false)!;
-
-    // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
-    expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
+    );
   });
 });

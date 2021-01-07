@@ -11,8 +11,16 @@ import { mockFolder } from './__helpers__/test-helpers';
 
 describe('Hoisting', () => {
   // Verify if we use `ts-jest` hoisting transformer
-  test('should hoist correctly', () => {
-    const ngJestConfig = new NgJestConfig(jestCfgStub);
+  test.each([true, false])('should hoist correctly with isolatedModules %p', (isolatedModules) => {
+    const ngJestConfig = new NgJestConfig({
+      ...jestCfgStub,
+      globals: {
+        'ts-jest': {
+          ...jestCfgStub.globals['ts-jest'],
+          isolatedModules,
+        },
+      },
+    });
     const fileName = join(mockFolder, 'foo.spec.ts');
     const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
