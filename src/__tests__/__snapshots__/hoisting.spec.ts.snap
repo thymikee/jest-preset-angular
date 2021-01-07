@@ -3,7 +3,8 @@
 exports[`Hoisting should hoist correctly 1`] = `
 "\\"use strict\\";
 Object.defineProperty(exports, \\"__esModule\\", { value: true });
-jest.mock('./foo');
+const globals_1 = require(\\"@jest/globals\\");
+globals_1.jest.mock('./foo');
 const foo_1 = require(\\"./foo\\");
 console.log(foo_1.getFoo());
 //# "

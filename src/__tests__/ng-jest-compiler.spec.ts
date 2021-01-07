@@ -1,17 +1,20 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+import { jest } from '@jest/globals';
 import ts from 'typescript';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
 
 import { jestCfgStub } from './__helpers__/test-constants';
+import { mockFolder } from './__helpers__/test-helpers';
+
+import SpyInstance = jest.SpyInstance;
 
 describe('NgJestCompiler', () => {
   describe('with isolatedModules true', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let transpileModuleSpy: jest.SpyInstance<any>;
+    let transpileModuleSpy: SpyInstance;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const baseJestCfg = {
       ...jestCfgStub,
@@ -25,6 +28,7 @@ describe('NgJestCompiler', () => {
     };
 
     beforeEach(() => {
+      // @ts-expect-error testing purpose
       transpileModuleSpy = ts.transpileModule = jest.fn().mockReturnValueOnce({
         outputText: 'var foo = 1',
         diagnostics: [],
@@ -34,7 +38,7 @@ describe('NgJestCompiler', () => {
 
     test('should call transpileModule with CommonJS module', () => {
       const ngJestConfig = new NgJestConfig(baseJestCfg);
-      const fileName = join(__dirname, '__mocks__', 'foo.service.ts');
+      const fileName = join(mockFolder, 'foo.service.ts');
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -55,7 +59,7 @@ describe('NgJestCompiler', () => {
           },
         },
       });
-      const fileName = join(__dirname, '__mocks__', 'foo.service.ts');
+      const fileName = join(mockFolder, 'foo.service.ts');
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -91,9 +95,9 @@ describe('NgJestCompiler', () => {
       '//# sourceMappingURL=app.component.js.map\n';
 
     const ngJestConfig = new NgJestConfig(jestCfgStub);
-    const noErrorFileName = join(__dirname, '__mocks__', 'app.component.ts');
+    const noErrorFileName = join(mockFolder, 'app.component.ts');
     const noErrorFileContent = readFileSync(noErrorFileName, 'utf-8');
-    const hasErrorFileName = join(__dirname, '__mocks__', 'foo.component.ts');
+    const hasErrorFileName = join(mockFolder, 'foo.component.ts');
     const hasErrorFileContent = readFileSync(hasErrorFileName, 'utf-8');
 
     test.each([noErrorFileName, undefined])(
@@ -133,6 +137,7 @@ describe('NgJestCompiler', () => {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [hasErrorFileName],
       };
+      // @ts-expect-error testing purpose
       ngJestConfig.shouldReportDiagnostics = jest.fn().mockReturnValueOnce(false);
       const compiler = new NgJestCompiler(ngJestConfig, new Map());
 

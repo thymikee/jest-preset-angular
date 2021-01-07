@@ -1,6 +1,8 @@
+import { jest } from '@jest/globals';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
+import { NgJestTransformer } from '../ng-jest-transformer';
 
 describe('NgJestTransformer', () => {
   describe('_configsFor', () => {
@@ -13,10 +15,10 @@ describe('NgJestTransformer', () => {
           cacheFS: new Map(),
         };
         const obj2 = { ...obj1, config: { ...obj1.config, globals: {} } };
-        // eslint-disable-next-line
-        const cs1 = require('../')._configsFor(obj1);
-        // eslint-disable-next-line
-        const cs2 = require('../')._configsFor(obj2);
+        // @ts-expect-error testing purpose
+        const cs1 = new NgJestTransformer()._configsFor(obj1);
+        // @ts-expect-error testing purpose
+        const cs2 = new NgJestTransformer()._configsFor(obj2);
 
         expect(cs2).toBe(cs1);
       },
@@ -28,10 +30,10 @@ describe('NgJestTransformer', () => {
         cacheFS: new Map(),
       };
       const obj2 = { ...obj1 };
-      // eslint-disable-next-line
-      const cs1 = require('../')._configsFor(obj1);
-      // eslint-disable-next-line
-      const cs2 = require('../')._configsFor(obj2);
+      // @ts-expect-error testing purpose
+      const cs1 = new NgJestTransformer()._configsFor(obj1);
+      // @ts-expect-error testing purpose
+      const cs2 = new NgJestTransformer()._configsFor(obj2);
 
       expect(cs2).toBe(cs1);
     });
@@ -47,9 +49,8 @@ describe('NgJestTransformer', () => {
         // eslint-disable-next-line
         options: { config: { foo: 'bar' } as any, instrument: false, rootDir: '/foo' },
       };
-      // eslint-disable-next-line
-      const tr = require('../');
-
+      const tr = new NgJestTransformer();
+      // @ts-expect-error testing purpose
       tr.getCacheKey(input.fileContent, input.fileName, input.jestConfigStr, input.options);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -88,10 +89,9 @@ describe('NgJestTransformer', () => {
         // eslint-disable-next-line
         options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo', cacheFS: new Map(), },
       };
-      // eslint-disable-next-line
-      const ngJestTransformer = require('../');
+      const ngJestTransformer = new NgJestTransformer();
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // @ts-expect-error testing purpose
       ngJestTransformer.process(input.fileContent, fileName, input.options);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -125,10 +125,9 @@ describe('NgJestTransformer', () => {
         // eslint-disable-next-line
         options: { config: { ...jestCfg } as any, instrument: false, rootDir: '/foo', cacheFS: new Map(), },
       };
-      // eslint-disable-next-line
-      const ngJestTransformer = require('../');
+      const ngJestTransformer = new NgJestTransformer();
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // @ts-expect-error testing purpose
       ngJestTransformer.process(fileContent, fileName, input.options);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method

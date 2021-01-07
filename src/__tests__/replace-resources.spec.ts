@@ -6,10 +6,11 @@ import { SOURCE_MAPPING_PREFIX } from 'ts-jest/dist/compiler/compiler-utils';
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
 
-import { jestCfgStub } from './__helpers__/test-helpers';
+import { jestCfgStub } from './__helpers__/test-constants';
+import { mockFolder } from './__helpers__/test-helpers';
 
 describe('Replace resources transformer', () => {
-  const fileName = join(__dirname, '__mocks__', 'app.component.ts');
+  const fileName = join(mockFolder, 'app.component.ts');
   const fileContent = readFileSync(fileName, 'utf-8');
 
   test('should use replaceResources transformer from @angular/compiler-cli for isolatedModules false', () => {

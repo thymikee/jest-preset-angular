@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 import { getFoo } from './foo';
 
 jest.mock('./foo');

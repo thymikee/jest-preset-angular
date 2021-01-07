@@ -4,7 +4,7 @@
  *
  */
 
-import * as tsc from 'typescript';
+import ts from 'typescript';
 
 import * as transformer from '../transformers/inline-files';
 
@@ -134,9 +134,9 @@ const CODE_WITH_ASSIGNMENTS_OUTSIDE_DECORATOR = `
 
 const createFactory = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return transformer.factory({ compilerModule: tsc } as any);
+  return transformer.factory({ compilerModule: ts } as any);
 };
-const transpile = (source: string) => tsc.transpileModule(source, { transformers: { before: [createFactory()] } });
+const transpile = (source: string) => ts.transpileModule(source, { transformers: { before: [createFactory()] } });
 
 describe('inlining template and stripping styleUrls', () => {
   it('should strip styleUrls assignment', () => {

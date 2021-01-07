@@ -1,11 +1,12 @@
-import { CompilerHost, CompilerOptions, createCompilerHost } from '@angular/compiler-cli';
+import { CompilerHost, CompilerOptions } from '@angular/compiler-cli';
+import { createCompilerHost } from '@angular/compiler-cli/src/transformers/compiler_host';
 import type { Logger } from 'bs-logger';
 import { updateOutput } from 'ts-jest/dist/compiler/compiler-utils';
 import type { CompilerInstance, TTypeScript, ResolvedModulesMap } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
-import { factory as downlevelCtor } from '../transformers/downlevel-ctor';
+import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
 import { factory as inlineFiles } from '../transformers/inline-files';
 import { replaceResources } from '../transformers/replace-resources';
 import { factory as stripStyles } from '../transformers/strip-styles';
@@ -65,7 +66,7 @@ export class NgJestCompiler implements CompilerInstance {
            * the transformers are created. Also because program can be updated so we can't push this transformer in
            * _createCompilerHost
            */
-          downlevelCtor(this._program),
+          constructorParametersDownlevelTransform(this._program),
           replaceResources(isAppPath, getTypeChecker),
         ],
       });

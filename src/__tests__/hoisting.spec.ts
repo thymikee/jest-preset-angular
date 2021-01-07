@@ -7,12 +7,13 @@ import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
 
 import { jestCfgStub } from './__helpers__/test-constants';
+import { mockFolder } from './__helpers__/test-helpers';
 
 describe('Hoisting', () => {
   // Verify if we use `ts-jest` hoisting transformer
   test('should hoist correctly', () => {
     const ngJestConfig = new NgJestConfig(jestCfgStub);
-    const fileName = join(__dirname, '__mocks__', 'foo.spec.ts');
+    const fileName = join(mockFolder, 'foo.spec.ts');
     const compiler = new NgJestCompiler(ngJestConfig, new Map());
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

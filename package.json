@@ -23,9 +23,11 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --fix --ext .js,.ts .",
-    "test:unit": "jest -i",
+    "test-cjs:unit": "jest -i",
+    "test-esm:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js -i -c=jest-esm.config.js",
     "test:e2e": "node scripts/e2e.js",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
+    "postinstall": "ngcc --properties es2015 module main"
   },
   "dependencies": {
     "jest-environment-jsdom": "^27.0.0-next.1",
@@ -38,7 +40,7 @@
     "jest": "27.0.0-next.2"
   },
   "optionalDependencies": {
-    "webpack": "^5.11.1"
+    "webpack": "4.44.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1002.1",
@@ -53,6 +55,7 @@
     "@angular/platform-browser": "^10.2.4",
     "@commitlint/cli": "11.x",
     "@commitlint/config-angular": "11.x",
+    "@jest/globals": "^27.0.0-next.1",
     "@jest/transform": "27.0.0-next.2",
     "@jest/types": "27.0.0-next.1",
     "@types/jest": "26.x",
@@ -60,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "conventional-changelog-cli": "latest",
+    "cross-env": "^7.0.3",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-plugin-import": "latest",
