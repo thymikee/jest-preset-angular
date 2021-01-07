@@ -23,11 +23,11 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --fix --ext .js,.ts .",
-    "test-cjs:unit": "jest -i",
-    "test-esm:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js -i -c=jest-esm.config.js",
+    "pretest": "node ./ngcc-jest-processor.js",
+    "test-cjs:unit": "yarn pretest && jest -i",
+    "test-esm:unit": "yarn pretest && node --experimental-vm-modules ./node_modules/jest/bin/jest.js -i -c=jest-esm.config.js",
     "test:e2e": "node scripts/e2e.js",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
-    "postinstall": "ngcc --properties es2015 module main"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
   },
   "dependencies": {
     "jest-environment-jsdom": "^27.0.0-next.1",
@@ -63,7 +63,6 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "conventional-changelog-cli": "latest",
-    "cross-env": "^7.0.3",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-plugin-import": "latest",
