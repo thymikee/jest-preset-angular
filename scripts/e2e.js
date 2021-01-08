@@ -24,11 +24,6 @@ const executeTest = (projectRealPath) => {
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectRealPath, '='.repeat(20));
   logger.log();
 
-  logger.log('setting NG_VERSION environment variable');
-  logger.log();
-  const projectName = projectRealPath.match(/([^\\/]*)\/*$/)[1];
-  process.env.NG_VERSION = projectName.substring(projectName.lastIndexOf('-') + 1);
-
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
   logger.log();
@@ -61,14 +56,14 @@ const executeTest = (projectRealPath) => {
   // then we can run the tests
   const cmdCjsUnIso = ['yarn', 'test-cjs-uniso'];
   const cmdCjsIso = ['yarn', 'test-cjs-iso'];
-  // const cmdESMIso = ['yarn', 'test-esm-iso'];
+  const cmdESMIso = ['yarn', 'test-esm-iso'];
   if (jestArgs.length) {
     cmdCjsUnIso.push('--');
     cmdCjsIso.push('--');
-    // cmdESMIso.push('--');
+    cmdESMIso.push('--');
     cmdCjsUnIso.push(...jestArgs);
     cmdCjsIso.push(...jestArgs);
-    // cmdESMIso.push(...jestArgs);
+    cmdESMIso.push(...jestArgs);
   }
 
   logger.log('STARTING NONE ISOLATED MODULES TESTS');
@@ -98,19 +93,20 @@ const executeTest = (projectRealPath) => {
     env: process.env,
   });
 
-  // logger.log('starting the ESM tests using:', ...cmdCjsIso);
-  // logger.log();
-  //
-  // execa.sync(cmdESMIso.shift(), cmdESMIso, {
-  //   cwd: projectRealPath,
-  //   stdio: 'inherit',
-  //   env: process.env,
-  // });
+  logger.log();
+  logger.log('starting the ESM tests using:', ...cmdESMIso);
+  logger.log();
 
+  execa.sync(cmdESMIso.shift(), cmdESMIso, {
+    cwd: projectRealPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  logger.log();
   logger.log('cleaning up');
 
   execa.sync('rimraf', [testCasesDest]);
-  delete process.env.NG_VERSION;
   delete process.env.ISOLATED_MODULES;
 };
 

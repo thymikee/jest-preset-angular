@@ -1,4 +1,5 @@
 import { async, ComponentFixture } from '@angular/core/testing';
+import { jest } from '@jest/globals';
 import { Subject } from 'rxjs';
 
 import { ConfigureFn, configureTests } from '../__helpers__';
