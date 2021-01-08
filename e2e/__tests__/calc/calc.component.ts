@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import * as image from 'e2e/test-app-v10/src/assets/its_something.png';
+
+import image from './its_something.png';
 
 @Component({
   selector: 'app-calc',
