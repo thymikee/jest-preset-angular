@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`NgJestCompiler with isolatedModule false should compile codes with useESM true 1`] = `
+"import { __decorate } from \\"tslib\\";
+import __NG_CLI_RESOURCE__0 from \\"./app.component.html\\";
+import { Component } from '@angular/core';
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = __decorate([
+    Component({
+        selector: 'app-root',
+        template: __NG_CLI_RESOURCE__0,
+        styles: []
+    })
+], AppComponent);
+export { AppComponent };
+//# "
+`;
+
 exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;
 
 exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: not known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;

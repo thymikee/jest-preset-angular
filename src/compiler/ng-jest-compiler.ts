@@ -46,8 +46,30 @@ export class NgJestCompiler implements CompilerInstance {
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
     const customTransformers = this.ngJestConfig.customTransformers;
+    let moduleKind = this._compilerOptions.module;
+    let esModuleInterop = this._compilerOptions.esModuleInterop;
+    let allowSyntheticDefaultImports = this._compilerOptions.allowSyntheticDefaultImports;
+    if (supportsStaticESM && this.ngJestConfig.useESM) {
+      moduleKind =
+        !moduleKind ||
+        (moduleKind &&
+          ![this._ts.ModuleKind.ES2015, this._ts.ModuleKind.ES2020, this._ts.ModuleKind.ESNext].includes(moduleKind))
+          ? this._ts.ModuleKind.ESNext
+          : moduleKind;
+      // Make sure `esModuleInterop` and `allowSyntheticDefaultImports` true to support import CJS into ESM
+      esModuleInterop = true;
+      allowSyntheticDefaultImports = true;
+    } else {
+      moduleKind = this._ts.ModuleKind.CommonJS;
+    }
+    this._compilerOptions = {
+      ...this._compilerOptions,
+      allowSyntheticDefaultImports,
+      esModuleInterop,
+      module: moduleKind,
+    };
     if (this._program) {
-      const allDiagnostics = [];
+      const allDiagnostics: ts.Diagnostic[] = [];
       if (!this._rootNames.includes(fileName)) {
         this._logger.debug({ fileName }, 'getCompiledOutput: update memory host, rootFiles and Program');
 
@@ -95,28 +117,13 @@ export class NgJestCompiler implements CompilerInstance {
         return '';
       }
     } else {
-      let moduleKind = this._compilerOptions.module;
-      if (supportsStaticESM && this.ngJestConfig.useESM) {
-        moduleKind =
-          !moduleKind ||
-          (moduleKind &&
-            ![this._ts.ModuleKind.ES2015, this._ts.ModuleKind.ES2020, this._ts.ModuleKind.ESNext].includes(moduleKind))
-            ? this._ts.ModuleKind.ESNext
-            : moduleKind;
-      } else {
-        moduleKind = this._ts.ModuleKind.CommonJS;
-      }
-
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling as isolated module');
 
       const result: ts.TranspileOutput = this._transpileModule(
         fileContent,
         {
           fileName,
-          compilerOptions: {
-            ...this._compilerOptions,
-            module: moduleKind,
-          },
+          compilerOptions: this._compilerOptions,
         },
         customTransformers,
       );

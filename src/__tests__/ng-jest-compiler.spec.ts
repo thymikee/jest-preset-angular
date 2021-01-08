@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { jest } from '@jest/globals';
+import { SOURCE_MAPPING_PREFIX } from 'ts-jest/dist/compiler/compiler-utils';
 import ts from 'typescript';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
@@ -50,10 +51,15 @@ describe('NgJestCompiler', () => {
       // @ts-expect-error testing purpose
       expect(compiler._transpileModule).toHaveBeenCalled();
       // @ts-expect-error testing purpose
-      const moduleKind = compiler._transpileModule.mock.calls[0][1].compilerOptions.module;
-      useESM
-        ? expect(moduleKind).not.toEqual(ts.ModuleKind.CommonJS)
-        : expect(moduleKind).toEqual(ts.ModuleKind.CommonJS);
+      const { module, esModuleInterop, allowSyntheticDefaultImports } = compiler._transpileModule.mock.calls[0][1]
+        .compilerOptions as ts.CompilerOptions;
+      if (useESM) {
+        expect(module).not.toEqual(ts.ModuleKind.CommonJS);
+        expect(allowSyntheticDefaultImports).toEqual(true);
+        expect(esModuleInterop).toEqual(true);
+      } else {
+        expect(module).toEqual(ts.ModuleKind.CommonJS);
+      }
     });
   });
 
@@ -81,7 +87,6 @@ describe('NgJestCompiler', () => {
       'exports.AppComponent = AppComponent;\n' +
       '//# sourceMappingURL=app.component.js.map\n';
 
-    const ngJestConfig = new NgJestConfig(jestCfgStub);
     const noErrorFileName = join(mockFolder, 'app.component.ts');
     const noErrorFileContent = readFileSync(noErrorFileName, 'utf-8');
     const hasErrorFileName = join(mockFolder, 'foo.component.ts');
@@ -90,6 +95,7 @@ describe('NgJestCompiler', () => {
     test.each([noErrorFileName, undefined])(
       'should return compiled result for new file which is not known or known by Program',
       (fileName) => {
+        const ngJestConfig = new NgJestConfig(jestCfgStub);
         ngJestConfig.parsedTsConfig = {
           ...ngJestConfig.parsedTsConfig,
           rootNames: fileName ? [fileName] : [],
@@ -107,7 +113,28 @@ describe('NgJestCompiler', () => {
       },
     );
 
+    test('should compile codes with useESM true', () => {
+      const ngJestConfig = new NgJestConfig({
+        ...jestCfgStub,
+        globals: {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          'ts-jest': {
+            ...jestCfgStub.globals['ts-jest'],
+            useESM: true,
+          },
+        },
+      });
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
+
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const emittedResult = compiler.getCompiledOutput(noErrorFileName, noErrorFileContent, true)!;
+
+      // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
+      expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
+    });
+
     test.each([hasErrorFileName, undefined])('should throw diagnostics error for new file which is', (fileName) => {
+      const ngJestConfig = new NgJestConfig(jestCfgStub);
       ngJestConfig.parsedTsConfig = {
         ...ngJestConfig.parsedTsConfig,
         rootNames: fileName ? [fileName] : [],
@@ -120,6 +147,7 @@ describe('NgJestCompiler', () => {
     });
 
     test('should not throw diagnostics error when shouldReportDiagnostics return false', () => {
+      const ngJestConfig = new NgJestConfig(jestCfgStub);
       ngJestConfig.parsedTsConfig = {
         ...ngJestConfig.parsedTsConfig,
         rootNames: [hasErrorFileName],

@@ -57,13 +57,16 @@ const executeTest = (projectRealPath) => {
   const cmdCjsUnIso = ['yarn', 'test-cjs-uniso'];
   const cmdCjsIso = ['yarn', 'test-cjs-iso'];
   const cmdESMIso = ['yarn', 'test-esm-iso'];
+  const cmdESMUnIso = ['yarn', 'test-esm-uniso'];
   if (jestArgs.length) {
     cmdCjsUnIso.push('--');
     cmdCjsIso.push('--');
     cmdESMIso.push('--');
+    cmdESMUnIso.push('--');
     cmdCjsUnIso.push(...jestArgs);
     cmdCjsIso.push(...jestArgs);
     cmdESMIso.push(...jestArgs);
+    cmdESMUnIso.push(...jestArgs);
   }
 
   logger.log('STARTING NONE ISOLATED MODULES TESTS');
@@ -72,6 +75,16 @@ const executeTest = (projectRealPath) => {
   logger.log();
 
   execa.sync(cmdCjsUnIso.shift(), cmdCjsUnIso, {
+    cwd: projectRealPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  logger.log();
+  logger.log('starting the ESM tests using:', ...cmdESMUnIso);
+  logger.log();
+
+  execa.sync(cmdESMUnIso.shift(), cmdESMUnIso, {
     cwd: projectRealPath,
     stdio: 'inherit',
     env: process.env,

@@ -23,24 +23,22 @@ exports.AppComponent = AppComponent;
 `;
 
 exports[`Replace resources transformer with isolatedModules false should use replaceResources transformer from @angular/compiler-cli with useESM true 1`] = `
-"\\"use strict\\";
-Object.defineProperty(exports, \\"__esModule\\", { value: true });
-exports.AppComponent = void 0;
-const tslib_1 = require(\\"tslib\\");
-const core_1 = require(\\"@angular/core\\");
+"import { __decorate } from \\"tslib\\";
+import __NG_CLI_RESOURCE__0 from \\"./app.component.html\\";
+import { Component } from '@angular/core';
 let AppComponent = class AppComponent {
     constructor() {
         this.title = 'test-app-v10';
     }
 };
-AppComponent = tslib_1.__decorate([
-    core_1.Component({
+AppComponent = __decorate([
+    Component({
         selector: 'app-root',
-        template: require(\\"./app.component.html\\"),
+        template: __NG_CLI_RESOURCE__0,
         styles: []
     })
 ], AppComponent);
-exports.AppComponent = AppComponent;
+export { AppComponent };
 //# "
 `;
 
