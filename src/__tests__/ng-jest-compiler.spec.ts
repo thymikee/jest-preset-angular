@@ -33,6 +33,10 @@ describe('NgJestCompiler', () => {
           'ts-jest': {
             ...baseJestCfg.globals['ts-jest'],
             useESM,
+            tsconfig: {
+              esModuleInterop: false,
+              allowSyntheticDefaultImports: false,
+            },
           },
         },
       });
@@ -55,11 +59,17 @@ describe('NgJestCompiler', () => {
         .compilerOptions as ts.CompilerOptions;
       if (useESM) {
         expect(module).not.toEqual(ts.ModuleKind.CommonJS);
+        // verify if allowSyntheticDefaultImports is hardcoded to true
         expect(allowSyntheticDefaultImports).toEqual(true);
+        // verify if esModuleInterop is hardcoded to true
         expect(esModuleInterop).toEqual(true);
       } else {
         expect(module).toEqual(ts.ModuleKind.CommonJS);
       }
+      // @ts-expect-error _initialCompilerOptions is a private property
+      expect(compiler._initialCompilerOptions.esModuleInterop).not.toEqual(true);
+      // @ts-expect-error _initialCompilerOptions is a private property
+      expect(compiler._initialCompilerOptions.allowSyntheticDefaultImports).not.toEqual(true);
     });
   });
 
@@ -121,6 +131,10 @@ describe('NgJestCompiler', () => {
           'ts-jest': {
             ...jestCfgStub.globals['ts-jest'],
             useESM: true,
+            tsconfig: {
+              esModuleInterop: false,
+              allowSyntheticDefaultImports: false,
+            },
           },
         },
       });
@@ -131,6 +145,14 @@ describe('NgJestCompiler', () => {
 
       // Source map is different based on file location which can fail on CI, so we only compare snapshot for js
       expect(emittedResult.substring(0, emittedResult.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot();
+      // @ts-expect-error _compilerOptions is a private property
+      expect(compiler._compilerOptions.esModuleInterop).toEqual(true);
+      // @ts-expect-error _compilerOptions is a private property
+      expect(compiler._compilerOptions.allowSyntheticDefaultImports).toEqual(true);
+      // @ts-expect-error _initialCompilerOptions is a private property
+      expect(compiler._initialCompilerOptions.esModuleInterop).not.toEqual(true);
+      // @ts-expect-error _initialCompilerOptions is a private property
+      expect(compiler._initialCompilerOptions.allowSyntheticDefaultImports).not.toEqual(true);
     });
 
     test.each([hasErrorFileName, undefined])('should throw diagnostics error for new file which is', (fileName) => {

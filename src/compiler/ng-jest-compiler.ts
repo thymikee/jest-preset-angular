@@ -24,6 +24,7 @@ export class NgJestCompiler implements CompilerInstance {
   private _compilerHost: CompilerHost | undefined;
   private _tsHost: NgJestCompilerHost | undefined;
   private _rootNames: string[] = [];
+  private readonly _initialCompilerOptions: CompilerOptions;
   private readonly _logger: Logger;
   private readonly _ts: TTypeScript;
   private readonly isAppPath = (fileName: string) =>
@@ -32,6 +33,7 @@ export class NgJestCompiler implements CompilerInstance {
   constructor(readonly ngJestConfig: NgJestConfig, readonly jestCacheFS: Map<string, string>) {
     this._logger = this.ngJestConfig.logger;
     this._ts = this.ngJestConfig.compilerModule;
+    this._initialCompilerOptions = { ...this.ngJestConfig.parsedTsConfig.options };
     this._setupOptions(this.ngJestConfig);
 
     this._logger.debug('created NgJestCompiler');
@@ -46,9 +48,9 @@ export class NgJestCompiler implements CompilerInstance {
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
     const customTransformers = this.ngJestConfig.customTransformers;
-    let moduleKind = this._compilerOptions.module;
-    let esModuleInterop = this._compilerOptions.esModuleInterop;
-    let allowSyntheticDefaultImports = this._compilerOptions.allowSyntheticDefaultImports;
+    let moduleKind = this._initialCompilerOptions.module;
+    let esModuleInterop = this._initialCompilerOptions.esModuleInterop;
+    let allowSyntheticDefaultImports = this._initialCompilerOptions.allowSyntheticDefaultImports;
     if (supportsStaticESM && this.ngJestConfig.useESM) {
       moduleKind =
         !moduleKind ||
@@ -139,7 +141,7 @@ export class NgJestCompiler implements CompilerInstance {
   private _setupOptions({ parsedTsConfig }: NgJestConfig): void {
     this._logger.debug({ parsedTsConfig }, '_setupOptions: initializing compiler config');
 
-    this._compilerOptions = { ...parsedTsConfig.options };
+    this._compilerOptions = { ...this._initialCompilerOptions };
     this._rootNames = parsedTsConfig.rootNames.filter((rootName) => !this.ngJestConfig.isTestFile(rootName));
     if (this._compilerOptions.strictMetadataEmit) {
       this._logger.warn(
