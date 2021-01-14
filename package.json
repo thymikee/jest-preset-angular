@@ -1,11 +1,17 @@
 {
-  "license": "MIT",
   "name": "jest-preset-angular",
   "version": "9.0.0-next.8",
   "description": "Jest preset configuration for Angular projects",
+  "license": "MIT",
   "main": "build/index.js",
-  "repository": "git@github.com:thymikee/jest-preset-angular.git",
-  "homepage": "https://github.com/thymikee/jest-preset-angular",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thymikee/jest-preset-angular.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thymikee/jest-preset-angular/issues"
+  },
+  "homepage": "https://thymikee.github.io/jest-preset-angular",
   "author": "Michał Pierzchała <thymikee@gmail.com>",
   "contributors": [
     "Ahn <anhpnnd@gmail.com> (https://github.com/ahnpnl)",
@@ -23,10 +29,15 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --fix --ext .js,.ts .",
+    "lint:prettier": "prettier '**/*.{yml,yaml}' 'website/**/*.{css,js,md}' 'README.md'",
+    "lint:prettier-format": "yarn lint:prettier --write --ignore-path .gitignore",
+    "lint:prettier-ci": "yarn lint:prettier --check --ignore-path .gitignore",
     "test:unit": "yarn test-cjs:unit && yarn test-esm:unit",
     "test-cjs:unit": "jest -i",
     "test-esm:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js -i -c=jest-esm.config.js",
     "test:e2e": "node scripts/e2e.js",
+    "doc": "cd website && yarn start",
+    "doc:build": "cd website && yarn build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
