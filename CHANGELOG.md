@@ -1,3 +1,14 @@
+# [9.0.0-next.6](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.5...v9.0.0-next.6) (2021-01-14)
+
+
+### Features
+
+* **compiler:** support ESM for `isolatedModules: false` ([#721](https://github.com/thymikee/jest-preset-angular/issues/721)) ([a2166f8](https://github.com/thymikee/jest-preset-angular/commit/a2166f859b1c89340ee889520595d05fa3cf65dc))
+* **compiler:** use `replace-resources` for `isolatedModules: true` ([#717](https://github.com/thymikee/jest-preset-angular/issues/717)) ([76c25d2](https://github.com/thymikee/jest-preset-angular/commit/76c25d2d8d1de0fa458b46b473c200a2d6bd542a))
+* **presets:** add ESM preset ([#723](https://github.com/thymikee/jest-preset-angular/issues/723)) ([b0073b0](https://github.com/thymikee/jest-preset-angular/commit/b0073b0f3a7e24f06d136367a1c2e676ac76e59e))
+
+
+
 # [9.0.0-next.5](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.4...v9.0.0-next.5) (2021-01-06)
 
 

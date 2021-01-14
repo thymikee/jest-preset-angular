@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "jest-preset-angular",
-  "version": "9.0.0-next.5",
+  "version": "9.0.0-next.6",
   "description": "Jest preset configuration for Angular projects",
   "main": "build/index.js",
   "repository": "git@github.com:thymikee/jest-preset-angular.git",
@@ -30,9 +30,9 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
   },
   "dependencies": {
-    "jest-environment-jsdom": "^27.0.0-next.1",
+    "jest-environment-jsdom": "27.0.0-next.1",
     "pretty-format": "27.0.0-next.1",
-    "ts-jest": "^27.0.0-next.3"
+    "ts-jest": "27.0.0-next.3"
   },
   "peerDependencies": {
     "@angular-devkit/build-angular": ">=0.901.12",
@@ -55,7 +55,7 @@
     "@angular/platform-browser": "^10.2.4",
     "@commitlint/cli": "11.x",
     "@commitlint/config-angular": "11.x",
-    "@jest/globals": "^27.0.0-next.1",
+    "@jest/globals": "27.0.0-next.1",
     "@jest/transform": "27.0.0-next.2",
     "@jest/types": "27.0.0-next.1",
     "@types/jest": "26.x",
