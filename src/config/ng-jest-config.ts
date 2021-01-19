@@ -68,7 +68,6 @@ export class NgJestConfig extends ConfigSet {
         // While the transformer would make no changes, it would still need to walk each source file AST.
         annotationsAs: 'decorators' as const,
         module: result.options.module ?? this.compilerModule.ModuleKind.CommonJS,
-        target: result.options.target ?? this.compilerModule.ScriptTarget.ES2015,
       },
     };
   }
