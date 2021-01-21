@@ -20,6 +20,6 @@ export { AppComponent };
 //# "
 `;
 
-exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;
+exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type 'string' is not assignable to type 'number'."`;
 
-exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: not known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type '\\"test-app-v10\\"' is not assignable to type 'number'."`;
+exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: not known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type 'string' is not assignable to type 'number'."`;
