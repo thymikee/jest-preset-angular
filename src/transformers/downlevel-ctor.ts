@@ -184,7 +184,6 @@ function createCtorParametersClassPropertyType(): ts.TypeNode {
     undefined,
     [],
     ts.createArrayTypeNode(
-      // @ts-expect-error should be fine because of copying from Angular repo
       ts.createUnionTypeNode([ts.createTypeLiteralNode(typeElements), ts.createLiteralTypeNode(ts.createNull())]),
     ),
   );
