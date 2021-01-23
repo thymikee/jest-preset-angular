@@ -67,7 +67,6 @@ export class NgJestConfig extends ConfigSet {
         // The transformer is not needed for VE or Ivy in this plugin since Angular decorators are removed.
         // While the transformer would make no changes, it would still need to walk each source file AST.
         annotationsAs: 'decorators' as const,
-        module: result.options.module ?? this.compilerModule.ModuleKind.CommonJS,
       },
     };
   }
