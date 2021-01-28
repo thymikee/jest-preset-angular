@@ -123,6 +123,24 @@ describe('NgJestCompiler', () => {
       },
     );
 
+    test('should compile new code when file changes', () => {
+      const ngJestConfig = new NgJestConfig(jestCfgStub);
+      const compiler = new NgJestCompiler(ngJestConfig, new Map());
+
+      // Compile the same file with 2 versions of content: noErrorFileContent and hasErrorFileContent
+      const fileName = noErrorFileName;
+      const emittedResult1 = compiler.getCompiledOutput(fileName, noErrorFileContent, true);
+      expect(emittedResult1.substring(0, emittedResult1.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot(
+        'from noErrorFileContent',
+      );
+      const emittedResult2 = compiler.getCompiledOutput(fileName, hasErrorFileContent, true);
+      expect(emittedResult2.substring(0, emittedResult2.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot(
+        'from hasErrorFileContent',
+      );
+
+      expect(emittedResult1).not.toEqual(emittedResult2);
+    });
+
     test('should compile codes with useESM true', () => {
       const ngJestConfig = new NgJestConfig({
         ...jestCfgStub,
