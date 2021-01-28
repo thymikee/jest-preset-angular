@@ -4,6 +4,7 @@ import type { Logger } from 'bs-logger';
 import { updateOutput } from 'ts-jest/dist/compiler/compiler-utils';
 import type { CompilerInstance, TTypeScript, ResolvedModulesMap } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
+import { TextSpan } from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
 import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
@@ -70,20 +71,27 @@ export class NgJestCompiler implements CompilerInstance {
       esModuleInterop,
       module: moduleKind,
     };
-    if (this._program) {
-      const allDiagnostics: ts.Diagnostic[] = [];
-      if (!this._rootNames.includes(fileName)) {
-        this._logger.debug({ fileName }, 'getCompiledOutput: update memory host, rootFiles and Program');
 
+    if (this._program) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this._tsHost!.updateMemoryHost(fileName, fileContent);
+
+      let sourceFile: ts.SourceFile | undefined;
+      if (!this._rootNames.includes(fileName)) {
+        this._logger.debug({ fileName }, 'getCompiledOutput: adding file to rootNames and updating Program');
         this._rootNames = [...this._rootNames, fileName];
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this._tsHost!.updateMemoryHost(fileName, fileContent);
         this._createOrUpdateProgram();
+        sourceFile = this._program.getSourceFile(fileName);
+      } else {
+        sourceFile = this._program.getSourceFile(fileName);
+        if (sourceFile) {
+          const replaceSpan: TextSpan = { start: 0, length: sourceFile.text.length };
+          sourceFile.update(fileContent, { span: replaceSpan, newLength: fileContent.length });
+        }
       }
 
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling using Program');
 
-      const sourceFile = this._program.getSourceFile(fileName);
       const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
         ...customTransformers,
         before: [
@@ -98,8 +106,10 @@ export class NgJestCompiler implements CompilerInstance {
           replaceResources(this.isAppPath, this._program.getTypeChecker),
         ],
       });
+
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const compiledOutput: [string, string] = this._tsHost!.getEmittedResult();
+      const allDiagnostics: ts.Diagnostic[] = [];
       if (this.ngJestConfig.shouldReportDiagnostics(fileName)) {
         this._logger.debug({ fileName }, 'getCompiledOutput: getting diagnostics');
 
