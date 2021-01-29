@@ -20,6 +20,50 @@ export { AppComponent };
 //# "
 `;
 
+exports[`NgJestCompiler with isolatedModule false should compile new code when file changes: from hasErrorFileContent 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let  = class  {
+    constructor() {
+        this. = ;
+    }
+};
+ = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        template: require(\\"./app.component.html\\"),
+        styles: []
+    })
+], );
+exports.AppComponent = ;
+//# "
+`;
+
+exports[`NgJestCompiler with isolatedModule false should compile new code when file changes: from noErrorFileContent 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        template: require(\\"./app.component.html\\"),
+        styles: []
+    })
+], AppComponent);
+exports.AppComponent = AppComponent;
+//# "
+`;
+
 exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type 'string' is not assignable to type 'number'."`;
 
 exports[`NgJestCompiler with isolatedModule false should throw diagnostics error for new file which is: not known by Program 1`] = `"src/__tests__/__mocks__/foo.component.ts(8,3): error TS2322: Type 'string' is not assignable to type 'number'."`;
