@@ -1,3 +1,17 @@
+# [9.0.0-next.7](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.6...v9.0.0-next.7) (2021-01-29)
+
+
+### Bug Fixes
+
+* **compiler:** update `SourceFile` with correct file content ([#765](https://github.com/thymikee/jest-preset-angular/issues/765)) ([c54e20a](https://github.com/thymikee/jest-preset-angular/commit/c54e20ab7ae9b7b08af827587dc30fd281291ecc)), closes [#764](https://github.com/thymikee/jest-preset-angular/issues/764)
+
+
+### Features
+
+* include features from `ts-jest` [27.0.0-next.4](https://github.com/kulshekhar/ts-jest/blob/master/CHANGELOG.md#2700-next4-2021-01-22)
+
+
+
 # [9.0.0-next.6](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.5...v9.0.0-next.6) (2021-01-14)
 
 
