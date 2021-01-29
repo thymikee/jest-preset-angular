@@ -4,7 +4,6 @@ import type { Logger } from 'bs-logger';
 import { updateOutput } from 'ts-jest/dist/compiler/compiler-utils';
 import type { CompilerInstance, TTypeScript, ResolvedModulesMap } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
-import { TextSpan } from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
 import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
@@ -85,7 +84,7 @@ export class NgJestCompiler implements CompilerInstance {
       } else {
         sourceFile = this._program.getSourceFile(fileName);
         if (sourceFile) {
-          const replaceSpan: TextSpan = { start: 0, length: sourceFile.text.length };
+          const replaceSpan: ts.TextSpan = { start: 0, length: sourceFile.text.length };
           sourceFile.update(fileContent, { span: replaceSpan, newLength: fileContent.length });
         }
       }
