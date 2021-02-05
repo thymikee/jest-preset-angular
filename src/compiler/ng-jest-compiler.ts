@@ -2,12 +2,18 @@ import { CompilerHost, CompilerOptions } from '@angular/compiler-cli';
 import { createCompilerHost } from '@angular/compiler-cli/src/transformers/compiler_host';
 import type { Logger } from 'bs-logger';
 import { updateOutput } from 'ts-jest/dist/compiler/compiler-utils';
-import type { CompilerInstance, TTypeScript, ResolvedModulesMap } from 'ts-jest/dist/types';
+import type {
+  CompilerInstance,
+  TTypeScript,
+  ResolvedModulesMap,
+  TsJestAstTransformer,
+  TsCompilerInstance,
+} from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
 import type { NgJestConfig } from '../config/ng-jest-config';
-import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
-import { replaceResources } from '../transformers/replace-resources';
+import { factory as constructorDownlevelCtor } from '../transformers/downlevel-ctor';
+import { factory as replaceResources } from '../transformers/replace-resources';
 
 import { NgJestCompilerHost } from './compiler-host';
 
@@ -27,8 +33,6 @@ export class NgJestCompiler implements CompilerInstance {
   private readonly _initialCompilerOptions: CompilerOptions;
   private readonly _logger: Logger;
   private readonly _ts: TTypeScript;
-  private readonly isAppPath = (fileName: string) =>
-    !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
 
   constructor(readonly ngJestConfig: NgJestConfig, readonly jestCacheFS: Map<string, string>) {
     this._logger = this.ngJestConfig.logger;
@@ -47,7 +51,7 @@ export class NgJestCompiler implements CompilerInstance {
   }
 
   getCompiledOutput(fileName: string, fileContent: string, supportsStaticESM: boolean): string {
-    const customTransformers = this.ngJestConfig.customTransformers;
+    const customTransformers = this.ngJestConfig.resolvedTransformers;
     let moduleKind = this._initialCompilerOptions.module;
     let esModuleInterop = this._initialCompilerOptions.esModuleInterop;
     let allowSyntheticDefaultImports = this._initialCompilerOptions.allowSyntheticDefaultImports;
@@ -91,20 +95,13 @@ export class NgJestCompiler implements CompilerInstance {
 
       this._logger.debug({ fileName }, 'getCompiledOutput: compiling using Program');
 
-      const emitResult = this._program.emit(sourceFile, undefined, undefined, undefined, {
-        ...customTransformers,
-        before: [
-          ...(customTransformers.before as Array<ts.TransformerFactory<ts.SourceFile>>),
-          /**
-           * Downlevel constructor parameters for DI support. This is required to support forwardRef in ES2015 due to
-           * TDZ issues. This wrapper is needed here due to the program not being available until after
-           * the transformers are created. Also because program can be updated so we can't push this transformer in
-           * _createCompilerHost
-           */
-          constructorParametersDownlevelTransform(this._program),
-          replaceResources(this.isAppPath, this._program.getTypeChecker),
-        ],
-      });
+      const emitResult = this._program.emit(
+        sourceFile,
+        undefined,
+        undefined,
+        undefined,
+        this.makeTransformers(customTransformers, this._program),
+      );
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const compiledOutput: [string, string] = this._tsHost!.getEmittedResult();
@@ -188,7 +185,7 @@ export class NgJestCompiler implements CompilerInstance {
   private _transpileModule(
     fileContent: string,
     transpileOptions: PatchedTranspileOptions,
-    customTransformers: ts.CustomTransformers,
+    customTransformers: TsJestAstTransformer,
   ): ts.TranspileOutput {
     const diagnostics: ts.Diagnostic[] = [];
     const options: ts.CompilerOptions = transpileOptions.compilerOptions
@@ -281,19 +278,37 @@ export class NgJestCompiler implements CompilerInstance {
       /*writeFile*/ undefined,
       /*cancellationToken*/ undefined,
       /*emitOnlyDtsFiles*/ undefined,
-      {
-        ...customTransformers,
-        before: [
-          // hoisting from `ts-jest` or other before transformers
-          ...(customTransformers.before as Array<ts.TransformerFactory<ts.SourceFile>>),
-          replaceResources(this.isAppPath, program.getTypeChecker),
-        ],
-      },
+      this.makeTransformers(customTransformers, program),
     );
 
     // @ts-expect-error internal TypeScript API
     if (outputText === undefined) return this._ts.Debug.fail('Output generation failed');
 
     return { outputText, diagnostics, sourceMapText };
+  }
+
+  private makeTransformers(customTransformers: TsJestAstTransformer, program: ts.Program): ts.CustomTransformers {
+    let baseTransformers = {
+      before: [
+        ...customTransformers.before.map((beforeTransformer) =>
+          beforeTransformer.factory({ configSet: this.ngJestConfig, program }, beforeTransformer.options),
+        ),
+        replaceResources({ program } as TsCompilerInstance),
+      ] as Array<ts.TransformerFactory<ts.SourceFile> | ts.CustomTransformerFactory>,
+      after: customTransformers.after.map((afterTransformer) =>
+        afterTransformer.factory({ configSet: this.ngJestConfig, program }, afterTransformer.options),
+      ) as Array<ts.TransformerFactory<ts.SourceFile> | ts.CustomTransformerFactory>,
+      afterDeclarations: customTransformers.afterDeclarations.map((afterDeclarations) =>
+        afterDeclarations.factory({ configSet: this.ngJestConfig, program }, afterDeclarations.options),
+      ) as Array<ts.TransformerFactory<ts.SourceFile | ts.Bundle>>,
+    };
+    if (!this.ngJestConfig.isolatedModules) {
+      baseTransformers = {
+        ...baseTransformers,
+        before: [...baseTransformers.before, constructorDownlevelCtor({ program } as TsCompilerInstance)],
+      };
+    }
+
+    return baseTransformers;
   }
 }
