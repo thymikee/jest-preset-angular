@@ -14,7 +14,7 @@ describe('Downlevel ctor transformer', () => {
   const fileContent = readFileSync(fileName, 'utf-8');
 
   test.each([true, false])(
-    'should/should not use downlevel ctor transformer from Angular for isolatedModules false/true',
+    'should use downlevel ctor transformer from Angular for isolatedModules false/true',
     (isolatedModules) => {
       const ngJestConfig = new NgJestConfig({
         ...jestCfgStub,
