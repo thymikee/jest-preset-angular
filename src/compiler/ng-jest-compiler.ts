@@ -288,12 +288,13 @@ export class NgJestCompiler implements CompilerInstance {
   }
 
   private makeTransformers(customTransformers: TsJestAstTransformer, program: ts.Program): ts.CustomTransformers {
-    let baseTransformers = {
+    return {
       before: [
         ...customTransformers.before.map((beforeTransformer) =>
           beforeTransformer.factory({ configSet: this.ngJestConfig, program }, beforeTransformer.options),
         ),
         replaceResources({ program } as TsCompilerInstance),
+        constructorDownlevelCtor({ program } as TsCompilerInstance),
       ] as Array<ts.TransformerFactory<ts.SourceFile> | ts.CustomTransformerFactory>,
       after: customTransformers.after.map((afterTransformer) =>
         afterTransformer.factory({ configSet: this.ngJestConfig, program }, afterTransformer.options),
@@ -302,13 +303,5 @@ export class NgJestCompiler implements CompilerInstance {
         afterDeclarations.factory({ configSet: this.ngJestConfig, program }, afterDeclarations.options),
       ) as Array<ts.TransformerFactory<ts.SourceFile | ts.Bundle>>,
     };
-    if (!this.ngJestConfig.isolatedModules) {
-      baseTransformers = {
-        ...baseTransformers,
-        before: [...baseTransformers.before, constructorDownlevelCtor({ program } as TsCompilerInstance)],
-      };
-    }
-
-    return baseTransformers;
   }
 }

@@ -1,13 +1,6 @@
 import { forwardRef, Inject, Injector } from '@angular/core';
 
-const shouldSkipTest = process.env.ISOLATED_MODULES === 'true';
-const skipTest = shouldSkipTest ? test.skip : test;
-
-if (shouldSkipTest) {
-  process.stdout.write('\nforwardRef only works in non-isolatedModules mode\n');
-}
-
-skipTest('forwardRef should work', () => {
+test('forwardRef should work', () => {
   class Door {
     lock: Lock;
 
