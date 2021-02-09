@@ -1,6 +1,3 @@
-import type { TransformedSource } from '@jest/transform';
-import type { Config } from '@jest/types';
-import { DECLARATION_TYPE_EXT, JS_JSX_REGEX } from 'ts-jest/dist/constants';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 import type { TransformOptionsTsJest, ProjectConfigTsJest } from 'ts-jest/dist/types';
 import { stringify } from 'ts-jest/dist/utils/json';
@@ -22,23 +19,6 @@ export class NgJestTransformer extends TsJestTransformer {
    */
   private static readonly _cachedConfigSets: CachedConfigSet[] = [];
   protected _compiler!: NgJestCompiler;
-
-  process(
-    fileContent: string,
-    filePath: Config.Path,
-    transformOptions: TransformOptionsTsJest,
-  ): TransformedSource | string {
-    const isDefinitionFile = filePath.endsWith(DECLARATION_TYPE_EXT);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const isJsFile = JS_JSX_REGEX.test(filePath);
-    const ngJestCfg = this._configsFor(transformOptions);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const shouldStringifyContent = ngJestCfg.shouldStringifyContent(filePath);
-
-    return shouldStringifyContent || isDefinitionFile || (!ngJestCfg.parsedTsConfig.options.allowJs && isJsFile)
-      ? super.process(fileContent, filePath, transformOptions)
-      : this._compiler.getCompiledOutput(filePath, fileContent, transformOptions.supportsStaticESM);
-  }
 
   /**
    * Override `ts-jest` method to load our `NgJestConfig` class

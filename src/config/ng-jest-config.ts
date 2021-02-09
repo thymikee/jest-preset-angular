@@ -2,14 +2,9 @@ import { NodeJSFileSystem, setFileSystem } from '@angular/compiler-cli/src/ngtsc
 import { formatDiagnostics, readConfiguration, ParsedConfiguration } from '@angular/compiler-cli/src/perform_compile';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import type { ProjectConfigTsJest } from 'ts-jest/dist/types';
-import type { CompilerOptions } from 'typescript';
+import type { CompilerOptions, ParsedCommandLine } from 'typescript';
 
 export class NgJestConfig extends ConfigSet {
-  /**
-   * Override `ts-jest` property
-   */
-  parsedTsConfig!: ParsedConfiguration;
-
   constructor(readonly jestCfg: ProjectConfigTsJest) {
     super(jestCfg);
   }
@@ -17,7 +12,7 @@ export class NgJestConfig extends ConfigSet {
   /**
    * Override `ts-jest` behavior because we use `readConfiguration` which will read and resolve tsconfig.
    */
-  protected _resolveTsConfig(compilerOptions?: CompilerOptions, resolvedConfigFile?: string): ParsedConfiguration {
+  protected _resolveTsConfig(compilerOptions?: CompilerOptions, resolvedConfigFile?: string): ParsedCommandLine {
     /**
      * To be able to use `readConfiguration` function from `@angular/cli`, we need to setup file system. For `CommonJS`,
      * it is not a problem to import directly the function from `@angular/cli`. However, with `ESM`, we will get an
@@ -56,6 +51,7 @@ export class NgJestConfig extends ConfigSet {
 
     return {
       ...result,
+      fileNames: result.rootNames,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       options: {
         ...result.options,

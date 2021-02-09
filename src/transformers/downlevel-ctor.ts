@@ -9,10 +9,32 @@
  * This will make a bit more effort in maintaining but it will be easier to just copy to work with ESM
  */
 import { Decorator, ReflectionHost, TypeScriptReflectionHost } from '@angular/compiler-cli/src/ngtsc/reflection';
-import { TsCompilerInstance } from 'ts-jest/dist/types';
+import type { TsCompilerInstance } from 'ts-jest/dist/types';
 import ts from 'typescript';
 
 import { isAliasImportDeclaration, loadIsReferencedAliasDeclarationPatch } from './patch-alias-reference-resolution';
+
+/**
+ * Transform for downleveling Angular decorators and Angular-decorated class constructor
+ * parameters for dependency injection. This transform can be used by the CLI for JIT-mode
+ * compilation where constructor parameters and associated Angular decorators should be
+ * downleveled so that apps are not exposed to the ES2015 temporal dead zone limitation
+ * in TypeScript. See https://github.com/angular/angular-cli/pull/14473 for more details.
+ */
+export function constructorDownlevelCtor({ program }: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const typeChecker = program!.getTypeChecker();
+  const reflectionHost = new TypeScriptReflectionHost(typeChecker);
+
+  return getDownlevelDecoratorsTransform(
+    typeChecker,
+    reflectionHost,
+    [],
+    /* isCore */ false,
+    /* enableClosureCompiler */ false,
+    /* skipClassDecorators */ true,
+  );
+}
 
 /**
  * Whether a given decorator should be treated as an Angular decorator.
@@ -728,31 +750,4 @@ function getDownlevelDecoratorsTransform(
       return ts.visitEachChild(sf, decoratorDownlevelVisitor, context);
     };
   };
-}
-
-// this is a unique identifier for your transformer
-export const name = 'downlevel-ctor';
-// increment this each time you change the behavior of your transformer
-export const version = 1;
-
-/**
- * Transform for downleveling Angular decorators and Angular-decorated class constructor
- * parameters for dependency injection. This transform can be used by the CLI for JIT-mode
- * compilation where constructor parameters and associated Angular decorators should be
- * downleveled so that apps are not exposed to the ES2015 temporal dead zone limitation
- * in TypeScript. See https://github.com/angular/angular-cli/pull/14473 for more details.
- */
-export function factory({ program }: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const typeChecker = program!.getTypeChecker();
-  const reflectionHost = new TypeScriptReflectionHost(typeChecker);
-
-  return getDownlevelDecoratorsTransform(
-    typeChecker,
-    reflectionHost,
-    [],
-    /* isCore */ false,
-    /* enableClosureCompiler */ false,
-    /* skipClassDecorators */ true,
-  );
 }
