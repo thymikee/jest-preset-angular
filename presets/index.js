@@ -22,26 +22,22 @@ const basePreset = {
 }
 
 module.exports = {
-  get defaults() {
-    return basePreset;
-  },
-  get defaultsESM() {
-    return {
-      ...basePreset,
-      extensionsToTreatAsEsm: ['.ts'],
-      globals: {
-        'ts-jest': {
-          ...basePreset.globals['ts-jest'],
-          useESM: true,
-        },
+  defaults: basePreset,
+  defaultsESM: {
+    ...basePreset,
+    extensionsToTreatAsEsm: ['.ts'],
+    globals: {
+      'ts-jest': {
+        ...basePreset.globals['ts-jest'],
+        useESM: true,
       },
-      moduleNameMapper: {
-        ...basePreset.moduleNameMapper,
-        'tslib': '<rootDir>/node_modules/tslib/tslib.es6.js',
-      },
-      transformIgnorePatterns: [
-        'node_modules/(?!tslib)',
-      ],
-    }
-  },
+    },
+    moduleNameMapper: {
+      ...basePreset.moduleNameMapper,
+      'tslib': '<rootDir>/node_modules/tslib/tslib.es6.js',
+    },
+    transformIgnorePatterns: [
+      'node_modules/(?!tslib)',
+    ],
+  }
 }
