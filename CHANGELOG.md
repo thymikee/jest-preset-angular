@@ -1,3 +1,14 @@
+# [9.0.0-next.8](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.7...v9.0.0-next.8) (2021-02-12)
+
+
+### Features
+
+* **compiler:** use constructor downlevel ctor transformer for `isolatedModules: true` ([#792](https://github.com/thymikee/jest-preset-angular/issues/792)) ([00c71ce](https://github.com/thymikee/jest-preset-angular/commit/00c71ceaa06e58432d201d9d5f8deb33e8f54665))
+* **presets:** add type definition for `presets` entry point ([#801](https://github.com/thymikee/jest-preset-angular/issues/801)) ([e4ff0c0](https://github.com/thymikee/jest-preset-angular/commit/e4ff0c0e19e5941e7e7db1da9b5c29e01d58ab58))
+* include features from `ts-jest` **27.0.0-next.6**
+
+
+
 # [9.0.0-next.7](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.6...v9.0.0-next.7) (2021-01-29)
 
 
