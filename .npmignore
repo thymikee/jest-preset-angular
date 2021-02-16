@@ -7,6 +7,9 @@ src
 # Developement scripts
 scripts
 
+# Github Pages
+website
+
 # Coverage directory used by tools like istanbul
 coverage
 
@@ -19,7 +22,7 @@ node_modules
 .editorconfig
 
 # CI
-.circleci
+.github
 
 # Eslint
 .eslintignore
@@ -29,15 +32,17 @@ commitlint.config.js
 
 # Internal jest config
 jest.config.js
+jest-esm.config.js
 
 # Tsconfig
-tsconfig.json
 tsconfig.build.json
+tsconfig.json
 tsconfig.spec.json
+tsconfig-esm.spec.json
 
 # Others
 *.tgz
 .npmignore
 .npmrc
-.github
 .gitattributes
+.husky
