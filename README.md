@@ -69,7 +69,7 @@ module.exports = {
 
 - **Michał Pierzchała** - [thymikee](https://github.com/thymikee)
 - **Ahn** - [ahnpnl](https://github.com/ahnpnl)
-- **Thomas** - [huafu](https://github.com/wtho)
+- **Thomas** - [wtho](https://github.com/wtho)
 
 See also the list of [contributors](https://github.com/thymikee/jest-preset-angular/contributors) who participated in this project.
 
