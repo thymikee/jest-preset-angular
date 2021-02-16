@@ -43,6 +43,8 @@ jobs:
         run: yarn build
       - name: run eslint
         run: yarn lint
+      - name: Run prettier
+        run: yarn lint:prettier-ci
 
   test:
     name: Node v${{ matrix.node-version }} on ${{ matrix.os }}
