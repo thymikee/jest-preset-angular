@@ -25,9 +25,8 @@ module.exports = {
         'plugin:@angular-eslint/recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:jest/recommended',
-        'plugin:prettier/recommended',
-        'prettier/@typescript-eslint',
         'plugin:import/typescript',
+        'plugin:prettier/recommended',
       ],
       rules: {
         '@typescript-eslint/array-type': [
