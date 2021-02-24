@@ -29,8 +29,12 @@ describe('Jest globals', () => {
     expect(bar).toBe(2);
   });
 
-  // eslint-disable-next-line
-  (it.each`foo  | bar ${1} | ${2}` as any)('it.each should work with table as a tagged template literal with done', ({ foo, bar }: any, done: () => void) => {
+  (it.each`
+    foo  | bar
+    ${1} | ${2}
+  ` as any)( // eslint-disable-line
+    'it.each should work with table as a tagged template literal with done',
+    ({ foo, bar }: any, done: () => void) => { // eslint-disable-line
       expect(foo).toBe(1);
       expect(bar).toBe(2);
       done();
