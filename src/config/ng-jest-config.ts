@@ -1,8 +1,9 @@
 import { NodeJSFileSystem, setFileSystem } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { formatDiagnostics, readConfiguration, ParsedConfiguration } from '@angular/compiler-cli/src/perform_compile';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
+import type { RawCompilerOptions } from 'ts-jest/dist/raw-compiler-options';
 import type { ProjectConfigTsJest } from 'ts-jest/dist/types';
-import type { CompilerOptions, ParsedCommandLine } from 'typescript';
+import type { ParsedCommandLine } from 'typescript';
 
 export class NgJestConfig extends ConfigSet {
   constructor(readonly jestCfg: ProjectConfigTsJest) {
@@ -12,7 +13,7 @@ export class NgJestConfig extends ConfigSet {
   /**
    * Override `ts-jest` behavior because we use `readConfiguration` which will read and resolve tsconfig.
    */
-  protected _resolveTsConfig(compilerOptions?: CompilerOptions, resolvedConfigFile?: string): ParsedCommandLine {
+  protected _resolveTsConfig(compilerOptions?: RawCompilerOptions, resolvedConfigFile?: string): ParsedCommandLine {
     /**
      * To be able to use `readConfiguration` function from `@angular/cli`, we need to setup file system. For `CommonJS`,
      * it is not a problem to import directly the function from `@angular/cli`. However, with `ESM`, we will get an
@@ -55,8 +56,6 @@ export class NgJestConfig extends ConfigSet {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       options: {
         ...result.options,
-        // Overwrite outDir so we can find generated files next to their .ts origin in compilerHost.
-        outDir: '',
         suppressOutputPathCheck: true,
         skipLibCheck: result.options.skipLibCheck ?? true,
         // For performance, disable AOT decorator downleveling transformer for applications in the CLI.

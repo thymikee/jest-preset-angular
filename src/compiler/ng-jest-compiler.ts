@@ -1,17 +1,14 @@
 import { TsCompiler } from 'ts-jest/dist/compiler/ts-compiler';
-import type { TsJestAstTransformer, TTypeScript } from 'ts-jest/dist/types';
+import { ConfigSet } from 'ts-jest/dist/config/config-set';
+import type { TsJestAstTransformer } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
-import type { NgJestConfig } from '../config/ng-jest-config';
 import { constructorDownlevelCtor } from '../transformers/downlevel-ctor';
 import { replaceResources } from '../transformers/replace-resources';
 
 export class NgJestCompiler extends TsCompiler {
-  protected readonly _ts: TTypeScript;
-
-  constructor(readonly ngJestConfig: NgJestConfig, readonly jestCacheFS: Map<string, string>) {
-    super(ngJestConfig, jestCacheFS);
-    this._ts = this.ngJestConfig.compilerModule;
+  constructor(readonly configSet: ConfigSet, readonly jestCacheFS: Map<string, string>) {
+    super(configSet, jestCacheFS);
 
     this._logger.debug('created NgJestCompiler');
   }
@@ -92,7 +89,7 @@ export class NgJestCompiler extends TsCompiler {
     };
 
     this.program = this._ts.createProgram([inputFileName], options, compilerHost);
-    if (this.ngJestConfig.shouldReportDiagnostics(inputFileName)) {
+    if (this.configSet.shouldReportDiagnostics(inputFileName)) {
       // @ts-expect-error internal TypeScript API
       this._ts.addRange(/*to*/ diagnostics, /*from*/ this.program.getSyntacticDiagnostics(sourceFile));
       // @ts-expect-error internal TypeScript API
@@ -104,7 +101,7 @@ export class NgJestCompiler extends TsCompiler {
       /*writeFile*/ undefined,
       /*cancellationToken*/ undefined,
       /*emitOnlyDtsFiles*/ undefined,
-      this._makeTransformers(this.ngJestConfig.resolvedTransformers),
+      this._makeTransformers(this.configSet.resolvedTransformers),
     );
 
     // @ts-expect-error internal TypeScript API
