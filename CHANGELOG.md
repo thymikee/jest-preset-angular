@@ -1,3 +1,12 @@
+# [9.0.0-next.9](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.8...v9.0.0-next.9) (2021-02-26)
+
+
+### Features
+
+* adopt `ts-jest@27.0.0-next.7` ([#843](https://github.com/thymikee/jest-preset-angular/issues/843)) ([1b9ef29](https://github.com/thymikee/jest-preset-angular/commit/1b9ef296e9c2e67277994dfc0da3b6a7a53f716b))
+
+
+
 # [9.0.0-next.8](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.7...v9.0.0-next.8) (2021-02-12)
 
 
