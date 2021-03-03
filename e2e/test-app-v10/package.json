@@ -7,7 +7,6 @@
     "build": "ng build",
     "test-cjs-uniso": "jest --clearCache && jest -c=jest-cjs-uniso.config.js",
     "test-cjs-iso": "jest --clearCache && jest -c=jest-cjs-iso.config.js",
-    "postinstall": "ngcc --properties es2015 browser module main",
     "lint": "ng lint"
   },
   "private": true,

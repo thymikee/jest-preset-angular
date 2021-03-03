@@ -44,6 +44,7 @@ const executeTest = (projectRealPath) => {
 
   copySync(join(cwd, 'jest-preset.js'), `${presetDir}/jest-preset.js`);
   copySync(join(cwd, 'index.js'), `${presetDir}/index.js`);
+  copySync(join(cwd, 'ngcc-jest-processor.js'), `${presetDir}/ngcc-jest-processor.js`);
   copySync(join(cwd, 'package.json'), `${presetDir}/package.json`);
   copySync(join(cwd, 'build'), `${presetDir}/build`);
 
