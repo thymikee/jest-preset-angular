@@ -9,6 +9,10 @@
 
 'use strict';
 
+const { rootLogger } = require('ts-jest/dist/utils/logger');
+
+rootLogger.warn("The snapshot serializer under import path `'jest-preset-angular/build/HTMLCommentSerializer.js'` is deprecated and will be removed in v9.0.0. Please switch to `'jest-preset-angular/build/serializers/html-comment'`")
+
 const HTML_ELEMENT_REGEXP = /Comment/;
 const test = (value) =>
   value !== undefined &&
