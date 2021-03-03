@@ -1,5 +1,9 @@
 'use strict';
 
+const { rootLogger } = require('ts-jest/dist/utils/logger');
+
+rootLogger.warn("The snapshot serializer under import path `'jest-preset-angular/build/AngularSnapshotSerializer.js'` is deprecated and will be removed in v9.0.0. Please switch to `'jest-preset-angular/build/serializers/ng-snapshot'`")
+
 const printAttributes = (val, attributes, print, indent, colors, opts) => {
   return attributes
     .sort()
