@@ -1,3 +1,5 @@
+require('jest-preset-angular/ngcc-jest-processor');
+
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   moduleNameMapper: {
