@@ -4,46 +4,100 @@ module.exports = {
     es6: true,
     'jest/globals': true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:jest/recommended',
-    'plugin:prettier/recommended'
-  ],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   overrides: [
     {
-      "files": ["**/*.ts", "**/*.tsx"],
-      "extends": [
-        "eslint:recommended",
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-        'plugin:jest/recommended',
-        'plugin:prettier/recommended'
-      ],
+      files: ['*.ts'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: 'tsconfig.json',
-        ecmaVersion: 2018,
-        sourceType: 'module',
         impliedStrict: true,
-        ecmaFeatures: {
-          jsx: true,
-        },
+        createDefaultProgram: true,
       },
+      plugins: ['eslint-plugin-prefer-arrow', 'import', 'jsdoc'],
+      extends: [
+        'plugin:@angular-eslint/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:jest/recommended',
+        'plugin:import/typescript',
+        'plugin:prettier/recommended',
+      ],
       rules: {
+        '@typescript-eslint/array-type': [
+          'error',
+          {
+            'default': 'array-simple',
+          }
+        ],
+        '@angular-eslint/component-class-suffix': [
+          'error',
+          {
+            'suffixes': [
+              'Component',
+              'Container',
+            ]
+          }
+        ],
+        '@angular-eslint/component-selector': [
+          'error',
+          {
+            'type': 'element',
+            'prefix': 'kebab-case',
+          }
+        ],
+        '@angular-eslint/directive-selector': [
+          'error',
+          {
+            'type': 'attribute',
+            'prefix': 'camelCase',
+          }
+        ],
+        '@typescript-eslint/comma-spacing': 'error',
+        '@typescript-eslint/no-redeclare': 'off',
         '@typescript-eslint/no-unused-vars': ["error", { "argsIgnorePattern": "^_" }],
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
+        '@typescript-eslint/prefer-ts-expect-error': 'error',
+        'import/order': [
+          'error',
+          {
+            'alphabetize': {
+              'order': 'asc',
+              'caseInsensitive': true,
+            },
+            // this is the default order except for added `internal` in the middle
+            'groups': [
+              'builtin',
+              'external',
+              'internal',
+              'parent',
+              'sibling',
+              'index',
+            ],
+            'newlines-between': 'always',
+          }
+        ],
+        'object-shorthand': 'error',
+        'padding-line-between-statements': [
+          'error',
+          { 'blankLine': 'always', 'prev': '*', 'next': 'return' },
+        ],
+        'prefer-object-spread': 'error',
       },
-      plugins: ['@typescript-eslint', 'jest', 'jsdoc'],
-    }
+    },
   ],
-  plugins: ['jest', 'jsdoc'],
   rules: {
-    'padding-line-between-statements': [
-      "error",
-      { blankLine: "always", prev: "*", next: "return" }
-    ],
+    'comma-spacing': 'off',
+    'no-redeclare': 'off',
+    'no-shadow': 'off',
+    'quotes': 'off',
   },
-  settings: {},
 }

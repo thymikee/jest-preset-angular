@@ -32,6 +32,7 @@ import type {
   PropertyAssignment,
   LiteralLikeNode,
 } from 'typescript';
+
 import { getCreateStringLiteral, ConfigSet } from './TransformUtils';
 
 // replace original ts-jest ConfigSet with this simple interface, as it would require
