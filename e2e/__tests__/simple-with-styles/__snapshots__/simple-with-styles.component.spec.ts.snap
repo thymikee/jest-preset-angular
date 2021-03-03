@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimpleWithStylesComponent should generate snapshot without nghost/ngcontent 1`] = `
+<app-simple-with-styles
+  __ngContext__={[Function LRootView]}
+>
+  <p>
+     simple-with-styles works!
+  
+  </p><div
+    class="some-class"
+  >
+    <app-child-component>
+      <div
+        class="child"
+      >
+          
+        <div>
+           rly 
+          <p>
+            complex
+          </p>
+          <div>
+             component 
+            <div>
+              oh my god!
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-child-component>
+  </div>
+</app-simple-with-styles>
+`;

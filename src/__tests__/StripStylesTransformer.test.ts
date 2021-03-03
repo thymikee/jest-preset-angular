@@ -5,6 +5,7 @@
  */
 
 import * as tsc from 'typescript';
+
 import * as transformer from '../StripStylesTransformer';
 
 const CODE_WITH_STYLES_AND_OTHER_ASSIGNMENTS = `

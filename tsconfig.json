@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "baseUrl": ".",
-    "module": "commonjs",
+    "baseUrl": "./",
     "strict": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "importsNotUsedAsValues": "error",
     "skipLibCheck": true,
-    "removeComments": true,
-    "lib": ["esnext"],
-    "types": ["node"]
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "target": "es2015",
+    "module": "CommonJS",
+    "lib": ["esnext", "dom"],
+    "types": ["node", "jest"]
   }
 }

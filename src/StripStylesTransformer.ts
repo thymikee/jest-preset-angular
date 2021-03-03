@@ -34,6 +34,7 @@ import type {
   CallExpression,
   ObjectLiteralExpression,
 } from 'typescript';
+
 import type { ConfigSet } from './TransformUtils';
 
 /** Angular component decorator Styles property name */

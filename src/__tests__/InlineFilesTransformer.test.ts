@@ -5,6 +5,7 @@
  */
 
 import * as tsc from 'typescript';
+
 import * as transformer from '../InlineFilesTransformer';
 
 const CODE_WITH_TEMPLATE_URL = `
