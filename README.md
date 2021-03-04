@@ -33,7 +33,7 @@ npm install -D jest jest-preset-angular
 In your project root, create `setup-jest.ts` file with following contents:
 
 ```ts
-import 'jest-preset-angular';
+import 'jest-preset-angular/setup-jest';
 ```
 
 Add the following section:
