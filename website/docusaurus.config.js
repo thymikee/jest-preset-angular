@@ -155,7 +155,7 @@ module.exports = {
             },
             {
               label: 'Angular Ivy',
-              to: 'docs/next/guides/angular-ivy',
+              to: 'docs/guides/angular-ivy',
             },
           ],
         },
