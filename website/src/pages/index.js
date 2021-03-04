@@ -76,7 +76,7 @@ function Home() {
         </div>
         <div className={clsx(styles.announcement, styles.announcementDark)}>
           <div className={styles.announcementInner}>
-            Angular Ivy? Check out our <Link to="/docs/next/guides/angular-ivy">Angular Ivy guidance</Link>.
+            Angular Ivy? Check out our <Link to="/docs/guides/angular-ivy">Angular Ivy guidance</Link>.
           </div>
         </div>
       </header>
