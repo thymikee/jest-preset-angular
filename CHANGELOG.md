@@ -32,6 +32,7 @@
 * **compiler:** use constructor downlevel ctor transformer for `isolatedModules: true` ([#792](https://github.com/thymikee/jest-preset-angular/issues/792)) ([00c71ce](https://github.com/thymikee/jest-preset-angular/commit/00c71ceaa06e58432d201d9d5f8deb33e8f54665))
 * **presets:** add type definition for `presets` entry point ([#801](https://github.com/thymikee/jest-preset-angular/issues/801)) ([e4ff0c0](https://github.com/thymikee/jest-preset-angular/commit/e4ff0c0e19e5941e7e7db1da9b5c29e01d58ab58))
 * include features from `ts-jest` **27.0.0-next.6**
+* Revert the usage of Angular compiler and use `ts-jest` to transform codes for `isolatedModules: false` ([#800](https://github.com/thymikee/jest-preset-angular/pull/800)) ([e4c9677](https://github.com/thymikee/jest-preset-angular/commit/a9ad3efbee508b59a7fc450ec39099567e4c9677)), closes [#757](https://github.com/thymikee/jest-preset-angular/issues/757)
 
 
 
@@ -195,64 +196,8 @@ We are working on Ivy compatibility for this preset. This requires introducing a
 one from `ts-jest`. To get updates on this work, please subscribe to [#409](https://github.com/thymikee/jest-preset-angular/issues/409)
 
 * Users who are using `import 'jest-preset-angular'` should change to `import 'jest-preset-angular/setup-jest'`
-* Drop support for Angular < 8.0, see https://angular.io/guide/releases#support-policy-and-schedule
-* **transformers:** One is using all `jest-preset-angular` transformers should change jest config to have:
-```
-// jest.config.js
-const customTransformers = require('./build/transformers');
-
-module.exports = {
-     // [...]
-     globals: {
-        'ts-jest': {
-            tsconfig: '<rootDir>/tsconfig.spec.json',
-            stringifyContentPathRegex: '\\.html$',
-            astTransformers: {
-               before: customTransformers,
-            },
-         },
-     },
-}
-```
-
-One is using one of `jest-preset-angular` transformers should change jest config to have:
-```
-// jest.config.js
-module.exports = {
-     // [...]
-     globals: {
-        'ts-jest': {
-            tsconfig: '<rootDir>/tsconfig.spec.json',
-            stringifyContentPathRegex: '\\.html$',
-            astTransformers: {
-               before: [
-                  'jest-preset-angular/build/transformers/inline-files'
-               ],
-            },
-         },
-     },
-}
-```
-or
-```
-// package.json
-{
-     "jest" {
-         // [...]
-         "globals": {
-              "ts-jest": {
-                   "tsconfig": "<rootDir>/tsconfig.spec.json",
-                   "stringifyContentPathRegex": "\\.html$",
-                   "astTransformers": {
-                        "before": [
-                            "jest-preset-angular/build/transformers/inline-files"
-                        ]
-                   }
-              }
-         }
-     }
-}
-```
+* Drop support for Angular < **8.0**, see https://angular.io/guide/releases#support-policy-and-schedule
+* **transformers:** The AST transformers `InlineFilesTransformer` and `StripStylesTransformer` are **REMOVED** and default `jest-preset-angular` uses AST transformers from `@angular/compiler-cli`. One should remove the old transformers from the jest config.
 * **serializers:** One is using all `jest-preset-angular` snapshot serializers should change jest config to have:
 ```
 // jest.config.js
