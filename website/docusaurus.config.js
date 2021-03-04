@@ -33,7 +33,7 @@ module.exports = {
           {
             tagName: 'link',
             rel: 'manifest',
-            href: `/manifest.json`,
+            href: `/jest-preset-angular/manifest.json`,
           },
           {
             tagName: 'meta',
