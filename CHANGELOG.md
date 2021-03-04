@@ -1,3 +1,20 @@
+# [8.4.0](https://github.com/thymikee/jest-preset-angular/compare/v8.3.2...v8.4.0) (2021-03-04)
+
+
+### Features
+
+* add `ngcc-jest-processor` util script ([#853](https://github.com/thymikee/jest-preset-angular/issues/853)) ([e8c9689](https://github.com/thymikee/jest-preset-angular/commit/e8c9689fa792fb64634156eef00b06e3b1e604e5))
+
+
+### DEPRECATIONS
+
+* Import serializer via `'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js'` is deprecated in favor of `'jest-preset-angular/build/serializers/no-ng-attributes'`
+* Import serializer via `'jest-preset-angular/build/AngularSnapshotSerializer.js'` is deprecated in favor of `'jest-preset-angular/build/serializers/ng-snapshot'`
+* Import serializer via `'jest-preset-angular/build/HTMLCommentSerializer.js'` is deprecated in favor of `'jest-preset-angular/build/serializers/html-comment'`
+* Import setup file via `import 'jest-preset-angular'` is deprecated in favor of `import 'jest-preset-angular/setup-jest'`
+
+
+
 # [9.0.0-next.9](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.8...v9.0.0-next.9) (2021-02-26)
 
 

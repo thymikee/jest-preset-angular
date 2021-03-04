@@ -53,5 +53,4 @@ to make `XHR` call for our templates and fail miserably.
 - `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds
   some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc).
   This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable.
-  To remove such specific attributes use `AngularNoNgAttributesSnapshotSerializer` serializer. You need to
-  add `AngularNoNgAttributesSnapshotSerializer` serializer manually (see [`test` app configuration](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/package.json#L47-L51)).
+  To remove such specific attributes use `no-ng-attributes` serializer. You need to add `no-ng-attributes` serializer manually.
