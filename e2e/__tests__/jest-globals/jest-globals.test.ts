@@ -24,7 +24,7 @@ describe('Jest globals', () => {
   it.each`
     foo  | bar
     ${1} | ${2}
-  `('it.each should work with table as a tagged template literal', ({ foo, bar }) => {
+  `('should work with table as a tagged template literal', ({ foo, bar }) => {
     expect(foo).toBe(1);
     expect(bar).toBe(2);
   });
