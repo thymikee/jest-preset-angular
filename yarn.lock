@@ -1451,10 +1451,10 @@
     slash "^3.0.0"
     strip-ansi "^6.0.0"
 
-"@jest/environment@^27.0.0-next.3":
-  version "27.0.0-next.3"
-  resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-27.0.0-next.3.tgz#b6a236bdf5920b009fcef3e8171395a528603f11"
-  integrity sha512-8wgGEj4rJFE8J0ythFsQoLCrroiwnISey2T44yMuXpEYgtTbdM2tnKakbT+7vWOkqWYsp7hn/dVrZkFvYkB88g==
+"@jest/environment@^27.0.0-next.3", "@jest/environment@^27.0.0-next.4":
+  version "27.0.0-next.4"
+  resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-27.0.0-next.4.tgz#2a7a6002b2d418fd0c9acb5f4ef0f341cfbbfd21"
+  integrity sha512-xpO2/+OsZF+P8iGSyJu0lk7GrI5F0v/pkiFF/a5rSdyAzF3jCRTFzsxITq+3b1fBR4BamfTe/92k9UEZN1M9tw==
   dependencies:
     "@jest/fake-timers" "^27.0.0-next.3"
     "@jest/types" "^27.0.0-next.3"
@@ -1473,12 +1473,12 @@
     jest-mock "^27.0.0-next.3"
     jest-util "^27.0.0-next.3"
 
-"@jest/globals@27.0.0-next.3", "@jest/globals@^27.0.0-next.3":
-  version "27.0.0-next.3"
-  resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-27.0.0-next.3.tgz#85bb6ec377abdce95f4d486cf59a5defdb735760"
-  integrity sha512-eUefUaQrPZJPAt/xiRH5MCi/qn6yC0hkMxX0t6ceRliKsHBJjUh5/fO8dV+FkzZVMEVchl4iFrsykYdJP+QC3Q==
+"@jest/globals@27.0.0-next.4", "@jest/globals@^27.0.0-next.3":
+  version "27.0.0-next.4"
+  resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-27.0.0-next.4.tgz#f65e0f9f08464f2813a7cec665c6b1a8213979e9"
+  integrity sha512-daRh+uqRa1QinY4FuyKa0gBlh1iAwbiBc9THsaNe+0l4HO0acWvGhOp1yq3DfuCg1zz6Vv+EjhxnKbOtZlNuzg==
   dependencies:
-    "@jest/environment" "^27.0.0-next.3"
+    "@jest/environment" "^27.0.0-next.4"
     "@jest/types" "^27.0.0-next.3"
     expect "^27.0.0-next.3"
 
@@ -1875,14 +1875,6 @@
     "@typescript-eslint/typescript-estree" "4.17.0"
     debug "^4.1.1"
 
-"@typescript-eslint/scope-manager@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-4.16.1.tgz#244e2006bc60cfe46987e9987f4ff49c9e3f00d5"
-  integrity sha512-6IlZv9JaurqV0jkEg923cV49aAn8V6+1H1DRfhRcvZUrptQ+UtSKHb5kwTayzOYTJJ/RsYZdcvhOEKiBLyc0Cw==
-  dependencies:
-    "@typescript-eslint/types" "4.16.1"
-    "@typescript-eslint/visitor-keys" "4.16.1"
-
 "@typescript-eslint/scope-manager@4.17.0":
   version "4.17.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-4.17.0.tgz#f4edf94eff3b52a863180f7f89581bf963e3d37d"
@@ -1899,11 +1891,6 @@
     "@typescript-eslint/types" "4.3.0"
     "@typescript-eslint/visitor-keys" "4.3.0"
 
-"@typescript-eslint/types@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.16.1.tgz#5ba2d3e38b1a67420d2487519e193163054d9c15"
-  integrity sha512-nnKqBwMgRlhzmJQF8tnFDZWfunXmJyuXj55xc8Kbfup4PbkzdoDXZvzN8//EiKR27J6vUSU8j4t37yUuYPiLqA==
-
 "@typescript-eslint/types@4.17.0":
   version "4.17.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.17.0.tgz#f57d8fc7f31b348db946498a43050083d25f40ad"
@@ -1913,19 +1900,6 @@
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.3.0.tgz#1f0b2d5e140543e2614f06d48fb3ae95193c6ddf"
   integrity sha512-Cx9TpRvlRjOppGsU6Y6KcJnUDOelja2NNCX6AZwtVHRzaJkdytJWMuYiqi8mS35MRNA3cJSwDzXePfmhU6TANw==
-
-"@typescript-eslint/typescript-estree@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-4.16.1.tgz#c2fc46b05a48fbf8bbe8b66a63f0a9ba04b356f1"
-  integrity sha512-m8I/DKHa8YbeHt31T+UGd/l8Kwr0XCTCZL3H4HMvvLCT7HU9V7yYdinTOv1gf/zfqNeDcCgaFH2BMsS8x6NvJg==
-  dependencies:
-    "@typescript-eslint/types" "4.16.1"
-    "@typescript-eslint/visitor-keys" "4.16.1"
-    debug "^4.1.1"
-    globby "^11.0.1"
-    is-glob "^4.0.1"
-    semver "^7.3.2"
-    tsutils "^3.17.1"
 
 "@typescript-eslint/typescript-estree@4.17.0":
   version "4.17.0"
@@ -1953,14 +1927,6 @@
     lodash "^4.17.15"
     semver "^7.3.2"
     tsutils "^3.17.1"
-
-"@typescript-eslint/visitor-keys@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-4.16.1.tgz#d7571fb580749fae621520deeb134370bbfc7293"
-  integrity sha512-s/aIP1XcMkEqCNcPQtl60ogUYjSM8FU2mq1O7y5cFf3Xcob1z1iXWNB6cC43Op+NGRTFgGolri6s8z/efA9i1w==
-  dependencies:
-    "@typescript-eslint/types" "4.16.1"
-    eslint-visitor-keys "^2.0.0"
 
 "@typescript-eslint/visitor-keys@4.17.0":
   version "4.17.0"
