@@ -2,8 +2,8 @@
 'use strict';
 
 const execa = require('execa');
-const { realpathSync, mkdirSync } = require('fs');
-const { copySync } = require('fs-extra');
+const { realpathSync, mkdirSync, existsSync } = require('fs');
+const { copySync, removeSync } = require('fs-extra');
 const { resolve, join } = require('path');
 
 const { projectsToRun } = require('./paths');
@@ -28,15 +28,15 @@ const executeTest = (projectRealPath) => {
   logger.log('ensuring all dependencies of target project are installed');
   logger.log();
 
-  execa.sync('yarn', ['install'], { cwd: projectRealPath });
+  execa.sync('yarn', ['install', '--immutable'], { cwd: projectRealPath });
 
   logger.log('cleaning old assets in target project');
   logger.log();
 
   const testCasesDest = join(projectRealPath, 'src', '__tests__');
   const presetDir = join(projectRealPath, 'node_modules', 'jest-preset-angular');
-  execa.sync('rimraf', [presetDir]);
-  execa.sync('rimraf', [testCasesDest]);
+  removeSync(presetDir);
+  removeSync(testCasesDest);
   mkdirSync(presetDir);
 
   logger.log('copying distributed assets to target project');
@@ -120,7 +120,7 @@ const executeTest = (projectRealPath) => {
   logger.log();
   logger.log('cleaning up');
 
-  execa.sync('rimraf', [testCasesDest]);
+  removeSync(testCasesDest);
   delete process.env.ISOLATED_MODULES;
 };
 

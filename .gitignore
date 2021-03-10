@@ -3,3 +3,17 @@ node_modules
 *.log
 .idea
 *.tgz
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+e2e/**/.yarn/*
+!e2e/**/.yarn/cache
+!e2e/**/.yarn/patches
+!e2e/**/.yarn/plugins
+!e2e/**/.yarn/releases
+!e2e/**/.yarn/sdks
+!e2e/**/.yarn/versions
