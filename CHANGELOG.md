@@ -1,3 +1,12 @@
+# [9.0.0-next.10](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.9...v9.0.0-next.10) (2021-03-11)
+
+
+### Features
+
+* adopt jest **27.0.0-next.4** ([#876](https://github.com/thymikee/jest-preset-angular/issues/876)) ([603b8ab](https://github.com/thymikee/jest-preset-angular/commit/603b8ab84b4d6345416a78810f409dc1c2d47f09))
+
+
+
 # [8.4.0](https://github.com/thymikee/jest-preset-angular/compare/v8.3.2...v8.4.0) (2021-03-04)
 
 
