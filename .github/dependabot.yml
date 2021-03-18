@@ -5,12 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
       interval: 'daily'
-    reviewers:
-      - 'ahnpnl'
-      - 'wtho'
+    # See https://github.com/dependabot/dependabot-core/issues/1297
+    # Disable all pull requests for Docker dependencies
+    open-pull-requests-limit: 0
     commit-message:
       prefix: 'build(deps-dev)'
