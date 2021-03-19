@@ -24,6 +24,7 @@ module.exports = {
       extends: [
         'plugin:@angular-eslint/recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:@angular-eslint/template/process-inline-templates',
         'plugin:jest/recommended',
         'plugin:import/typescript',
         'plugin:prettier/recommended',

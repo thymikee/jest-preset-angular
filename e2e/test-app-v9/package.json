@@ -7,9 +7,8 @@
     "build": "ng build",
     "test-cjs-uniso": "jest --clearCache && jest -c=jest-cjs-uniso.config.js",
     "test-cjs-iso": "jest --clearCache && jest -c=jest-cjs-iso.config.js",
-    "test-esm-iso": "jest --clearCache && node --experimental-vm-modules ./node_modules/jest/bin/jest.js -c=jest-esm-iso.config.js",
-    "test-esm-uniso": "jest --clearCache && node --experimental-vm-modules ./node_modules/jest/bin/jest.js -c=jest-esm-uniso.config.js",
-    "lint": "ng lint"
+    "test-esm-iso": "jest --clearCache && node --experimental-vm-modules ../../node_modules/jest/bin/jest.js -c=jest-esm-iso.config.js",
+    "test-esm-uniso": "jest --clearCache && node --experimental-vm-modules ../../node_modules/jest/bin/jest.js -c=jest-esm-uniso.config.js"
   },
   "private": true,
   "dependencies": {
@@ -32,10 +31,7 @@
     "@angular/cli": "~9.1.15",
     "@angular/compiler-cli": "~9.1.13",
     "@angular/language-service": "~9.1.13",
-    "@types/jest": "^26.0.20",
     "@types/jquery": "^3.5.5",
-    "@types/node": "^14.14.33",
-    "jest": "^27.0.0-next.4",
     "ts-node": "^9.1.1",
     "typescript": "~3.8.3"
   }
