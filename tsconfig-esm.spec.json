@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.spec.json",
   "compilerOptions": {
-    "module": "ESNext"
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "importHelpers": false
   }
 }
