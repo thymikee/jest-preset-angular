@@ -1,3 +1,18 @@
+# [9.0.0-next.11](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.10...v9.0.0-next.11) (2021-03-21)
+
+
+### Features
+
+* **config:** load zone ESM when running jest in ESM mode ([#892](https://github.com/thymikee/jest-preset-angular/issues/892)) ([e03ec19](https://github.com/thymikee/jest-preset-angular/commit/e03ec19c30b6ff257d0ddd7a8783d65ed5f43f8e)), closes [#751](https://github.com/thymikee/jest-preset-angular/issues/751)
+* support jest **27.0.0-next.5** ([#891](https://github.com/thymikee/jest-preset-angular/issues/891)) ([7a6cb0a](https://github.com/thymikee/jest-preset-angular/commit/7a6cb0af3dbc7b98b48f6759a5c4d299791cd957))
+
+
+### BREAKING CHANGES
+
+* add `exports` field to `package.json`, see https://nodejs.org/api/packages.html#packages_package_entry_points
+
+
+
 # [9.0.0-next.10](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.9...v9.0.0-next.10) (2021-03-11)
 
 
