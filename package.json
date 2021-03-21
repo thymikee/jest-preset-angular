@@ -4,6 +4,13 @@
   "description": "Jest preset configuration for Angular projects",
   "license": "MIT",
   "main": "build/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./presets": "./jest-preset.js",
+    "./setup-jest": "./setup-jest.js",
+    "./ngcc-jest-processor": "./ngcc-jest-processor.js",
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thymikee/jest-preset-angular.git"
