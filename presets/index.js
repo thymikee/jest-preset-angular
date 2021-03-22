@@ -19,7 +19,7 @@ const basePreset = {
     '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
   snapshotSerializers,
-}
+};
 
 module.exports = {
   defaults: basePreset,
@@ -34,10 +34,8 @@ module.exports = {
     },
     moduleNameMapper: {
       ...basePreset.moduleNameMapper,
-      'tslib': '<rootDir>/node_modules/tslib/tslib.es6.js',
+      tslib: '<rootDir>/node_modules/tslib/tslib.es6.js',
     },
-    transformIgnorePatterns: [
-      'node_modules/(?!tslib)',
-    ],
-  }
-}
+    transformIgnorePatterns: ['node_modules/(?!tslib)'],
+  },
+};

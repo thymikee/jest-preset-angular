@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@types/jquery": "^3.5.5"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/../../setup-jest.js"
+    ],
+    "transform": {
+      "^.+\\.(ts|js|html)$": "<rootDir>/../../build/index.js"
+    }
+  }
+}

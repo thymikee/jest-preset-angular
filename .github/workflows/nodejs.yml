@@ -106,9 +106,7 @@ jobs:
         run: yarn --immutable
       - name: build
         run: yarn build
-      - name: run unit tests with CommomJS
-        run: yarn test-cjs:unit
-      - name: run unit tests with ESM
-        run: yarn test-esm:unit
-      - name: run e2e tests
-        run: yarn test:e2e
+      - name: run tests
+        run: yarn test
+      - name: run example apps tests
+        run: yarn test:examples

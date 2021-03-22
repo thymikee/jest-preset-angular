@@ -1,13 +1,14 @@
-const glob = require('glob');
 const { lstatSync, existsSync } = require('fs');
 const path = require('path');
 
+const glob = require('glob');
+
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'build');
-const e2eRootDir = path.join(rootDir, 'e2e');
+const examplesRootDir = path.join(rootDir, 'examples');
 const projectsToRun = glob
-  .sync(`${e2eRootDir}/*`)
-  .filter((e2ePath) => lstatSync(e2ePath).isDirectory() && existsSync(path.join(e2ePath, 'package.json')));
+  .sync(`${examplesRootDir}/*`)
+  .filter((examplePath) => lstatSync(examplePath).isDirectory() && existsSync(path.join(examplePath, 'package.json')));
 
 module.exports = {
   rootDir,
