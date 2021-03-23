@@ -1,4 +1,5 @@
 const baseConfig = require('./jest.config');
+const basePreset = require('jest-preset-angular/presets');
 
 /** @type {import('ts-jest/dist/types').ProjectConfigTsJest} */
 module.exports = {
@@ -6,9 +7,7 @@ module.exports = {
   preset: 'jest-preset-angular/presets/defaults-esm',
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-      stringifyContentPathRegex: '\\.html$',
-      useESM: true,
+      ...basePreset.defaultsESM.globals['ts-jest'],
       isolatedModules: true,
     }
   },

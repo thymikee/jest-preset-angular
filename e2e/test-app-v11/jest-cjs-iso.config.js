@@ -1,4 +1,5 @@
 const baseConfig = require('./jest.config');
+const defaultPreset = require('jest-preset-angular/jest-preset');
 
 /** @type {import('ts-jest/dist/types').ProjectConfigTsJest} */
 module.exports = {
@@ -6,8 +7,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig-cjs.spec.json',
-      stringifyContentPathRegex: '\\.html$',
+      ...defaultPreset.globals['ts-jest'],
       isolatedModules: true,
     }
   },

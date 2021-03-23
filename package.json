@@ -6,7 +6,8 @@
   "main": "build/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./presets": "./jest-preset.js",
+    "./presets": "./presets/index.js",
+    "./jest-preset": "./jest-preset.js",
     "./setup-jest": "./setup-jest.js",
     "./ngcc-jest-processor": "./ngcc-jest-processor.js",
     "./package.json": "./package.json"
