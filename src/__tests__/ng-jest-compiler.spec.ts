@@ -47,7 +47,11 @@ describe('NgJestCompiler', () => {
         // @ts-expect-error testing purpose
         const makeTransformersSpy = jest.spyOn(compiler, '_makeTransformers');
 
-        compiler.getCompiledOutput(fileContent, fileName, true);
+        compiler.getCompiledOutput(fileContent, fileName, {
+          watchMode: false,
+          supportsStaticESM: useESM,
+          depGraphs: new Map(),
+        });
 
         expect(makeTransformersSpy.mock.results[0].value).toMatchSnapshot();
       },
