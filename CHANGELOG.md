@@ -1,3 +1,17 @@
+# [9.0.0-next.12](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.11...v9.0.0-next.12) (2021-03-31)
+
+
+### Bug Fixes
+
+* define export path for `jest-preset` ([#896](https://github.com/thymikee/jest-preset-angular/issues/896)) ([218b217](https://github.com/thymikee/jest-preset-angular/commit/218b217c02d053ab98f476f26f716e95d407ac5c))
+
+
+### Features
+
+* support jest **27.0.0-next.6** ([#897](https://github.com/thymikee/jest-preset-angular/issues/897)) ([eff3052](https://github.com/thymikee/jest-preset-angular/commit/eff30529995e97daadbdfa04de8f41cb0ff76a8f))
+
+
+
 # [9.0.0-next.11](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.10...v9.0.0-next.11) (2021-03-21)
 
 
