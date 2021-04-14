@@ -31,6 +31,10 @@
     "angular",
     "testing"
   ],
+  "workspaces": [
+    "e2e/custom-typings",
+    "e2e/with-babel"
+  ],
   "scripts": {
     "prebuild": "node scripts/clean.js",
     "prepare": "yarn build",
@@ -39,10 +43,8 @@
     "lint:fix": "eslint --fix --ext .js,.ts .",
     "lint:prettier": "prettier '**/*.{yml,yaml}' 'website/**/*.{css,js,md}' 'README.md' --write --ignore-path .gitignore",
     "lint:prettier-ci": "prettier '**/*.{yml,yaml}' 'website/**/*.{css,js,md}' 'README.md' --check --ignore-path .gitignore",
-    "test": "yarn test-cjs:unit && yarn test-esm:unit",
-    "test-cjs:unit": "jest -i",
-    "test-esm:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js -i -c=jest-esm.config.js",
-    "test:e2e": "node scripts/e2e.js",
+    "test": "jest",
+    "test:examples": "node scripts/examples.js",
     "doc": "cd website && yarn start",
     "doc:build": "cd website && yarn build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
@@ -81,6 +83,7 @@
     "@jest/types": "27.0.0-next.3",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
+    "@types/semver": "^7.3.4",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "conventional-changelog-cli": "^2.1.1",
@@ -95,6 +98,7 @@
     "glob": "^7.1.6",
     "husky": "^6.0.0",
     "jest": "27.0.0-next.6",
+    "jest-snapshot-serializer-raw": "^1.1.0",
     "lint-staged": "^10.5.4",
     "pinst": "^2.1.6",
     "prettier": "^2.2.1",

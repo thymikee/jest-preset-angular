@@ -14,11 +14,10 @@ module.exports = {
   overrides: [
     {
       files: ['*.ts'],
-      parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: 'tsconfig.json',
+        project: 'tsconfig.eslint.json',
         impliedStrict: true,
-        createDefaultProgram: true,
+        createDefaultProgram: false,
       },
       plugins: ['eslint-plugin-prefer-arrow', 'import', 'jsdoc'],
       extends: [
@@ -33,35 +32,32 @@ module.exports = {
         '@typescript-eslint/array-type': [
           'error',
           {
-            'default': 'array-simple',
-          }
+            default: 'array-simple',
+          },
         ],
         '@angular-eslint/component-class-suffix': [
           'error',
           {
-            'suffixes': [
-              'Component',
-              'Container',
-            ]
-          }
+            suffixes: ['Component', 'Container'],
+          },
         ],
         '@angular-eslint/component-selector': [
           'error',
           {
-            'type': 'element',
-            'prefix': 'kebab-case',
-          }
+            type: 'element',
+            prefix: 'kebab-case',
+          },
         ],
         '@angular-eslint/directive-selector': [
           'error',
           {
-            'type': 'attribute',
-            'prefix': 'camelCase',
-          }
+            type: 'attribute',
+            prefix: 'camelCase',
+          },
         ],
         '@typescript-eslint/comma-spacing': 'error',
         '@typescript-eslint/no-redeclare': 'error',
-        '@typescript-eslint/no-unused-vars': ["error", { "argsIgnorePattern": "^_" }],
+        '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',
@@ -69,27 +65,17 @@ module.exports = {
         'import/order': [
           'error',
           {
-            'alphabetize': {
-              'order': 'asc',
-              'caseInsensitive': true,
+            alphabetize: {
+              order: 'asc',
+              caseInsensitive: true,
             },
             // this is the default order except for added `internal` in the middle
-            'groups': [
-              'builtin',
-              'external',
-              'internal',
-              'parent',
-              'sibling',
-              'index',
-            ],
+            groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
             'newlines-between': 'always',
-          }
+          },
         ],
         'object-shorthand': 'error',
-        'padding-line-between-statements': [
-          'error',
-          { 'blankLine': 'always', 'prev': '*', 'next': 'return' },
-        ],
+        'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: 'return' }],
         'prefer-object-spread': 'error',
       },
     },
@@ -97,12 +83,17 @@ module.exports = {
       files: ['*.html'],
       extends: ['plugin:@angular-eslint/template/recommended'],
       rules: {},
-    }
+    },
+    {
+      files: ['*.js'],
+      extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+      rules: {},
+    },
   ],
   rules: {
     'comma-spacing': 'off',
     'no-redeclare': 'off',
     'no-shadow': 'off',
-    'quotes': 'off',
+    quotes: 'off',
   },
-}
+};
