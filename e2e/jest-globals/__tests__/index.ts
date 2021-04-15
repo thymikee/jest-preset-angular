@@ -12,13 +12,16 @@ describe('@jest/globals should work', () => {
 
   // eslint-disable-next-line
   (test.each([2]) as any)('it.each with 1D array and done', (arg1: any, done: () => void) => {
+    // eslint-disable-next-line jest/no-standalone-expect
     expect(arg1).toBe(2);
     done();
   });
 
   // eslint-disable-next-line
   (test.each([[1, 2]]) as any)('it.each with done', (arg1: any, arg2: any, done: () => void) => {
+    // eslint-disable-next-line jest/no-standalone-expect
     expect(arg1).toBe(1);
+    // eslint-disable-next-line jest/no-standalone-expect
     expect(arg2).toBe(2);
     done();
   });
