@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should keep styles but not styleUrls, keep template and transform templateUrl to proper syntax for CommonJS/ESM: app.component.ts-with-esm-false 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.AppComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        template: require(\\"./app.component.html\\"),
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
+    })
+], AppComponent);
+exports.AppComponent = AppComponent;
+//# "
+`;
+
+exports[`should keep styles but not styleUrls, keep template and transform templateUrl to proper syntax for CommonJS/ESM: app.component.ts-with-esm-true 1`] = `
+"import { __decorate } from \\"tslib\\";
+import __NG_CLI_RESOURCE__0 from \\"./app.component.html\\";
+import { Component } from '@angular/core';
+let AppComponent = class AppComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+AppComponent = __decorate([
+    Component({
+        selector: 'app-root',
+        template: __NG_CLI_RESOURCE__0,
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
+    })
+], AppComponent);
+export { AppComponent };
+//# "
+`;
+
+exports[`should keep styles but not styleUrls, keep template and transform templateUrl to proper syntax for CommonJS/ESM: foo.component.ts-with-esm-false 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.FooComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let FooComponent = class FooComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+FooComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-root',
+        template: \`<h1>Foo Bar</h1>\`,
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
+    })
+], FooComponent);
+exports.FooComponent = FooComponent;
+//# "
+`;
+
+exports[`should keep styles but not styleUrls, keep template and transform templateUrl to proper syntax for CommonJS/ESM: foo.component.ts-with-esm-true 1`] = `
+"import { __decorate } from \\"tslib\\";
+import { Component } from '@angular/core';
+let FooComponent = class FooComponent {
+    constructor() {
+        this.title = 'test-app-v10';
+    }
+};
+FooComponent = __decorate([
+    Component({
+        selector: 'app-root',
+        template: \`<h1>Foo Bar</h1>\`,
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
+    })
+], FooComponent);
+export { FooComponent };
+//# "
+`;
