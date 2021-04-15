@@ -114,16 +114,24 @@ function visitDecorator(
   }
 
   const objectExpression = args[0] as ts.ObjectLiteralExpression;
+  const styleReplacements: ts.Expression[] = [];
 
   // visit all properties
   let properties = ts.visitNodes(objectExpression.properties, (node) =>
-    ts.isObjectLiteralElementLike(node) ? visitComponentMetadata(node, resourceImportDeclarations, moduleKind) : node,
+    ts.isObjectLiteralElementLike(node)
+      ? visitComponentMetadata(node, styleReplacements, resourceImportDeclarations, moduleKind)
+      : node,
   );
 
   // replace properties with updated properties
-  const styleProperty = ts.createPropertyAssignment(ts.createIdentifier(STYLES), ts.createArrayLiteral([]));
+  if (styleReplacements.length) {
+    const styleProperty = ts.createPropertyAssignment(
+      ts.createIdentifier('styles'),
+      ts.createArrayLiteral(styleReplacements),
+    );
 
-  properties = ts.createNodeArray([...properties, styleProperty]);
+    properties = ts.createNodeArray([...properties, styleProperty]);
+  }
 
   return ts.updateDecorator(
     node,
@@ -135,6 +143,7 @@ function visitDecorator(
 
 function visitComponentMetadata(
   node: ts.ObjectLiteralElementLike,
+  styleReplacements: ts.Expression[],
   resourceImportDeclarations: ts.ImportDeclaration[],
   moduleKind?: ts.ModuleKind,
 ): ts.ObjectLiteralElementLike | undefined {
@@ -155,7 +164,31 @@ function visitComponentMetadata(
       }
 
       return ts.updatePropertyAssignment(node, ts.createIdentifier(TEMPLATE), importName);
+
     case STYLES:
+      if (!ts.isArrayLiteralExpression(node.initializer)) {
+        return node;
+      }
+      const isInlineStyles = name === 'styles';
+      const styles = ts.visitNodes(node.initializer.elements, (node) => {
+        if (!ts.isStringLiteral(node) && !ts.isNoSubstitutionTemplateLiteral(node)) {
+          return node;
+        }
+        if (isInlineStyles) {
+          return ts.createLiteral(node.text);
+        }
+
+        return createResourceImport(node, resourceImportDeclarations, moduleKind) || node;
+      });
+
+      // Styles should be placed first
+      if (isInlineStyles) {
+        styleReplacements.unshift(...styles);
+      } else {
+        styleReplacements.push(...styles);
+      }
+
+      return undefined;
     case STYLE_URLS:
       if (!ts.isArrayLiteralExpression(node.initializer)) {
         return node;
