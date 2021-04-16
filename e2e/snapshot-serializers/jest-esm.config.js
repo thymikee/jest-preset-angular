@@ -5,7 +5,7 @@ module.exports = {
     'ts-jest': {
       useESM: true,
       tsconfig: 'tsconfig-esm.json',
-      stringifyContentPathRegex: '\\.html$',
+      stringifyContentPathRegex: '\\.(html|scss)$',
     },
   },
   setupFilesAfterEnv: ['<rootDir>/../../setup-jest.js'],
@@ -16,6 +16,6 @@ module.exports = {
   ],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js|html)$': '<rootDir>/../../build/index.js',
+    '^.+\\.(ts|js|html|scss)$': '<rootDir>/../../build/index.js',
   },
 };

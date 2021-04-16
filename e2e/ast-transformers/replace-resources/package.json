@@ -3,13 +3,13 @@
     "globals": {
       "ts-jest": {
         "tsconfig": "<rootDir>/../../tsconfig.json",
-        "stringifyContentPathRegex": "\\.html$"
+        "stringifyContentPathRegex": "\\.(html|scss)$"
       }
     },
     "setupFilesAfterEnv": ["<rootDir>/../../../setup-jest.js"],
     "testEnvironment": "jsdom",
     "transform": {
-      "^.+\\.(ts|js|html)$": "<rootDir>/../../../build/index.js"
+      "^.+\\.(ts|js|html|scss)$": "<rootDir>/../../../build/index.js"
     }
   }
 }

@@ -37,9 +37,8 @@ module.exports = {
 
 :::important
 
-Jest doesn't run in browser nor through dev server. It uses `JSDOM` to abstract browser environment. So we have to cheat
-a little and inline our templates and get rid of styles (**we're not testing CSS**) because otherwise Angular will try
-to make `XHR` call for our templates and fail miserably.
+Jest runs with `jest-preset-angular` neither in browser nor through dev server. It uses `JSDOM` to abstract browser environment hence we depend on
+`JSDOM` implementation for real browser features.
 
 :::
 
