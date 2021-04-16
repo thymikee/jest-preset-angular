@@ -166,6 +166,7 @@ function visitComponentMetadata(
       return ts.updatePropertyAssignment(node, ts.createIdentifier(TEMPLATE), importName);
 
     case STYLES:
+    case STYLE_URLS:
       if (!ts.isArrayLiteralExpression(node.initializer)) {
         return node;
       }
@@ -186,12 +187,6 @@ function visitComponentMetadata(
         styleReplacements.unshift(...styles);
       } else {
         styleReplacements.push(...styles);
-      }
-
-      return undefined;
-    case STYLE_URLS:
-      if (!ts.isArrayLiteralExpression(node.initializer)) {
-        return node;
       }
 
       return undefined;

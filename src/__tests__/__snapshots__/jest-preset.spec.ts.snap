@@ -4,7 +4,7 @@ exports[`Jest presets should return the correct jest config 1`] = `
 Object {
   "globals": Object {
     "ts-jest": Object {
-      "stringifyContentPathRegex": "\\\\.html$",
+      "stringifyContentPathRegex": "\\\\.(html|css|sass|scss|less|styl)$",
       "tsconfig": "<rootDir>/tsconfig.spec.json",
     },
   },
@@ -27,7 +27,7 @@ Object {
   ],
   "testEnvironment": "jsdom",
   "transform": Object {
-    "^.+\\\\.(ts|js|html)$": "jest-preset-angular",
+    "^.+\\\\.(ts|js|html|css|sass|scss|less|styl)$": "jest-preset-angular",
   },
 }
 `;
@@ -39,7 +39,7 @@ Object {
   ],
   "globals": Object {
     "ts-jest": Object {
-      "stringifyContentPathRegex": "\\\\.html$",
+      "stringifyContentPathRegex": "\\\\.(html|css|sass|scss|less|styl)$",
       "tsconfig": "<rootDir>/tsconfig.spec.json",
       "useESM": true,
     },
@@ -64,7 +64,7 @@ Object {
   ],
   "testEnvironment": "jsdom",
   "transform": Object {
-    "^.+\\\\.(ts|js|html)$": "jest-preset-angular",
+    "^.+\\\\.(ts|js|html|css|sass|scss|less|styl)$": "jest-preset-angular",
   },
   "transformIgnorePatterns": Array [
     "node_modules/(?!tslib)",

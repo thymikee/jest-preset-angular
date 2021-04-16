@@ -32,7 +32,7 @@ const baseJestCfg = {
 };
 
 test.each([true, false])(
-  'should keep styles but not styleUrls, keep template and transform templateUrl to proper syntax for CommonJS/ESM',
+  'should keep styles/template and transform styleUrls/templateUrl to proper syntax for CommonJS/ESM',
   (useESM) => {
     const ngJestConfig = new NgJestConfig({
       ...baseJestCfg,
