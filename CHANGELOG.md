@@ -1,3 +1,49 @@
+# [9.0.0-next.13](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.12...v9.0.0-next.13) (2021-04-18)
+
+
+### Features
+
+* allow css testing with `@Component` property `styles` ([#900](https://github.com/thymikee/jest-preset-angular/issues/900)) ([7cf86e0](https://github.com/thymikee/jest-preset-angular/commit/7cf86e006495c6b9f12f6eb274effc4f03ba97c5))
+* allow css testing with `@Component` property `styleUrls` ([#903](https://github.com/thymikee/jest-preset-angular/issues/903)) ([c275166](https://github.com/thymikee/jest-preset-angular/commit/c275166191e3e66be9bb1adc972a75c58650b32e))
+
+
+### BREAKING CHANGES
+
+* Drop support for Node.js version 10 since it becomes EOL on **2021-04-30**. To support Angular 12, Node.js **12.13+** or **14.15+** is required.
+* `jest-preset-angular` now allows testing with all Angular supported style extensions. 
+  
+Users who are specifying in jest config
+```
+module.exports = {
+     globals: {
+          'ts-jest': {
+              tsconfig: '<rootDir>/tsconfig.spec.json',
+              stringifyContentPathRegex: '\\.html$',
+          },
+     },
+     transform: {
+          '^.+\\.(ts|js|html)$': 'jest-preset-angular',
+     },
+}
+```
+
+should change to
+
+```
+module.exports = {
+     globals: {
+          'ts-jest': {
+              tsconfig: '<rootDir>/tsconfig.spec.json',
+              stringifyContentPathRegex: '\\.(html|css|sass|scss|less|styl)$',
+          },
+     },
+     transform: {
+          '^.+\\.(ts|js|html|css|sass|scss|less|styl)$': 'jest-preset-angular',
+     },
+}
+```
+
+
 # [9.0.0-next.12](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.11...v9.0.0-next.12) (2021-03-31)
 
 
