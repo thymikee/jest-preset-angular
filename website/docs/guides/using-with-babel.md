@@ -1,6 +1,6 @@
 ---
-id: babel-jest
-title: Combining with babel-jest
+id: using-with-babel
+title: Using with Babel
 ---
 
 If you wish to use `Babel`, you need to say jest to transpile such files manually.
