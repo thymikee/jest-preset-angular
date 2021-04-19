@@ -5,9 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "pretest": "jest --clearCache",
-    "test-cjs-uniso": "yarn pretest && jest -c=jest-cjs-uniso.config.js",
-    "test-cjs-iso": "yarn pretest && jest -c=jest-cjs-iso.config.js",
+    "pretest": "node ../../node_modules/jest-cli/bin/jest.js --clearCache",
+    "test-cjs-uniso": "yarn pretest && node ../../node_modules/jest-cli/bin/jest.js -c=jest-cjs-uniso.config.js",
+    "test-cjs-iso": "yarn pretest && node ../../node_modules/jest-cli/bin/jest.js -c=jest-cjs-iso.config.js",
     "test-esm-iso": "yarn pretest && node --experimental-vm-modules ../../node_modules/jest/bin/jest.js -c=jest-esm-iso.config.js",
     "test-esm-uniso": "yarn pretest && node --experimental-vm-modules ../../node_modules/jest/bin/jest.js -c=jest-esm-uniso.config.js"
   },
