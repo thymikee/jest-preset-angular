@@ -23,8 +23,9 @@ module.exports = {
       items: [
         'guides/angular-ivy',
         'guides/esm-support',
+        'guides/testing-css-styles',
         'guides/jsdom-version',
-        'guides/babel-jest',
+        'guides/using-with-babel',
         'guides/absolute-imports',
         'guides/troubleshooting',
       ],
