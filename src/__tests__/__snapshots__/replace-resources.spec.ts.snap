@@ -15,7 +15,7 @@ AppComponent = tslib_1.__decorate([
     core_1.Component({
         selector: 'app-root',
         template: require(\\"./app.component.html\\"),
-        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\", require(\\"./app.component.scss\\"), require(\\"./foo.component.css\\")]
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
@@ -25,8 +25,6 @@ exports.AppComponent = AppComponent;
 exports[`should keep styles/template and transform styleUrls/templateUrl to proper syntax for CommonJS/ESM: app.component.ts-with-esm-true 1`] = `
 "import { __decorate } from \\"tslib\\";
 import __NG_CLI_RESOURCE__0 from \\"./app.component.html\\";
-import __NG_CLI_RESOURCE__1 from \\"./app.component.scss\\";
-import __NG_CLI_RESOURCE__2 from \\"./foo.component.css\\";
 import { Component } from '@angular/core';
 let AppComponent = class AppComponent {
     constructor() {
@@ -37,7 +35,7 @@ AppComponent = __decorate([
     Component({
         selector: 'app-root',
         template: __NG_CLI_RESOURCE__0,
-        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\", __NG_CLI_RESOURCE__1, __NG_CLI_RESOURCE__2]
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
     })
 ], AppComponent);
 export { AppComponent };
@@ -59,7 +57,7 @@ FooComponent = tslib_1.__decorate([
     core_1.Component({
         selector: 'app-root',
         template: \`<h1>Foo Bar</h1>\`,
-        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\", require(\\"./app.component.scss\\"), require(\\"./foo.component.css\\")]
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
     })
 ], FooComponent);
 exports.FooComponent = FooComponent;
@@ -68,8 +66,6 @@ exports.FooComponent = FooComponent;
 
 exports[`should keep styles/template and transform styleUrls/templateUrl to proper syntax for CommonJS/ESM: foo.component.ts-with-esm-true 1`] = `
 "import { __decorate } from \\"tslib\\";
-import __NG_CLI_RESOURCE__0 from \\"./app.component.scss\\";
-import __NG_CLI_RESOURCE__1 from \\"./foo.component.css\\";
 import { Component } from '@angular/core';
 let FooComponent = class FooComponent {
     constructor() {
@@ -80,7 +76,7 @@ FooComponent = __decorate([
     Component({
         selector: 'app-root',
         template: \`<h1>Foo Bar</h1>\`,
-        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\", __NG_CLI_RESOURCE__0, __NG_CLI_RESOURCE__1]
+        styles: [\\"\\\\n      h1 {\\\\n        font-size: 1.6rem;\\\\n      }\\\\n    \\"]
     })
 ], FooComponent);
 export { FooComponent };
