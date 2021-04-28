@@ -4,12 +4,12 @@ const basePreset = {
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|css|sass|scss|less|styl)$',
+      stringifyContentPathRegex: '\\.html$',
     },
   },
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js|html|css|sass|scss|less|styl)$': 'jest-preset-angular',
+    '^.+\\.(ts|js|html)$': 'jest-preset-angular',
   },
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   moduleNameMapper: {

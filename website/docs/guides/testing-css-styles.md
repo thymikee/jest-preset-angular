@@ -3,11 +3,10 @@ id: testing-css-styles
 title: Testing CSS Styles
 ---
 
-Starting from **v9.0.0**, `jest-preset-angular` supports testing CSS styles. The supported style extensions following
-Angular support, which are: `css`, `sass`, `scss`, `less` and `styl`. This is provided default by `jest-preset-angular`.
+Starting from **v9.0.0**, `jest-preset-angular` supports testing CSS styles for `styles` property in `@Component` metadata. This is provided default by `jest-preset-angular`.
 
 One now can use [window.getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
-to check styling of DOM elements. The styles which are returned by `window.getComputedStyle` come from styling files.
+to check styling of DOM elements. The styles which are returned by `window.getComputedStyle` come from `styles` property.
 
 ## Example
 
