@@ -21,9 +21,7 @@ module.exports = {
       },
       plugins: ['eslint-plugin-prefer-arrow', 'import', 'jsdoc'],
       extends: [
-        'plugin:@angular-eslint/recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:@angular-eslint/template/process-inline-templates',
         'plugin:jest/recommended',
         'plugin:import/typescript',
         'plugin:prettier/recommended',
@@ -35,32 +33,9 @@ module.exports = {
             default: 'array-simple',
           },
         ],
-        '@angular-eslint/component-class-suffix': [
-          'error',
-          {
-            suffixes: ['Component', 'Container'],
-          },
-        ],
-        '@angular-eslint/component-selector': [
-          'error',
-          {
-            type: 'element',
-            prefix: 'kebab-case',
-          },
-        ],
-        '@angular-eslint/directive-selector': [
-          'error',
-          {
-            type: 'attribute',
-            prefix: 'camelCase',
-          },
-        ],
         '@typescript-eslint/comma-spacing': 'error',
         '@typescript-eslint/no-redeclare': 'error',
         '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-        '@typescript-eslint/no-unsafe-call': 'off',
-        '@typescript-eslint/no-unsafe-member-access': 'off',
-        '@typescript-eslint/restrict-template-expressions': 'off',
         '@typescript-eslint/prefer-ts-expect-error': 'error',
         'import/order': [
           'error',
@@ -78,11 +53,6 @@ module.exports = {
         'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: 'return' }],
         'prefer-object-spread': 'error',
       },
-    },
-    {
-      files: ['*.html'],
-      extends: ['plugin:@angular-eslint/template/recommended'],
-      rules: {},
     },
     {
       files: ['*.js'],

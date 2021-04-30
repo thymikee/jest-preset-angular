@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const { realpathSync, mkdirSync } = require('fs');
-const { resolve, join } = require('path');
+const { mkdirSync } = require('fs');
+const { join } = require('path');
 
 const execa = require('execa');
 const { copySync, removeSync } = require('fs-extra');
@@ -132,11 +132,5 @@ logger.log('creating jest-preset-angular bundle');
 execa.sync('yarn', ['build']);
 
 projectsToRun.forEach((projectPath) => {
-  let projectRealPath;
-  try {
-    projectRealPath = realpathSync(resolve(cwd, projectPath));
-  } catch (e) {
-    projectRealPath = undefined;
-  }
-  executeTest(projectRealPath);
+  executeTest(projectPath);
 });

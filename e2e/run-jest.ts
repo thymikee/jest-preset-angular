@@ -32,14 +32,12 @@ function spawnJest(
   dir: string,
   args: string[] = [],
   options: RunJestOptions = {},
-  spawnAsync: boolean = false,
+  spawnAsync = false,
 ): execa.ExecaSyncReturnValue | execa.ExecaChildProcess {
   const isRelative = !path.isAbsolute(dir);
-
   if (isRelative) {
     dir = path.resolve(__dirname, dir);
   }
-
   const localPackageJson = path.resolve(dir, 'package.json');
   if (!options.skipPkgJsonCheck && !fs.existsSync(localPackageJson)) {
     throw new Error(
@@ -56,10 +54,8 @@ function spawnJest(
     FORCE_COLOR: '0',
     ...options.env,
   };
-
   if (options.nodeOptions) env['NODE_OPTIONS'] = options.nodeOptions;
   if (options.nodePath) env['NODE_PATH'] = options.nodePath;
-
   const spawnArgs = [JEST_PATH, ...args];
   const spawnOptions: execa.CommonOptions<string> = {
     cwd: dir,
@@ -71,7 +67,7 @@ function spawnJest(
   return (spawnAsync ? execa : execa.sync)(process.execPath, spawnArgs, spawnOptions);
 }
 
-export type RunJestResult = execa.ExecaReturnValue;
+type RunJestResult = execa.ExecaReturnValue;
 
 function normalizeStdoutAndStderr(result: RunJestResult, options: RunJestOptions): RunJestResult {
   if (options.stripAnsi) result.stdout = stripAnsi(result.stdout);
