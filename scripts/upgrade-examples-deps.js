@@ -15,10 +15,18 @@ projectsToRun.forEach((projectPath, i) => {
 
   execa.sync('yarn');
 
-  const args = ['update', `@angular/cli@${ngVersion}`, `@angular/core@${ngVersion}`];
+  const args = [
+    'update',
+    `@angular/cli@${ngVersion}`,
+    `@angular/core@${ngVersion}`,
+    'jest@next',
+    '@types/jest@latest',
+    'jest-preset-angular@next',
+  ];
   if (ngVersion === 11) {
     args.push('zone.js@latest');
   }
+  args.push('--force');
 
   logger.log(`    ↳ ng ${args.join(' ')}`);
 
