@@ -1,3 +1,21 @@
+# [9.0.0-next.14](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.13...v9.0.0-next.14) (2021-05-05)
+
+
+### Bug Fixes
+
+* remove warning message when installing `jest-preset-angular` for end users ([#911](https://github.com/thymikee/jest-preset-angular/issues/911)) ([7b7f5ba](https://github.com/thymikee/jest-preset-angular/commit/7b7f5bab63c295a01bc3bbd63ef8d58a847a1b17))
+* **presets:** remove `moduleNameMapper` config ([#910](https://github.com/thymikee/jest-preset-angular/issues/910)) ([df482bc](https://github.com/thymikee/jest-preset-angular/commit/df482bcb4c99b441f2fef8def04d10b8a1188deb)), closes [#908](https://github.com/thymikee/jest-preset-angular/issues/908)
+* **transformers:** revert [#903](https://github.com/thymikee/jest-preset-angular/issues/903) as some file extensions are not processed with their original content ([aebc186](https://github.com/thymikee/jest-preset-angular/commit/aebc186b7a8d7682a76aaa281f3c77ff51ae7475))
+
+
+## BREAKING CHANGES
+
+When generating a new project from Angular CLI, by default the `tsconfig.json` doesn't contain any path mappings hence removing `moduleNameMapper` from preset will make sure that the preset works in pair with `tsconfig.json`.
+
+Ones who are relying on the value of `moduleNameMapper` from the preset should create their own `moduleNameMapper` config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
+
+
+
 # [9.0.0-next.13](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.12...v9.0.0-next.13) (2021-04-18)
 
 
