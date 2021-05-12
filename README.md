@@ -19,13 +19,13 @@ please check [online documentation](https://thymikee.github.io/jest-preset-angul
 Install using [`yarn`](https://yarnpkg.com/en/package/jest-preset-angular):
 
 ```bash
-yarn add -D jest jest-preset-angular
+yarn add -D jest jest-preset-angular @types/jest
 ```
 
 Or [`npm`](https://www.npmjs.com/package/jest-preset-angular):
 
 ```bash
-npm install -D jest jest-preset-angular
+npm install -D jest jest-preset-angular @types/jest
 ```
 
 ## Configuration
@@ -59,11 +59,32 @@ module.exports = {
 }
 ```
 
+Adjust your `tsconfig.spec.json` to be:
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": ["jest"]
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+}
+```
+
+## Angular Ivy
+
+Check out our [Angular Ivy guidance](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-ivy)
+
+## Example apps
+
+We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/master/examples) to provide a basic setup to use Jest in an Angular project.
+
 ## Built With
 
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript that scales
 - [Angular](https://angular.io/) - The modern web developer's platform
-- [`ts-jest`](https://kulshekhar.github.io/ts-jest) - Jest processor for TypeScript
+- [`ts-jest`](https://kulshekhar.github.io/ts-jest) - Jest transformer for TypeScript
 
 ## Authors/maintainers
 
