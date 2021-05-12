@@ -10,13 +10,13 @@ You can install `jest-preset-angular` and dependencies all at once with one of t
 #### NPM
 
 ```sh
-npm install -D jest jest-preset-angular
+npm install -D jest jest-preset-angular @types/jest
 ```
 
 #### Yarn
 
 ```sh
-yarn add -D jest jest-preset-angular
+yarn add -D jest jest-preset-angular @types/jest
 ```
 
 ### Configuration
@@ -47,6 +47,19 @@ module.exports = {
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
   }
+}
+```
+
+Adjust your `tsconfig.spec.json` to be:
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": ["jest"]
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
 ```
 
