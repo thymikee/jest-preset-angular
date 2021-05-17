@@ -1,29 +1,22 @@
-const { projectsToRun } = require('./paths');
+const { exampleAppsToRun } = require('./paths');
 const execa = require('execa');
 const path = require('path');
 const logger = require('./logger');
 
 logger.log('Updating example apps dependency versions (this might take a while)');
 
-projectsToRun.forEach((projectPath, i) => {
+exampleAppsToRun.forEach((projectPath, i) => {
   const ngVersion = +projectPath.substring(projectPath.indexOf('-v') + 2);
 
-  logger.log(`[${i + 1}/${projectsToRun.length}] updating Angular dependencies of ${projectPath}:`);
+  logger.log(`[${i + 1}/${exampleAppsToRun.length}] updating Angular dependencies of ${projectPath}:`);
   process.chdir(projectPath);
 
   logger.log(`installing dependencies of ${projectPath}:`);
 
-  execa.sync('yarn');
+  execa.sync('npm', ['ci']);
 
-  const args = [
-    'update',
-    `@angular/cli@${ngVersion}`,
-    `@angular/core@${ngVersion}`,
-    'jest@next',
-    '@types/jest@latest',
-    'jest-preset-angular@next',
-  ];
-  if (ngVersion === 11) {
+  const args = ['update', `@angular/cli@${ngVersion}`, `@angular/core@${ngVersion}`, 'jest@next', '@types/jest@latest'];
+  if (ngVersion !== 9 && ngVersion !== 10) {
     args.push('zone.js@latest');
   }
   args.push('--force');
