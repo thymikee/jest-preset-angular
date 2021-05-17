@@ -7,7 +7,7 @@ const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'build');
 const examplesRootDir = path.join(rootDir, 'examples');
 const e2eRootDir = path.join(rootDir, 'e2e');
-const projectsToRun = glob
+const exampleAppsToRun = glob
   .sync(`${examplesRootDir}/*`)
   .filter((examplePath) => lstatSync(examplePath).isDirectory() && existsSync(path.join(examplePath, 'package.json')));
 const e2eDirsToRun = glob
@@ -17,6 +17,6 @@ const e2eDirsToRun = glob
 module.exports = {
   rootDir,
   distDir,
-  projectsToRun,
+  exampleAppsToRun,
   e2eDirsToRun,
 };

@@ -1,20 +1,17 @@
 const { join } = require('path');
 
 const execa = require('execa');
-const { mkdirSync } = require('fs');
-const { copySync, removeSync } = require('fs-extra');
 
 const logger = require('./logger');
-const { projectsToRun } = require('./paths');
+const { exampleAppsToRun, rootDir } = require('./paths');
 
 const jestArgs = process.argv.slice(3);
-const cwd = process.cwd();
+
 const executeTest = (projectPath) => {
   // we change current directory
   process.chdir(projectPath);
   // reading package.json
   const projectPkg = require(join(projectPath, 'package.json'));
-  const presetDir = join(projectPath, 'node_modules', 'jest-preset-angular');
   if (!projectPkg.name) projectPkg.name = 'unknown';
   if (!projectPkg.version) projectPkg.version = 'unknown';
 
@@ -24,20 +21,13 @@ const executeTest = (projectPath) => {
   logger.log();
 
   // then we install it in the repo
-  logger.log('ensuring all depedencies of target project are installed');
+  logger.log('ensuring all dependencies of target project are installed');
 
-  execa.sync('yarn', ['install'], { cwd: projectPath });
-  removeSync(presetDir);
-  mkdirSync(presetDir);
+  execa.sync('npm', ['ci'], { cwd: projectPath });
 
   logger.log('installing bundled version of jest-preset-angular');
 
-  copySync(join(cwd, 'jest-preset.js'), `${presetDir}/jest-preset.js`);
-  copySync(join(cwd, 'presets'), `${presetDir}/presets`);
-  copySync(join(cwd, 'ngcc-jest-processor.js'), `${presetDir}/ngcc-jest-processor.js`);
-  copySync(join(cwd, 'setup-jest.js'), `${presetDir}/setup-jest.js`);
-  copySync(join(cwd, 'package.json'), `${presetDir}/package.json`);
-  copySync(join(cwd, 'build'), `${presetDir}/build`);
+  execa.sync('npm', ['install', '--no-package-lock', '--no-shrinkwrap', '--no-save', bundlePath], { cwd: projectPath });
   // then we can run the tests
   const cmdLine = ['yarn', 'test'];
   const cmdESMLine = ['yarn', 'test-esm'];
@@ -67,10 +57,17 @@ const executeTest = (projectPath) => {
   });
 };
 
-logger.log('creating jest-preset-angular bundle');
+// This will trigger the build as well (not using yarn since yarn pack is buggy)
+const createBundle = () => {
+  logger.log('creating jest-preset-angular bundle');
 
-execa.sync('yarn', ['build']);
+  const res = execa.sync('npm', ['-s', 'pack'], { cwd: rootDir });
+  const stdOutStr = res.stdout.toString().trim();
 
-projectsToRun.forEach((projectPath) => {
+  return join(rootDir, stdOutStr.substring(stdOutStr.indexOf('jest-preset-angular')));
+};
+const bundlePath = createBundle();
+
+exampleAppsToRun.forEach((projectPath) => {
   executeTest(projectPath);
 });
