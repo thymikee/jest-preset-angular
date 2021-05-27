@@ -27,7 +27,7 @@ test(
 
     const elementToFind = fixture.debugElement.nativeElement.querySelector('p');
     expect(elementToFind).toBeDefined();
-    expect(window.getComputedStyle(elementToFind).color).toEqual('red');
+    expect(window.getComputedStyle(elementToFind).color).toEqual('');
     expect(window.getComputedStyle(elementToFind).fontSize).toEqual('');
   }),
 );
