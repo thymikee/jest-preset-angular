@@ -17,7 +17,7 @@ const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts'
  *
  * Check `@Component` to do following things:
  * - Replace `templateUrl` path with `require` for `CommonJS` or a constant with `import` for `ESM`
- * - Combine `styles` and `styleUrls` to become `styles` with empty array as value because we don't test css
+ * - Remove `styles` and `styleUrls` because we don't test css
  *
  * @example
  *
@@ -33,7 +33,6 @@ const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts'
  * @Component({
  *   selector: 'foo',
  *   templateUrl: require('./foo.component.html'),
- *   styles: [],
  * })
  *
  * or for `ESM`
@@ -42,7 +41,6 @@ const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts'
  * @Component({
  *   selector: 'foo',
  *   templateUrl: __NG_CLI_RESOURCE__0,
- *   styles: [],
  * })
  */
 export function replaceResources({ program }: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
@@ -141,7 +139,7 @@ function visitDecorator(
   // visit all properties
   let properties = ts.visitNodes(objectExpression.properties, (node) =>
     ts.isObjectLiteralElementLike(node)
-      ? visitComponentMetadata(nodeFactory, node, styleReplacements, resourceImportDeclarations, moduleKind)
+      ? visitComponentMetadata(nodeFactory, node, resourceImportDeclarations, moduleKind)
       : node,
   );
 
@@ -180,7 +178,6 @@ function visitDecorator(
 function visitComponentMetadata(
   nodeFactory: ts.NodeFactory,
   node: ts.ObjectLiteralElementLike,
-  styleReplacements: ts.Expression[],
   resourceImportDeclarations: ts.ImportDeclaration[],
   moduleKind?: ts.ModuleKind,
 ): ts.ObjectLiteralElementLike | undefined {
@@ -208,38 +205,6 @@ function visitComponentMetadata(
         : ts.updatePropertyAssignment(node, ts.createIdentifier(TEMPLATE), importName);
 
     case STYLES:
-      if (!ts.isArrayLiteralExpression(node.initializer)) {
-        return node;
-      }
-      const isInlineStyles = name === STYLES;
-      // @ts-expect-error should be fine
-      const styles = ts.visitNodes(node.initializer.elements, (node) => {
-        if (!ts.isStringLiteral(node) && !ts.isNoSubstitutionTemplateLiteral(node)) {
-          return node;
-        }
-
-        let url;
-        if (isInlineStyles) {
-          return useNodeFactory ? nodeFactory.createStringLiteral(node.text) : ts.createLiteral(node.text);
-        } else {
-          url = getResourceUrl(node);
-        }
-
-        if (!url) {
-          return node;
-        }
-
-        return createResourceImport(nodeFactory, url, resourceImportDeclarations, moduleKind);
-      });
-
-      // Styles should be placed first
-      if (isInlineStyles) {
-        styleReplacements.unshift(...styles);
-      } else {
-        styleReplacements.push(...styles);
-      }
-
-      return undefined;
     case STYLE_URLS:
       if (!ts.isArrayLiteralExpression(node.initializer)) {
         return node;
@@ -251,7 +216,7 @@ function visitComponentMetadata(
   }
 }
 
-export function getResourceUrl(node: ts.Node): string | null {
+function getResourceUrl(node: ts.Node): string | null {
   // only analyze strings
   if (!ts.isStringLiteral(node) && !ts.isNoSubstitutionTemplateLiteral(node)) {
     return null;
