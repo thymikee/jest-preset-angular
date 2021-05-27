@@ -42,13 +42,13 @@ copy the original options and override the options you need:
 
 ```js
 // jest.config.js
-const { defaults: tsjPreset } = require('jest-preset-angular');
+const { defaults: jestNgPreset } = require('jest-preset-angular');
 
 module.exports = {
   // [...]
   globals: {
     'ts-jest': {
-      ...tsjPreset.globals['ts-jest'],
+      ...jestNgPreset.globals['ts-jest'],
       // [...your overriden options]
     },
   },
