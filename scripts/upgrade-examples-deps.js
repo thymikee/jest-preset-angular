@@ -15,7 +15,13 @@ exampleAppsToRun.forEach((projectPath, i) => {
 
   execa.sync('npm', ['ci']);
 
-  const args = ['update', `@angular/cli@${ngVersion}`, `@angular/core@${ngVersion}`, 'jest@next', '@types/jest@latest'];
+  const args = [
+    'update',
+    `@angular/cli@${ngVersion}`,
+    `@angular/core@${ngVersion}`,
+    'jest@latest',
+    '@types/jest@latest',
+  ];
   if (ngVersion !== 9 && ngVersion !== 10) {
     args.push('zone.js@latest');
   }
