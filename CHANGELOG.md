@@ -1,11 +1,109 @@
+# [9.0.0](https://github.com/thymikee/jest-preset-angular/compare/v8.4.0...v9.0.0) (2021-05-27)
+
+
+### Bug Fixes
+
+* support all node versions >= **12.13.0** ([#923](https://github.com/thymikee/jest-preset-angular/issues/923)) ([96782a6](https://github.com/thymikee/jest-preset-angular/commit/96782a652821864576aa1cb96e57a39187172dd4)), closes [#920](https://github.com/thymikee/jest-preset-angular/issues/920)
+* **presets:** remove `moduleNameMapper` config ([#910](https://github.com/thymikee/jest-preset-angular/issues/910)) ([df482bc](https://github.com/thymikee/jest-preset-angular/commit/df482bcb4c99b441f2fef8def04d10b8a1188deb)), closes [#908](https://github.com/thymikee/jest-preset-angular/issues/908)
+
+
+### Features
+
+* support **Jest 27** ([#926](https://github.com/thymikee/jest-preset-angular/issues/926)) ([1c761f8](https://github.com/thymikee/jest-preset-angular/commit/1c761f873686a96edeb4c3cb2f184d8a88f5f52a))
+* **config:** load zone ESM when running jest in ESM mode ([#892](https://github.com/thymikee/jest-preset-angular/issues/892)) ([e03ec19](https://github.com/thymikee/jest-preset-angular/commit/e03ec19c30b6ff257d0ddd7a8783d65ed5f43f8e)), closes [#751](https://github.com/thymikee/jest-preset-angular/issues/751)
+* add `exports` field to `package.json`, see https://nodejs.org/api/packages.html#packages_package_entry_points
+* **presets:** add type definition for `presets` entry point ([#801](https://github.com/thymikee/jest-preset-angular/issues/801)) ([e4ff0c0](https://github.com/thymikee/jest-preset-angular/commit/e4ff0c0e19e5941e7e7db1da9b5c29e01d58ab58))
+* **compiler:** support ESM ([#721](https://github.com/thymikee/jest-preset-angular/issues/721)) ([a2166f8](https://github.com/thymikee/jest-preset-angular/commit/a2166f859b1c89340ee889520595d05fa3cf65dc))
+* **presets:** add ESM preset ([#723](https://github.com/thymikee/jest-preset-angular/issues/723)) ([b0073b0](https://github.com/thymikee/jest-preset-angular/commit/b0073b0f3a7e24f06d136367a1c2e676ac76e59e))
+* **compiler:** use `replace-resources` AST transformer from Angular ([#708](https://github.com/thymikee/jest-preset-angular/issues/708)) ([1b20c19](https://github.com/thymikee/jest-preset-angular/commit/1b20c196586487a119f7e5e545c2a7fcfe6359fb))
+* **compiler:** use `downlevel-ctor` AST transformer from Angular ([#730](https://github.com/thymikee/jest-preset-angular/issues/730)) ([1f964c3](https://github.com/thymikee/jest-preset-angular/commit/c1242868557a95d79a7bb5a108153496e1f964c3))
+
+
+### Performance Improvements
+
+* **compiler:** reuse `cacheFS` from jest to reduce file system reading ([#679](https://github.com/thymikee/jest-preset-angular/issues/679)) ([f5d9d4b](https://github.com/thymikee/jest-preset-angular/commit/f5d9d4b9c0b5440ab14ddb4a636ea84d384e3408))
+* **config:** set `skipLibCheck: true` if not defined in tsconfig ([#678](https://github.com/thymikee/jest-preset-angular/issues/678)) ([0df3ce1](https://github.com/thymikee/jest-preset-angular/commit/0df3ce159c6778893dc08e35bdb99d0f3e0285b5))
+
+
+## BREAKING CHANGES
+
+* Drop support for Angular < **8.0**, see https://angular.io/guide/releases#support-policy-and-schedule. 
+* Drop support for Node.js version **10** since it becomes EOL on **2021-04-30**. Required Node version now is **>=12.13.0**.
+* Require **Jest 27**.
+* When generating a new project from Angular CLI, by default the `tsconfig.json` doesn't contain any path mappings 
+  hence removing `moduleNameMapper` from preset will make sure that the preset works in pair with `tsconfig.json`. 
+  Ones who are relying on the value of `moduleNameMapper` from the preset should create their own `moduleNameMapper` 
+  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
+* By default, if `skipLibCheck` is not defined in tsconfig, `jest-preset-angular` will set it to `true`. If one wants to have it as `false`, one can set explicitly in tsconfig.
+* **compiler:** `jest-preset-angular` now switches to default to use its own transformer which wraps around `ts-jest` to transform codes.
+
+Users who are currently doing in jest config
+```
+// jest.config.js
+module.exports = {
+    // [...]
+    transform: {
+      '^.+\\.(ts|js|html)$': 'ts-jest',
+    },
+}
+```
+
+should change to
+```
+// jest.config.js
+module.exports = {
+    // [...]
+    transform: {
+      '^.+\\.(ts|js|html)$': 'jest-preset-angular',
+    },
+}
+```
+* Users who are using `import 'jest-preset-angular'` should change to `import 'jest-preset-angular/setup-jest'`
+* **transformers:** The AST transformers `InlineFilesTransformer` and `StripStylesTransformer` are **REMOVED** and 
+  default `jest-preset-angular` uses AST transformers from `@angular/compiler-cli` and `@ngtools/webpack`.
+  One should remove the old transformers from the jest config.
+* **serializers:** One is using all `jest-preset-angular` snapshot serializers should change jest config to have:
+```
+// jest.config.js
+const jestPresetAngularSerializers = require('jest-preset-angular/build/serializers')
+
+module.exports = {
+     // [...]
+     snapshotSerializers: jestPresetAngularSerializers,
+}
+```
+
+One is using one of `jest-preset-angular` snapshot serializers should change jest config to have:
+```
+// jest.config.js
+module.exports = {
+     // [...]
+     snapshotSerializers: [
+          'jest-preset-angular/build/serializers/html-comment'
+     ]
+}
+```
+or
+```
+// package.json
+{
+      // [...]
+     "jest": {
+           snapshotSerializers: [
+                "jest-preset-angular/build/serializers/html-comment"
+           ]
+      }
+}
+```
+
+
+
 # [9.0.0-next.14](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.13...v9.0.0-next.14) (2021-05-05)
 
 
 ### Bug Fixes
 
-* remove warning message when installing `jest-preset-angular` for end users ([#911](https://github.com/thymikee/jest-preset-angular/issues/911)) ([7b7f5ba](https://github.com/thymikee/jest-preset-angular/commit/7b7f5bab63c295a01bc3bbd63ef8d58a847a1b17))
 * **presets:** remove `moduleNameMapper` config ([#910](https://github.com/thymikee/jest-preset-angular/issues/910)) ([df482bc](https://github.com/thymikee/jest-preset-angular/commit/df482bcb4c99b441f2fef8def04d10b8a1188deb)), closes [#908](https://github.com/thymikee/jest-preset-angular/issues/908)
-* **transformers:** revert [#903](https://github.com/thymikee/jest-preset-angular/issues/903) as some file extensions are not processed with their original content ([aebc186](https://github.com/thymikee/jest-preset-angular/commit/aebc186b7a8d7682a76aaa281f3c77ff51ae7475))
 
 
 ## BREAKING CHANGES
@@ -19,47 +117,10 @@ Ones who are relying on the value of `moduleNameMapper` from the preset should c
 # [9.0.0-next.13](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.12...v9.0.0-next.13) (2021-04-18)
 
 
-### Features
-
-* allow css testing with `@Component` property `styles` ([#900](https://github.com/thymikee/jest-preset-angular/issues/900)) ([7cf86e0](https://github.com/thymikee/jest-preset-angular/commit/7cf86e006495c6b9f12f6eb274effc4f03ba97c5))
-* allow css testing with `@Component` property `styleUrls` ([#903](https://github.com/thymikee/jest-preset-angular/issues/903)) ([c275166](https://github.com/thymikee/jest-preset-angular/commit/c275166191e3e66be9bb1adc972a75c58650b32e))
-
-
 ### BREAKING CHANGES
 
 * Drop support for Node.js version 10 since it becomes EOL on **2021-04-30**. To support Angular 12, Node.js **12.13+** or **14.15+** is required.
-* `jest-preset-angular` now allows testing with all Angular supported style extensions. 
-  
-Users who are specifying in jest config
-```
-module.exports = {
-     globals: {
-          'ts-jest': {
-              tsconfig: '<rootDir>/tsconfig.spec.json',
-              stringifyContentPathRegex: '\\.html$',
-          },
-     },
-     transform: {
-          '^.+\\.(ts|js|html)$': 'jest-preset-angular',
-     },
-}
-```
 
-should change to
-
-```
-module.exports = {
-     globals: {
-          'ts-jest': {
-              tsconfig: '<rootDir>/tsconfig.spec.json',
-              stringifyContentPathRegex: '\\.(html|css|sass|scss|less|styl)$',
-          },
-     },
-     transform: {
-          '^.+\\.(ts|js|html|css|sass|scss|less|styl)$': 'jest-preset-angular',
-     },
-}
-```
 
 
 # [9.0.0-next.12](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.11...v9.0.0-next.12) (2021-03-31)
@@ -70,11 +131,6 @@ module.exports = {
 * define export path for `jest-preset` ([#896](https://github.com/thymikee/jest-preset-angular/issues/896)) ([218b217](https://github.com/thymikee/jest-preset-angular/commit/218b217c02d053ab98f476f26f716e95d407ac5c))
 
 
-### Features
-
-* support jest **27.0.0-next.6** ([#897](https://github.com/thymikee/jest-preset-angular/issues/897)) ([eff3052](https://github.com/thymikee/jest-preset-angular/commit/eff30529995e97daadbdfa04de8f41cb0ff76a8f))
-
-
 
 # [9.0.0-next.11](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.10...v9.0.0-next.11) (2021-03-21)
 
@@ -82,21 +138,11 @@ module.exports = {
 ### Features
 
 * **config:** load zone ESM when running jest in ESM mode ([#892](https://github.com/thymikee/jest-preset-angular/issues/892)) ([e03ec19](https://github.com/thymikee/jest-preset-angular/commit/e03ec19c30b6ff257d0ddd7a8783d65ed5f43f8e)), closes [#751](https://github.com/thymikee/jest-preset-angular/issues/751)
-* support jest **27.0.0-next.5** ([#891](https://github.com/thymikee/jest-preset-angular/issues/891)) ([7a6cb0a](https://github.com/thymikee/jest-preset-angular/commit/7a6cb0af3dbc7b98b48f6759a5c4d299791cd957))
 
 
 ### BREAKING CHANGES
 
 * add `exports` field to `package.json`, see https://nodejs.org/api/packages.html#packages_package_entry_points
-
-
-
-# [9.0.0-next.10](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.9...v9.0.0-next.10) (2021-03-11)
-
-
-### Features
-
-* adopt jest **27.0.0-next.4** ([#876](https://github.com/thymikee/jest-preset-angular/issues/876)) ([603b8ab](https://github.com/thymikee/jest-preset-angular/commit/603b8ab84b4d6345416a78810f409dc1c2d47f09))
 
 
 
@@ -117,15 +163,6 @@ module.exports = {
 
 
 
-# [9.0.0-next.9](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.8...v9.0.0-next.9) (2021-02-26)
-
-
-### Features
-
-* adopt `ts-jest@27.0.0-next.7` ([#843](https://github.com/thymikee/jest-preset-angular/issues/843)) ([1b9ef29](https://github.com/thymikee/jest-preset-angular/commit/1b9ef296e9c2e67277994dfc0da3b6a7a53f716b))
-
-
-
 # [9.0.0-next.8](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.7...v9.0.0-next.8) (2021-02-12)
 
 
@@ -133,22 +170,6 @@ module.exports = {
 
 * **compiler:** use constructor downlevel ctor transformer for `isolatedModules: true` ([#792](https://github.com/thymikee/jest-preset-angular/issues/792)) ([00c71ce](https://github.com/thymikee/jest-preset-angular/commit/00c71ceaa06e58432d201d9d5f8deb33e8f54665))
 * **presets:** add type definition for `presets` entry point ([#801](https://github.com/thymikee/jest-preset-angular/issues/801)) ([e4ff0c0](https://github.com/thymikee/jest-preset-angular/commit/e4ff0c0e19e5941e7e7db1da9b5c29e01d58ab58))
-* include features from `ts-jest` **27.0.0-next.6**
-* Revert the usage of Angular compiler and use `ts-jest` to transform codes for `isolatedModules: false` ([#800](https://github.com/thymikee/jest-preset-angular/pull/800)) ([e4c9677](https://github.com/thymikee/jest-preset-angular/commit/a9ad3efbee508b59a7fc450ec39099567e4c9677)), closes [#757](https://github.com/thymikee/jest-preset-angular/issues/757)
-
-
-
-# [9.0.0-next.7](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.6...v9.0.0-next.7) (2021-01-29)
-
-
-### Bug Fixes
-
-* **compiler:** update `SourceFile` with correct file content ([#765](https://github.com/thymikee/jest-preset-angular/issues/765)) ([c54e20a](https://github.com/thymikee/jest-preset-angular/commit/c54e20ab7ae9b7b08af827587dc30fd281291ecc)), closes [#764](https://github.com/thymikee/jest-preset-angular/issues/764)
-
-
-### Features
-
-* include features from `ts-jest` [27.0.0-next.4](https://github.com/kulshekhar/ts-jest/blob/master/CHANGELOG.md#2700-next4-2021-01-22)
 
 
 
@@ -184,17 +205,6 @@ module.exports = {
 # [9.0.0-next.4](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.4) (2020-12-18)
 
 
-### Build System
-
-* **devs-infra:** build package with target `es2015` ([#620](https://github.com/thymikee/jest-preset-angular/issues/620)) ([779fd8c](https://github.com/thymikee/jest-preset-angular/commit/779fd8c2f878d21587e24eda4121dc73166dfa53))
-
-
-### Features
-
-* support Jest 27 ([#676](https://github.com/thymikee/jest-preset-angular/issues/676)) ([1a6b10e](https://github.com/thymikee/jest-preset-angular/commit/1a6b10ef66c266a7736f2ef4aed178db836d0c6c))
-* **utils:** improve `ngcc-jest-processor` util script to exclude some Jest args ([#662](https://github.com/thymikee/jest-preset-angular/issues/662)) ([cf1bb4c](https://github.com/thymikee/jest-preset-angular/commit/cf1bb4c36e1e68804658da02c6ca3a2bd783a6e2))
-
-
 ### Performance Improvements
 
 * **compiler:** reuse `cacheFS` from jest to reduce file system reading ([#679](https://github.com/thymikee/jest-preset-angular/issues/679)) ([f5d9d4b](https://github.com/thymikee/jest-preset-angular/commit/f5d9d4b9c0b5440ab14ddb4a636ea84d384e3408))
@@ -204,49 +214,16 @@ module.exports = {
 ### BREAKING CHANGES
 
 * By default, if `skipLibCheck` is not defined in tsconfig, `jest-preset-angular` will set it to `true`. If one wants to have it as `false`, one can set explicitly in tsconfig.
-* `jest-preset-angular` no longer ships with `es5` build but now with `es2015`
 * Require Jest 27
-
-
-
-# [9.0.0-next.3](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.3) (2020-11-17)
-
-
-### Bug Fixes
-
-* **compiler:** fallback to ES2015 when no target is defined ([d8c4975](https://github.com/thymikee/jest-preset-angular/commit/d8c497515ac981d8903d9c37190be39bde60ca51)), closes [#622](https://github.com/thymikee/jest-preset-angular/issues/622)
-* add `@ngtools/webpack` to peerDependencies list ([003527d](https://github.com/thymikee/jest-preset-angular/commit/003527d5329461e3b9a5c17404d0b64553192234)), closes [#622](https://github.com/thymikee/jest-preset-angular/issues/622)
-
-
-### Features
-
-* **compiler:** provide ngcc-jest-processor util ([5c6ae01](https://github.com/thymikee/jest-preset-angular/commit/5c6ae01a0ee665879b32b6b4a75270fc1acdb1db))
-
-
-
-
-# [9.0.0-next.2](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.2) (2020-11-08)
-
-
-### Performance Improvements
-
-* **compiler:** cache module resolution with custom compiler host ([22941cc](https://github.com/thymikee/jest-preset-angular/commit/22941ccf2a1fbf8e0c9893670ce6b9056be66534))
-* **compiler:** only include none test files when initializing `Program` ([4cc5a1a](https://github.com/thymikee/jest-preset-angular/commit/4cc5a1a7578d45801f7437f9816b11c4d92dfeca))
-
 
 
 
 # [9.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0-next.0...v9.0.0-next.1) (2020-10-29)
 
 
-### Features
-
-* **compiler:** introduce `NgJestCompiler` for code compilation ([02d272e](https://github.com/thymikee/jest-preset-angular/commit/02d272eb9ec4b14dbf1d2d620266750e1873abe6)), closes [#108](https://github.com/thymikee/jest-preset-angular/issues/108) [#288](https://github.com/thymikee/jest-preset-angular/issues/288) [#322](https://github.com/thymikee/jest-preset-angular/issues/322) [#353](https://github.com/thymikee/jest-preset-angular/issues/353)
-
-
 ### BREAKING CHANGES
 
-* **compiler:** With the new jest transformer, `jest-preset-angular` now switches to default to use this new transformer and no longer use `ts-jest` to transform codes.
+* **compiler:** `jest-preset-angular` now switches to default to use its own transformer which wraps around `ts-jest` to transform codes.
 
 Users who are currently doing in jest config
 ```
@@ -269,8 +246,6 @@ module.exports = {
     },
 }
 ```
-
-`isolatedModule: true` will still use `ts-jest` to compile `ts` to `js` but you won't get full compatibility with Ivy.
 
 
 
