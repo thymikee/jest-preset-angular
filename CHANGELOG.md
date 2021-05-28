@@ -73,7 +73,18 @@ module.exports = {
 * When generating a new project from Angular CLI, by default the `tsconfig.json` doesn't contain any path mappings
   hence removing `moduleNameMapper` from preset will make sure that the preset works in pair with `tsconfig.json`.
   Ones who are relying on the value of `moduleNameMapper` from the preset should create their own `moduleNameMapper`
-  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
+  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping. 
+
+If you wish to reuse the old configuration of `moduleNameMapper`, you can put this into your Jest config
+```
+moduleNameMapper: {
+  '^src/(.*)$': '<rootDir>/src/$1',
+  '^app/(.*)$': '<rootDir>/src/app/$1',
+  '^assets/(.*)$': '<rootDir>/src/assets/$1',
+  '^environments/(.*)$': '<rootDir>/src/environments/$1',
+}
+```
+
 * By default, if `skipLibCheck` is not defined in tsconfig, `jest-preset-angular` will set it to `true`. If one wants to have it as `false`, one can set explicitly in tsconfig.
 * **compiler:** `jest-preset-angular` now switches to default to use its own transformer which wraps around `ts-jest` to transform codes.
 
