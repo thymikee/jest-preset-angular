@@ -8,6 +8,22 @@ in the `package.json` file of your project, or through a `jest.config.js`, or `j
 
 More information about `ts-jest` options, see https://kulshekhar.github.io/ts-jest/docs/next/getting-started/options
 
+:::important
+
+Since **9.0.0**, `jest-preset-angular` default Jest configuration no longer provides `moduleNameMapper`. If you wish to reuse
+the old `moduleNameMapper` configuration, you can put this into your Jest config
+
+```
+moduleNameMapper: {
+  '^src/(.*)$': '<rootDir>/src/$1',
+  '^app/(.*)$': '<rootDir>/src/app/$1',
+  '^assets/(.*)$': '<rootDir>/src/assets/$1',
+  '^environments/(.*)$': '<rootDir>/src/environments/$1',
+}
+```
+
+:::
+
 ### Exposed configuration
 
 ```js
