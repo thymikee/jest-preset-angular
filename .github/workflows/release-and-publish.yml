@@ -54,31 +54,3 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: ${{ needs.setup_variables.outputs.isLatest != 'true' }}
-
-  publish_to_npm:
-    needs: [setup_variables, create_release]
-    runs-on: ubuntu-latest
-
-    steps:
-      # https://github.com/marketplace/actions/checkout
-      - uses: actions/checkout@v2
-      # https://github.com/marketplace/actions/setup-node-js-environment
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - name: Check lock file
-        # runs yarn install using yarn.lock and verifies
-        # if dependencies are matching with package.json or not
-        run: yarn
-        # This will tell npm to publish your scoped package with public access
-      - name: Publish with latest tag
-        if: ${{ needs.setup_variables.outputs.isLatest == 'true' }}
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - name: Publish with next tag
-        if: ${{ needs.setup_variables.outputs.isLatest != 'true' }}
-        run: npm publish --access public --tag next
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

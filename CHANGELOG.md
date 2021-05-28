@@ -1,3 +1,12 @@
+## [9.0.1](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0...v9.0.1) (2021-05-28)
+
+
+### Bug Fixes
+
+* add missing export `build` in `package.json` ([#936](https://github.com/thymikee/jest-preset-angular/issues/936)) ([b035581](https://github.com/thymikee/jest-preset-angular/commit/b0355814b490758dcdf8a5708524c63d94618014)), closes [#935](https://github.com/thymikee/jest-preset-angular/issues/935)
+
+
+
 # [9.0.0](https://github.com/thymikee/jest-preset-angular/compare/v8.4.0...v9.0.0) (2021-05-27)
 
 
@@ -27,14 +36,13 @@
 
 ## BREAKING CHANGES
 
-* Drop support for Angular < **8.0**, see https://angular.io/guide/releases#support-policy-and-schedule. 
+* Drop support for Angular < **8.0**, see https://angular.io/guide/releases#support-policy-and-schedule.
 * Drop support for Node.js version **10** since it becomes EOL on **2021-04-30**. Required Node version now is **>=12.13.0**.
 * Require **Jest 27**.
-* When generating a new project from Angular CLI, by default the `tsconfig.json` doesn't contain any path mappings 
-  hence removing `moduleNameMapper` from preset will make sure that the preset works in pair with `tsconfig.json`. 
-  Ones who are relying on the value of `moduleNameMapper` from the preset should create their own `moduleNameMapper` 
-  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
-* By default, if `skipLibCheck` is not defined in tsconfig, `jest-preset-angular` will set it to `true`. If one wants to have it as `false`, one can set explicitly in tsconfig.
+* Users who are using `import 'jest-preset-angular'` should change to `import 'jest-preset-angular/setup-jest'`
+* **transformers:** The AST transformers `InlineFilesTransformer` and `StripStylesTransformer` are **REMOVED** and
+  default `jest-preset-angular` uses AST transformers from `@angular/compiler-cli` and `@ngtools/webpack`.
+  One should remove the old transformers from the jest config.
 * **compiler:** `jest-preset-angular` now switches to default to use its own transformer which wraps around `ts-jest` to transform codes.
 
 Users who are currently doing in jest config
@@ -58,41 +66,36 @@ module.exports = {
     },
 }
 ```
-* Users who are using `import 'jest-preset-angular'` should change to `import 'jest-preset-angular/setup-jest'`
-* **transformers:** The AST transformers `InlineFilesTransformer` and `StripStylesTransformer` are **REMOVED** and 
-  default `jest-preset-angular` uses AST transformers from `@angular/compiler-cli` and `@ngtools/webpack`.
-  One should remove the old transformers from the jest config.
-* **serializers:** One is using all `jest-preset-angular` snapshot serializers should change jest config to have:
-```
-// jest.config.js
-const jestPresetAngularSerializers = require('jest-preset-angular/build/serializers')
+* **serializers:**: snapshot serializer paths have been changed:
+   - `'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js'` is changed to `'jest-preset-angular/build/serializers/no-ng-attributes`.
+   - `'jest-preset-angular/build/AngularSnapshotSerializer.js'` is changed to `'jest-preset-angular/build/serializers/ng-snapshot`.
+   - `'jest-preset-angular/build/HTMLCommentSerializer.js'` is changed to `'jest-preset-angular/build/serializers/html-comment`.
+* When generating a new project from Angular CLI, by default the `tsconfig.json` doesn't contain any path mappings
+  hence removing `moduleNameMapper` from preset will make sure that the preset works in pair with `tsconfig.json`.
+  Ones who are relying on the value of `moduleNameMapper` from the preset should create their own `moduleNameMapper`
+  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping
+* By default, if `skipLibCheck` is not defined in tsconfig, `jest-preset-angular` will set it to `true`. If one wants to have it as `false`, one can set explicitly in tsconfig.
+* **compiler:** `jest-preset-angular` now switches to default to use its own transformer which wraps around `ts-jest` to transform codes.
 
-module.exports = {
-     // [...]
-     snapshotSerializers: jestPresetAngularSerializers,
-}
-```
-
-One is using one of `jest-preset-angular` snapshot serializers should change jest config to have:
+Users who are currently doing in jest config
 ```
 // jest.config.js
 module.exports = {
-     // [...]
-     snapshotSerializers: [
-          'jest-preset-angular/build/serializers/html-comment'
-     ]
+    // [...]
+    transform: {
+      '^.+\\.(ts|js|html)$': 'ts-jest',
+    },
 }
 ```
-or
+
+should change to
 ```
-// package.json
-{
-      // [...]
-     "jest": {
-           snapshotSerializers: [
-                "jest-preset-angular/build/serializers/html-comment"
-           ]
-      }
+// jest.config.js
+module.exports = {
+    // [...]
+    transform: {
+      '^.+\\.(ts|js|html)$': 'jest-preset-angular',
+    },
 }
 ```
 
