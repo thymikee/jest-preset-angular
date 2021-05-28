@@ -1,4 +1,5 @@
 require('jest-preset-angular/ngcc-jest-processor');
+const snapshotSerializers = require('jest-preset-angular/build/serializers/index');
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
@@ -9,5 +10,6 @@ module.exports = {
       stringifyContentPathRegex: '\\.html$',
     },
   },
+  snapshotSerializers,
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };
