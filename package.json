@@ -5,7 +5,8 @@
   "license": "MIT",
   "main": "build/index.js",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./build/index.js",
+    "./build/*": "./build/*.js",
     "./presets": "./presets/index.js",
     "./jest-preset": "./jest-preset.js",
     "./setup-jest": "./setup-jest.js",
