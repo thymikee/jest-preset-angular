@@ -36,7 +36,7 @@
 
 ## BREAKING CHANGES
 
-* Drop support for Angular < **8.0**, see https://angular.io/guide/releases#support-policy-and-schedule.
+* Drop support for Angular < **9.0**, see https://angular.io/guide/releases#support-policy-and-schedule.
 * Drop support for Node.js version **10** since it becomes EOL on **2021-04-30**. Required Node version now is **>=12.13.0**.
 * Require **Jest 27**.
 * Users who are using `import 'jest-preset-angular'` should change to `import 'jest-preset-angular/setup-jest'`
