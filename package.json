@@ -40,7 +40,7 @@
     "lint:fix": "eslint --fix --ext .js,.ts .",
     "lint:prettier": "prettier '**/*.{yml,yaml}' 'website/**/*.{css,js,md}' 'README.md' --write --ignore-path .gitignore",
     "lint:prettier-ci": "prettier '**/*.{yml,yaml}' 'website/**/*.{css,js,md}' 'README.md' --check --ignore-path .gitignore",
-    "test": "node scripts/prepare-e2e.js && jest",
+    "test": "jest",
     "test:examples": "node scripts/test-examples.js",
     "doc": "cd website && yarn start",
     "doc:build": "cd website && yarn build",

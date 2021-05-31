@@ -1,5 +1,13 @@
+import path from 'path';
+
 import runJest from '../run-jest';
-import { onNodeVersions } from '../utils';
+import { onNodeVersions, runYarnInstall } from '../utils';
+
+const dir = path.resolve(__dirname, '../custom-typings');
+
+beforeEach(() => {
+  runYarnInstall(dir);
+});
 
 test('support custom typings', () => {
   const result = runJest('custom-typings');
