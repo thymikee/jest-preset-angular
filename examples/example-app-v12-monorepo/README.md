@@ -1,6 +1,18 @@
-# ExampleAppV12Monorepo
+# Example
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+This is an example app using `jest-preset-angular`. It is not supposed to be a boilerplate for an Angular app tested with jest, but could be used as a rough reference for configuration.
+
+The jest configuration itself is located in the `projects/<appName>/jest.config.js`.
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
+
+## Running unit tests
+
+Run `yarn test` or `npm test` to execute the unit tests via [Jest](https://jestjs.io).
+
+## Running end-to-end tests
+
+End-to-end are not setup in this project.
 
 ## Development server
 
@@ -12,15 +24,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Further help
 
