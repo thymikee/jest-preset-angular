@@ -1,0 +1,36 @@
+{
+  "name": "example-app-v12-monorepo",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "jest -c=projects/app1/jest.config.js",
+    "test-esm": "NODE_OPTIONS=--experimental-vm-modules jest -c=projects/app1/jest-esm.config.js"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~12.0.2",
+    "@angular/common": "~12.0.2",
+    "@angular/compiler": "~12.0.2",
+    "@angular/core": "~12.0.2",
+    "@angular/forms": "~12.0.2",
+    "@angular/platform-browser": "~12.0.2",
+    "@angular/platform-browser-dynamic": "~12.0.2",
+    "@angular/router": "~12.0.2",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.1.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~12.0.2",
+    "@angular/cli": "~12.0.2",
+    "@angular/compiler-cli": "~12.0.2",
+    "@types/jasmine": "~3.6.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^12.11.1",
+    "jest": "^27.0.0",
+    "typescript": "~4.2.3"
+  }
+}
