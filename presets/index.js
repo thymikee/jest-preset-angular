@@ -27,7 +27,7 @@ module.exports = {
       },
     },
     moduleNameMapper: {
-      tslib: '<rootDir>/node_modules/tslib/tslib.es6.js',
+      tslib: 'tslib/tslib.es6.js',
     },
     transformIgnorePatterns: ['node_modules/(?!tslib)'],
   },
