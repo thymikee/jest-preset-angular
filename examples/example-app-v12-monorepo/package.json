@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest -c=projects/app1/jest.config.js",
-    "test-esm": "NODE_OPTIONS=--experimental-vm-modules jest -c=projects/app1/jest-esm.config.js"
+    "test-esm": "node --experimental-vm-modules node_modules/jest/bin/jest.js -c=projects/app1/jest-esm.config.js"
   },
   "private": true,
   "dependencies": {
