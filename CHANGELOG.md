@@ -1,3 +1,13 @@
+## [9.0.2](https://github.com/thymikee/jest-preset-angular/compare/v9.0.1...v9.0.2) (2021-06-06)
+
+
+### Bug Fixes
+
+* allow ESM preset to be used in monorepo structure ([#942](https://github.com/thymikee/jest-preset-angular/issues/942)) ([b402e28](https://github.com/thymikee/jest-preset-angular/commit/b402e2882477d61f8b91cfe39ee5da3b7e1d4381))
+* revert `exports` in `package.json` ([#948](https://github.com/thymikee/jest-preset-angular/issues/948)) ([928e08b](https://github.com/thymikee/jest-preset-angular/commit/928e08bd2077bde98c613e9f47c924a95bec84e7)), closes [/github.com/thymikee/jest-preset-angular/issues/941#issuecomment-854580348](https://github.com//github.com/thymikee/jest-preset-angular/issues/941/issues/issuecomment-854580348)
+
+
+
 ## [9.0.1](https://github.com/thymikee/jest-preset-angular/compare/v9.0.0...v9.0.1) (2021-05-28)
 
 
