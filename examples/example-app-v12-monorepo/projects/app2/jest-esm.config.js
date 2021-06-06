@@ -2,7 +2,7 @@ require('jest-preset-angular/ngcc-jest-processor');
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  displayName: 'app1',
+  displayName: 'app2',
   preset: 'jest-preset-angular/presets/defaults-esm',
   globals: {
     'ts-jest': {

@@ -6,7 +6,7 @@ const logger = require('./logger');
 logger.log('Updating example apps dependency versions (this might take a while)');
 
 exampleAppsToRun.forEach((projectPath, i) => {
-  const ngVersion = +projectPath.substring(projectPath.indexOf('-v') + 2);
+  const ngVersion = +require(path.join(projectPath, 'package.json')).version.split('.')[0];
 
   logger.log(`[${i + 1}/${exampleAppsToRun.length}] updating Angular dependencies of ${projectPath}:`);
   process.chdir(projectPath);
