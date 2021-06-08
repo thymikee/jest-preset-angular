@@ -1,3 +1,12 @@
+## [9.0.3](https://github.com/thymikee/jest-preset-angular/compare/v9.0.2...v9.0.3) (2021-06-08)
+
+
+### Bug Fixes
+
+* add missing `@angular/platform-browser-dynamic` to peer dep ([c1729e4](https://github.com/thymikee/jest-preset-angular/commit/c1729e4c265499ef8cb470e88476410413c25c14))
+
+
+
 ## [9.0.2](https://github.com/thymikee/jest-preset-angular/compare/v9.0.1...v9.0.2) (2021-06-06)
 
 
