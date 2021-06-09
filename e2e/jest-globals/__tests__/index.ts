@@ -34,9 +34,10 @@ describe('@jest/globals should work', () => {
     expect(bar).toBe(2);
   });
 
-  (test.each`
-    foo  | bar
-    ${1} | ${2}
+  (
+    test.each`
+      foo  | bar
+      ${1} | ${2}
   ` as any)( // eslint-disable-line
     'it.each should work with table as a tagged template literal with done',
     ({ foo, bar }: any, done: () => void) => { // eslint-disable-line

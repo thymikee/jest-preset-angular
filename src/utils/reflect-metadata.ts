@@ -22,15 +22,13 @@ const metadataValueStore = new WeakMap<Record<string, unknown>, unknown>();
 // let's not blindly override, maybe there is already a reflect lib in use
 // but just overriding one of the two functions does not serve any purpose
 if (!reflect.metadata && !reflect.getOwnMetadata) {
-  reflect.metadata = (metadataKey: string, metadataValue: unknown) => (
-    target: Record<string, unknown>,
-    key: string | undefined,
-  ) => {
-    if (metadataKey === METADATA_KEY_PARAMTYPES && key === undefined) {
-      // key undefined is ctor
-      metadataValueStore.set(target, metadataValue);
-    }
-  };
+  reflect.metadata =
+    (metadataKey: string, metadataValue: unknown) => (target: Record<string, unknown>, key: string | undefined) => {
+      if (metadataKey === METADATA_KEY_PARAMTYPES && key === undefined) {
+        // key undefined is ctor
+        metadataValueStore.set(target, metadataValue);
+      }
+    };
   reflect.getOwnMetadata = (metadata: unknown, target: Record<string, unknown>, key: string | undefined) => {
     if (metadata === METADATA_KEY_PARAMTYPES && key === undefined && metadataValueStore.has(target)) {
       // key undefined is ctor
