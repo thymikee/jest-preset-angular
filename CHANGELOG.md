@@ -1,3 +1,12 @@
+## [9.0.4](https://github.com/thymikee/jest-preset-angular/compare/v9.0.3...v9.0.4) (2021-06-15)
+
+
+### Bug Fixes
+
+* widen range for optional webpack dependency ([#955](https://github.com/thymikee/jest-preset-angular/issues/955)) ([b3e8047](https://github.com/thymikee/jest-preset-angular/commit/b3e80475e8e90e4a7ff998c685849d44a1876056))
+
+
+
 ## [9.0.3](https://github.com/thymikee/jest-preset-angular/compare/v9.0.2...v9.0.3) (2021-06-08)
 
 
