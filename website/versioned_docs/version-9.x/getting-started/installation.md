@@ -81,7 +81,34 @@ import './jest-global-mocks';
 
 :::tip
 
-Feel free to copy the [`jest-global-mocks.ts`](https://github.com/thymikee/jest-preset-angular/blob/master/e2e/test-app-v9/jest-global-mocks.ts) file from the test app directory and save it next to the `setup-jest.ts` file.
+An example for `jest-global-mocks.ts`
+
+```
+Object.defineProperty(window, 'CSS', { value: null });
+Object.defineProperty(document, 'doctype', {
+  value: '<!DOCTYPE html>',
+});
+Object.defineProperty(window, 'getComputedStyle', {
+  value: () => {
+    return {
+      display: 'none',
+      appearance: ['-webkit-appearance'],
+    };
+  },
+});
+/**
+ * ISSUE: https://github.com/angular/material2/issues/7101
+ * Workaround for JSDOM missing transform property
+ */
+Object.defineProperty(document.body.style, 'transform', {
+  value: () => {
+    return {
+      enumerable: true,
+      configurable: true,
+    };
+  },
+});
+```
 
 :::
 
