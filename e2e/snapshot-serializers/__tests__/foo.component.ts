@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 @Component({
@@ -14,7 +14,13 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
     `,
   ],
 })
-class FooComponent {}
+class FooComponent {
+  @Input() value1 = 'val1';
+  @Input() value2 = 'val2';
+
+  condition1 = true;
+  condition2 = false;
+}
 
 test(
   'snapshot should work',
@@ -26,6 +32,7 @@ test(
     const fixture = TestBed.createComponent(FooComponent);
     fixture.detectChanges();
 
+    expect(fixture).toMatchSnapshot();
     expect(fixture.debugElement.nativeElement).toMatchSnapshot();
   }),
 );

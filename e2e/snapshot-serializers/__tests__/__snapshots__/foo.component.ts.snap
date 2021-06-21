@@ -1,12 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshot should work 1`] = `
+<foo
+  __ngContext__={[Function LRootView]}
+  condition1={[Function Boolean]}
+  condition2="false"
+  value1={[Function String]}
+  value2={[Function String]}
+>
+  <p>
+    Line 1
+  </p><div>
+    <div>
+       val1 
+    </div>
+  </div>
+</foo>
+`;
+
+exports[`snapshot should work 2`] = `
 <div
   id="root0"
 >
   <p>
-     simple-with-styles works!
-
+    Line 1
   </p>
+  <div>
+    <div>
+       val1 
+    </div>
+    
+    
+  </div>
 </div>
 `;

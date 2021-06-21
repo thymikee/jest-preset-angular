@@ -97,7 +97,7 @@ const print = (
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     componentName = fixture.componentRef._elDef.element?.name;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    nodes = (fixture.componentRef._view.nodes || [])
+    nodes = (fixture.componentRef._view.nodes ?? [])
       // eslint-disable-next-line no-prototype-builtins
       .filter((node: VEDebugNode) => node?.hasOwnProperty('renderElement'))
       .map((node: VEDebugNode) => Array.from(node.renderElement.childNodes).map(print).join(''))
@@ -118,7 +118,7 @@ const print = (
     '\n</' +
     componentName +
     '>'
-  );
+  ).replace(/\n^\s*\n/gm, '\n');
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
