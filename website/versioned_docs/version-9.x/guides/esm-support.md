@@ -51,7 +51,7 @@ module.exports = {
 // jest.config.js
 module.exports = {
   // [...]
-  preset: 'jest-preset-angular/presets/default-esm',
+  preset: 'jest-preset-angular/presets/defaults-esm',
 };
 ```
 
@@ -60,7 +60,7 @@ module.exports = {
 {
   // [...]
   "jest": {
-    "preset": "jest-preset-angular/presets/default-esm"
+    "preset": "jest-preset-angular/presets/defaults-esm"
   }
 }
 ```
