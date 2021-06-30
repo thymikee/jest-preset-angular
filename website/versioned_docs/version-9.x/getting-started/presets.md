@@ -10,7 +10,7 @@ title: Presets
 | Preset name                                                        | Description                                                                                                                       |
 | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | `jest-preset-angular/presets/default`<br/>or `jest-preset-angular` | TypeScript, JavaScript and HTML files (`js`, `.ts`, `.html`) will be transformed by `jest-preset-angular` to **CommonJS** syntax. |
-| `jest-preset-angular/presets/default-esm`<br/>                     | TypeScript, JavaScript and HTML files (`js`, `.ts`, `.html`) will be transformed by `jest-preset-angular` to **ESM** syntax.      |
+| `jest-preset-angular/presets/defaults-esm`<br/>                     | TypeScript, JavaScript and HTML files (`js`, `.ts`, `.html`) will be transformed by `jest-preset-angular` to **ESM** syntax.      |
 
 ### Basic usage
 
