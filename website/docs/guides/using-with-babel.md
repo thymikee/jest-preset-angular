@@ -30,7 +30,7 @@ _Note: do not use a `.babelrc` file otherwise the packages that you specify in t
 ```js
 module.exports = {
   transform: {
-    '^.+\\.(ts|html)$': 'ts-jest',
+    '^.+\\.(ts|html)$': 'jest-preset-angular',
     '^.+\\.js$': 'babel-jest',
   },
 };
