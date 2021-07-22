@@ -18,7 +18,12 @@ const exampleAppsToRun = glob
   });
 const e2eDirsToRun = glob
   .sync(`${e2eRootDir}/*`)
-  .filter((e2ePath) => lstatSync(e2ePath).isDirectory() && existsSync(path.join(e2ePath, 'package.json')))
+  .filter(
+    (e2ePath) =>
+      lstatSync(e2ePath).isDirectory() &&
+      existsSync(path.join(e2ePath, 'package.json')) &&
+      existsSync(path.join(e2ePath, 'yarn.lock'))
+  )
   .sort();
 
 module.exports = {
