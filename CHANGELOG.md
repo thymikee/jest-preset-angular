@@ -1,3 +1,17 @@
+## [9.0.5](https://github.com/thymikee/jest-preset-angular/compare/v9.0.4...v9.0.5) (2021-07-22)
+
+
+### Features
+
+* remove more trailing whitespaces for component fixture snapshot ([#961](https://github.com/thymikee/jest-preset-angular/issues/961)) ([e51cf6f](https://github.com/thymikee/jest-preset-angular/commit/e51cf6ff44b0089a16ac30dcc70e080cac1563ef)), closes [#287](https://github.com/thymikee/jest-preset-angular/issues/287)
+
+
+### Code Refactoring
+
+* remove `webpack` and `@angular-devkit/build-angular` from peer dependencies and optional dependencies ([#973](https://github.com/thymikee/jest-preset-angular/issues/973)) ([ce7fc60](https://github.com/thymikee/jest-preset-angular/commit/ce7fc6017550e73f68eae02d463c6f16b0a4e0ac))
+
+
+
 ## [9.0.4](https://github.com/thymikee/jest-preset-angular/compare/v9.0.3...v9.0.4) (2021-06-15)
 
 
