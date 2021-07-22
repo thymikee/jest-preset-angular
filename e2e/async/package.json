@@ -1,6 +1,8 @@
 {
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>/../../setup-jest.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/../../setup-jest.js"
+    ],
     "transform": {
       "^.+\\.(ts|js|html)$": "<rootDir>/../../build/index.js"
     }

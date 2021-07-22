@@ -6,7 +6,9 @@
         "stringifyContentPathRegex": "\\.html$"
       }
     },
-    "setupFilesAfterEnv": ["<rootDir>/../../setup-jest.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/../../setup-jest.js"
+    ],
     "snapshotSerializers": [
       "<rootDir>/../../build/serializers/html-comment",
       "<rootDir>/../../build/serializers/ng-snapshot",
