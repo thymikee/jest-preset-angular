@@ -2,9 +2,9 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { jest } from '@jest/globals';
+import { ConfigSet } from 'ts-jest/dist/config/config-set';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
-import { NgJestConfig } from '../config/ng-jest-config';
 
 import { jestCfgStub } from './__helpers__/test-constants';
 import { mockFolder } from './__helpers__/test-helpers';
@@ -33,7 +33,7 @@ describe('NgJestCompiler', () => {
     test.each([true, false])(
       'should transform codes with useESM %p using hoisting, replace resources and downlevel ctor transformers',
       (useESM) => {
-        const ngJestConfig = new NgJestConfig({
+        const ngJestConfig = new ConfigSet({
           ...baseJestCfg,
           globals: {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

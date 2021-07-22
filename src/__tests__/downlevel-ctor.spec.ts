@@ -2,9 +2,9 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { SOURCE_MAPPING_PREFIX } from 'ts-jest/dist/compiler/compiler-utils';
+import { ConfigSet } from 'ts-jest/dist/config/config-set';
 
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
-import { NgJestConfig } from '../config/ng-jest-config';
 import { constructorDownlevelCtor } from '../transformers/downlevel-ctor';
 
 import { jestCfgStub } from './__helpers__/test-constants';
@@ -28,7 +28,7 @@ const baseJestCfg = {
 };
 
 test.each([true, false])('should add ctor param to class constructor', (useESM) => {
-  const ngJestConfig = new NgJestConfig({
+  const ngJestConfig = new ConfigSet({
     ...baseJestCfg,
     globals: {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
