@@ -1,4 +1,5 @@
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
+import { NgJestConfig } from '../config/ng-jest-config';
 import { NgJestTransformer } from '../ng-jest-transformer';
 
 describe('NgJestTransformer', () => {
@@ -18,6 +19,7 @@ describe('NgJestTransformer', () => {
 
       // @ts-expect-error testing purpose
       expect(tr._compiler).toBeInstanceOf(NgJestCompiler);
+      expect(cs).toBeInstanceOf(NgJestConfig);
     });
   });
 });
