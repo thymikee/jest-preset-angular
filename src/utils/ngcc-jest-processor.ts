@@ -8,8 +8,8 @@ import { dirname, join } from 'path';
 
 const IGNORE_ARGS = ['--clearCache', '--help', '--init', '--listTests', '--showConfig'];
 const nodeModuleDirPath = findNodeModulesDirectory(process.cwd());
-const canRunNgcc =
-  !process.argv.find((arg) => IGNORE_ARGS.includes(arg)) && existsSync(join(nodeModuleDirPath, '@angular', 'core'));
+const angularCorePkgPath = join(nodeModuleDirPath, '@angular', 'core');
+const canRunNgcc = !process.argv.find((arg) => IGNORE_ARGS.includes(arg)) && existsSync(angularCorePkgPath);
 function findNodeModulesDirectory(startPoint: string): string {
   let current = startPoint;
   while (dirname(current) !== current) {
@@ -60,6 +60,6 @@ if (canRunNgcc) {
   }
 } else {
   throw new Error(
-    `Cannot locate the '@angular/core' directory. Please make sure you are running 'ngcc-jest-processor.js' from root level of your project`,
+    `Cannot locate the '@angular/core' directory, resolved as ${angularCorePkgPath}. Please make sure you are running 'ngcc-jest-processor.js' from root level of your project`,
   );
 }
