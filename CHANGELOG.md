@@ -1,3 +1,13 @@
+## [9.0.6](https://github.com/thymikee/jest-preset-angular/compare/v9.0.5...v9.0.6) (2021-08-17)
+
+
+### Bug Fixes
+
+* **config:** set `allowJs: true` internally always ([#976](https://github.com/thymikee/jest-preset-angular/issues/976)) ([9900c8b](https://github.com/thymikee/jest-preset-angular/commit/9900c8bda48c9502f316060956155fe5e718609f)), closes [#974](https://github.com/thymikee/jest-preset-angular/issues/974)
+* **utils:** throw error when cannot find `@angular/core` for `ngcc-jest-preprocessor` util ([#981](https://github.com/thymikee/jest-preset-angular/issues/981)) ([c35d3f2](https://github.com/thymikee/jest-preset-angular/commit/c35d3f2a3cd7ad2a5e5590ea666e6a2c1b685635))
+
+
+
 ## [9.0.5](https://github.com/thymikee/jest-preset-angular/compare/v9.0.4...v9.0.5) (2021-07-22)
 
 
