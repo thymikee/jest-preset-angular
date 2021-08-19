@@ -3,27 +3,24 @@
  * and adjusted to work with Jest
  */
 import { spawnSync } from 'child_process';
-import { existsSync } from 'fs';
-import { dirname, join } from 'path';
+import { sep } from 'path';
 
 const IGNORE_ARGS = ['--clearCache', '--help', '--init', '--listTests', '--showConfig'];
-const nodeModuleDirPath = findNodeModulesDirectory(process.cwd());
-const angularCorePkgPath = join(nodeModuleDirPath, '@angular', 'core');
-const canRunNgcc = !process.argv.find((arg) => IGNORE_ARGS.includes(arg)) && existsSync(angularCorePkgPath);
-const ERROR_MSG = `Warning: Could not locate @angular/core to run 'ngcc' automatically. Please make sure you are running 'ngcc-jest-processor.js' from root level of your project. 'ngcc' must be run before running Jest`;
+const ANGULAR_COMPILER_CLI_PKG_NAME = `@angular${sep}compiler-cli`;
+const nodeModuleDirPath = findNodeModulesDirectory();
+const canRunNgcc = !process.argv.find((arg) => IGNORE_ARGS.includes(arg)) && !!nodeModuleDirPath;
 
-function findNodeModulesDirectory(startPoint: string): string {
-  let current = startPoint;
-  while (dirname(current) !== current) {
-    const nodePath = join(current, 'node_modules');
-    if (existsSync(nodePath)) {
-      return nodePath;
-    }
+function findNodeModulesDirectory(): string {
+  let nodeModulesPath = '';
+  try {
+    const angularCompilerCLIPath = require.resolve(ANGULAR_COMPILER_CLI_PKG_NAME);
+    nodeModulesPath = angularCompilerCLIPath.substring(
+      0,
+      angularCompilerCLIPath.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME),
+    );
+  } catch {}
 
-    current = dirname(current);
-  }
-
-  throw new Error(ERROR_MSG);
+  return nodeModulesPath;
 }
 
 if (canRunNgcc) {
@@ -59,7 +56,9 @@ if (canRunNgcc) {
     throw new Error(`${errorMessage} NGCC failed ${errorMessage ? ', see above' : ''}.`);
   }
 } else {
-  if (!process.env.DISABLE_NGCC_WARNING) {
-    console.log(`${ERROR_MSG}. You can disable this warning by setting process.env.DISABLE_NGCC_WARNING=true`);
-  }
+  console.log(
+    `Warning: Could not locate '@angular/compiler-cli' to run 'ngcc' automatically.` +
+      `Please make sure you are running 'ngcc-jest-processor.js' from root level of your project.` +
+      `'ngcc' must be run before running Jest`,
+  );
 }
