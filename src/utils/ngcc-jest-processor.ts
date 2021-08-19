@@ -10,6 +10,8 @@ const IGNORE_ARGS = ['--clearCache', '--help', '--init', '--listTests', '--showC
 const nodeModuleDirPath = findNodeModulesDirectory(process.cwd());
 const angularCorePkgPath = join(nodeModuleDirPath, '@angular', 'core');
 const canRunNgcc = !process.argv.find((arg) => IGNORE_ARGS.includes(arg)) && existsSync(angularCorePkgPath);
+const ERROR_MSG = `Warning: Could not locate @angular/core to run 'ngcc' automatically. Please make sure you are running 'ngcc-jest-processor.js' from root level of your project. 'ngcc' must be run before running Jest`;
+
 function findNodeModulesDirectory(startPoint: string): string {
   let current = startPoint;
   while (dirname(current) !== current) {
@@ -21,9 +23,7 @@ function findNodeModulesDirectory(startPoint: string): string {
     current = dirname(current);
   }
 
-  throw new Error(
-    `Cannot locate the 'node_modules' directory. Please make sure you are running jest from root level of your project`,
-  );
+  throw new Error(ERROR_MSG);
 }
 
 if (canRunNgcc) {
@@ -59,7 +59,7 @@ if (canRunNgcc) {
     throw new Error(`${errorMessage} NGCC failed ${errorMessage ? ', see above' : ''}.`);
   }
 } else {
-  throw new Error(
-    `Cannot locate the '@angular/core' directory, resolved as ${angularCorePkgPath}. Please make sure you are running 'ngcc-jest-processor.js' from root level of your project`,
-  );
+  if (!process.env.DISABLE_NGCC_WARNING) {
+    console.log(`${ERROR_MSG}. You can disable this warning by setting process.env.DISABLE_NGCC_WARNING=true`);
+  }
 }
