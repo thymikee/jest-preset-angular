@@ -1,0 +1,14 @@
+{
+  "name": "example-app-yarn-workspace",
+  "version": "12.0.0",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "private": true,
+  "scripts": {
+    "test": "yarn workspace angular-app test",
+    "test-esm": "yarn workspace angular-app test-esm"
+  }
+}
