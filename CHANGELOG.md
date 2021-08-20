@@ -1,3 +1,12 @@
+## [9.0.7](https://github.com/thymikee/jest-preset-angular/compare/v9.0.6...v9.0.7) (2021-08-20)
+
+
+### Bug Fixes
+
+* **utils:** support Yarn workspace for `ngcc-jest-processor` ([#991](https://github.com/thymikee/jest-preset-angular/issues/991)) ([4735f90](https://github.com/thymikee/jest-preset-angular/commit/4735f90f6c54a9ce8de3c7d5a42d7f4628d19a5f)), closes [#990](https://github.com/thymikee/jest-preset-angular/issues/990)
+
+
+
 ## [9.0.6](https://github.com/thymikee/jest-preset-angular/compare/v9.0.5...v9.0.6) (2021-08-17)
 
 
