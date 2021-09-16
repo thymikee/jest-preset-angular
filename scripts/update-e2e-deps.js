@@ -9,7 +9,7 @@ logger.log(`Updating e2e dependencies' versions (this might take a while)`);
 logger.log();
 
 e2eDirsToRun.forEach((e2eDir, idx) => {
-  logger.log(`[${idx + 1}/${exampleAppsToRun.length}] updating Angular dependencies of ${e2eDir}:`);
+  logger.log(`[${idx + 1}/${e2eDirsToRun.length}] updating Angular dependencies of ${e2eDir}:`);
   process.chdir(e2eDir);
 
   logger.log(`installing dependencies of ${e2eDir}:`);
