@@ -56,7 +56,7 @@ exampleAppsToRun.forEach((projectPath, idx) => {
     'jest-preset-angular@latest',
     '@types/jest@latest',
   ];
-  if (ngVersion !== 9 && ngVersion !== 10) {
+  if (ngVersion !== 10) {
     args.push('zone.js@latest');
   }
   args.push('--force');
