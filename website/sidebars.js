@@ -23,7 +23,6 @@ module.exports = {
       items: [
         'guides/angular-ivy',
         'guides/esm-support',
-        'guides/testing-css-styles',
         'guides/jsdom-version',
         'guides/using-with-babel',
         'guides/absolute-imports',
