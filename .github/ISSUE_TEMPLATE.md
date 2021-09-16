@@ -1,5 +1,5 @@
 <!-- First of all, check the troubleshooting section for common issues at:
-https://github.com/thymikee/jest-preset-angular/blob/master/README.md#troubleshooting -->
+https://github.com/thymikee/jest-preset-angular/blob/main/README.md#troubleshooting -->
 
 ## 👉 [Please follow one of these issue templates](https://github.com/thymikee/jest-preset-angular/issues/new/choose) 👈
 
