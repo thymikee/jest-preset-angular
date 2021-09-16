@@ -1,3 +1,17 @@
+# [10.0.0](https://github.com/thymikee/jest-preset-angular/compare/v9.0.7...v10.0.0) (2021-09-16)
+
+
+### Build
+
+* drop support for Angular 9 ([#998](https://github.com/thymikee/jest-preset-angular/issues/998)) ([1bbcc01](https://github.com/thymikee/jest-preset-angular/commit/1bbcc01ed4c098cd30871162a5e82fac4819a2d0))
+
+
+## BREAKING CHANGES
+
+Angular 9 is no longer supported, see https://angular.io/guide/releases#support-policy-and-schedule The minimum support Angular version now is 10
+
+
+
 ## [9.0.7](https://github.com/thymikee/jest-preset-angular/compare/v9.0.6...v9.0.7) (2021-08-20)
 
 
