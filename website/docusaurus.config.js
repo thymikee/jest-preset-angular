@@ -81,7 +81,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/thymikee/jest-preset-angular/edit/master/website',
+          editUrl: 'https://github.com/thymikee/jest-preset-angular/edit/main/website',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
