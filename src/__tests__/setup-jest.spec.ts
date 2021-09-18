@@ -24,8 +24,7 @@ jest.mock('@angular/platform-browser-dynamic/testing', () => {
   };
 });
 
-const shouldTest = !process.execArgv.includes('--experimental-vm-modules') ? test : test.skip;
-shouldTest('should initialize test environment with getTestBed() and initTestEnvironment()', async () => {
+test('should initialize test environment with getTestBed() and initTestEnvironment()', async () => {
   // @ts-expect-error testing purpose
   await import('../config/setup-jest');
 
