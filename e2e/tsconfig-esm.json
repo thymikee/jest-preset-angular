@@ -1,3 +1,6 @@
 {
-  "extends": "../tsconfig-esm.spec.json"
+  "extends": "../tsconfig-esm.spec.json",
+  "compilerOptions": {
+    "types": ["jest", "jquery"]
+  }
 }

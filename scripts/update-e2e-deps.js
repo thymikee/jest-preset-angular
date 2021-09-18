@@ -1,31 +1,9 @@
-const { exampleAppsToRun, e2eDirsToRun } = require('./paths');
+const { exampleAppsToRun } = require('./paths');
 const execa = require('execa');
 const fs = require('fs');
 const path = require('path');
 const logger = require('./logger');
 const glob = require('glob');
-
-logger.log(`Updating e2e dependencies' versions (this might take a while)`);
-logger.log();
-
-e2eDirsToRun.forEach((e2eDir, idx) => {
-  logger.log(`[${idx + 1}/${e2eDirsToRun.length}] updating Angular dependencies of ${e2eDir}:`);
-  process.chdir(e2eDir);
-
-  logger.log(`installing dependencies of ${e2eDir}:`);
-
-  execa.sync('yarn');
-
-  const args = ['upgrade'];
-
-  logger.log(`    ↳ yarn ${args.join(' ')}`);
-
-  execa.sync('yarn', args, { cwd: e2eDir });
-
-  logger.log('    cleaning-up');
-
-  execa.sync('rimraf', [path.join(e2eDir, 'node_modules')]);
-});
 
 logger.log();
 logger.log(`Updating example apps dependencies' versions (this might take a while)`);

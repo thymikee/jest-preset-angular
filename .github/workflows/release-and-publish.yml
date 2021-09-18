@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       isLatest: ${{ steps.release_type.outputs.latest }}
+
     steps:
       - id: release_type
         name: Identify release type
@@ -29,6 +30,7 @@ jobs:
         run: echo "::set-output name=latest::$LATEST"
         env:
           LATEST: ${{ contains(github.ref, '-next') != true && contains(github.ref, '-rc') != true }}
+
   create_release:
     needs: [setup_variables]
     # The type of runner that the job will run on
@@ -42,7 +44,6 @@ jobs:
       - name: Checkout code
         # https://github.com/marketplace/actions/checkout
         uses: actions/checkout@v2
-
         # Runs a single command using the runners shell
       - name: Create release for tag
         uses: actions/create-release@latest

@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn lint:fix
-yarn lint:prettier
+yarn lint-fix
+yarn lint-prettier
 git add .
