@@ -6,11 +6,22 @@
 version: 2
 updates:
   - package-ecosystem: github-actions
-    directory: /
+    directory: '/'
     schedule:
       interval: 'daily'
-    # See https://github.com/dependabot/dependabot-core/issues/1297
-    # Disable all pull requests for Docker dependencies
-    open-pull-requests-limit: 0
     commit-message:
       prefix: 'build(deps-dev)'
+    labels:
+      - 'dependencies'
+
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    commit-message:
+      prefix: 'build(deps-dev)'
+    ignore:
+      - dependency-name: '@angular'
+    labels:
+      - 'dependencies'
+    versioning-strategy: increase-if-necessary
