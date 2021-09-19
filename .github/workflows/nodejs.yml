@@ -48,8 +48,8 @@ jobs:
       - name: run prettier
         run: yarn lint-prettier-ci
 
-  test:
-    name: test-on-node-v${{ matrix.node-version }}-on-${{ matrix.os }}
+  test-unit:
+    name: test-unit-on-node-v${{ matrix.node-version }}-on-${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -73,11 +73,11 @@ jobs:
           cache: yarn
       - name: install
         run: yarn --immutable
-      - name: run tests
+      - name: run unit tests
         run: yarn test
 
-  test-esm:
-    name: test-esm-on-node-v${{ matrix.node-version }}-on-${{ matrix.os }}
+  test-e2e:
+    name: test-e2e-on-node-v${{ matrix.node-version }}-on-${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -101,8 +101,10 @@ jobs:
           cache: yarn
       - name: install
         run: yarn --immutable
-      - name: run tests in ESM mode
-        run: yarn test-esm
+      - name: run E2E tests in CJS mode
+        run: yarn e2e-cjs
+      - name: run E2E tests in ESM mode
+        run: yarn e2e-esm
 
   test-examples:
     name: test-examples-node-v${{ matrix.node-version }}-on-${{ matrix.os }}
