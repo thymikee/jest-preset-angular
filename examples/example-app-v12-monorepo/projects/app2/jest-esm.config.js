@@ -6,6 +6,7 @@ module.exports = {
   preset: 'jest-preset-angular/presets/defaults-esm',
   globals: {
     'ts-jest': {
+      useESM: true,
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
       stringifyContentPathRegex: '\\.html$',
     },
