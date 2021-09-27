@@ -1,3 +1,12 @@
+## [10.0.1](https://github.com/thymikee/jest-preset-angular/compare/10.0.0...10.0.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* **utils:** allow skipping `ngcc-jest-processor` via some Jest args ([#1013](https://github.com/thymikee/jest-preset-angular/issues/1013)) ([7d3a712](https://github.com/thymikee/jest-preset-angular/commit/7d3a712a05ca3d032f942e59ba7d2b6f5f096334))
+
+
+
 # [10.0.0](https://github.com/thymikee/jest-preset-angular/compare/v9.0.7...v10.0.0) (2021-09-16)
 
 
