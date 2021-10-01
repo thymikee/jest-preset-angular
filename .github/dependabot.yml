@@ -20,8 +20,6 @@ updates:
       interval: 'daily'
     commit-message:
       prefix: 'build(deps-dev)'
-    ignore:
-      - dependency-name: '@angular'
     labels:
       - 'dependencies'
     versioning-strategy: increase-if-necessary
