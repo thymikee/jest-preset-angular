@@ -78,3 +78,43 @@ FooComponent = __decorate([
 export { FooComponent };
 //# "
 `;
+
+exports[`should keep styles/template and transform styleUrls/templateUrl to proper syntax for CommonJS/ESM: icon.component.ts-with-esm-false 1`] = `
+"\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.IconComponent = void 0;
+const tslib_1 = require(\\"tslib\\");
+const core_1 = require(\\"@angular/core\\");
+let IconComponent = class IconComponent {
+    constructor() {
+        this.fillColor = 'rgb(255, 0, 0)';
+    }
+};
+IconComponent = tslib_1.__decorate([
+    core_1.Component({
+        selector: 'app-icon',
+        template: require(\\"./icon.component.svg\\"),
+    })
+], IconComponent);
+exports.IconComponent = IconComponent;
+//# "
+`;
+
+exports[`should keep styles/template and transform styleUrls/templateUrl to proper syntax for CommonJS/ESM: icon.component.ts-with-esm-true 1`] = `
+"import { __decorate } from \\"tslib\\";
+import __NG_CLI_RESOURCE__0 from \\"./icon.component.svg\\";
+import { Component } from '@angular/core';
+let IconComponent = class IconComponent {
+    constructor() {
+        this.fillColor = 'rgb(255, 0, 0)';
+    }
+};
+IconComponent = __decorate([
+    Component({
+        selector: 'app-icon',
+        template: __NG_CLI_RESOURCE__0,
+    })
+], IconComponent);
+export { IconComponent };
+//# "
+`;

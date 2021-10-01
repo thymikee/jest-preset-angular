@@ -12,10 +12,13 @@ import { mockFolder } from './__helpers__/test-helpers';
 
 const fileName1 = 'app.component.ts';
 const fileName2 = 'foo.component.ts';
+const fileName3 = 'icon.component.ts';
 const filePath1 = join(mockFolder, 'app.component.ts');
 const filePath2 = join(mockFolder, 'foo.component.ts');
+const filePath3 = join(mockFolder, 'icon.component.ts');
 const fileContent1 = readFileSync(filePath1, 'utf-8');
 const fileContent2 = readFileSync(filePath2, 'utf-8');
+const fileContent3 = readFileSync(filePath3, 'utf-8');
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const baseJestCfg = {
   ...jestCfgStub,
@@ -70,6 +73,16 @@ test.each([true, false])(
 
     expect(output2.substring(0, output2.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot(
       `${fileName2}-with-esm-${useESM}`,
+    );
+
+    const output3 = compiler.getCompiledOutput(fileContent3, filePath3, {
+      watchMode: false,
+      supportsStaticESM: useESM,
+      depGraphs: new Map(),
+    });
+
+    expect(output3.substring(0, output3.indexOf(SOURCE_MAPPING_PREFIX))).toMatchSnapshot(
+      `${fileName3}-with-esm-${useESM}`,
     );
   },
 );
