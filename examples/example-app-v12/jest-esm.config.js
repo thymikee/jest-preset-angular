@@ -6,8 +6,8 @@ module.exports = {
   globals: {
     'ts-jest': {
       useESM: true,
+      stringifyContentPathRegex: '\\.(html|svg)$',
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-      stringifyContentPathRegex: '\\.html$',
     },
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
