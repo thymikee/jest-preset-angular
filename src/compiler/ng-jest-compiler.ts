@@ -1,9 +1,9 @@
+import { constructorParametersDownlevelTransform } from '@angular/compiler-cli';
 import { TsCompiler } from 'ts-jest/dist/compiler/ts-compiler';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import type { TsJestAstTransformer } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
-import { constructorDownlevelCtor } from '../transformers/downlevel-ctor';
 import { replaceResources } from '../transformers/replace-resources';
 
 export class NgJestCompiler extends TsCompiler {
@@ -119,7 +119,8 @@ export class NgJestCompiler extends TsCompiler {
           beforeTransformer.factory(this, beforeTransformer.options),
         ),
         replaceResources(this),
-        constructorDownlevelCtor(this),
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        constructorParametersDownlevelTransform(this.program!),
       ] as Array<ts.TransformerFactory<ts.SourceFile> | ts.CustomTransformerFactory>,
     };
   }
