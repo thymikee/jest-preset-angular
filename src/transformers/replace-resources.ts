@@ -10,7 +10,6 @@ import ts from 'typescript';
 
 import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT } from '../constants';
 
-const useNodeFactory = +ts.versionMajorMinor >= 4.0;
 const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
 /**
  * Source https://github.com/angular/angular-cli/blob/master/packages/ngtools/webpack/src/transformers/replace_resources.ts
@@ -57,25 +56,15 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
             : node,
         );
 
-        return useNodeFactory
-          ? context.factory.updateClassDeclaration(
-              node,
-              decorators,
-              node.modifiers,
-              node.name,
-              node.typeParameters,
-              node.heritageClauses,
-              node.members,
-            )
-          : ts.updateClassDeclaration(
-              node,
-              decorators,
-              node.modifiers,
-              node.name,
-              node.typeParameters,
-              node.heritageClauses,
-              node.members,
-            );
+        return context.factory.updateClassDeclaration(
+          node,
+          decorators,
+          node.modifiers,
+          node.name,
+          node.typeParameters,
+          node.heritageClauses,
+          node.members,
+        );
       }
 
       return ts.visitEachChild(node, visitNode, context);
@@ -89,21 +78,13 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
       const updatedSourceFile = ts.visitNode(sourceFile, visitNode);
       if (resourceImportDeclarations.length) {
         // Add resource imports
-        return useNodeFactory
-          ? context.factory.updateSourceFile(
-              updatedSourceFile,
-              ts.setTextRange(
-                context.factory.createNodeArray([...resourceImportDeclarations, ...updatedSourceFile.statements]),
-                updatedSourceFile.statements,
-              ),
-            )
-          : ts.updateSourceFileNode(
-              updatedSourceFile,
-              ts.setTextRange(
-                ts.createNodeArray([...resourceImportDeclarations, ...updatedSourceFile.statements]),
-                updatedSourceFile.statements,
-              ),
-            );
+        return context.factory.updateSourceFile(
+          updatedSourceFile,
+          ts.setTextRange(
+            context.factory.createNodeArray([...resourceImportDeclarations, ...updatedSourceFile.statements]),
+            updatedSourceFile.statements,
+          ),
+        );
       }
 
       return updatedSourceFile;
@@ -145,34 +126,20 @@ function visitDecorator(
 
   // replace properties with updated properties
   if (styleReplacements.length) {
-    const styleProperty = useNodeFactory
-      ? nodeFactory.createPropertyAssignment(
-          nodeFactory.createIdentifier(STYLES),
-          nodeFactory.createArrayLiteralExpression(styleReplacements),
-        )
-      : ts.createPropertyAssignment(ts.createIdentifier(STYLES), ts.createArrayLiteral(styleReplacements));
+    const styleProperty = nodeFactory.createPropertyAssignment(
+      nodeFactory.createIdentifier(STYLES),
+      nodeFactory.createArrayLiteralExpression(styleReplacements),
+    );
 
-    properties = useNodeFactory
-      ? nodeFactory.createNodeArray([...properties, styleProperty])
-      : ts.createNodeArray([...properties, styleProperty]);
+    properties = nodeFactory.createNodeArray([...properties, styleProperty]);
   }
 
-  return useNodeFactory
-    ? nodeFactory.updateDecorator(
-        node,
-        nodeFactory.updateCallExpression(
-          decoratorFactory,
-          decoratorFactory.expression,
-          decoratorFactory.typeArguments,
-          [nodeFactory.updateObjectLiteralExpression(objectExpression, properties)],
-        ),
-      )
-    : ts.updateDecorator(
-        node,
-        ts.updateCall(decoratorFactory, decoratorFactory.expression, decoratorFactory.typeArguments, [
-          ts.updateObjectLiteral(objectExpression, properties),
-        ]),
-      );
+  return nodeFactory.updateDecorator(
+    node,
+    nodeFactory.updateCallExpression(decoratorFactory, decoratorFactory.expression, decoratorFactory.typeArguments, [
+      nodeFactory.updateObjectLiteralExpression(objectExpression, properties),
+    ]),
+  );
 }
 
 function visitComponentMetadata(
@@ -200,9 +167,7 @@ function visitComponentMetadata(
         return node;
       }
 
-      return useNodeFactory
-        ? nodeFactory.updatePropertyAssignment(node, nodeFactory.createIdentifier(TEMPLATE), importName)
-        : ts.updatePropertyAssignment(node, ts.createIdentifier(TEMPLATE), importName);
+      return nodeFactory.updatePropertyAssignment(node, nodeFactory.createIdentifier(TEMPLATE), importName);
 
     case STYLES:
     case STYLE_URLS:
@@ -241,21 +206,17 @@ function createResourceImport(
   resourceImportDeclarations: ts.ImportDeclaration[],
   moduleKind = ts.ModuleKind.ES2015,
 ): ts.Identifier | ts.Expression | null {
-  const urlLiteral = useNodeFactory ? nodeFactory.createStringLiteral(url) : ts.createLiteral(url);
+  const urlLiteral = nodeFactory.createStringLiteral(url);
   if (moduleKind < ts.ModuleKind.ES2015) {
-    return useNodeFactory
-      ? nodeFactory.createCallExpression(nodeFactory.createIdentifier(REQUIRE), [], [urlLiteral])
-      : ts.createCall(ts.createIdentifier(REQUIRE), undefined, [urlLiteral]);
+    return nodeFactory.createCallExpression(nodeFactory.createIdentifier(REQUIRE), [], [urlLiteral]);
   } else {
     const importName = ts.createIdentifier(`__NG_CLI_RESOURCE__${resourceImportDeclarations.length}`);
-    const importDeclaration = useNodeFactory
-      ? nodeFactory.createImportDeclaration(
-          undefined,
-          undefined,
-          nodeFactory.createImportClause(false, importName, undefined),
-          urlLiteral,
-        )
-      : ts.createImportDeclaration(undefined, undefined, ts.createImportClause(importName, undefined), urlLiteral);
+    const importDeclaration = nodeFactory.createImportDeclaration(
+      undefined,
+      undefined,
+      nodeFactory.createImportClause(false, importName, undefined),
+      urlLiteral,
+    );
     resourceImportDeclarations.push(importDeclaration);
 
     return importName;
