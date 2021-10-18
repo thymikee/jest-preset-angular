@@ -8,9 +8,6 @@ import type { Colors } from 'pretty-format';
 interface ComponentDef {
   selectors: ɵCssSelectorList;
 }
-interface VEComponentType extends Type<unknown> {
-  ngComponentDef: ComponentDef;
-}
 interface IvyComponentType extends Type<unknown> {
   ɵcmp: ComponentDef;
 }
@@ -72,12 +69,6 @@ const ivyEnabled = (): boolean => {
   return !!ɵivyEnabled;
 };
 
-// Ivy component definition was stored on the `ngComponentDef`
-// property before `9.0.0-next.10`. Since `9.0.0-next.10` it was
-// renamed to `ɵcmp`.
-const getComponentDef = (type: VEComponentType | IvyComponentType): ComponentDef =>
-  (type as VEComponentType).ngComponentDef ?? (type as IvyComponentType).ɵcmp;
-
 const print = (
   fixture: NgComponentFixture,
   print: Printer,
@@ -90,7 +81,7 @@ const print = (
   let componentName = '';
 
   if (ivyEnabled()) {
-    const componentDef = getComponentDef(fixture.componentRef.componentType as IvyComponentType);
+    const componentDef = (fixture.componentRef.componentType as IvyComponentType).ɵcmp;
     componentName = componentDef.selectors[0][0] as string;
     nodes = Array.from(fixture.componentRef.location.nativeElement.childNodes).map(print).join('');
   } else {
