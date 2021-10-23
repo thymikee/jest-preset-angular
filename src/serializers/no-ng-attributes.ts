@@ -47,7 +47,7 @@ const serialize = (node: Element, ...rest: any): string => {
 };
 
 const serializeTestFn = (val: Element): boolean =>
-  val.attributes !== undefined &&
+  val.attributes &&
   Object.values(val.attributes).some(
     (attribute: Attr) => hasAttributesToRemove(attribute) || hasAttributesToClean(attribute),
   );
