@@ -1,4 +1,4 @@
-import type { Type, ComponentRef, ɵCssSelectorList, DebugNode } from '@angular/core';
+import type { ComponentRef, DebugNode, Type, ɵCssSelectorList } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import type { Colors } from 'pretty-format';
 
@@ -12,12 +12,14 @@ interface IvyComponentType extends Type<unknown> {
   ɵcmp: ComponentDef;
 }
 interface NgComponentRef extends ComponentRef<unknown> {
+  componentType: IvyComponentType;
   _elDef: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   _view: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 interface NgComponentFixture extends ComponentFixture<unknown> {
   componentRef: NgComponentRef;
-  componentInstance: Record<string, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  componentInstance: Record<string, any>;
 }
 interface VEDebugNode {
   renderElement: {
@@ -36,67 +38,52 @@ interface PluginOptions {
 type Indent = (indentSpaces: string) => string;
 type Printer = (elementToSerialize: unknown) => string;
 
-const printAttributes = (
-  val: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-  attributes: string[],
-  _print: Printer,
-  indent: Indent,
-  colors: Colors,
-  opts: PluginOptions,
-): string => {
-  return attributes
-    .sort()
-    .map((attribute) => {
-      return (
-        opts.spacing +
-        indent(`${colors.prop.open}${attribute}${colors.prop.close}=`) +
-        colors.value.open +
-        (val.componentInstance[attribute] && val.componentInstance[attribute].constructor
-          ? `{[Function ${val.componentInstance[attribute].constructor.name}]}`
-          : `"${val.componentInstance[attribute]}"`) +
-        colors.value.close
-      );
-    })
-    .join('');
-};
-
 const ivyEnabled = (): boolean => {
   // Should be required lazily, since it will throw an exception
   // `Cannot resolve parameters...`.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
   const { ɵivyEnabled } = require('@angular/core');
 
-  return !!ɵivyEnabled;
+  return ɵivyEnabled;
 };
 
-const print = (
-  fixture: NgComponentFixture,
-  print: Printer,
-  indent: Indent,
-  opts: PluginOptions,
-  colors: Colors,
-): string => {
+const print = (fixture: unknown, print: Printer, indent: Indent, opts: PluginOptions, colors: Colors): string => {
   let nodes = '';
   let componentAttrs = '';
   let componentName = '';
+  const componentRef = (fixture as NgComponentFixture).componentRef;
+  const componentInstance = (fixture as NgComponentFixture).componentInstance;
 
   if (ivyEnabled()) {
-    const componentDef = (fixture.componentRef.componentType as IvyComponentType).ɵcmp;
+    const componentDef = componentRef.componentType.ɵcmp;
     componentName = componentDef.selectors[0][0] as string;
-    nodes = Array.from(fixture.componentRef.location.nativeElement.childNodes).map(print).join('');
+    nodes = Array.from(componentRef.location.nativeElement.childNodes).map(print).join('');
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    componentName = fixture.componentRef._elDef.element?.name;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    nodes = (fixture.componentRef._view.nodes ?? [])
+    componentName = componentRef._elDef.element?.name;
+    nodes = (componentRef._view.nodes ?? [])
       // eslint-disable-next-line no-prototype-builtins
       .filter((node: VEDebugNode) => node?.hasOwnProperty('renderElement'))
       .map((node: VEDebugNode) => Array.from(node.renderElement.childNodes).map(print).join(''))
       .join(opts.edgeSpacing);
   }
-  const attributes = Object.keys(fixture.componentInstance);
+  const attributes = Object.keys(componentInstance);
   if (attributes.length) {
-    componentAttrs += printAttributes(fixture, attributes, print, indent, colors, opts);
+    componentAttrs += attributes
+      .sort()
+      .map((attribute) => {
+        const compAttrVal = componentInstance[attribute];
+
+        return (
+          opts.spacing +
+          indent(`${colors.prop.open}${attribute}${colors.prop.close}=`) +
+          colors.value.open +
+          (compAttrVal && compAttrVal.constructor
+            ? `{[Function ${compAttrVal.constructor.name}]}`
+            : `"${compAttrVal}"`) +
+          colors.value.close
+        );
+      })
+      .join('');
   }
 
   return (
@@ -114,10 +101,7 @@ const print = (
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 const test = (val: any): boolean =>
-  val !== undefined &&
-  val !== null &&
-  typeof val === 'object' &&
-  Object.prototype.hasOwnProperty.call(val, 'componentRef');
+  typeof val === 'object' && Object.prototype.hasOwnProperty.call(val, 'componentRef');
 
 export = {
   print,
