@@ -3,9 +3,9 @@ const HTML_ELEMENT_REGEXP = /Comment/;
 const test = (value: any): boolean =>
   value?.nodeType === 8 && value.constructor !== undefined && HTML_ELEMENT_REGEXP.test(value.constructor.name);
 
-const print = (): string => '';
+const serialize = (): string => '';
 
 export = {
-  print,
+  serialize,
   test,
 };
