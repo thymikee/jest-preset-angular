@@ -3,9 +3,17 @@ module.exports = {
   displayName: 'async',
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/../tsconfig.json',
+      tsconfig: {
+        ...require('../tsconfig.json').compilerOptions,
+        /**
+         * Set at ES2018 to test Angular doesn't work with ES2017+
+         * see https://github.com/angular/components/issues/21632#issuecomment-764975917
+         */
+        target: 'ES2018',
+      },
     },
   },
+  testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/../../setup-jest.js'],
   transform: { '^.+\\.(ts|js|html)$': '<rootDir>/../../build/index.js' },
 };
