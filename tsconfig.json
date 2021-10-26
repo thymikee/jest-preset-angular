@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "importHelpers": true,
     "esModuleInterop": true,
-    "target": "es2015",
+    "moduleResolution": "Node",
+    "target": "ES2015",
     "module": "CommonJS",
     "lib": ["esnext", "dom"],
     "types": ["node", "jest"]
