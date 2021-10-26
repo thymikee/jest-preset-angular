@@ -1,3 +1,19 @@
+## [10.1.0](https://github.com/thymikee/jest-preset-angular/compare/v10.0.1...v10.1.0) (2021-10-26)
+
+
+### Bug Fixes
+
+* **config:** set tsconfig `target` to ES2015 when `target` > ES2016 ([#1118](https://github.com/thymikee/jest-preset-angular/issues/1118)) ([64229a8](https://github.com/thymikee/jest-preset-angular/commit/64229a80f7a4833263e99950a42e8a618745115f)), closes [#1058](https://github.com/thymikee/jest-preset-angular/issues/1058)
+
+
+### Code Refactoring
+
+* **transformers** use Angular `downlevel-ctor` transformer ([#1099](https://github.com/thymikee/jest-preset-angular/issues/1099)) ([3c26aba](https://github.com/thymikee/jest-preset-angular/commit/3c26abacf3a2f841330a7bc34aed172111c1e334))
+* **transformers** remove workaround for ts < 4.0 in `replace-resource` transformer ([#1100](https://github.com/thymikee/jest-preset-angular/issues/1100)) ([ce68298](https://github.com/thymikee/jest-preset-angular/commit/ce682983bf4212a1f6fd71349af0d06c520812d6))
+* **transformers** migrate `html-comment` to new Jest serializer ([#1114](https://github.com/thymikee/jest-preset-angular/issues/1114)) ([3005330](https://github.com/thymikee/jest-preset-angular/commit/3005330034f5db5d943764d406256f6c06d72823))
+
+
+
 ## [10.0.1](https://github.com/thymikee/jest-preset-angular/compare/10.0.0...10.0.1) (2021-09-27)
 
 
