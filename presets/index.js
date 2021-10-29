@@ -7,16 +7,20 @@ const basePreset = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
+  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   testEnvironment: 'jsdom',
-  transform: {
-    '^.+\\.(ts|js|html|svg)$': 'jest-preset-angular',
-  },
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   snapshotSerializers,
 };
 
 module.exports = {
-  defaults: basePreset,
+  defaults: {
+    ...basePreset,
+    transformIgnorePatterns: ['node_modules/(?!@angular)'],
+    transform: {
+      '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+    },
+  },
   defaultsESM: {
     ...basePreset,
     extensionsToTreatAsEsm: ['.ts'],
@@ -28,6 +32,9 @@ module.exports = {
     },
     moduleNameMapper: {
       tslib: 'tslib/tslib.es6.js',
+    },
+    transform: {
+      '^.+\\.(ts|js|html|svg)$': 'jest-preset-angular',
     },
     transformIgnorePatterns: ['node_modules/(?!tslib)'],
   },

@@ -74,10 +74,11 @@ jobs:
       - name: Install
         run: yarn --immutable
       - name: Run unit tests
-        run: yarn test
+        run: yarn test-unit-ci
       - name: Run E2E tests in CJS mode
         run: yarn e2e-cjs
-      - name: Run E2E tests in ESM mode
-        run: yarn e2e-esm
+        # TODO: Enable when fully support ESM with Angular 13
+      #      - name: Run E2E tests in ESM mode
+      #        run: yarn e2e-esm
       - name: Run tests in example projects
         run: yarn test-examples

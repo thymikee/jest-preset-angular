@@ -8,6 +8,10 @@ module.exports = {
       tsconfig: 'tsconfig.spec.json',
     },
   },
+  moduleNameMapper: {
+    '@angular/compiler-cli/ngcc': '<rootDir>/node_modules/@angular/compiler-cli/bundles/ngcc/main-ngcc.js',
+  },
+  resolver: '<rootDir>/build/resolvers/ng-jest-resolver',
   snapshotSerializers: [
     '<rootDir>/node_modules/pretty-format/build/plugins/ConvertAnsi.js',
     require.resolve('jest-snapshot-serializer-raw'),
@@ -21,7 +25,8 @@ module.exports = {
     '/src/__tests__/__mocks__/',
     '/src/__tests__/__helpers__/',
   ],
+  transformIgnorePatterns: ['node_modules/(?!@angular)'],
   transform: {
-    '^.+\\.(ts|js|html)$': '<rootDir>/build/index.js',
+    '^.+\\.(ts|js|mjs|html)$': '<rootDir>/build/index.js',
   },
 };

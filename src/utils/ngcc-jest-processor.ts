@@ -3,24 +3,23 @@
  * and adjusted to work with Jest
  */
 import { spawnSync } from 'child_process';
-import { sep } from 'path';
+import path from 'path';
 
 const IGNORE_ARGS = ['--clearCache', '--help', '--init', '--listTests', '--showConfig'];
-const ANGULAR_COMPILER_CLI_PKG_NAME = `@angular${sep}compiler-cli`;
-const nodeModuleDirPath = findNodeModulesDirectory();
+const ANGULAR_COMPILER_CLI_PKG_NAME = `@angular${path.sep}compiler-cli`;
+let ngccPath = '';
 
-function findNodeModulesDirectory(): string {
-  let nodeModulesPath = '';
-  try {
-    const angularCompilerCLIPath = require.resolve(ANGULAR_COMPILER_CLI_PKG_NAME);
-    nodeModulesPath = angularCompilerCLIPath.substring(
-      0,
-      angularCompilerCLIPath.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME),
-    );
-  } catch {}
-
-  return nodeModulesPath;
+try {
+  ngccPath = require.resolve('@angular/compiler-cli/ngcc/main-ngcc.js');
+} catch {
+  const compilerCliNgccPath = require.resolve('@angular/compiler-cli/ngcc');
+  ngccPath = path.resolve(compilerCliNgccPath.substring(0, compilerCliNgccPath.lastIndexOf(path.sep)), 'main-ngcc.js');
 }
+function findNodeModulesDirectory(): string {
+  return ngccPath.substring(0, ngccPath.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME));
+}
+
+const nodeModuleDirPath = findNodeModulesDirectory();
 
 if (!process.argv.find((arg) => IGNORE_ARGS.includes(arg))) {
   if (nodeModuleDirPath) {
@@ -33,7 +32,7 @@ if (!process.argv.find((arg) => IGNORE_ARGS.includes(arg))) {
     const { status, error } = spawnSync(
       process.execPath,
       [
-        require.resolve('@angular/compiler-cli/ngcc/main-ngcc.js'),
+        ngccPath,
         '--source' /** basePath */,
         nodeModuleDirPath,
         '--properties' /** propertiesToConsider */,

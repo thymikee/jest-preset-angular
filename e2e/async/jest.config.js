@@ -13,7 +13,9 @@ module.exports = {
       },
     },
   },
+  resolver: '<rootDir>/../../build/resolvers/ng-jest-resolver',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/../../setup-jest.js'],
-  transform: { '^.+\\.(ts|js|html)$': '<rootDir>/../../build/index.js' },
+  transform: { '^.+\\.(ts|mjs|js|html)$': '<rootDir>/../../build/index.js' },
+  transformIgnorePatterns: ['node_modules/(?!@angular)'],
 };

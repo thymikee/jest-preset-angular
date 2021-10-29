@@ -1,5 +1,3 @@
-/* eslint-disable jest/no-standalone-expect */
-
 import { PlatformRef } from '@angular/core';
 import { jest } from '@jest/globals';
 
