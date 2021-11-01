@@ -30,6 +30,7 @@
     "prepare": "yarn build",
     "prebuild": "node scripts/clean.js",
     "build": "tsc -p tsconfig.build.json",
+    "postinstall": "husky install",
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --fix --ext .js,.ts .",
     "lint-prettier": "prettier '**/*.{yml,yaml}' 'website/**/*.{css,js,md}' 'README.md' --write --ignore-path .gitignore",
