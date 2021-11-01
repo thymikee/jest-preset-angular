@@ -41,11 +41,11 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
-      - name: install
+      - name: Install
         run: yarn --immutable
-      - name: run eslint
+      - name: Run eslint
         run: yarn lint
-      - name: run prettier
+      - name: Run prettier
         run: yarn lint-prettier-ci
 
   test:
@@ -71,39 +71,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
-      - name: install
+      - name: Install
         run: yarn --immutable
-      - name: run unit tests
+      - name: Run unit tests
         run: yarn test
-      - name: run E2E tests in CJS mode
+      - name: Run E2E tests in CJS mode
         run: yarn e2e-cjs
-      - name: run E2E tests in ESM mode
+      - name: Run E2E tests in ESM mode
         run: yarn e2e-esm
-
-  test-examples:
-    name: test-examples-node-v${{ matrix.node-version }}-on-${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    needs: prepare-yarn-cache
-
-    steps:
-      - name: Set git config
-        shell: bash
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.symlinks true
-        if: runner.os == 'Windows'
-      - uses: actions/checkout@v2.3.5
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.4.1
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
-      - name: install
-        run: yarn --immutable
-      - name: run tests in example projects
+      - name: Run tests in example projects
         run: yarn test-examples
