@@ -19,7 +19,9 @@
 
 * **NodeJs** range version support now is `^12.20.0 || ^14.15.0 || >=16.10.0`
 * Due to the introduction of **ESM package format** for Angular packages, several things are added to the **default preset** to handle `.mjs` files from **Angular ESM packages**:
-  + `ng-jest-resolver` is introduced as a custom Jest resolver to resolve `.mjs` files.
+  + `ng-jest-resolver` is introduced as a custom Jest resolver to resolve `.mjs` files. This custom Jest resolver will affect
+  how Jest loads a module. One might have issues with `paths` of TypeScript. Users are encouraged to extend the default
+  [resolver](https://github.com/thymikee/jest-preset-angular/blob/main/src/resolvers/ng-jest-resolver.ts) from the preset to suit their own needs.
   + `transformIgnorePatterns` is added to inform Jest to transform `.mjs` files.
   + `transform` is updated to include `.mjs` extension to transform to `CommonJS` codes.
 
