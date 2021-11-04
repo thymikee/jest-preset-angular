@@ -6,8 +6,6 @@ const execa = require('execa');
 const logger = require('./logger');
 const { exampleAppsToRun, rootDir } = require('./paths');
 
-const jestArgs = process.argv.slice(3);
-
 const executeTest = (projectPath) => {
   // we change current directory
   process.chdir(projectPath);
@@ -38,14 +36,8 @@ const executeTest = (projectPath) => {
   });
 
   // then we can run the tests
-  const cmdLine = ['yarn', 'test'];
-  const cmdESMLine = ['yarn', 'test-esm'];
-  if (jestArgs.length) {
-    cmdLine.push('--');
-    cmdESMLine.push('--');
-    cmdLine.push(...jestArgs);
-    cmdESMLine.push(...jestArgs);
-  }
+  const cmdLine = ['yarn', 'test', '--no-cache'];
+  const cmdESMLine = ['yarn', 'test-esm', '--no-cache'];
 
   logger.log('starting the CommonJS tests using:', ...cmdLine);
   logger.log();
