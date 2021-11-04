@@ -22,6 +22,7 @@ module.exports = {
       collapsed: false,
       items: [
         'guides/angular-ivy',
+        'guides/angular->=13',
         'guides/esm-support',
         'guides/jsdom-version',
         'guides/using-with-babel',

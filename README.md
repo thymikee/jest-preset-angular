@@ -71,13 +71,19 @@ Adjust your `tsconfig.spec.json` to be:
 }
 ```
 
+## Notes on usage with Angular >=13
+
+Check out our [Angular >=13 usage notes](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-13)
+
 ## Angular Ivy
 
 Check out our [Angular Ivy guidance](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-ivy)
 
-## Example apps
+## Example projects with base Jest configuration
 
 We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main/examples) to provide a basic setup to use Jest in an Angular project.
+The `examples` folder consist of several example Angular applications from **v10** to **13**, as well as example projects
+with `yarn workspace` or monorepo structure.
 
 ## Built With
 
