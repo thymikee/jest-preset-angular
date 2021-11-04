@@ -1,3 +1,39 @@
+# [11.0.0-rc.0](https://github.com/thymikee/jest-preset-angular/compare/v10.0.1...v11.0.0-rc.0) (2021-11-04)
+
+
+### Features
+
+* support Angular 13 in CJS mode ([#1122](https://github.com/thymikee/jest-preset-angular/issues/1122)) ([12d3c6d](https://github.com/thymikee/jest-preset-angular/commit/12d3c6d27fadc3c423ab42d10615526e26826ed6))
+
+
+## BREAKING CHANGES
+
+* **NodeJs** range version support now is `^12.20.0 || ^14.15.0 || >=16.10.0`
+* Due to the introduction of **ESM package format** for Angular packages, several things are added to the **default preset** to handle `.mjs` files from **Angular ESM packages**:
+  + `ng-jest-resolver` is introduced as a custom Jest resolver to resolve `.mjs` files.
+  + `transformIgnorePatterns` is added to inform Jest to transform `.mjs` files.
+  + `transform` is updated to include `.mjs` extension to transform to `CommonJS` codes.
+
+If one has custom Jest config, please make sure to adjust Jest config for CJS mode as following:
+```
+// jest.config.js
+module.exports = {
+  // other config
+  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
+  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+  },
+}
+```
+
+
+### Special Thanks
+
+Alan Agius, Pete Bacon Darwin from Angular team
+
+
+
 ## [10.1.0](https://github.com/thymikee/jest-preset-angular/compare/v10.0.1...v10.1.0) (2021-10-26)
 
 
