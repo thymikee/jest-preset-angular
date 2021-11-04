@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/async',
     '<rootDir>/custom-typings',
     '<rootDir>/jest-globals',
+    '<rootDir>/path-mapping',
     '<rootDir>/snapshot-serializers',
     '<rootDir>/with-babel',
   ],

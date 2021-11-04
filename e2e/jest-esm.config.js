@@ -7,6 +7,7 @@ module.exports = {
     '<rootDir>/async/jest-esm.config.js',
     '<rootDir>/custom-typings/jest-esm.config.js',
     '<rootDir>/jest-globals/jest-esm.config.js',
+    '<rootDir>/path-mapping/jest-esm.config.js',
     '<rootDir>/snapshot-serializers/jest-esm.config.js',
     '<rootDir>/with-babel/jest-esm.config.js',
   ],

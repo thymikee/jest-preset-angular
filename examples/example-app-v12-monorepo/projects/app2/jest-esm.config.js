@@ -2,7 +2,6 @@ require('jest-preset-angular/ngcc-jest-processor');
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  displayName: 'app2',
   preset: 'jest-preset-angular/presets/defaults-esm',
   globals: {
     'ts-jest': {
@@ -11,5 +10,9 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
   },
-  setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts'],
+  moduleNameMapper: {
+    '^@app2/services/(.*)$': '<rootDir>/src/app/services/$1',
+    tslib: 'tslib/tslib.es6.js',
+  },
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };

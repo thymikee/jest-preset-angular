@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig-esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@bar/*": ["libs/bar/*"],
+      "@foo/*": ["libs/foo/*"]
+    }
+  }
+}

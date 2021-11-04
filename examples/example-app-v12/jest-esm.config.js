@@ -1,4 +1,6 @@
 require('jest-preset-angular/ngcc-jest-processor');
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { paths } = require('./tsconfig.json').compilerOptions;
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
@@ -9,6 +11,10 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
+  },
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>' }),
+    tslib: 'tslib/tslib.es6.js',
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };
