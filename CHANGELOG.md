@@ -1,3 +1,12 @@
+# [11.0.0-rc.1](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.0...v11.0.0-rc.1) (2021-11-04)
+
+
+### Bug Fixes
+
+* allow `reflection/src` to be in published content ([#1135](https://github.com/thymikee/jest-preset-angular/issues/1135)) ([d079ac0](https://github.com/thymikee/jest-preset-angular/commit/d079ac08a58057d9e6a4591e392da9596a4c30be)), closes [#1133](https://github.com/thymikee/jest-preset-angular/issues/1133)
+
+
+
 # [11.0.0-rc.0](https://github.com/thymikee/jest-preset-angular/compare/v10.0.1...v11.0.0-rc.0) (2021-11-04)
 
 
