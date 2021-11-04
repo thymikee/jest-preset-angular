@@ -7,6 +7,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.html$',
     },
   },
+  resolver: '<rootDir>/../../build/resolvers/ng-jest-resolver',
   setupFilesAfterEnv: ['<rootDir>/../../setup-jest.js'],
   snapshotSerializers: [
     '<rootDir>/../../build/serializers/html-comment',
@@ -15,6 +16,7 @@ module.exports = {
   ],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js|html)$': '<rootDir>/../../build/index.js',
+    '^.+\\.(ts|js|mjs|html)$': '<rootDir>/../../build/index.js',
   },
+  transformIgnorePatterns: ['node_modules/(?!@angular)'],
 };

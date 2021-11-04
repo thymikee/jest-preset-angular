@@ -32,7 +32,7 @@ describe('ngcc-jest-processor', () => {
       ),
     ).toMatchInlineSnapshot(`
       Array [
-        "node_modules/@angular/compiler-cli/ngcc/main-ngcc.js",
+        "node_modules/@angular/compiler-cli/bundles/ngcc/main-ngcc.js",
         "--source",
         "node_modules/",
         "--properties",

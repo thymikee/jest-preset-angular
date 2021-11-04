@@ -1,9 +1,9 @@
-import { constructorParametersDownlevelTransform } from '@angular/compiler-cli';
 import { TsCompiler } from 'ts-jest/dist/compiler/ts-compiler';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import type { TsJestAstTransformer } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
+import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
 import { replaceResources } from '../transformers/replace-resources';
 
 export class NgJestCompiler extends TsCompiler {

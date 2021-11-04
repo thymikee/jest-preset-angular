@@ -14,6 +14,7 @@ Object {
     "js",
     "json",
   ],
+  "resolver": "jest-preset-angular/build/resolvers/ng-jest-resolver.js",
   "snapshotSerializers": Array [
     "jest-preset-angular/build/serializers/html-comment",
     "jest-preset-angular/build/serializers/ng-snapshot",
@@ -21,8 +22,11 @@ Object {
   ],
   "testEnvironment": "jsdom",
   "transform": Object {
-    "^.+\\\\.(ts|js|html|svg)$": "jest-preset-angular",
+    "^.+\\\\.(ts|js|mjs|html|svg)$": "jest-preset-angular",
   },
+  "transformIgnorePatterns": Array [
+    "node_modules/(?!@angular)",
+  ],
 }
 `;
 
@@ -47,6 +51,7 @@ Object {
   "moduleNameMapper": Object {
     "tslib": "tslib/tslib.es6.js",
   },
+  "resolver": "jest-preset-angular/build/resolvers/ng-jest-resolver.js",
   "snapshotSerializers": Array [
     "jest-preset-angular/build/serializers/html-comment",
     "jest-preset-angular/build/serializers/ng-snapshot",

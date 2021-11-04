@@ -56,14 +56,17 @@ const executeTest = (projectPath) => {
     env: process.env,
   });
 
-  logger.log('starting the ESM tests using:', ...cmdESMLine);
-  logger.log();
+  // TODO: Enable when fully support ESM with Angular 13
+  if (!projectPkg.version.startsWith('13')) {
+    logger.log('starting the ESM tests using:', ...cmdESMLine);
+    logger.log();
 
-  execa.sync(cmdESMLine.shift(), cmdESMLine, {
-    cwd: projectPath,
-    stdio: 'inherit',
-    env: process.env,
-  });
+    execa.sync(cmdESMLine.shift(), cmdESMLine, {
+      cwd: projectPath,
+      stdio: 'inherit',
+      env: process.env,
+    });
+  }
 };
 
 // This will trigger the build as well (not using yarn since yarn pack is buggy)
