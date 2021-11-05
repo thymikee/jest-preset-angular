@@ -8,7 +8,9 @@
     <a href="https://github.com/thymikee/jest-preset-angular/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/jest-preset-angular.svg?style=flat-square" alt="GitHub license" /></a>
 </p>
 
-This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
+> Our online documentation is available at https://thymikee.github.io/jest-preset-angular/
+
+> This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
 
 ## Getting Started
 
