@@ -10,6 +10,7 @@ module.exports = {
     '<rootDir>/jest-globals',
     '<rootDir>/path-mapping',
     '<rootDir>/snapshot-serializers',
+    '<rootDir>/transform-mjs',
     '<rootDir>/with-babel',
   ],
 };

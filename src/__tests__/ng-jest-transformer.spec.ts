@@ -1,8 +1,19 @@
+import { transformSync } from 'esbuild';
+
 import { NgJestCompiler } from '../compiler/ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
 import { NgJestTransformer } from '../ng-jest-transformer';
 
 const tr = new NgJestTransformer();
+
+jest.mock('esbuild', () => {
+  return {
+    transformSync: jest.fn().mockReturnValue({
+      code: 'bla bla',
+      map: JSON.stringify({ version: 1, sourceContent: 'foo foo' }),
+    }),
+  };
+});
 
 describe('NgJestTransformer', () => {
   test('should create NgJestCompiler and NgJestConfig instances', () => {
@@ -22,43 +33,26 @@ describe('NgJestTransformer', () => {
     expect(cs).toBeInstanceOf(NgJestConfig);
   });
 
-  test('should process successfully a mjs file with CommonJS mode', () => {
+  test.each([
+    {
+      tsconfig: {
+        sourceMap: false,
+      },
+    },
+    {
+      tsconfig: {
+        target: 'es2016',
+      },
+    },
+    {
+      tsconfig: {},
+    },
+  ])('should process successfully a mjs file to CommonJS codes', ({ tsconfig }) => {
     const result = tr.process(
       `
       const pi = parseFloat(3.124);
       
-      export default pi;
-    `,
-      'foo.mjs',
-      {
-        config: {
-          cwd: process.cwd(),
-          extensionsToTreatAsEsm: [],
-          testMatch: [],
-          testRegex: [],
-        },
-      } as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-    );
-
-    expect(typeof result).toBe('object');
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(result.code).toMatchInlineSnapshot(`
-      "\\"use strict\\";
-      Object.defineProperty(exports, \\"__esModule\\", { value: true });
-      const pi = parseFloat(3.124);
-      exports.default = pi;
-      //# sourceMappingURL=foo.mjs.js.map"
-    `);
-    // @ts-expect-error `map` is a property of `TransformSource`
-    expect(result.map).toBeDefined();
-  });
-
-  test('should process successfully a mjs file with ESM mode', () => {
-    const result = tr.process(
-      `
-      const pi = parseFloat(3.124);
-      
-      export default pi;
+      export { pi };
     `,
       'foo.mjs',
       {
@@ -69,50 +63,20 @@ describe('NgJestTransformer', () => {
           testRegex: [],
           globals: {
             'ts-jest': {
-              useESM: true,
+              tsconfig,
             },
           },
         },
-        supportsStaticESM: true,
       } as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     );
 
-    expect(typeof result).toBe('object');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect((transformSync as unknown as jest.MockInstance<unknown, any>).mock.calls[0]).toMatchSnapshot();
     // @ts-expect-error `code` is a property of `TransformSource`
-    expect(result.code).toMatchInlineSnapshot(`
-      "const pi = parseFloat(3.124);
-      export default pi;
-      //# sourceMappingURL=foo.mjs.js.map"
-    `);
-    // @ts-expect-error `map` is a property of `TransformSource`
+    expect(result.code).toBeDefined();
+    // @ts-expect-error `code` is a property of `TransformSource`
     expect(result.map).toBeDefined();
-  });
-
-  test('should throw syntax error for mjs file with checkJs true', () => {
-    expect(() =>
-      tr.process(
-        `
-      const pi == parseFloat(3.124);
-      
-      export default pi;
-    `,
-        'foo.mjs',
-        {
-          config: {
-            cwd: process.cwd(),
-            extensionsToTreatAsEsm: [],
-            testMatch: [],
-            testRegex: [],
-            globals: {
-              'ts-jest': {
-                tsconfig: {
-                  checkJs: true,
-                },
-              },
-            },
-          },
-        } as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-      ),
-    ).toThrowError();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (transformSync as unknown as jest.MockInstance<unknown, any>).mockClear();
   });
 });

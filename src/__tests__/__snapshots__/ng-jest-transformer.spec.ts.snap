@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgJestTransformer should process successfully a mjs file to CommonJS codes 1`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "cjs",
+    "loader": "js",
+    "sourcemap": false,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should process successfully a mjs file to CommonJS codes 2`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "cjs",
+    "loader": "js",
+    "sourcemap": true,
+    "target": "es2016",
+  },
+]
+`;
+
+exports[`NgJestTransformer should process successfully a mjs file to CommonJS codes 3`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "cjs",
+    "loader": "js",
+    "sourcemap": true,
+    "target": "es2015",
+  },
+]
+`;
