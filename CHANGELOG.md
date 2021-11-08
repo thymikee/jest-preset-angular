@@ -1,3 +1,12 @@
+# [11.0.0-rc.2](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.1...v11.0.0-rc.2) (2021-11-08)
+
+
+### Performance Improvements
+
+* use `esbuild` to process `.mjs` files ([#1142](https://github.com/thymikee/jest-preset-angular/issues/1142)) ([5d3fe10](https://github.com/thymikee/jest-preset-angular/commit/5d3fe1010592b7a3973cdbc22c238e0e46d47b45)), closes [#1141](https://github.com/thymikee/jest-preset-angular/issues/1141)
+
+
+
 # [11.0.0-rc.1](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.0...v11.0.0-rc.1) (2021-11-04)
 
 
