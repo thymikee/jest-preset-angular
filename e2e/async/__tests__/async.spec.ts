@@ -1,7 +1,7 @@
 import type { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
@@ -49,13 +49,38 @@ describe('ButtonPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should click', async () => {
+  test('should click', async () => {
     const button = await loader.getHarness(MatButtonHarness);
     await button.click();
     expect(component.r).toBe(1);
   });
+});
+
+describe('async with Angular testing apis', () => {
+  test('fakeAsync should work', fakeAsync(() => {
+    let flag = false;
+    setTimeout(() => {
+      flag = true;
+    }, 100);
+    expect(flag).toBe(false);
+    tick(50);
+    expect(flag).toBe(false);
+    tick(50);
+    expect(flag).toBe(true);
+  }));
+
+  test(
+    'waitForAsync should work',
+    waitForAsync(() => {
+      let flag = false;
+      setTimeout(() => {
+        flag = true;
+        expect(flag).toBe(true);
+      }, 100);
+    }),
+  );
 });

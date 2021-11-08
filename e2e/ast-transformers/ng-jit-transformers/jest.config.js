@@ -1,9 +1,6 @@
-/** @type {import('ts-jest/dist/types').ProjectConfigTsJest} */
 module.exports = {
-  displayName: 'ng-jit-transformers',
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/../../tsconfig.json',
       stringifyContentPathRegex: '\\.html$',
     },
   },
@@ -13,5 +10,5 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js|mjs|html)$': '<rootDir>/../../../build/index.js',
   },
-  transformIgnorePatterns: ['node_modules/(?!@angular|tslib)'],
+  transformIgnorePatterns: ['node_modules/(?!@angular)'],
 };

@@ -71,14 +71,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
-      - name: Install
+      - name: Install and build
         run: yarn --immutable
       - name: Run unit tests
-        run: yarn test-unit-ci
-      - name: Run E2E tests in CJS mode
-        run: yarn e2e-cjs
-        # TODO: Enable when fully support ESM with Angular 13
-      #      - name: Run E2E tests in ESM mode
-      #        run: yarn e2e-esm
+        run: yarn test-unit
+      - name: Run e2e tests
+        run: yarn test-e2e
       - name: Run tests in example projects
         run: yarn test-examples
