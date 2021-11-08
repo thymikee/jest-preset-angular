@@ -1,29 +1,25 @@
-require('./ngcc-jest-processor');
-
-/** @type {import('ts-jest/dist/types').ProjectConfigTsJest} */
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  modulePathIgnorePatterns: ['examples', 'build', 'website', 'e2e'],
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.spec.json',
+      isolatedModules: true,
     },
   },
   moduleNameMapper: {
     '@angular/compiler-cli/ngcc': '<rootDir>/node_modules/@angular/compiler-cli/bundles/ngcc/main-ngcc.js',
   },
+  modulePathIgnorePatterns: ['examples/.*', 'website/.*'],
   resolver: '<rootDir>/build/resolvers/ng-jest-resolver',
-  snapshotSerializers: [
-    '<rootDir>/node_modules/pretty-format/build/plugins/ConvertAnsi.js',
-    require.resolve('jest-snapshot-serializer-raw'),
-  ],
+  snapshotSerializers: [require.resolve('jest-snapshot-serializer-raw')],
   testPathIgnorePatterns: [
-    '/node_modules/',
-    '/examples/',
-    '/e2e',
-    '\\.snap$',
-    '/build',
     '/src/__tests__/__mocks__/',
     '/src/__tests__/__helpers__/',
+    '/node_modules/',
+    '/examples/',
+    '/e2e/.*/__tests__',
+    'e2e',
+    '\\.snap$',
   ],
   transformIgnorePatterns: ['node_modules/(?!@angular)'],
   transform: {

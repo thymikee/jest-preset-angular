@@ -1,9 +1,6 @@
-/** @type {import('ts-jest/dist/types').ProjectConfigTsJest} */
 module.exports = {
-  displayName: 'snapshot-serializers',
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/../tsconfig.json',
       stringifyContentPathRegex: '\\.html$',
     },
   },
