@@ -36,12 +36,14 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  testEnvironment: 'jsdom',
-  transform: {
-    '^.+\\.(ts|js|html|svg)$': 'jest-preset-angular',
-  },
   moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   snapshotSerializers,
+  testEnvironment: 'jsdom',
+  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+  },
 };
 ```
 
@@ -55,11 +57,13 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
 ### Brief explanation of config
 
 - we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through `ts-jest`.
-- `"transform"` – run every TS, JS, or HTML file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
-- `"testEnvironment"` – the test environment to run on.
 - `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files.
-- `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex.
+- `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses `RegExp`.
+- `"resolver"` - instruct Jest how to resolve entry file based on `package.json` definitions.
 - `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds
   some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc).
   This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable.
   To remove such specific attributes use `no-ng-attributes` serializer. You need to add `no-ng-attributes` serializer manually.
+- `"testEnvironment"` – the test environment to run on.
+- `"transformIgnorePatterns"`: instruct Jest to transform certain packages which don't contain in `CommonJS` codes.
+- `"transform"` – run every `TS`, `JS`, `MJS`, or `HTML` file through so called _Jest transformer_; this lets Jest understand non-JS syntax.

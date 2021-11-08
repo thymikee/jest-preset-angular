@@ -30,12 +30,13 @@ module.exports = {
 
 there are no migration steps required
 
-- If one is using custom Jest config options for `transformIgnorePatterns`, `transform` and not using `preset: 'jest-preset-angular'`,
-  there are a few changes needed to be added to the Jest config:
+- If one is not having `preset: 'jest-preset-angular'` in Jest config, the config needs to be updated with new values for
+  `resolver`, `transformIgnorePatterns` and `transform`:
 
 ```js
 // jest.config.js
 module.exports = {
+  // ...other options
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   transformIgnorePatterns: ['node_modules/(?!@angular)'],
   transform: {
@@ -43,3 +44,15 @@ module.exports = {
   },
 };
 ```
+
+:::important
+Angular 13 libraries are also built automatically into ESM package format. Therefore, the Angular libraries should also
+be added to `transformIgnorePatterns` to avoid Jest error `SyntaxError: Cannot use import statement outside a module`,
+
+Example config:
+
+```js
+transformIgnorePatterns: ['node_modules/(?!@angular|my-ng-library-a|my-ng-library-b)'];
+```
+
+:::
