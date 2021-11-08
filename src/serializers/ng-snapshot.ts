@@ -101,7 +101,7 @@ const print = (fixture: unknown, print: Printer, indent: Indent, opts: PluginOpt
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 const test = (val: any): boolean =>
-  typeof val === 'object' && Object.prototype.hasOwnProperty.call(val, 'componentRef');
+  !!val && typeof val === 'object' && Object.prototype.hasOwnProperty.call(val, 'componentRef');
 
 export = {
   print,
