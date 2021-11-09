@@ -47,11 +47,11 @@ const serialize = (node: Element, ...rest: any): string => {
 };
 
 const serializeTestFn = (val: Element): boolean =>
-  val.attributes &&
+  !!val.attributes &&
   Object.values(val.attributes).some(
     (attribute: Attr) => hasAttributesToRemove(attribute) || hasAttributesToClean(attribute),
   );
-const test = (val: Element): boolean => jestDOMElementSerializer.test(val) && serializeTestFn(val);
+const test = (val: unknown): boolean => !!val && jestDOMElementSerializer.test(val) && serializeTestFn(val as Element);
 
 export = {
   serialize,
