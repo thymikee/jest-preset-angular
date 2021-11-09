@@ -36,7 +36,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   snapshotSerializers,
   testEnvironment: 'jsdom',
@@ -57,7 +57,7 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
 ### Brief explanation of config
 
 - we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through `ts-jest`.
-- `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files.
+- `"moduleFileExtensions"` – our modules are TypeScript (`ts`), HTML (`html`), JavaScript (`js`), JSON (`json`) and ESM JavaScript (`mjs`) files.
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses `RegExp`.
 - `"resolver"` - instruct Jest how to resolve entry file based on `package.json` definitions.
 - `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds

@@ -55,7 +55,7 @@ to make `XHR` call for our templates and fail miserably.
 
 - we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through `ts-jest`.
 - `"transform"` – run every TS, JS, or HTML file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
-- `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files.
+- `"moduleFileExtensions"` – our modules are TypeScript (`ts`), HTML (`html`), JavaScript (`js`) and JSON (`json`) files.
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex.
 - `"transformIgnorePatterns"` – unfortunately some modules (like @ngrx) are released as TypeScript files, not pure JavaScript;
   in such cases we cannot ignore them (all node_modules are ignored by default), so they can be transformed through TS compiler

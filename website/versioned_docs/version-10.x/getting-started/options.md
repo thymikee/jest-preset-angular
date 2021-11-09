@@ -57,7 +57,7 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
 - we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through `ts-jest`.
 - `"transform"` – run every TS, JS, or HTML file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
 - `"testEnvironment"` – the test environment to run on.
-- `"moduleFileExtensions"` – our modules are TypeScript and JavaScript files.
+- `"moduleFileExtensions"` – our modules are TypeScript (`ts`), HTML (`html`), JavaScript (`js`) and JSON (`json`) files.
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses regex.
 - `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds
   some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc).
