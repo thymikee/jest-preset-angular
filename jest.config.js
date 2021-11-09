@@ -9,6 +9,7 @@ module.exports = {
   moduleNameMapper: {
     '@angular/compiler-cli/ngcc': '<rootDir>/node_modules/@angular/compiler-cli/bundles/ngcc/main-ngcc.js',
   },
+  testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['examples/.*', 'website/.*'],
   resolver: '<rootDir>/build/resolvers/ng-jest-resolver',
   snapshotSerializers: [require.resolve('jest-snapshot-serializer-raw')],

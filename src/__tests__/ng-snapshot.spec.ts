@@ -1,6 +1,6 @@
 import ngSnapshot from '../serializers/ng-snapshot';
 
-describe('ng-snapshot', () => {
+describe('ng-snapshot snapshot serializer', () => {
   test('should return true when matching the condition', () => {
     expect(ngSnapshot.test({ componentRef: 'foo' })).toBe(true);
   });
