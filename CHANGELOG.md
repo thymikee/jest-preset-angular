@@ -1,3 +1,14 @@
+# [11.0.0-rc.3](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.2...v11.0.0-rc.3) (2021-11-09)
+
+
+### Bug Fixes
+
+* **presets:** add `mjs` to the list of `moduleFileExtensions` ([#1155](https://github.com/thymikee/jest-preset-angular/issues/1155)) ([3c992a1](https://github.com/thymikee/jest-preset-angular/commit/3c992a18b209f9d6500e34255b8f74c7fc5f3560)), closes [#1147](https://github.com/thymikee/jest-preset-angular/issues/1147)
+* bring back checks on `undefined`/`null` for `no-ng-attributes` ([#1154](https://github.com/thymikee/jest-preset-angular/issues/1154)) ([1e7dbf8](https://github.com/thymikee/jest-preset-angular/commit/1e7dbf8432d2c25a9a3d1e650db2abc3fa6a0466))
+* **serializers:** revert partially changes in `ng-snapshot` ([#1150](https://github.com/thymikee/jest-preset-angular/issues/1150)) ([44b3b77](https://github.com/thymikee/jest-preset-angular/commit/44b3b773b99f29eabc4d683509de39bdd68796ce)), closes [#1148](https://github.com/thymikee/jest-preset-angular/issues/1148)
+
+
+
 # [11.0.0-rc.2](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.1...v11.0.0-rc.2) (2021-11-08)
 
 
