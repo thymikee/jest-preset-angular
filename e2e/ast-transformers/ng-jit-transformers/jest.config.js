@@ -10,5 +10,5 @@ module.exports = {
   transform: {
     '^.+\\.(ts|js|mjs|html)$': '<rootDir>/../../../build/index.js',
   },
-  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
 };

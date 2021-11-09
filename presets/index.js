@@ -16,7 +16,7 @@ const basePreset = {
 module.exports = {
   defaults: {
     ...basePreset,
-    transformIgnorePatterns: ['node_modules/(?!@angular)'],
+    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
     transform: {
       '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
     },
