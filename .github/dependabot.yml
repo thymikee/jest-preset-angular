@@ -18,6 +18,12 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+    ignore:
+      - dependency-name: 'esbuild'
+      - dependency-name: 'jest*'
+      - dependency-name: '@jest*'
+      - dependency-name: '@angular*'
+      - dependency-name: 'pretty-format'
     commit-message:
       prefix: 'build(deps-dev)'
     labels:
