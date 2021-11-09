@@ -9,7 +9,7 @@ const basePreset = {
   },
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   testEnvironment: 'jsdom',
-  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   snapshotSerializers,
 };
 

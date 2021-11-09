@@ -11,6 +11,8 @@ Starting from **11.0.0**, `jest-preset-angular` introduces a few extra changes t
 
 - `ng-jest-resolver` is introduced as a custom Jest resolver to resolve `.mjs` files.
 
+- `moduleFileExtensions` is updated to include `mjs` files as accepted module format.
+
 - `transformIgnorePatterns` is added to inform Jest to transform `.mjs` files.
 
 - `transform` is updated to include `.mjs` extension to transform to `CommonJS` codes.
@@ -37,6 +39,7 @@ there are no migration steps required
 // jest.config.js
 module.exports = {
   // ...other options
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   transformIgnorePatterns: ['node_modules/(?!@angular)'],
   transform: {
@@ -47,30 +50,27 @@ module.exports = {
 
 ## Potential issues with Angular 13 ESM package format and workaround
 
-### Cannot import locale data from `@angular/common/locales` or any deep import paths
+### `Cannot find modules` error when importing any deep paths from Angular ESM format packages
 
-- Angular 13 ESM package format makes Jest resolution not able to resolve the correct locale files. Even though we introduced
+- Angular 13 ESM package format makes Jest resolution not able to resolve the correct `.mjs` files. Even though we introduced
   `ng-jest-resolver` as a part of the preset, this resolver won't work for all scenarios. One might get Jest error like
 
 ```
 Cannot find module '@angular/common/locales/xx' from 'src/app/app.component.spec.ts'
 ```
 
-To fix this issue, one needs to define
-`moduleNameMapper` to instruct Jest where to find the files, e.g.
+To fix this issue, one needs to add `mjs` to `moduleFileExtensions` as following
 
 ```js
 // jest.config.js
 module.exports = {
   // ...other options
-  moduleNameMapper: {
-    '@angular/common/locales/(.*)$': '<rootDir>/node_modules/@angular/common/locales/$1.mjs',
-  },
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
 };
 ```
 
-- Another alternative solution is extending the default [resolver](https://github.com/thymikee/jest-preset-angular/blob/main/src/resolvers/ng-jest-resolver.ts)
-  of this preset to instruct Jest where to find the files.
+If the issue still **persists**, you might need to configure [moduleNameMapper](https://jestjs.io/docs/configuration#modulenamemapper-objectstring-string--arraystring)
+or extend the behavior the default [resolver](https://github.com/thymikee/jest-preset-angular/blob/main/src/resolvers/ng-jest-resolver.ts) of this preset.
 
 ### Usage with Angular libraries which are built with Angular CLI 13
 
