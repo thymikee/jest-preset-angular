@@ -26,7 +26,7 @@ Object {
     "^.+\\\\.(ts|js|mjs|html|svg)$": "jest-preset-angular",
   },
   "transformIgnorePatterns": Array [
-    "node_modules/(?!@angular)",
+    "node_modules/(?!.*\\\\.mjs$)",
   ],
 }
 `;

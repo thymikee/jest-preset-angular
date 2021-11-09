@@ -40,7 +40,7 @@ module.exports = {
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   snapshotSerializers,
   testEnvironment: 'jsdom',
-  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
   },
@@ -65,5 +65,5 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
   This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable.
   To remove such specific attributes use `no-ng-attributes` serializer. You need to add `no-ng-attributes` serializer manually.
 - `"testEnvironment"` – the test environment to run on.
-- `"transformIgnorePatterns"`: instruct Jest to transform certain packages which don't contain in `CommonJS` codes.
+- `"transformIgnorePatterns"`: instruct Jest to transform any `.mjs` files which come from `node_modules`.
 - `"transform"` – run every `TS`, `JS`, `MJS`, or `HTML` file through so called _Jest transformer_; this lets Jest understand non-JS syntax.

@@ -14,5 +14,5 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/../../setup-jest.js'],
   transform: { '^.+\\.(ts|mjs|js|html)$': '<rootDir>/../../build/index.js' },
-  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
 };

@@ -41,7 +41,7 @@ module.exports = {
   // ...other options
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
-  transformIgnorePatterns: ['node_modules/(?!@angular)'],
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
   },
@@ -78,4 +78,12 @@ Besides, the changes in Angular packages themselves, **Angular** libraries which
 ESM package format. Similar to Angular packages, Jest doesn't understand `.mjs` files which are in these new format
 libraries in Jest **CommonJS** mode.
 
-To fix this issue, one should follow our [troubleshooting instruction](troubleshooting.md#unexpected-token-importexportother)
+To fix this issue, one should modify `transformIgnorePatterns` to be as following:
+
+```js
+// jest.config.js
+module.exports = {
+  // ...other options
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+};
+```
