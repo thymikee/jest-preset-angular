@@ -30,7 +30,7 @@ module.exports = {
 
 there are no migration steps required
 
-- If one is not having `preset: 'jest-preset-angular'` in Jest config, the config needs to be updated with new values for
+- If one is **NOT** having `preset: 'jest-preset-angular'` in Jest config, the config needs to be updated with new values for
   `resolver`, `transformIgnorePatterns` and `transform`:
 
 ```js
@@ -45,14 +45,37 @@ module.exports = {
 };
 ```
 
-:::important
-Angular 13 libraries are also built automatically into ESM package format. Therefore, the Angular libraries should also
-be added to `transformIgnorePatterns` to avoid Jest error `SyntaxError: Cannot use import statement outside a module`,
+## Potential issues with Angular 13 ESM package format and workaround
 
-Example config:
+### Cannot import locale data from `@angular/common/locales` or any deep import paths
 
-```js
-transformIgnorePatterns: ['node_modules/(?!@angular|my-ng-library-a|my-ng-library-b)'];
+- Angular 13 ESM package format makes Jest resolution not able to resolve the correct locale files. Even though we introduced
+  `ng-jest-resolver` as a part of the preset, this resolver won't work for all scenarios. One might get Jest error like
+
+```
+Cannot find module '@angular/common/locales/xx' from 'src/app/app.component.spec.ts'
 ```
 
-:::
+To fix this issue, one needs to define
+`moduleNameMapper` to instruct Jest where to find the files, e.g.
+
+```js
+// jest.config.js
+module.exports = {
+  // ...other options
+  moduleNameMapper: {
+    '@angular/common/locales/(.*)$': '<rootDir>/node_modules/@angular/common/locales/$1.mjs',
+  },
+};
+```
+
+- Another alternative solution is extending the default [resolver](https://github.com/thymikee/jest-preset-angular/blob/main/src/resolvers/ng-jest-resolver.ts)
+  of this preset to instruct Jest where to find the files.
+
+### Usage with Angular libraries which are built with Angular CLI 13
+
+Besides, the changes in Angular packages themselves, **Angular** libraries which are built with **Angular CLI 13** also introduce
+ESM package format. Similar to Angular packages, Jest doesn't understand `.mjs` files which are in these new format
+libraries in Jest **CommonJS** mode.
+
+To fix this issue, one should follow our [troubleshooting instruction](troubleshooting.md#unexpected-token-importexportother)
