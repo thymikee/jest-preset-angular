@@ -1,11 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
+import { APP_ENVIRONMENT } from './interfaces/environment.interface';
+import { FooService } from './services/foo.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
+      providers: [
+        FooService,
+        {
+          provide: APP_ENVIRONMENT,
+          useValue: environment,
+        },
+      ],
     }).compileComponents();
   });
 
