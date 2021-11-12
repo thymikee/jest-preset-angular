@@ -6,6 +6,30 @@ const logger = require('./logger');
 const glob = require('glob');
 
 logger.log();
+logger.log(`Updating e2e dependencies' versions (this might take a while)`);
+logger.log();
+
+glob.sync(`${path.join(process.cwd(), 'e2e')}/**/yarn.lock`).forEach((lockFilePath, idx, allPaths) => {
+  const dirPath = path.dirname(lockFilePath);
+
+  logger.log(`[${idx + 1}/${allPaths.length}] updating dependencies of ${path.dirname(dirPath)}:`);
+
+  process.chdir(dirPath);
+
+  logger.log(`installing dependencies of ${dirPath}:`);
+
+  execa.sync('yarn', ['install'], { cwd: dirPath });
+
+  logger.log('upgrading all dependencies using yarn upgrade --latest');
+
+  execa.sync('yarn', ['upgrade', '--latest']);
+
+  logger.log('    cleaning-up');
+
+  execa.sync('rimraf', [path.join(dirPath, 'node_modules')]);
+});
+
+logger.log();
 logger.log(`Updating example apps dependencies' versions (this might take a while)`);
 logger.log();
 
