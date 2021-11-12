@@ -44,10 +44,10 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
-    "update-e2e": "node scripts/update-e2e-deps.js"
+    "update-e2e": "node scripts/update-e2e.js"
   },
   "dependencies": {
-    "esbuild": "0.13.12",
+    "esbuild": "0.13.13",
     "jest-environment-jsdom": "^27.0.0",
     "pretty-format": "^27.0.0",
     "ts-jest": "^27.0.0"
@@ -58,14 +58,13 @@
     "@angular/platform-browser-dynamic": ">=10.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "~13.0.0",
-    "@angular/common": "~13.0.0",
-    "@angular/compiler": "~13.0.0",
-    "@angular/compiler-cli": "~13.0.0",
-    "@angular/core": "~13.0.0",
-    "@angular/forms": "~13.0.0",
-    "@angular/platform-browser": "~13.0.0",
-    "@angular/platform-browser-dynamic": "~13.0.0",
+    "@angular/animations": "~13.0.1",
+    "@angular/common": "~13.0.1",
+    "@angular/compiler": "~13.0.1",
+    "@angular/compiler-cli": "~13.0.1",
+    "@angular/core": "~13.0.1",
+    "@angular/platform-browser": "~13.0.1",
+    "@angular/platform-browser-dynamic": "~13.0.1",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-angular": "^14.1.0",
     "@jest/globals": "^27.3.0",
