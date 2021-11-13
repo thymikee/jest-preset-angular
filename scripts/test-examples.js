@@ -36,10 +36,12 @@ const executeTest = (projectPath) => {
   });
 
   // then we can run the tests
-  const cmdLine = ['yarn', 'test', '--no-cache'];
-  const cmdESMLine = ['yarn', 'test-esm', '--no-cache'];
+  const cmdLine = ['yarn', 'test'];
+  const cmdIsolatedLine = ['yarn', 'test-isolated'];
+  const cmdESMLine = ['yarn', 'test-esm'];
+  const cmdESMIsolatedLine = ['yarn', 'test-esm-isolated'];
 
-  logger.log('starting the CommonJS tests using:', ...cmdLine);
+  logger.log('starting the CommonJS tests with isolatedModules: false using:', ...cmdLine);
   logger.log();
 
   execa.sync(cmdLine.shift(), cmdLine, {
@@ -48,12 +50,30 @@ const executeTest = (projectPath) => {
     env: process.env,
   });
 
+  logger.log('starting the CommonJS tests with isolatedModules: true using:', ...cmdIsolatedLine);
+  logger.log();
+
+  execa.sync(cmdIsolatedLine.shift(), cmdIsolatedLine, {
+    cwd: projectPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
+
   // TODO: Enable when fully support ESM with Angular 13
   if (!projectPkg.version.startsWith('13')) {
-    logger.log('starting the ESM tests using:', ...cmdESMLine);
+    logger.log('starting the ESM tests with isolatedModules: false using:', ...cmdESMLine);
     logger.log();
 
     execa.sync(cmdESMLine.shift(), cmdESMLine, {
+      cwd: projectPath,
+      stdio: 'inherit',
+      env: process.env,
+    });
+
+    logger.log('starting the ESM tests with isolatedModules: true using:', ...cmdESMIsolatedLine);
+    logger.log();
+
+    execa.sync(cmdESMIsolatedLine.shift(), cmdESMIsolatedLine, {
       cwd: projectPath,
       stdio: 'inherit',
       env: process.env,

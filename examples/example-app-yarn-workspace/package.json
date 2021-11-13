@@ -9,6 +9,8 @@
   "private": true,
   "scripts": {
     "test": "yarn workspace angular-app test",
-    "test-esm": "yarn workspace angular-app test-esm"
+    "test-isolated": "yarn workspace angular-app test-isolated",
+    "test-esm": "yarn workspace angular-app test-esm",
+    "test-esm-isolated": "yarn workspace angular-app test-esm-isolated"
   }
 }
