@@ -1,3 +1,22 @@
+# [11.0.0-rc.4](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.3...v11.0.0-rc.4) (2021-11-15)
+
+
+### Performance Improvements
+
+* process `js` files in `node_modules` with `esbuild` ([#1169](https://github.com/thymikee/jest-preset-angular/issues/1169)) ([1de3bf0](https://github.com/thymikee/jest-preset-angular/commit/1de3bf04886fbc91ab821e965ec94a2d8dc741be))
+
+
+## Code Refactoring
+
+* **presets**: improve `transformIgnorePatterns` value ([#1162](https://github.com/thymikee/jest-preset-angular/issues/1162)) ([99a4b1b1](https://github.com/thymikee/jest-preset-angular/commit/99a4b1b1549a13b27bd8d03df181ea6fa69aa073))
+
+
+## BREAKING CHANGES
+
+* `js` files from `node_modules` are now compiled with `esbuild` to improve performance.
+
+
+
 # [11.0.0-rc.3](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.2...v11.0.0-rc.3) (2021-11-09)
 
 
