@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NgJestTransformer should process successfully a mjs file to CommonJS codes 1`] = `
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to CJS codes 1`] = `
 Array [
   "
       const pi = parseFloat(3.124);
@@ -10,13 +10,16 @@ Array [
   Object {
     "format": "cjs",
     "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "foo.mjs",
     "sourcemap": false,
+    "sourcesContent": true,
     "target": "es2015",
   },
 ]
 `;
 
-exports[`NgJestTransformer should process successfully a mjs file to CommonJS codes 2`] = `
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to CJS codes 2`] = `
 Array [
   "
       const pi = parseFloat(3.124);
@@ -26,13 +29,35 @@ Array [
   Object {
     "format": "cjs",
     "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "node_modules\\\\foo.js",
+    "sourcemap": false,
+    "sourcesContent": true,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to CJS codes 3`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "cjs",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "foo.mjs",
     "sourcemap": true,
+    "sourcesContent": true,
     "target": "es2016",
   },
 ]
 `;
 
-exports[`NgJestTransformer should process successfully a mjs file to CommonJS codes 3`] = `
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to CJS codes 4`] = `
 Array [
   "
       const pi = parseFloat(3.124);
@@ -42,7 +67,162 @@ Array [
   Object {
     "format": "cjs",
     "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "node_modules\\\\foo.js",
     "sourcemap": true,
+    "sourcesContent": true,
+    "target": "es2016",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to CJS codes 5`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "cjs",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "foo.mjs",
+    "sourcemap": true,
+    "sourcesContent": true,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to CJS codes 6`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "cjs",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "node_modules\\\\foo.js",
+    "sourcemap": true,
+    "sourcesContent": true,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to ESM codes 1`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "esm",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "foo.mjs",
+    "sourcemap": false,
+    "sourcesContent": true,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to ESM codes 2`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "esm",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "node_modules\\\\foo.js",
+    "sourcemap": false,
+    "sourcesContent": true,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to ESM codes 3`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "esm",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "foo.mjs",
+    "sourcemap": true,
+    "sourcesContent": true,
+    "target": "es2016",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to ESM codes 4`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "esm",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "node_modules\\\\foo.js",
+    "sourcemap": true,
+    "sourcesContent": true,
+    "target": "es2016",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to ESM codes 5`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "esm",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "foo.mjs",
+    "sourcemap": true,
+    "sourcesContent": true,
+    "target": "es2015",
+  },
+]
+`;
+
+exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\` js files to ESM codes 6`] = `
+Array [
+  "
+      const pi = parseFloat(3.124);
+      
+      export { pi };
+    ",
+  Object {
+    "format": "esm",
+    "loader": "js",
+    "sourceRoot": undefined,
+    "sourcefile": "node_modules\\\\foo.js",
+    "sourcemap": true,
+    "sourcesContent": true,
     "target": "es2015",
   },
 ]

@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { json as runWithJson } from '../run-jest';
+import { jsonNoCache as runWithJsonNoCache } from '../run-jest';
 import { runYarnInstall } from '../utils';
 
 const DIR = path.join(__dirname, '..', 'custom-typings');
@@ -10,13 +10,13 @@ beforeAll(() => {
 });
 
 test(`successfully runs the tests inside ${DIR} with isolatedModules: false`, () => {
-  const { json } = runWithJson(DIR);
+  const { json } = runWithJsonNoCache(DIR);
 
   expect(json.success).toBe(true);
 });
 
 test(`successfully runs the tests inside ${DIR} with isolatedModules: true`, () => {
-  const { json } = runWithJson(DIR, ['-c=jest-isolated.config.js']);
+  const { json } = runWithJsonNoCache(DIR, ['-c=jest-isolated.config.js']);
 
   expect(json.success).toBe(true);
 });

@@ -118,6 +118,10 @@ export const json = function (dir: string, args?: string[], options: RunJestOpti
   }
 };
 
+export const jsonNoCache = (dir: string, args?: string[], options: RunJestOptions = {}): RunJestJsonResult => {
+  return json(dir, args ? [...args, '--no-cache'] : ['--no-cache'], options);
+};
+
 export const onNodeVersions = (versionRange: string, testBody: () => void): void => {
   const description = `on node ${versionRange}`;
   if (semver.satisfies(process.versions.node, versionRange)) {

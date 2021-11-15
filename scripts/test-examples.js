@@ -9,6 +9,7 @@ const { exampleAppsToRun, rootDir } = require('./paths');
 const executeTest = (projectPath) => {
   // we change current directory
   process.chdir(projectPath);
+
   // reading package.json
   const projectPkg = require(join(projectPath, 'package.json'));
   if (!projectPkg.name) projectPkg.name = 'unknown';
@@ -18,6 +19,11 @@ const executeTest = (projectPath) => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectPath, '='.repeat(20));
   logger.log();
+
+  logger.log('cleaning up');
+  logger.log();
+
+  execa.sync('rimraf', [join(projectPath, 'node_modules')]);
 
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
@@ -50,6 +56,7 @@ const executeTest = (projectPath) => {
     env: process.env,
   });
 
+  logger.log();
   logger.log('starting the CommonJS tests with isolatedModules: true using:', ...cmdIsolatedLine);
   logger.log();
 
@@ -61,6 +68,7 @@ const executeTest = (projectPath) => {
 
   // TODO: Enable when fully support ESM with Angular 13
   if (!projectPkg.version.startsWith('13')) {
+    logger.log();
     logger.log('starting the ESM tests with isolatedModules: false using:', ...cmdESMLine);
     logger.log();
 
@@ -70,6 +78,7 @@ const executeTest = (projectPath) => {
       env: process.env,
     });
 
+    logger.log();
     logger.log('starting the ESM tests with isolatedModules: true using:', ...cmdESMIsolatedLine);
     logger.log();
 
