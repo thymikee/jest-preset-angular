@@ -35,7 +35,7 @@
     "lint-fix": "eslint --fix --ext .js,.ts .",
     "lint-prettier": "prettier '**/*.{yml,yaml,md}' --write",
     "lint-prettier-ci": "prettier '**/*.{yml,yaml,md}' --check",
-    "pretest": "tsc -p tsconfig.spec.json --noEmit",
+    "pretest-unit": "tsc -p tsconfig.spec.json --noEmit",
     "test-unit": "jest",
     "test-e2e": "jest -c=jest-e2e.config.js",
     "test-examples": "node scripts/test-examples.js",
