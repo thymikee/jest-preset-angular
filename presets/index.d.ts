@@ -1,7 +1,7 @@
-import type { TsJestPresets } from 'ts-jest/dist/types';
+import type { Config } from '@jest/types';
 
 declare const _default: {
-  defaults: TsJestPresets;
-  defaultsESM: TsJestPresets;
+  defaults: Config.InitialOptions;
+  defaultsESM: Config.InitialOptions;
 };
 export = _default;
