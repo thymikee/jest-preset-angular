@@ -1,0 +1,15 @@
+{
+  "name": "process-js-packages",
+  "jest": {
+    "moduleFileExtensions": ["ts", "html", "js", "json", "mjs"],
+    "globals": {
+      "ts-jest": {
+        "isolatedModules": true
+      }
+    },
+    "transform": {
+      "^.+\\.(ts|js|mjs|html)$": "<rootDir>/../../build/index.js"
+    },
+    "transformIgnorePatterns": ["node_modules/(?!my-lib)"]
+  }
+}
