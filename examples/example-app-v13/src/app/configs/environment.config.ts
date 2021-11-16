@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 /**
- * @nore Using TypeScript interface instead of class breaks jest esm tests with isolated modules on.
+ * @note Using TypeScript interface instead of class breaks jest esm tests with isolated modules on.
  */
 export class AppEnvironment {
   constructor(input?: Partial<AppEnvironment>) {
