@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { APP_ENVIRONMENT } from './interfaces/environment.interface';
+import { APP_ENVIRONMENT } from './configs/environment.config';
 
 @NgModule({
   declarations: [AppComponent],

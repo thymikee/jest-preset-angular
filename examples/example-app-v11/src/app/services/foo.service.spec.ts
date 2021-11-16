@@ -1,7 +1,6 @@
 import { TestBed, TestModuleMetadata, waitForAsync } from '@angular/core/testing';
 
-import { environment } from '../../environments/environment';
-import { APP_ENVIRONMENT, IAppEnvironment } from '../interfaces/environment.interface';
+import { APP_ENVIRONMENT, AppEnvironment } from '../configs/environment.config';
 
 import { FooService } from './foo.service';
 
@@ -11,13 +10,13 @@ describe('FooService', () => {
       FooService,
       {
         provide: APP_ENVIRONMENT,
-        useValue: environment,
+        useFactory: () => new AppEnvironment(),
       },
     ],
   };
 
   let service: FooService;
-  let env: IAppEnvironment;
+  let env: AppEnvironment;
 
   beforeEach(
     waitForAsync(() => {

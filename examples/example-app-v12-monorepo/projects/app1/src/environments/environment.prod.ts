@@ -1,5 +1,5 @@
-import { IAppEnvironment } from '../app/interfaces/environment.interface';
+import { AppEnvironment } from '../app/configs/environment.config';
 
-export const environment: IAppEnvironment = {
+export const environment: AppEnvironment = {
   production: true,
 };
