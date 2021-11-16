@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { APP_ENVIRONMENT } from './interfaces/environment.interface';
+import { APP_ENVIRONMENT } from './configs/environment.config';
 import { FooService } from './services/foo.service';
 
 describe('AppComponent', () => {
