@@ -1,4 +1,4 @@
-import noNgAttr from '../serializers/no-ng-attributes';
+import noNgAttr from './no-ng-attributes';
 
 describe('no-ng-attributes snapshot serializer', () => {
   test('should return true when matching the condition with attributes to remove', () => {

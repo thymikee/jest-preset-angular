@@ -1,14 +1,17 @@
 import { transformSync } from 'esbuild';
 
-import { NgJestCompiler } from '../compiler/ng-jest-compiler';
-import { NgJestConfig } from '../config/ng-jest-config';
-import { NgJestTransformer } from '../ng-jest-transformer';
+import { NgJestCompiler } from './compiler/ng-jest-compiler';
+import { NgJestConfig } from './config/ng-jest-config';
+import { NgJestTransformer } from './ng-jest-transformer';
 
 const tr = new NgJestTransformer();
 
 jest.mock('esbuild', () => {
   return {
-    transformSync: jest.fn().mockImplementation(jest.requireActual('esbuild').transformSync),
+    transformSync: jest.fn().mockReturnValue({
+      code: '',
+      map: '',
+    }),
   };
 });
 
@@ -114,7 +117,7 @@ describe('NgJestTransformer', () => {
         },
       },
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
-    const mjsOutput = tr.process(
+    tr.process(
       `
       const pi = parseFloat(3.124);
       
@@ -123,7 +126,7 @@ describe('NgJestTransformer', () => {
       'foo.mjs',
       transformCfg,
     );
-    const cjsOutput = tr.process(
+    tr.process(
       `
       const pi = parseFloat(3.124);
       
@@ -136,14 +139,6 @@ describe('NgJestTransformer', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect(transformSyncMock.mock.calls[0]).toMatchSnapshot();
     expect(transformSyncMock.mock.calls[1]).toMatchSnapshot();
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(mjsOutput.code).toBeDefined();
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(cjsOutput.code).toBeDefined();
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(mjsOutput.map).toEqual(expect.any(String));
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(cjsOutput.map).toEqual(expect.any(String));
 
     transformSyncMock.mockClear();
   });
@@ -180,7 +175,7 @@ describe('NgJestTransformer', () => {
       },
       supportsStaticESM: true,
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
-    const mjsOutput = tr.process(
+    tr.process(
       `
       const pi = parseFloat(3.124);
       
@@ -189,7 +184,7 @@ describe('NgJestTransformer', () => {
       'foo.mjs',
       transformCfg,
     );
-    const cjsOutput = tr.process(
+    tr.process(
       `
       const pi = parseFloat(3.124);
       
@@ -202,14 +197,6 @@ describe('NgJestTransformer', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect(transformSyncMock.mock.calls[0]).toMatchSnapshot();
     expect(transformSyncMock.mock.calls[1]).toMatchSnapshot();
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(mjsOutput.code).toBeDefined();
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(cjsOutput.code).toBeDefined();
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(mjsOutput.map).toEqual(expect.any(String));
-    // @ts-expect-error `code` is a property of `TransformSource`
-    expect(cjsOutput.map).toEqual(expect.any(String));
 
     transformSyncMock.mockClear();
   });

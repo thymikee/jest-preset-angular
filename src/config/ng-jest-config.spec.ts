@@ -1,6 +1,6 @@
-import ts from 'typescript';
+import { ScriptTarget } from 'typescript';
 
-import { NgJestConfig } from '../config/ng-jest-config';
+import { NgJestConfig } from './ng-jest-config';
 
 describe('NgJestConfig', () => {
   test('should override some compiler options', () => {
@@ -13,7 +13,7 @@ describe('NgJestConfig', () => {
     expect(compilerOptions.annotationsAs).toBe('decorators');
     expect(compilerOptions.enableResourceInlining).toBe(false);
     expect(compilerOptions.allowJs).toBe(true);
-    expect(compilerOptions.target).toBe(ts.ScriptTarget.ES2015);
+    expect(compilerOptions.target).toBe(ScriptTarget.ES2015);
   });
 
   test('should set typescript target to ES2015 if user is using target higher than ES2016', () => {
@@ -28,6 +28,6 @@ describe('NgJestConfig', () => {
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any).parsedTsConfig.options.target,
-    ).toBe(ts.ScriptTarget.ES2015);
+    ).toBe(ScriptTarget.ES2015);
   });
 });

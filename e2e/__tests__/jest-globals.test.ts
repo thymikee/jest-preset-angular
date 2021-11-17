@@ -1,6 +1,13 @@
+import path from 'path';
+
 import { jsonNoCache as runWithJsonNoCache } from '../run-jest';
+import { runYarnInstall } from '../utils';
 
 const DIR = 'jest-globals';
+
+beforeAll(() => {
+  runYarnInstall(path.join(__dirname, '..', DIR));
+});
 
 test(`successfully runs the tests inside ${DIR} with isolatedModules: false`, () => {
   const { json } = runWithJsonNoCache(DIR);
