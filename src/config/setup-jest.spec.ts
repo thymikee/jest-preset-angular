@@ -1,6 +1,3 @@
-import { PlatformRef } from '@angular/core';
-import { jest } from '@jest/globals';
-
 const mockInitTestEnvironment = jest.fn();
 const mockGetTestBed = jest.fn(() => {
   return {
@@ -14,7 +11,8 @@ jest.mock('@angular/core/testing', () => {
 });
 
 class BrowserDynamicTestingModuleStub {}
-const mockPlatformBrowserDynamicTesting = jest.fn(() => new PlatformRef());
+class PlatformRefStub {}
+const mockPlatformBrowserDynamicTesting = jest.fn(() => new PlatformRefStub());
 jest.mock('@angular/platform-browser-dynamic/testing', () => {
   return {
     BrowserDynamicTestingModule: new BrowserDynamicTestingModuleStub(),
@@ -30,5 +28,5 @@ test('should initialize test environment with getTestBed() and initTestEnvironme
   expect(mockInitTestEnvironment).toHaveBeenCalled();
   expect(mockInitTestEnvironment.mock.calls[0][0]).toBeInstanceOf(BrowserDynamicTestingModuleStub);
   expect(mockPlatformBrowserDynamicTesting).toHaveBeenCalled();
-  expect(mockPlatformBrowserDynamicTesting.mock.results[0].value).toBeInstanceOf(PlatformRef);
+  expect(mockPlatformBrowserDynamicTesting.mock.results[0].value).toBeInstanceOf(PlatformRefStub);
 });

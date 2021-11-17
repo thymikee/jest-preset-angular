@@ -73,9 +73,7 @@ jobs:
           cache: yarn
       - name: Install and build
         run: yarn --immutable
-      - name: Run unit tests
-        run: yarn test-unit
-      - name: Run e2e tests
-        run: yarn test-e2e
+      - name: Run tests
+        run: yarn test
       - name: Run tests in example projects
         run: yarn test-examples

@@ -1,4 +1,4 @@
-import ngSnapshot from '../serializers/ng-snapshot';
+import ngSnapshot from './ng-snapshot';
 
 describe('ng-snapshot snapshot serializer', () => {
   test('should return true when matching the condition', () => {
