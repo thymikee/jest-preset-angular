@@ -79,7 +79,7 @@ function Home() {
             Angular Ivy? Check out our <Link to="/docs/guides/angular-ivy">Angular Ivy guidance</Link>.
           </div>
           <div className={styles.announcementInner}>
-            Migrate to Angular >=13? Check out our <Link to="/docs/next/guides/angular-13+">Angular >=13 guidance</Link>
+            Migrate to Angular >=13? Check out our <Link to="/docs/guides/angular-13+">Angular >=13 guidance</Link>
             .
           </div>
         </div>
