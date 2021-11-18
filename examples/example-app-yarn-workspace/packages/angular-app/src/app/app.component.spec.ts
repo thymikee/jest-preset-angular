@@ -1,32 +1,50 @@
-import { TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
+import { AppEnvironment, APP_ENVIRONMENT } from './configs/environment.config';
+import { FooService } from './services/foo.service';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
-    }).compileComponents();
-  });
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let debugEl: DebugElement;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(
+    waitForAsync(() => {
+      void TestBed.configureTestingModule({
+        imports: [RouterTestingModule],
+        declarations: [AppComponent],
+        providers: [
+          FooService,
+          {
+            provide: APP_ENVIRONMENT,
+            useFactory: () => new AppEnvironment(),
+          },
+        ],
+      })
+        .compileComponents()
+        .then(() => {
+          fixture = TestBed.createComponent(AppComponent);
+          component = fixture.componentInstance;
+          debugEl = fixture.debugElement;
+          fixture.detectChanges();
+        });
+    }),
+  );
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
   });
 
   it(`should have as title 'example-app-v12'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('example-app-yarn-workspace');
+    expect(component.title).toEqual('example-app-yarn-workspace');
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('example-app-yarn-workspace app is running!');
+    expect((<HTMLElement>debugEl.nativeElement).querySelector('.content span').textContent).toContain(
+      'example-app-yarn-workspace app is running!',
+    );
   });
 });
