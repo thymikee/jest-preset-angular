@@ -1,3 +1,42 @@
+# [11.0.0](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.4...v11.0.0) (2021-11-18)
+
+
+### Bug Fixes
+
+* **presets:** use `ts-jest` types for preset types ([#1172](https://github.com/thymikee/jest-preset-angular/issues/1172)) ([81854f6](https://github.com/thymikee/jest-preset-angular/commit/81854f680088f23f4f2f5801ef660711812b90e3))
+* **presets:** add `mjs` to the list of `moduleFileExtensions` ([#1155](https://github.com/thymikee/jest-preset-angular/issues/1155)) ([3c992a1](https://github.com/thymikee/jest-preset-angular/commit/3c992a18b209f9d6500e34255b8f74c7fc5f3560)), closes [#1147](https://github.com/thymikee/jest-preset-angular/issues/1147)
+
+
+### Features
+
+* support Angular 13 in CJS mode ([#1122](https://github.com/thymikee/jest-preset-angular/issues/1122)) ([12d3c6d](https://github.com/thymikee/jest-preset-angular/commit/12d3c6d27fadc3c423ab42d10615526e26826ed6))
+
+
+## Code Refactoring
+
+* **presets**: improve `transformIgnorePatterns` value ([#1162](https://github.com/thymikee/jest-preset-angular/issues/1162)) ([99a4b1b1](https://github.com/thymikee/jest-preset-angular/commit/99a4b1b1549a13b27bd8d03df181ea6fa69aa073))
+
+
+### Performance Improvements
+
+* process `js` files in `node_modules` with `esbuild` ([#1169](https://github.com/thymikee/jest-preset-angular/issues/1169)) ([1de3bf0](https://github.com/thymikee/jest-preset-angular/commit/1de3bf04886fbc91ab821e965ec94a2d8dc741be))
+* use `esbuild` to process `.mjs` files ([#1142](https://github.com/thymikee/jest-preset-angular/issues/1142)) ([5d3fe10](https://github.com/thymikee/jest-preset-angular/commit/5d3fe1010592b7a3973cdbc22c238e0e46d47b45)), closes [#1141](https://github.com/thymikee/jest-preset-angular/issues/1141)
+
+
+## BREAKING CHANGES
+
+* `js` files from `node_modules` are now compiled with `esbuild` to improve performance.
+* **NodeJs** range version support now is `^12.20.0 || ^14.15.0 || >=16.10.0`
+* Due to the introduction of **ESM package format** for Angular packages, several things are added to the **default preset**
+  to handle `.mjs` files from **Angular ESM packages**. Please check our migration documentation at https://thymikee.github.io/jest-preset-angular/docs/next/guides/angular-13+
+
+
+### Special Thanks
+
+Alan Agius, Pete Bacon Darwin from Angular team
+
+
+
 # [11.0.0-rc.4](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.3...v11.0.0-rc.4) (2021-11-15)
 
 
