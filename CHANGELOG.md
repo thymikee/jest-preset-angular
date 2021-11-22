@@ -1,3 +1,12 @@
+## [11.0.1](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0...v11.0.1) (2021-11-22)
+
+
+### Bug Fixes
+
+* add `bs-logger` as a direct dependency ([#1192](https://github.com/thymikee/jest-preset-angular/issues/1192)) ([c7f6550](https://github.com/thymikee/jest-preset-angular/commit/c7f65501e7b9acf2d0568f91fbd4979a7e2913b1)), closes [#1191](https://github.com/thymikee/jest-preset-angular/issues/1191)
+
+
+
 # [11.0.0](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0-rc.4...v11.0.0) (2021-11-18)
 
 
