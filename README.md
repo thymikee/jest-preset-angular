@@ -75,7 +75,7 @@ Adjust your `tsconfig.spec.json` to be:
 
 ## Migration from Angular < 13
 
-Check out our [Migration from Angular < 13 guidance](https://thymikee.github.io/jest-preset-angular/docs/next/guides/angular-13+)
+Check out our [Migration from Angular < 13 guidance](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-13+)
 
 ## Angular Ivy
 
