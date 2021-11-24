@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-})
-export class AppComponent {}
+export * from './hero';
+export * from './hero.service';
+export * from './user.service';
 
 /*
 Copyright Google LLC. All Rights Reserved.

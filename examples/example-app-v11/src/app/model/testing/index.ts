@@ -1,9 +1,4 @@
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-})
-export class AppComponent {}
+export * from './test-hero.service';
 
 /*
 Copyright Google LLC. All Rights Reserved.

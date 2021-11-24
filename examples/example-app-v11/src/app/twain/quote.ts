@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-})
-export class AppComponent {}
+export interface Quote {
+  id: number;
+  quote: string;
+}
 
 /*
 Copyright Google LLC. All Rights Reserved.

@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-})
-export class AppComponent {}
+export interface Hero {
+  id: number;
+  name: string;
+}
 
 /*
 Copyright Google LLC. All Rights Reserved.

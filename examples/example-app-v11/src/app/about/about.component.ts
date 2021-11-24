@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h2 highlight="skyblue">About</h2>
+    <h3>Quote of the day:</h3>
+    <twain-quote></twain-quote>
+  `,
 })
-export class AppComponent {}
+export class AboutComponent {}
 
 /*
 Copyright Google LLC. All Rights Reserved.
