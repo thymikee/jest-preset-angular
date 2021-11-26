@@ -92,16 +92,18 @@ describe('HeroDetailComponent', () => {
 
       it('should convert hero name to Title Case', () => {
         const hostElement: HTMLElement = fixture.nativeElement;
-        const nameInput: HTMLInputElement = hostElement.querySelector('input')!;
-        const nameDisplay: HTMLElement = hostElement.querySelector('span')!;
+        const nameInput = hostElement.querySelector('input');
+        const nameDisplay = hostElement.querySelector('span');
 
-        nameInput.value = 'quick BROWN  fOx';
+        if (nameInput !== null) {
+          nameInput.value = 'quick BROWN  fOx';
 
-        nameInput.dispatchEvent(new Event('input'));
+          nameInput.dispatchEvent(new Event('input'));
+        }
 
         fixture.detectChanges();
 
-        expect(nameDisplay.textContent).toBe('Quick Brown  Fox');
+        expect(nameDisplay?.textContent).toBe('Quick Brown  Fox');
       });
     });
 
@@ -355,7 +357,9 @@ class Page {
   navigateSpy: jest.SpyInstance;
 
   constructor(someFixture: ComponentFixture<HeroDetailComponent>) {
-    const routerSpy = someFixture.debugElement.injector.get(Router) as any;
+    const routerSpy = someFixture.debugElement.injector.get(Router) as unknown as {
+      navigate: jest.SpyInstance;
+    };
     this.navigateSpy = routerSpy.navigate;
 
     const someComponent = someFixture.componentInstance;

@@ -42,8 +42,8 @@ export class HeroService {
     return this.http.delete<Hero>(url, httpOptions).pipe(catchError(this.handleError<Hero>('deleteHero')));
   }
 
-  updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(catchError(this.handleError<any>('updateHero')));
+  updateHero(hero: Hero): Observable<unknown> {
+    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(catchError(this.handleError<unknown>('updateHero')));
   }
 
   private handleError<T>(operation = 'operation') {

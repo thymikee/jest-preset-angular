@@ -150,13 +150,13 @@ export class InputComponent {
 export class InputValueBinderDirective {
   @HostBinding()
   @Input()
-  value: any;
+  value: unknown;
 
   @Output()
-  valueChange: EventEmitter<any> = new EventEmitter();
+  valueChange = new EventEmitter();
 
   @HostListener('input', ['$event.target.value'])
-  onInput(value: any) {
+  onInput(value: unknown) {
     this.valueChange.emit(value);
   }
 }
@@ -256,7 +256,7 @@ export class InnerCompWithExternalTemplateComponent {}
 
 @Component({ selector: 'needs-content', template: '<ng-content></ng-content>' })
 export class NeedsContentComponent {
-  @ContentChildren('content') children: any;
+  @ContentChildren('content') children: unknown;
 }
 
 @Component({

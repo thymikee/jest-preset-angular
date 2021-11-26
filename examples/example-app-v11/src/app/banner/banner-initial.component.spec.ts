@@ -1,4 +1,3 @@
-import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -54,22 +53,17 @@ describe('BannerComponent (with beforeEach)', () => {
   });
 
   it('should have <p> with "banner works!"', () => {
-    const bannerElement: HTMLElement = fixture.nativeElement;
-    const p = bannerElement.querySelector('p')!;
-    expect(p.textContent).toEqual('banner works!');
+    const p = <HTMLElement>fixture.nativeElement.querySelector('p');
+    expect(p?.textContent).toEqual('banner works!');
   });
 
   it('should find the <p> with fixture.debugElement.nativeElement)', () => {
-    const bannerDe: DebugElement = fixture.debugElement;
-    const bannerEl: HTMLElement = bannerDe.nativeElement;
-    const p = bannerEl.querySelector('p')!;
-    expect(p.textContent).toEqual('banner works!');
+    const p = <HTMLElement>fixture.debugElement.nativeElement.querySelector('p');
+    expect(p?.textContent).toEqual('banner works!');
   });
 
   it('should find the <p> with fixture.debugElement.query(By.css)', () => {
-    const bannerDe: DebugElement = fixture.debugElement;
-    const paragraphDe = bannerDe.query(By.css('p'));
-    const p: HTMLElement = paragraphDe.nativeElement;
+    const p = <HTMLElement>fixture.debugElement.query(By.css('p')).nativeElement;
     expect(p.textContent).toEqual('banner works!');
   });
 });

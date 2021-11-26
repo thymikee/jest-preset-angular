@@ -13,7 +13,7 @@ describe('CanvasComponent', () => {
       })
         .compileComponents()
         .then(() => {
-          (window as any).__zone_symbol__FakeAsyncTestMacroTask = [
+          (window as typeof window & Record<string, unknown>).__zone_symbol__FakeAsyncTestMacroTask = [
             {
               source: 'HTMLCanvasElement.toBlob',
               callbackArgs: [{ size: 200 }],

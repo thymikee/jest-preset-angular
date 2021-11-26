@@ -32,7 +32,7 @@ describe('DashboardComponent class only', () => {
     'should HAVE heroes after HeroService gets them',
     waitForAsync(() => {
       comp.ngOnInit();
-      heroService.lastResult.subscribe(() => {
+      heroService.lastHeroesResult?.subscribe(() => {
         expect(comp.heroes.length).toBeGreaterThan(0);
       });
     }),

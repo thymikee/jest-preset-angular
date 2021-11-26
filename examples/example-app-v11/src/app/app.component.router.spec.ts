@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { DebugElement, Type } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router, RouterLinkWithHref } from '@angular/router';
@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroListComponent } from './hero/hero-list.component';
-import { HeroModule } from './hero/hero.module';
 import { HeroService } from './model/hero.service';
 import { TestHeroService } from './model/testing/test-hero.service';
 import { TwainService } from './twain/twain.service';
@@ -30,7 +29,7 @@ let location: SpyLocation;
 describe('AppComponent & RouterTestingModule', () => {
   beforeEach(
     waitForAsync(() => {
-      TestBed.configureTestingModule({
+      void TestBed.configureTestingModule({
         imports: [AppModule, RouterTestingModule.withRoutes(routes)],
         providers: [{ provide: HeroService, useClass: TestHeroService }],
       }).compileComponents();
@@ -40,63 +39,44 @@ describe('AppComponent & RouterTestingModule', () => {
   it('should navigate to "Dashboard" immediately', fakeAsync(() => {
     createComponent();
     tick();
-    expectPathToBe('/dashboard');
-    expectElementOf(DashboardComponent);
+    expect(location.path()).toEqual('/dashboard');
+    const el = fixture.debugElement.query(By.directive(DashboardComponent));
+    expect(el).toBeTruthy();
   }));
 
   it('should navigate to "About" on click', fakeAsync(() => {
     createComponent();
     click(page.aboutLinkDe);
     advance();
-    expectPathToBe('/about');
-    expectElementOf(AboutComponent);
+    expect(location.path()).toEqual('/about');
+    const el = fixture.debugElement.query(By.directive(AboutComponent));
+    expect(el).toBeTruthy();
   }));
 
   it('should navigate to "About" w/ browser location URL change', fakeAsync(() => {
     createComponent();
     location.simulateHashChange('/about');
     advance();
-    expectPathToBe('/about');
-    expectElementOf(AboutComponent);
+    expect(location.path()).toEqual('/about');
+    const el = fixture.debugElement.query(By.directive(AboutComponent));
+    expect(el).toBeTruthy();
   }));
 
-  it.skip('should navigate to "Heroes" on click (not working yet)', fakeAsync(() => {
+  it('should navigate to "Heroes" on click (not working yet)', fakeAsync(() => {
     createComponent();
     page.heroesLinkDe.nativeElement.click();
     advance();
-    expectPathToBe('/heroes');
+    expect(location.path()).toEqual('/heroes');
+    const el = fixture.debugElement.query(By.directive(HeroListComponent));
+    expect(el).toBeTruthy();
   }));
-});
-
-describe.skip('AppComponent & Lazy Loading (not working yet)', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [AppModule, RouterTestingModule.withRoutes(routes)],
-      }).compileComponents();
-    }),
-  );
-
-  beforeEach(fakeAsync(() => {
-    createComponent();
-    router.resetConfig([{ path: 'heroes', loadChildren: () => HeroModule }]);
-  }));
-
-  it(
-    'should navigate to "Heroes" on click',
-    waitForAsync(() => {
-      page.heroesLinkDe.nativeElement.click();
-      advance();
-      expectPathToBe('/heroes');
-      expectElementOf(HeroListComponent);
-    }),
-  );
 
   it('can navigate to "Heroes" w/ browser location URL change', fakeAsync(() => {
     location.go('/heroes');
     advance();
-    expectPathToBe('/heroes');
-    expectElementOf(HeroListComponent);
+    expect(location.path()).toEqual('/heroes');
+    const el = fixture.debugElement.query(By.directive(HeroListComponent));
+    expect(el).toBeTruthy();
   }));
 });
 
@@ -138,15 +118,4 @@ class Page {
     this.fixture = fixture;
     this.router = router;
   }
-}
-
-function expectPathToBe(path: string) {
-  expect(location.path()).toEqual(path);
-}
-
-function expectElementOf(type: Type<any>): any {
-  const el = fixture.debugElement.query(By.directive(type));
-  expect(el).toBeTruthy();
-
-  return el;
 }

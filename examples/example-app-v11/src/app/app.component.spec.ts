@@ -80,12 +80,12 @@ describe('AppComponent & AppModule', () => {
 
 function tests() {
   let routerLinks: RouterLinkDirectiveStub[];
-  let linkDes: DebugElement[];
+  let debugElements: DebugElement[];
 
   beforeEach(() => {
     fixture.detectChanges();
-    linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
-    routerLinks = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
+    debugElements = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
+    routerLinks = debugElements.map((de) => de.injector.get(RouterLinkDirectiveStub));
   });
 
   it('can instantiate the component', () => {
@@ -100,7 +100,7 @@ function tests() {
   });
 
   it('can click Heroes link in template', () => {
-    const heroesLinkDe = linkDes[1];
+    const heroesLinkDe = debugElements[1];
     const heroesLink = routerLinks[1];
     expect(heroesLink.navigatedTo).toBeNull();
     heroesLinkDe.triggerEventHandler('click', null);

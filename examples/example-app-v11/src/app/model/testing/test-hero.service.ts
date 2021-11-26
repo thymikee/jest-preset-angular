@@ -15,7 +15,8 @@ export class TestHeroService extends HeroService {
   }
 
   heroes = getTestHeroes();
-  lastResult!: Observable<any>;
+  lastHeroResult?: Observable<Hero>;
+  lastHeroesResult?: Observable<Hero[]>;
 
   addHero(hero: Hero): Observable<Hero> {
     throw new Error(`Method not implemented. ${hero}`);
@@ -26,14 +27,14 @@ export class TestHeroService extends HeroService {
   }
 
   getHeroes(): Observable<Hero[]> {
-    this.lastResult = new Observable<ReturnType<typeof getTestHeroes>>((observer) => {
+    this.lastHeroesResult = new Observable<ReturnType<typeof getTestHeroes>>((observer) => {
       setTimeout(() => {
         observer.next(this.heroes);
         observer.complete();
       }, 0);
     });
 
-    return this.lastResult;
+    return this.lastHeroesResult;
   }
 
   getHero(id: number | string): Observable<Hero> {
@@ -41,18 +42,18 @@ export class TestHeroService extends HeroService {
       id = parseInt(id, 10);
     }
     const hero = this.heroes.find((h) => h.id === id);
-    this.lastResult = new Observable<Hero>((observer) => {
+    this.lastHeroResult = new Observable<Hero>((observer) => {
       setTimeout(() => {
         observer.next(hero);
         observer.complete();
       }, 0);
     });
 
-    return this.lastResult;
+    return this.lastHeroResult;
   }
 
   updateHero(hero: Hero): Observable<Hero> {
-    return (this.lastResult = this.getHero(hero.id).pipe(
+    return (this.lastHeroResult = this.getHero(hero.id).pipe(
       map((h) => {
         if (h) {
           return Object.assign(h, hero);
