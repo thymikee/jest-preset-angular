@@ -39,8 +39,6 @@ export class NotProvided extends ValueService {
 }
 
 describe('demo (with TestBed):', () => {
-  ////////  Service Tests  /////////////
-
   describe('ValueService', () => {
     let service: ValueService;
 
@@ -72,7 +70,6 @@ describe('demo (with TestBed):', () => {
       }),
     );
 
-    // Must use done. See https://github.com/angular/angular/issues/10127
     // eslint-disable-next-line jest/no-done-callback
     it('test should wait for ValueService.getObservableDelayValue', (done: DoneFn) => {
       service.getObservableDelayValue().subscribe((value) => {
@@ -82,9 +79,9 @@ describe('demo (with TestBed):', () => {
     });
 
     it('should allow the use of fakeAsync', fakeAsync(() => {
-      let value: any;
-      service.getPromiseValue().then((val: any) => (value = val));
-      tick(); // Trigger JS engine cycle until all promises resolve.
+      let value = '';
+      service.getPromiseValue().then((val: string) => (value = val));
+      tick();
       expect(value).toBe('promise value');
     }));
   });
@@ -157,16 +154,12 @@ describe('demo (with TestBed):', () => {
     });
   });
 
-  /////////// Component Tests //////////////////
-
   describe('TestBed component tests', () => {
     beforeEach(
       waitForAsync(() => {
         TestBed.configureTestingModule({
           imports: [DemoModule],
-        })
-          // Compile everything in DemoModule
-          .compileComponents();
+        }).compileComponents();
       }),
     );
 
@@ -215,16 +208,16 @@ describe('demo (with TestBed):', () => {
     it('can access the instance variable of an `*ngFor` row component', () => {
       const fixture = TestBed.createComponent(IoParentComponent);
       const comp = fixture.componentInstance;
-      const heroName = comp.heroes[0].name; // first hero's name
+      const heroName = comp.heroes[0].name;
 
       fixture.detectChanges();
-      const ngForRow = fixture.debugElement.query(By.directive(IoComponent)); // first hero ngForRow
+      const ngForRow = fixture.debugElement.query(By.directive(IoComponent));
 
-      const hero = ngForRow.context.hero; // the hero object passed into the row
+      const hero = ngForRow.context.hero;
       expect(hero.name).toBe(heroName);
 
       const rowComp = ngForRow.componentInstance;
-      // jasmine.any is an "instance-of-type" test.
+
       expect(rowComp).toEqual(expect.any(IoComponent));
       expect(rowComp.hero.name).toBe(heroName);
     });
@@ -242,7 +235,6 @@ describe('demo (with TestBed):', () => {
       expect(span.textContent).toMatch(/is on/i);
     });
 
-    // ngModel is async so we must wait for it with promise-based `whenStable`
     it(
       'should support entering text in input box (ngModel)',
       waitForAsync(() => {
@@ -257,22 +249,15 @@ describe('demo (with TestBed):', () => {
 
         expect(comp.name).toBe(expectedOrigName);
 
-        // wait until ngModel binds comp.name to input box
         fixture
           .whenStable()
           .then(() => {
             expect(input.value).toBe(expectedOrigName);
 
-            // simulate user entering new name in input
             input.value = expectedNewName;
 
-            // that change doesn't flow to the component immediately
             expect(comp.name).toBe(expectedOrigName);
 
-            // Dispatch a DOM event so that Angular learns of input value change.
-            // then wait while ngModel pushes input.box value to comp.name
-            // In older browsers, such as IE, you might need a CustomEvent instead. See
-            // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
             input.dispatchEvent(new Event('input'));
 
             return fixture.whenStable();
@@ -283,8 +268,6 @@ describe('demo (with TestBed):', () => {
       }),
     );
 
-    // fakeAsync version of ngModel input test enables sync test style
-    // synchronous `tick` replaces asynchronous promise-base `whenStable`
     it('should support entering text in input box (ngModel) - fakeAsync', fakeAsync(() => {
       const expectedOrigName = 'John';
       const expectedNewName = 'Sally';
@@ -297,20 +280,13 @@ describe('demo (with TestBed):', () => {
 
       expect(comp.name).toBe(expectedOrigName);
 
-      // wait until ngModel binds comp.name to input box
       tick();
       expect(input.value).toBe(expectedOrigName);
 
-      // simulate user entering new name in input
       input.value = expectedNewName;
 
-      // that change doesn't flow to the component immediately
       expect(comp.name).toBe(expectedOrigName);
 
-      // Dispatch a DOM event so that Angular learns of input value change.
-      // then wait a tick while ngModel pushes input.box value to comp.name
-      // In older browsers, such as IE, you might need a CustomEvent instead. See
-      // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
       input.dispatchEvent(new Event('input'));
       tick();
       expect(comp.name).toBe(expectedNewName);
@@ -327,14 +303,8 @@ describe('demo (with TestBed):', () => {
       const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
       const span = fixture.debugElement.query(By.css('span')).nativeElement as HTMLElement;
 
-      // simulate user entering new name in input
       input.value = inputText;
 
-      // Dispatch a DOM event so that Angular learns of input value change.
-      // then wait a tick while ngModel pushes input.box value to comp.text
-      // and Angular updates the output span
-      // In older browsers, such as IE, you might need a CustomEvent instead. See
-      // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
       input.dispatchEvent(new Event('input'));
       tick();
       fixture.detectChanges();
@@ -342,7 +312,6 @@ describe('demo (with TestBed):', () => {
       expect(comp.text).toBe(inputText);
     }));
 
-    // Use this technique to find attached directives of any kind
     it('can examine attached directives and listeners', () => {
       const fixture = TestBed.createComponent(InputComponent);
       fixture.detectChanges();
@@ -362,7 +331,6 @@ describe('demo (with TestBed):', () => {
       fixture.detectChanges();
       const comp = fixture.componentInstance;
 
-      // the only child is debugElement of the BankAccount component
       const el = fixture.debugElement.children[0];
       const childComp = el.componentInstance as BankAccountComponent;
       expect(childComp).toEqual(expect.any(BankAccountComponent));
@@ -377,9 +345,6 @@ describe('demo (with TestBed):', () => {
 
       expect(el.styles['color']).toBe(comp.color);
       expect(el.styles['width']).toBe(comp.width + 'px');
-
-      // Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
-      // expect(el.properties['customProperty']).toBe(true, 'customProperty');
     });
   });
 
@@ -404,16 +369,12 @@ describe('demo (with TestBed):', () => {
         .overrideComponent(TestProvidersComponent, {
           remove: { providers: [ValueService] },
           add: { providers: [{ provide: ValueService, useClass: FakeValueService }] },
-
-          // Or replace them all (this component has only one provider)
-          // set:    { providers: [{ provide: ValueService, useClass: FakeValueService }] },
         })
         .createComponent(TestProvidersComponent);
 
       fixture.detectChanges();
       expect((<HTMLElement>fixture.debugElement.nativeElement).textContent).toEqual('injected value: faked value');
 
-      // Explore the providerTokens
       const tokens = fixture.debugElement.providerTokens;
       expect(tokens).toContain(fixture.componentInstance.constructor);
       expect(tokens).toContain(TestProvidersComponent);
@@ -425,10 +386,6 @@ describe('demo (with TestBed):', () => {
         declarations: [TestViewProvidersComponent],
       })
         .overrideComponent(TestViewProvidersComponent, {
-          // remove: { viewProviders: [ValueService]},
-          // add:    { viewProviders: [{ provide: ValueService, useClass: FakeValueService }] },
-
-          // Or replace them all (this component has only one viewProvider)
           set: { viewProviders: [{ provide: ValueService, useClass: FakeValueService }] },
         })
         .createComponent(TestViewProvidersComponent);
@@ -438,11 +395,9 @@ describe('demo (with TestBed):', () => {
     });
 
     it("injected provider should not be same as component's provider", () => {
-      // TestComponent is parent of TestProvidersComponent
       @Component({ template: '<my-service-comp></my-service-comp>' })
       class TestComponent {}
 
-      // 3 levels of ValueService provider: module, TestCompomponent, TestProvidersComponent
       const fixture = TestBed.configureTestingModule({
         declarations: [TestComponent, TestProvidersComponent],
         providers: [ValueService],
@@ -457,7 +412,6 @@ describe('demo (with TestBed):', () => {
 
       let testBedProvider!: ValueService;
 
-      // `inject` uses TestBed's injector
       inject([ValueService], (s: ValueService) => (testBedProvider = s))();
       const tcProvider = fixture.debugElement.injector.get(ValueService) as ValueService;
       const tpcProvider = fixture.debugElement.children[0].injector.get(ValueService) as FakeValueService;
@@ -492,7 +446,6 @@ describe('demo (with TestBed):', () => {
 
       fixture.detectChanges();
 
-      // NeedsContentComp is the child of ShellComp
       const el = fixture.debugElement.children[0];
       const comp = el.componentInstance;
 
@@ -500,7 +453,6 @@ describe('demo (with TestBed):', () => {
 
       expect(el.references['nc']).toBe(comp);
 
-      // Filter for DebugElements with a #content reference
       const contentRefs = el.queryAll((de) => de.references['content']);
       expect(contentRefs.length).toBe(4);
     });
@@ -593,7 +545,6 @@ describe('demo (with TestBed):', () => {
       expect(child.childValue).toBe('foo');
     });
 
-    // must be async test to see child flow to parent
     it(
       'changed child value flows to parent',
       waitForAsync(() => {
@@ -603,7 +554,6 @@ describe('demo (with TestBed):', () => {
         child.childValue = 'bar';
 
         return new Promise<void>((resolve) => {
-          // Wait one JS engine turn!
           setTimeout(() => resolve(), 0);
         }).then(() => {
           fixture.detectChanges();
@@ -625,25 +575,15 @@ describe('demo (with TestBed):', () => {
       expect(child.ngOnDestroyCalled).toBe(true);
     });
 
-    ////// helpers ///
-    /**
-     * Get the MyIfChildComp from parent; fail w/ good message if cannot.
-     */
     function getChild() {
-      let childDe: DebugElement; // DebugElement that should hold the MyIfChildComp
+      let childDe: DebugElement;
 
-      // The Hard Way: requires detailed knowledge of the parent template
       try {
         childDe = fixture.debugElement.children[4].children[0];
-      } catch (err) {
-        /* we'll report the error */
-      }
+      } catch (err) {}
 
-      // DebugElement.queryAll: if we wanted all of many instances:
       childDe = fixture.debugElement.queryAll((de) => de.componentInstance instanceof MyIfChildComponent)[0];
 
-      // WE'LL USE THIS APPROACH !
-      // DebugElement.query: find first instance (if any)
       childDe = fixture.debugElement.query((de) => de.componentInstance instanceof MyIfChildComponent);
 
       if (childDe && childDe.componentInstance) {
@@ -656,7 +596,6 @@ describe('demo (with TestBed):', () => {
     }
   });
 });
-////////// Fakes ///////////
 
 @Component({
   selector: 'child-1',
@@ -680,9 +619,3 @@ class FakeGrandchildComponent {}
 class FakeValueService extends ValueService {
   value = 'faked value';
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

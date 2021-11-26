@@ -9,9 +9,3 @@ import { routedComponents, HeroRoutingModule } from './hero-routing.module';
   declarations: [routedComponents],
 })
 export class HeroModule {}
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

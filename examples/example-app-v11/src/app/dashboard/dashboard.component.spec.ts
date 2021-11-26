@@ -47,85 +47,63 @@ describe('DashboardComponent (deep)', () => {
     }),
   );
 
-  it('should NOT have heroes before ngOnInit', () => {
+  it('should not have heroes before ngOnInit', () => {
     expect(component.heroes.length).toEqual(0);
   });
 
   describe('after get dashboard heroes (deep)', () => {
-    // Trigger component so it gets heroes and binds to them
     beforeEach(
       waitForAsync(() => {
-        fixture.detectChanges(); // runs ngOnInit -> getHeroes
-        fixture
-          .whenStable() // No need for the `lastPromise` hack!
-          .then(() => fixture.detectChanges()); // bind to heroes
+        fixture.detectChanges();
+        fixture.whenStable().then(() => fixture.detectChanges());
       }),
     );
 
-    it('should HAVE heroes', () => {
+    it('should have heroes', () => {
       expect(component.heroes.length).toBeGreaterThan(0);
     });
 
-    it('should DISPLAY heroes', () => {
-      // Find and examine the displayed heroes
-      // Look for them in the DOM by css class
+    it('should display heroes', () => {
       const heroes = fixture.nativeElement.querySelectorAll('dashboard-hero');
       expect(heroes.length).toEqual(4);
     });
 
-    it('should tell ROUTER to navigate when hero clicked', () => {
+    it('should tell the router to navigate when hero clicked', () => {
       const heroEl: HTMLElement = fixture.nativeElement.querySelector('.hero');
       click(heroEl);
 
-      // args passed to router.navigateByUrl() spy
       const navArgs = spy.mock.calls[0];
 
-      // expecting to navigate to id of the component's first hero
       const id = component.heroes[0].id;
       expect(navArgs).toEqual(['/heroes/' + id]);
     });
   });
 
   describe('after get dashboard heroes (shallow)', () => {
-    // Trigger component so it gets heroes and binds to them
     beforeEach(
       waitForAsync(() => {
-        fixture.detectChanges(); // runs ngOnInit -> getHeroes
-        fixture
-          .whenStable() // No need for the `lastPromise` hack!
-          .then(() => fixture.detectChanges()); // bind to heroes
+        fixture.detectChanges();
+        fixture.whenStable().then(() => fixture.detectChanges());
       }),
     );
 
-    it('should HAVE heroes', () => {
+    it('should have heroes', () => {
       expect(component.heroes.length).toBeGreaterThan(0);
     });
 
-    it('should DISPLAY heroes', () => {
-      // Find and examine the displayed heroes
-      // Look for them in the DOM by css class
+    it('should display heroes', () => {
       const heroes = fixture.nativeElement.querySelectorAll('dashboard-hero');
       expect(heroes.length).toEqual(4);
     });
 
-    it('should tell ROUTER to navigate when hero clicked', () => {
+    it('should tell the router to navigate when hero clicked', () => {
       const heroDe = fixture.debugElement.query(By.css('dashboard-hero'));
       heroDe.triggerEventHandler('selected', component.heroes[0]);
 
-      // args passed to router.navigateByUrl() spy
-      // const spy = jest.spyOn(router, 'navigateByUrl');
-      // spy.mockImplementation(() => of(true).toPromise());
       const navArgs = spy.mock.calls[0][0];
 
-      // expecting to navigate to id of the component's first hero
       const id = component.heroes[0].id;
       expect(navArgs).toEqual('/heroes/' + id);
     });
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

@@ -11,11 +11,10 @@ const httpOptions = {
 
 @Injectable()
 export class HeroService {
-  readonly heroesUrl = 'api/heroes'; // URL to web api
+  readonly heroesUrl = 'api/heroes';
 
   constructor(private http: HttpClient) {}
 
-  /** GET heroes from the server */
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl).pipe(
       tap(() => this.log(`fetched heroes`)),
@@ -23,7 +22,6 @@ export class HeroService {
     ) as Observable<Hero[]>;
   }
 
-  /** GET hero by id. Return `undefined` when id not found */
   getHero(id: number | string): Observable<Hero> {
     if (typeof id === 'string') {
       id = parseInt(id, 10);
@@ -31,7 +29,7 @@ export class HeroService {
     const url = `${this.heroesUrl}/?id=${id}`;
 
     return this.http.get<Hero[]>(url).pipe(
-      map((heroes) => heroes[0]), // returns a {0|1} element array
+      map((heroes) => heroes[0]),
       tap((h) => {
         const outcome = h ? `fetched` : `did not find`;
         this.log(`${outcome} hero id=${id}`);
@@ -40,16 +38,13 @@ export class HeroService {
     );
   }
 
-  //////// Save methods //////////
-
-  /** POST: add a new hero to the server */
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
       tap((addedHero) => this.log(`added hero w/ id=${addedHero.id}`)),
       catchError(this.handleError<Hero>('addHero')),
     );
   }
-  /** DELETE: delete the hero from the server */
+
   deleteHero(hero: Hero | number): Observable<Hero> {
     const id = typeof hero === 'number' ? hero : hero.id;
     const url = `${this.heroesUrl}/${id}`;
@@ -60,29 +55,20 @@ export class HeroService {
     );
   }
 
-  /** PUT: update the hero on the server */
   updateHero(hero: Hero): Observable<any> {
     return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
       tap((_) => this.log(`updated hero id=${hero.id}`)),
       catchError(this.handleError<any>('updateHero')),
     );
   }
-  /**
-   * Returns a function that handles Http operation failures.
-   * This error handler lets the app continue to run as if no error occurred.
-   * @param operation - name of the operation that failed
-   */
+
   private handleError<T>(operation = 'operation') {
     return (error: HttpErrorResponse): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
       const message =
         error.error instanceof ErrorEvent
           ? error.error.message
           : `server returned code ${error.status} with body "${error.error}"`;
 
-      // TODO: better job of transforming error for user consumption
       throw new Error(`${operation} failed: ${message}`);
     };
   }
@@ -91,9 +77,3 @@ export class HeroService {
     console.log('HeroService: ' + message);
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

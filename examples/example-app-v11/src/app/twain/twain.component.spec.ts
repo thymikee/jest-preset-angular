@@ -79,7 +79,6 @@ describe('TwainComponent', () => {
   describe('when test with asynchronous observable', () => {
     beforeEach(() => {
       getQuoteSpy.mockClear();
-      // simulate delayed observable
       getQuoteSpy.mockImplementation(
         () =>
           new Observable<typeof testQuote>((observer) => {
@@ -166,9 +165,3 @@ describe('TwainComponent', () => {
     }));
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

@@ -18,12 +18,10 @@ export class HeroDetailComponent implements OnInit {
   hero!: Hero;
 
   ngOnInit(): void {
-    // get hero when `id` param changes
     this.route.paramMap.subscribe((pmap) => this.getHero(pmap.get('id')));
   }
 
   private getHero(id: string | null): void {
-    // when no id or id===0, create new blank hero
     if (!id) {
       this.hero = { id: 0, name: '' } as Hero;
 
@@ -34,7 +32,7 @@ export class HeroDetailComponent implements OnInit {
       if (hero) {
         this.hero = hero;
       } else {
-        this.gotoList(); // id not found; navigate to list
+        this.gotoList();
       }
     });
   }
@@ -51,9 +49,3 @@ export class HeroDetailComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

@@ -11,7 +11,7 @@ describe('BannerComponent (external files)', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         declarations: [BannerComponent],
-      }); // missing call to compileComponents()
+      });
       fixture = TestBed.createComponent(BannerComponent);
     });
 
@@ -24,13 +24,12 @@ describe('BannerComponent (external files)', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         declarations: [BannerComponent],
-      }).compileComponents(); // compile template and css
+      }).compileComponents();
     });
 
-    // synchronous beforeEach
     beforeEach(() => {
       fixture = TestBed.createComponent(BannerComponent);
-      component = fixture.componentInstance; // BannerComponent test instance
+      component = fixture.componentInstance;
       h1 = fixture.nativeElement.querySelector('h1');
     });
 
@@ -67,9 +66,3 @@ describe('BannerComponent (external files)', () => {
     });
   }
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

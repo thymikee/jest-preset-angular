@@ -42,14 +42,13 @@ describe('WelcomeComponent (class only)', () => {
 
 describe('WelcomeComponent', () => {
   let fixture: ComponentFixture<WelcomeComponent>;
-  let componentUserService: UserService; // the actually injected service
-  let userService: UserService; // the TestBed injected service
-  let el: HTMLElement; // the DOM element with the welcome message
+  let componentUserService: UserService;
+  let userService: UserService;
+  let el: HTMLElement;
 
   let userServiceStub: Partial<UserService>;
 
   beforeEach(() => {
-    // stub UserService for test purposes
     userServiceStub = {
       isLoggedIn: true,
       user: { name: 'Test User' },
@@ -57,20 +56,13 @@ describe('WelcomeComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [WelcomeComponent],
-      // providers: [ UserService ],  // NO! Don't provide the real service!
-      // Provide a test-double instead
       providers: [{ provide: UserService, useValue: userServiceStub }],
     });
 
     fixture = TestBed.createComponent(WelcomeComponent);
-
-    // UserService actually injected into the component
     userService = fixture.debugElement.injector.get(UserService);
     componentUserService = userService;
-    // UserService from the root injector
     userService = TestBed.inject(UserService);
-
-    //  get the "welcome" element by CSS selector (e.g., by class name)
     el = fixture.nativeElement.querySelector('.welcome');
   });
 
@@ -82,13 +74,13 @@ describe('WelcomeComponent', () => {
   });
 
   it('should welcome "Bubba"', () => {
-    userService.user.name = 'Bubba'; // welcome message hasn't been shown yet
+    userService.user.name = 'Bubba';
     fixture.detectChanges();
     expect(el.textContent).toContain('Bubba');
   });
 
   it('should request login if not logged in', () => {
-    userService.isLoggedIn = false; // welcome message hasn't been shown yet
+    userService.isLoggedIn = false;
     fixture.detectChanges();
     const content = el.textContent;
     expect(content).not.toContain('Welcome');
@@ -103,9 +95,3 @@ describe('WelcomeComponent', () => {
     expect(userService).toBe(componentUserService);
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

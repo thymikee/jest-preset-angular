@@ -1,6 +1,3 @@
-// For more examples:
-//   https://github.com/angular/angular/blob/master/modules/@angular/router/test/integration.spec.ts
-
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { DebugElement, Type } from '@angular/core';
@@ -19,7 +16,7 @@ import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroListComponent } from './hero/hero-list.component';
-import { HeroModule } from './hero/hero.module'; // should be lazy loaded
+import { HeroModule } from './hero/hero.module';
 import { HeroService } from './model/hero.service';
 import { TestHeroService } from './model/testing/test-hero.service';
 import { TwainService } from './twain/twain.service';
@@ -42,7 +39,7 @@ describe('AppComponent & RouterTestingModule', () => {
 
   it('should navigate to "Dashboard" immediately', fakeAsync(() => {
     createComponent();
-    tick(); // wait for async data to arrive
+    tick();
     expectPathToBe('/dashboard');
     expectElementOf(DashboardComponent);
   }));
@@ -50,8 +47,6 @@ describe('AppComponent & RouterTestingModule', () => {
   it('should navigate to "About" on click', fakeAsync(() => {
     createComponent();
     click(page.aboutLinkDe);
-    // page.aboutLinkDe.nativeElement.click(); // ok but fails in phantom
-
     advance();
     expectPathToBe('/about');
     expectElementOf(AboutComponent);
@@ -60,13 +55,11 @@ describe('AppComponent & RouterTestingModule', () => {
   it('should navigate to "About" w/ browser location URL change', fakeAsync(() => {
     createComponent();
     location.simulateHashChange('/about');
-    // location.go('/about'); // also works ... except, perhaps, in Stackblitz
     advance();
     expectPathToBe('/about');
     expectElementOf(AboutComponent);
   }));
 
-  // Can't navigate to lazy loaded modules with this technique
   it.skip('should navigate to "Heroes" on click (not working yet)', fakeAsync(() => {
     createComponent();
     page.heroesLinkDe.nativeElement.click();
@@ -75,7 +68,6 @@ describe('AppComponent & RouterTestingModule', () => {
   }));
 });
 
-///////// Can't get lazy loaded Heroes to work yet
 describe.skip('AppComponent & Lazy Loading (not working yet)', () => {
   beforeEach(
     waitForAsync(() => {
@@ -108,16 +100,10 @@ describe.skip('AppComponent & Lazy Loading (not working yet)', () => {
   }));
 });
 
-////// Helpers /////////
-
-/**
- * Advance to the routed page
- * Wait a tick, then detect changes, and tick again
- */
 function advance(): void {
-  tick(); // wait while navigating
-  fixture.detectChanges(); // update view
-  tick(); // wait for async data to arrive
+  tick();
+  fixture.detectChanges();
+  tick();
 }
 
 function createComponent() {
@@ -139,7 +125,6 @@ class Page {
   dashboardLinkDe: DebugElement;
   heroesLinkDe: DebugElement;
 
-  // for debugging
   comp: AppComponent;
   router: Router;
   fixture: ComponentFixture<AppComponent>;
@@ -149,8 +134,6 @@ class Page {
     this.aboutLinkDe = links[2];
     this.dashboardLinkDe = links[0];
     this.heroesLinkDe = links[1];
-
-    // for debugging
     this.comp = comp;
     this.fixture = fixture;
     this.router = router;
@@ -167,9 +150,3 @@ function expectElementOf(type: Type<any>): any {
 
   return el;
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

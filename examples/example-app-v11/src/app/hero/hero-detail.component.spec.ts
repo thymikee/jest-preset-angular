@@ -58,11 +58,9 @@ describe('HeroDetailComponent', () => {
           component = fixture.componentInstance;
           page = new Page(fixture);
 
-          // 1st change detection triggers ngOnInit which gets a hero
           fixture.detectChanges();
 
           fixture.whenStable().then(() => {
-            // 2nd change detection displays the async-fetched hero
             fixture.detectChanges();
           });
         }),
@@ -78,8 +76,6 @@ describe('HeroDetailComponent', () => {
       });
 
       it('should save when click save but not navigate immediately', () => {
-        // Get service injected into component and spy on its`saveHero` method.
-        // It delegates to fake `HeroService.updateHero` which delivers a safe test result.
         const hds = fixture.debugElement.injector.get(HeroDetailService);
         const saveSpy = jest.spyOn(hds, 'saveHero');
 
@@ -95,20 +91,14 @@ describe('HeroDetailComponent', () => {
       }));
 
       it('should convert hero name to Title Case', () => {
-        // get the name's input and display elements from the DOM
         const hostElement: HTMLElement = fixture.nativeElement;
         const nameInput: HTMLInputElement = hostElement.querySelector('input')!;
         const nameDisplay: HTMLElement = hostElement.querySelector('span')!;
 
-        // simulate user entering a new name into the input box
         nameInput.value = 'quick BROWN  fOx';
 
-        // Dispatch a DOM event so that Angular learns of input value change.
-        // In older browsers, such as IE, you might need a CustomEvent instead. See
-        // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
         nameInput.dispatchEvent(new Event('input'));
 
-        // Tell Angular to update the display binding through the title pipe
         fixture.detectChanges();
 
         expect(nameDisplay.textContent).toBe('Quick Brown  Fox');
@@ -122,11 +112,9 @@ describe('HeroDetailComponent', () => {
           component = fixture.componentInstance;
           page = new Page(fixture);
 
-          // 1st change detection triggers ngOnInit which gets a hero
           fixture.detectChanges();
 
           fixture.whenStable().then(() => {
-            // 2nd change detection displays the async-fetched hero
             fixture.detectChanges();
           });
         }),
@@ -149,11 +137,9 @@ describe('HeroDetailComponent', () => {
           component = fixture.componentInstance;
           page = new Page(fixture);
 
-          // 1st change detection triggers ngOnInit which gets a hero
           fixture.detectChanges();
 
           fixture.whenStable().then(() => {
-            // 2nd change detection displays the async-fetched hero
             fixture.detectChanges();
           });
         }),
@@ -165,17 +151,13 @@ describe('HeroDetailComponent', () => {
       });
     });
 
-    // Why we must use `fixture.debugElement.injector` in `Page()`
     it("cannot use `inject` to get component's provided HeroDetailService", () => {
       let service: HeroDetailService;
       fixture = TestBed.createComponent(HeroDetailComponent);
-      expect(
-        // Throws because `inject` only has access to TestBed's injector
-        // which is an ancestor of the component's injector
-        inject([HeroDetailService], (hds: HeroDetailService) => (service = hds)),
-      ).toThrowError(/No provider for HeroDetailService/);
+      expect(inject([HeroDetailService], (hds: HeroDetailService) => (service = hds))).toThrowError(
+        /No provider for HeroDetailService/,
+      );
 
-      // get `HeroDetailService` with component's own injector
       service = fixture.debugElement.injector.get(HeroDetailService);
       expect(service).toBeDefined();
     });
@@ -185,10 +167,8 @@ describe('HeroDetailComponent', () => {
     class HeroDetailServiceMock {
       testHero: Hero = { id: 42, name: 'Test Hero' };
 
-      /* emit cloned test hero */
       getHero = () => of({ ...this.testHero });
 
-      /* emit clone of test hero, with changes merged in */
       saveHero = (hero: Hero) => of(Object.assign(this.testHero, hero));
     }
 
@@ -205,7 +185,6 @@ describe('HeroDetailComponent', () => {
           imports: [HeroModule, RouterTestingModule],
           providers: [
             { provide: ActivatedRoute, useValue: activatedRoute },
-            // HeroDetailService at this level is IRRELEVANT!
             { provide: HeroDetailService, useValue: {} },
           ],
         })
@@ -232,11 +211,9 @@ describe('HeroDetailComponent', () => {
               saveHero: jest.spyOn(heroDetailsService, 'saveHero'),
             };
 
-            // 1st change detection triggers ngOnInit which gets a hero
             fixture.detectChanges();
 
             fixture.whenStable().then(() => {
-              // 2nd change detection displays the async-fetched hero
               fixture.detectChanges();
             });
           });
@@ -257,9 +234,7 @@ describe('HeroDetailComponent', () => {
 
       page.nameInput.value = newName;
 
-      // In older browsers, such as IE, you might need a CustomEvent instead. See
-      // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
-      page.nameInput.dispatchEvent(new Event('input')); // tell Angular
+      page.nameInput.dispatchEvent(new Event('input'));
 
       expect(component.hero.name).toBe(newName);
       expect(heroDetailsService.testHero.name).toBe(origName);
@@ -267,16 +242,14 @@ describe('HeroDetailComponent', () => {
       click(page.saveBtn);
       expect(hdsSpy.saveHero.mock.calls.length).toBe(1);
 
-      tick(); // wait for async save to complete
+      tick();
       expect(heroDetailsService.testHero.name).toBe(newName);
       expect(page.navigateSpy.mock.calls.length).toBeTruthy();
     }));
 
     it('fixture injected service is not the component injected service', inject(
-      // inject gets the service from the fixture
       [HeroDetailService],
       (fixtureService: HeroDetailService) => {
-        // use `fixture.debugElement.injector` to get service from component
         const componentService = fixture.debugElement.injector.get(HeroDetailService);
 
         expect(fixtureService).not.toBe(componentService);
@@ -312,11 +285,9 @@ describe('HeroDetailComponent', () => {
         component = fixture.componentInstance;
         page = new Page(fixture);
 
-        // 1st change detection triggers ngOnInit which gets a hero
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-          // 2nd change detection displays the async-fetched hero
           fixture.detectChanges();
           expect(page.nameDisplay.textContent).toBe(expectedHero.name);
         });
@@ -352,11 +323,9 @@ describe('HeroDetailComponent', () => {
         component = fixture.componentInstance;
         page = new Page(fixture);
 
-        // 1st change detection triggers ngOnInit which gets a hero
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-          // 2nd change detection displays the async-fetched hero
           fixture.detectChanges();
           expect(page.nameDisplay.textContent).toBe(expectedHero.name);
         });
@@ -365,10 +334,7 @@ describe('HeroDetailComponent', () => {
   });
 });
 
-/////////// Helpers /////
-
 class Page {
-  // getter properties wait to query the DOM until called.
   get buttons() {
     return this.queryAll<HTMLButtonElement>('button');
   }
@@ -389,16 +355,13 @@ class Page {
   navigateSpy: jest.SpyInstance;
 
   constructor(someFixture: ComponentFixture<HeroDetailComponent>) {
-    // get the navigate spy from the injected router spy object
     const routerSpy = someFixture.debugElement.injector.get(Router) as any;
     this.navigateSpy = routerSpy.navigate;
 
-    // spy on component's `gotoList()` method
     const someComponent = someFixture.componentInstance;
     this.gotoListSpy = jest.spyOn(someComponent, 'gotoList');
   }
 
-  //// query helpers ////
   private query<T>(selector: string): T {
     return fixture.nativeElement.querySelector(selector);
   }
@@ -407,9 +370,3 @@ class Page {
     return fixture.nativeElement.querySelectorAll(selector);
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

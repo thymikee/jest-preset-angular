@@ -23,10 +23,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
   ],
   providers: [HeroService, TwainService, UserService],
@@ -34,9 +30,3 @@ import { WelcomeComponent } from './welcome/welcome.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

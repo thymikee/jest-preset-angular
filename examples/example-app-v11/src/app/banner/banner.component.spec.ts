@@ -12,7 +12,7 @@ describe('BannerComponent (inline template)', () => {
       declarations: [BannerComponent],
     });
     fixture = TestBed.createComponent(BannerComponent);
-    component = fixture.componentInstance; // BannerComponent test instance
+    component = fixture.componentInstance;
     h1 = fixture.nativeElement.querySelector('h1');
   });
 
@@ -36,9 +36,3 @@ describe('BannerComponent (inline template)', () => {
     expect(h1.textContent).toContain('Test Title');
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

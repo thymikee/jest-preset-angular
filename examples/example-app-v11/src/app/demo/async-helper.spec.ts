@@ -1,4 +1,3 @@
-// tslint:disable-next-line:no-unused-variable
 import { fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
 import { DoneFn } from '@jest/types/build/Circus';
@@ -18,7 +17,6 @@ describe('Angular async helper', () => {
       expect(actuallyDone).toBeTruthy();
     });
 
-    // eslint-disable-next-line jest/no-done-callback
     it('should run normal async test', () => {
       setTimeout(() => {
         actuallyDone = true;
@@ -74,7 +72,6 @@ describe('Angular async helper', () => {
       }),
     );
 
-    // Use done. Can also use async or fakeAsync.
     // eslint-disable-next-line jest/no-done-callback
     it('should run async test with successful delayed Observable', (done: DoneFn) => {
       const source = of(true).pipe(delay(10));
@@ -130,26 +127,24 @@ describe('Angular async helper', () => {
     }));
 
     it('should run new macro task callback with delay after call tick with millis', fakeAsync(() => {
-      function nestedTimer(cb: () => any): void {
+      function nestedTimer(cb: () => unknown): void {
         setTimeout(() => setTimeout(() => cb()));
       }
       const callback = jest.fn();
       nestedTimer(callback);
       expect(callback).not.toHaveBeenCalled();
       tick(0);
-      // the nested timeout will also be triggered
       expect(callback).toHaveBeenCalled();
     }));
 
     it('should not run new macro task callback with delay after call tick with millis', fakeAsync(() => {
-      function nestedTimer(cb: () => any): void {
+      function nestedTimer(cb: () => unknown): void {
         setTimeout(() => setTimeout(() => cb()));
       }
       const callback = jest.fn();
       nestedTimer(callback);
       expect(callback).not.toHaveBeenCalled();
       tick(0, { processNewMacroTasksSynchronously: false });
-      // the nested timeout will not be triggered
       expect(callback).not.toHaveBeenCalled();
       tick(0);
       expect(callback).toHaveBeenCalled();
@@ -163,8 +158,6 @@ describe('Angular async helper', () => {
     }));
 
     it('should get Date diff correctly in fakeAsync with rxjs scheduler', fakeAsync(() => {
-      // need to add `import 'zone.js/plugins/zone-patch-rxjs-fake-async'
-      // to patch rxjs scheduler
       let result = '';
       of('hello')
         .pipe(delay(1000))
@@ -190,34 +183,22 @@ describe('Angular async helper', () => {
 
   describe('test jsonp', () => {
     function jsonp(url: string, callback: () => void) {
-      console.log(url);
       callback();
-      // do a jsonp call which is not zone aware
     }
-    // need to config __zone_symbol__supportWaitUnResolvedChainedPromise flag
-    // before loading zone.js/testing
+
     it(
       'should wait until promise.then is called',
       waitForAsync(() => {
         let finished = false;
         new Promise<void>((res) => {
           jsonp('localhost:8080/jsonp', () => {
-            // success callback and resolve the promise
             finished = true;
             res();
           });
         }).then(() => {
-          // async will wait until promise.then is called
-          // if __zone_symbol__supportWaitUnResolvedChainedPromise is set
           expect(finished).toBe(true);
         });
       }),
     );
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

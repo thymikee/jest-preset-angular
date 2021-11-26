@@ -4,10 +4,6 @@ import { ComponentFixture } from '@angular/core/testing';
 
 import { AppComponent } from './app-initial.component';
 
-/*
-import { AppComponent } from './app.component';
-describe('AppComponent', () => {
-*/
 describe('AppComponent (initial CLI version)', () => {
   beforeEach(
     waitForAsync(() => {
@@ -43,8 +39,6 @@ describe('AppComponent (initial CLI version)', () => {
   );
 });
 
-/// As it should be
-
 describe('AppComponent (initial CLI version - as it should be)', () => {
   let app: AppComponent;
   let de: DebugElement;
@@ -73,9 +67,3 @@ describe('AppComponent (initial CLI version - as it should be)', () => {
     expect(de.nativeElement.querySelector('h1').textContent).toContain('Welcome to app!');
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

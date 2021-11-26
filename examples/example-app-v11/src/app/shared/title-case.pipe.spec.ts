@@ -1,7 +1,6 @@
 import { TitleCasePipe } from './title-case.pipe';
 
 describe('TitleCasePipe', () => {
-  // This pipe is a pure, stateless function so no need for BeforeEach
   const pipe = new TitleCasePipe();
 
   it('transforms "abc" to "Abc"', () => {
@@ -12,7 +11,6 @@ describe('TitleCasePipe', () => {
     expect(pipe.transform('abc def')).toBe('Abc Def');
   });
 
-  // ... more tests ...
   it('leaves "Abc Def" unchanged', () => {
     expect(pipe.transform('Abc Def')).toBe('Abc Def');
   });
@@ -25,9 +23,3 @@ describe('TitleCasePipe', () => {
     expect(pipe.transform('   abc   def')).toBe('   Abc   Def');
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

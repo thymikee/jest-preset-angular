@@ -36,18 +36,11 @@ export class TwainComponent implements OnInit {
     this.errorMessage = '';
     this.quote = this.twainService.getQuote().pipe(
       startWith('...'),
-      catchError((err: any) => {
-        // Wait a turn because errorMessage already set once this turn
+      catchError((err: Error) => {
         setTimeout(() => (this.errorMessage = err.message || err.toString()));
 
-        return of('...'); // reset message to placeholder
+        return of('...');
       }),
     );
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

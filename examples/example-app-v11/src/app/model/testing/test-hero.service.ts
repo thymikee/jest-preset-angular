@@ -9,18 +9,13 @@ import { HeroService } from '../hero.service';
 import { getTestHeroes } from './test-heroes';
 
 @Injectable()
-/**
- * FakeHeroService pretends to make real http requests.
- * implements only as much of HeroService as is actually consumed by the app
- */
 export class TestHeroService extends HeroService {
   constructor() {
-    // This is a fake testing service that won't be making HTTP.
     super({} as HttpClient);
   }
 
   heroes = getTestHeroes();
-  lastResult!: Observable<any>; // result from last method call
+  lastResult!: Observable<any>;
 
   addHero(hero: Hero): Observable<Hero> {
     throw new Error(`Method not implemented. ${hero}`);
@@ -67,9 +62,3 @@ export class TestHeroService extends HeroService {
     ));
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

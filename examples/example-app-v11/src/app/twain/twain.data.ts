@@ -12,9 +12,3 @@ export const QUOTES: Quote[] = [
   'The man who does not read good books has no advantage over the man who cannot read them.',
   'Get your facts first, and then you can distort them as much as you please.',
 ].map((q, i) => ({ id: i + 1, quote: q }));
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

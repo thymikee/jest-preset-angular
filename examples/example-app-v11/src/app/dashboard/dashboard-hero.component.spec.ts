@@ -37,17 +37,13 @@ describe('DashboardHeroComponent when tested directly', () => {
     fixture = TestBed.createComponent(DashboardHeroComponent);
     comp = fixture.componentInstance;
 
-    // find the hero's DebugElement and element
     heroDe = fixture.debugElement.query(By.css('.hero'));
     heroEl = heroDe.nativeElement;
 
-    // mock the hero supplied by the parent component
     expectedHero = { id: 42, name: 'Test Name' };
 
-    // simulate the parent setting the input property with that hero
     comp.hero = expectedHero;
 
-    // trigger initial data binding
     fixture.detectChanges();
   });
 
@@ -76,7 +72,7 @@ describe('DashboardHeroComponent when tested directly', () => {
     let selectedHero: Hero | undefined;
     comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
 
-    click(heroDe); // click helper with DebugElement
+    click(heroDe);
 
     expect(selectedHero).toBe(expectedHero);
   });
@@ -85,13 +81,11 @@ describe('DashboardHeroComponent when tested directly', () => {
     let selectedHero: Hero | undefined;
     comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
 
-    click(heroEl); // click helper with native element
+    click(heroEl);
 
     expect(selectedHero).toBe(expectedHero);
   });
 });
-
-//////////////////
 
 describe('DashboardHeroComponent when inside a test host', () => {
   let testHost: TestHostComponent;
@@ -105,11 +99,10 @@ describe('DashboardHeroComponent when inside a test host', () => {
   );
 
   beforeEach(() => {
-    // create TestHostComponent instead of DashboardHeroComponent
     fixture = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;
     heroEl = fixture.nativeElement.querySelector('.hero');
-    fixture.detectChanges(); // trigger initial data binding
+    fixture.detectChanges();
   });
 
   it('should display hero name', () => {
@@ -119,7 +112,7 @@ describe('DashboardHeroComponent when inside a test host', () => {
 
   it('should raise selected event when clicked', () => {
     click(heroEl);
-    // selected hero should be the same data bound hero
+
     expect(testHost.selectedHero).toBe(testHost.hero);
   });
 });
@@ -134,9 +127,3 @@ class TestHostComponent {
     this.selectedHero = hero;
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

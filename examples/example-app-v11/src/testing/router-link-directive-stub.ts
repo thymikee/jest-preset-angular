@@ -1,10 +1,8 @@
 import { Directive, Input, HostListener } from '@angular/core';
 import { NgModule } from '@angular/core';
 
-// export for convenience.
 export { RouterLink } from '@angular/router';
 
-// tslint:disable: directive-class-suffix directive-selector
 @Directive({
   selector: '[routerLink]',
 })
@@ -18,15 +16,7 @@ export class RouterLinkDirectiveStub {
   }
 }
 
-/// Dummy module to satisfy Angular Language service. Never used.
-
 @NgModule({
   declarations: [RouterLinkDirectiveStub],
 })
 export class RouterStubsModule {}
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

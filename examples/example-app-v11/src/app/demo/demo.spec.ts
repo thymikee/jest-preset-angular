@@ -36,7 +36,6 @@ describe('demo (no TestBed):', () => {
     });
   });
 
-  // MasterService requires injection of a ValueService
   describe('MasterService without Angular testing support', () => {
     let masterService: MasterService;
 
@@ -57,12 +56,10 @@ describe('demo (no TestBed):', () => {
     });
 
     it('#getValue should return stubbed value from a spy', () => {
-      // create `getValue` spy on an object representing the ValueService
       const valueServiceSpy = {
         getValue: jest.fn(),
       };
 
-      // set the value to return when the `getValue` spy is called.
       const stubValue = 'stub value';
       valueServiceSpy.getValue.mockReturnValue(stubValue);
 
@@ -130,9 +127,3 @@ describe('demo (no TestBed):', () => {
     });
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

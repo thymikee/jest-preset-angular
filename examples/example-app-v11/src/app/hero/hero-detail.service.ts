@@ -9,7 +9,6 @@ import { HeroService } from '../model/hero.service';
 export class HeroDetailService {
   constructor(private heroService: HeroService) {}
 
-  // Returns a clone which caller may modify safely
   getHero(id: number | string): Observable<Hero | null> {
     if (typeof id === 'string') {
       id = parseInt(id, 10);
@@ -26,9 +25,3 @@ export class HeroDetailService {
     return this.heroService.updateHero(hero);
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

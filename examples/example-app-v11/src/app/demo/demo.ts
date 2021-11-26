@@ -1,4 +1,3 @@
-// tslint:disable: directive-selector forin no-input-rename
 import {
   Component,
   ContentChildren,
@@ -23,13 +22,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-////////// The App: Services and Components for the tests. //////////////
-
 export interface Hero {
   name: string;
 }
 
-////////// Services ///////////////
 @Injectable()
 export class ValueService {
   value = 'real value';
@@ -62,10 +58,6 @@ export class MasterService {
   }
 }
 
-/////////// Pipe ////////////////
-/*
- * Reverse the input string.
- */
 @Pipe({ name: 'reverse' })
 export class ReversePipe implements PipeTransform {
   transform(s: string) {
@@ -78,7 +70,6 @@ export class ReversePipe implements PipeTransform {
   }
 }
 
-//////////// Components /////////////
 @Component({
   selector: 'bank-account',
   template: ` Bank Name: {{ bank }} Account Id: {{ id }} `,
@@ -86,14 +77,8 @@ export class ReversePipe implements PipeTransform {
 export class BankAccountComponent {
   @Input() bank = '';
   @Input('account') id = '';
-
-  // Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
-  // constructor(private renderer: Renderer, private el: ElementRef ) {
-  //   renderer.setElementProperty(el.nativeElement, 'customProperty', true);
-  // }
 }
 
-/** A component with attributes, styles, classes, and property setting */
 @Component({
   selector: 'bank-account-parent',
   template: `
@@ -161,22 +146,6 @@ export class InputComponent {
   name = 'John';
 }
 
-/* Prefer this metadata syntax */
-// @Directive({
-//   selector: 'input[value]',
-//   host: {
-//     '[value]': 'value',
-//     '(input)': 'valueChange.emit($event.target.value)'
-//   },
-//   inputs:  ['value'],
-//   outputs: ['valueChange']
-// })
-// export class InputValueBinderDirective {
-//   value: any;
-//   valueChange: EventEmitter<any> = new EventEmitter();
-// }
-
-// As the styleguide recommends
 @Directive({ selector: 'input[value]' })
 export class InputValueBinderDirective {
   @HostBinding()
@@ -197,7 +166,7 @@ export class InputValueBinderDirective {
   template: ` Name: <input [(value)]="name" /> {{ name }} `,
 })
 export class InputValueBinderComponent {
-  name = 'Sally'; // initial value
+  name = 'Sally';
 }
 
 @Component({
@@ -287,11 +256,9 @@ export class InnerCompWithExternalTemplateComponent {}
 
 @Component({ selector: 'needs-content', template: '<ng-content></ng-content>' })
 export class NeedsContentComponent {
-  // children with #content local variable
   @ContentChildren('content') children: any;
 }
 
-///////// MyIfChildComp ////////
 @Component({
   selector: 'my-if-child-1',
 
@@ -343,8 +310,6 @@ export class MyIfChildComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 }
-
-///////// MyIfParentComp ////////
 
 @Component({
   selector: 'my-if-parent-comp',
@@ -426,7 +391,6 @@ export class ShellComponent {}
   `,
 })
 export class DemoComponent {}
-//////// Aggregations ////////////
 
 export const demoDeclarations = [
   DemoComponent,
@@ -457,8 +421,6 @@ export const demoDeclarations = [
 
 export const demoProviders = [MasterService, ValueService];
 
-////////////////////
-
 @NgModule({
   imports: [BrowserModule, FormsModule],
   declarations: demoDeclarations,
@@ -467,9 +429,3 @@ export const demoProviders = [MasterService, ValueService];
   bootstrap: [DemoComponent],
 })
 export class DemoModule {}
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

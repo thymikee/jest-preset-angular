@@ -4,10 +4,6 @@ import { By } from '@angular/platform-browser';
 
 import { BannerComponent } from './banner-initial.component';
 
-/*
-import { BannerComponent } from './banner.component';
-describe('BannerComponent', () => {
-*/
 describe('BannerComponent (initial CLI generated)', () => {
   let component: BannerComponent;
   let fixture: ComponentFixture<BannerComponent>;
@@ -77,9 +73,3 @@ describe('BannerComponent (with beforeEach)', () => {
     expect(p.textContent).toEqual('banner works!');
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

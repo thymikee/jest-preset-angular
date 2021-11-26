@@ -42,7 +42,6 @@ describe('AppComponent & TestModule', () => {
   tests();
 });
 
-//////// Testing w/ NO_ERRORS_SCHEMA //////
 describe('AppComponent & NO_ERRORS_SCHEMA', () => {
   beforeEach(
     waitForAsync(() => {
@@ -60,24 +59,15 @@ describe('AppComponent & NO_ERRORS_SCHEMA', () => {
   tests();
 });
 
-//////// Testing w/ real root module //////
-// Tricky because we are disabling the router and its configuration
-// Better to use RouterTestingModule
-
 describe('AppComponent & AppModule', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({ imports: [AppModule] })
-
-        // Get rid of app's Router configuration otherwise many failures.
-        // Doing so removes Router declarations; add the Router stubs
         .overrideModule(AppModule, {
           remove: { imports: [AppRoutingModule] },
           add: { declarations: [RouterLinkDirectiveStub, RouterOutletStubComponent] },
         })
-
         .compileComponents()
-
         .then(() => {
           fixture = TestBed.createComponent(AppComponent);
           comp = fixture.componentInstance;
@@ -93,13 +83,8 @@ function tests() {
   let linkDes: DebugElement[];
 
   beforeEach(() => {
-    fixture.detectChanges(); // trigger initial data binding
-
-    // find DebugElements with an attached RouterLinkStubDirective
+    fixture.detectChanges();
     linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
-
-    // get attached link directive instances
-    // using each DebugElement's injector
     routerLinks = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
   });
 
@@ -115,20 +100,11 @@ function tests() {
   });
 
   it('can click Heroes link in template', () => {
-    const heroesLinkDe = linkDes[1]; // heroes link DebugElement
-    const heroesLink = routerLinks[1]; // heroes link directive
-
+    const heroesLinkDe = linkDes[1];
+    const heroesLink = routerLinks[1];
     expect(heroesLink.navigatedTo).toBeNull();
-
     heroesLinkDe.triggerEventHandler('click', null);
     fixture.detectChanges();
-
     expect(heroesLink.navigatedTo).toBe('/heroes');
   });
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

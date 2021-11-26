@@ -13,7 +13,7 @@ describe('AboutComponent (highlightDirective)', () => {
       declarations: [AboutComponent, HighlightDirective],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).createComponent(AboutComponent);
-    fixture.detectChanges(); // initial binding
+    fixture.detectChanges();
   });
 
   it('should have skyblue <h2>', () => {
@@ -22,9 +22,3 @@ describe('AboutComponent (highlightDirective)', () => {
     expect(bgColor).toBe('skyblue');
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

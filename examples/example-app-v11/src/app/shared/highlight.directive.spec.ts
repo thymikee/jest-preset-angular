@@ -14,24 +14,21 @@ class TestComponent {}
 
 describe('HighlightDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
-  let des: DebugElement[]; // the three elements w/ the directive
-  let bareH2: DebugElement; // the <h2> w/o the directive
+  let des: DebugElement[];
+  let bareH2: DebugElement;
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       declarations: [HighlightDirective, TestComponent],
     }).createComponent(TestComponent);
 
-    fixture.detectChanges(); // initial binding
+    fixture.detectChanges();
 
-    // all elements with an attached HighlightDirective
     des = fixture.debugElement.queryAll(By.directive(HighlightDirective));
 
-    // the h2 without the HighlightDirective
     bareH2 = fixture.debugElement.query(By.css('h2:not([highlight])'));
   });
 
-  // color tests
   it('should have three highlighted elements', () => {
     expect(des.length).toBe(3);
   });
@@ -48,15 +45,11 @@ describe('HighlightDirective', () => {
   });
 
   it('should bind <input> background to value color', () => {
-    // easier to work with nativeElement
     const input = des[2].nativeElement as HTMLInputElement;
     expect(input.style.backgroundColor).toBe('cyan');
 
     input.value = 'green';
 
-    // Dispatch a DOM event so that Angular responds to the input value change.
-    // In older browsers, such as IE, you might need a CustomEvent instead. See
-    // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
@@ -67,15 +60,6 @@ describe('HighlightDirective', () => {
     expect(bareH2.properties['customProperty']).toBeUndefined();
   });
 
-  // Removed on 12/02/2016 when ceased public discussion of the `Renderer`. Revive in future?
-  // // customProperty tests
-  // it('all highlighted elements should have a true customProperty', () => {
-  //   const allTrue = des.map(de => !!de.properties['customProperty']).every(v => v === true);
-  //   expect(allTrue).toBe(true);
-  // });
-
-  // injected directive
-  // attached HighlightDirective can be injected
   it('can inject `HighlightDirective` in 1st <h2>', () => {
     const dir = des[0].injector.get(HighlightDirective);
     expect(dir).toBeTruthy();
@@ -86,8 +70,6 @@ describe('HighlightDirective', () => {
     expect(dir).toBe(null);
   });
 
-  // DebugElement.providerTokens
-  // attached HighlightDirective should be listed in the providerTokens
   it('should have `HighlightDirective` in 1st <h2> providerTokens', () => {
     expect(des[0].providerTokens).toContain(HighlightDirective);
   });
@@ -96,9 +78,3 @@ describe('HighlightDirective', () => {
     expect(bareH2.providerTokens).not.toContain(HighlightDirective);
   });
 });
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
