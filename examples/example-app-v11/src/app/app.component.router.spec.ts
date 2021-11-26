@@ -15,7 +15,6 @@ import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeroListComponent } from './hero/hero-list.component';
 import { HeroService } from './model/hero.service';
 import { TestHeroService } from './model/testing/test-hero.service';
 import { TwainService } from './twain/twain.service';
@@ -59,23 +58,6 @@ describe('AppComponent & RouterTestingModule', () => {
     advance();
     expect(location.path()).toEqual('/about');
     const el = fixture.debugElement.query(By.directive(AboutComponent));
-    expect(el).toBeTruthy();
-  }));
-
-  it('should navigate to "Heroes" on click (not working yet)', fakeAsync(() => {
-    createComponent();
-    page.heroesLinkDe.nativeElement.click();
-    advance();
-    expect(location.path()).toEqual('/heroes');
-    const el = fixture.debugElement.query(By.directive(HeroListComponent));
-    expect(el).toBeTruthy();
-  }));
-
-  it('can navigate to "Heroes" w/ browser location URL change', fakeAsync(() => {
-    location.go('/heroes');
-    advance();
-    expect(location.path()).toEqual('/heroes');
-    const el = fixture.debugElement.query(By.directive(HeroListComponent));
     expect(el).toBeTruthy();
   }));
 });
