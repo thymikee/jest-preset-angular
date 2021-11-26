@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { Hero } from './hero';
 
@@ -16,10 +16,7 @@ export class HeroService {
   constructor(private http: HttpClient) {}
 
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl).pipe(
-      tap(() => this.log(`fetched heroes`)),
-      catchError(this.handleError('getHeroes')),
-    ) as Observable<Hero[]>;
+    return this.http.get<Hero[]>(this.heroesUrl).pipe(catchError(this.handleError('getHeroes'))) as Observable<Hero[]>;
   }
 
   getHero(id: number | string): Observable<Hero> {
@@ -30,36 +27,23 @@ export class HeroService {
 
     return this.http.get<Hero[]>(url).pipe(
       map((heroes) => heroes[0]),
-      tap((h) => {
-        const outcome = h ? `fetched` : `did not find`;
-        this.log(`${outcome} hero id=${id}`);
-      }),
       catchError(this.handleError<Hero>(`getHero id=${id}`)),
     );
   }
 
   addHero(hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
-      tap((addedHero) => this.log(`added hero w/ id=${addedHero.id}`)),
-      catchError(this.handleError<Hero>('addHero')),
-    );
+    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(catchError(this.handleError<Hero>('addHero')));
   }
 
   deleteHero(hero: Hero | number): Observable<Hero> {
     const id = typeof hero === 'number' ? hero : hero.id;
     const url = `${this.heroesUrl}/${id}`;
 
-    return this.http.delete<Hero>(url, httpOptions).pipe(
-      tap((_) => this.log(`deleted hero id=${id}`)),
-      catchError(this.handleError<Hero>('deleteHero')),
-    );
+    return this.http.delete<Hero>(url, httpOptions).pipe(catchError(this.handleError<Hero>('deleteHero')));
   }
 
   updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
-      tap((_) => this.log(`updated hero id=${hero.id}`)),
-      catchError(this.handleError<any>('updateHero')),
-    );
+    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(catchError(this.handleError<any>('updateHero')));
   }
 
   private handleError<T>(operation = 'operation') {
@@ -71,9 +55,5 @@ export class HeroService {
 
       throw new Error(`${operation} failed: ${message}`);
     };
-  }
-
-  private log(message: string) {
-    console.log('HeroService: ' + message);
   }
 }
