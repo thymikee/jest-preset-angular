@@ -10,3 +10,5 @@ export const TEMPLATE = 'template';
 export const REQUIRE = 'require';
 /** Angular component decorator name */
 export const COMPONENT = 'Component';
+
+export const REGISTER_INSTANCE = Symbol.for('ng-jest.register.instance');

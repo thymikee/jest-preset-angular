@@ -1,6 +1,7 @@
 globalThis.ngJest = {
   skipNgcc: false,
   tsconfig: 'tsconfig-esm.spec.json',
+  experimentalPrecompilation: true,
 };
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */

@@ -5,6 +5,7 @@ const { paths } = require('./tsconfig.json').compilerOptions;
 globalThis.ngJest = {
   skipNgcc: false,
   tsconfig: 'tsconfig.spec.json',
+  experimentalPrecompilation: true,
 };
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
