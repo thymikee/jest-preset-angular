@@ -55,7 +55,6 @@ describe('DashboardComponent (deep)', () => {
     beforeEach(
       waitForAsync(() => {
         fixture.detectChanges();
-        fixture.whenStable().then(() => fixture.detectChanges());
       }),
     );
 
@@ -83,7 +82,6 @@ describe('DashboardComponent (deep)', () => {
     beforeEach(
       waitForAsync(() => {
         fixture.detectChanges();
-        fixture.whenStable().then(() => fixture.detectChanges());
       }),
     );
 
