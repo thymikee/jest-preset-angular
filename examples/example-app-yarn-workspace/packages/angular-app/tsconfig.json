@@ -12,12 +12,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "strict": true,
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@services/*": ["src/app/services/*"]
+      "@shared/*": ["src/app/shared/*"]
     }
   }
 }

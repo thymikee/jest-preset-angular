@@ -1,5 +1,3 @@
-import { AppEnvironment } from '../app/configs/environment.config';
-
-export const environment: AppEnvironment = {
+export const environment = {
   production: true,
 };
