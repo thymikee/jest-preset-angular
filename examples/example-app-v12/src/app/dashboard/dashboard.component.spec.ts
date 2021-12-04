@@ -41,8 +41,7 @@ describe('DashboardComponent (deep)', () => {
           fixture = TestBed.createComponent(DashboardComponent);
           component = fixture.componentInstance;
           router = TestBed.inject(Router);
-          spy = jest.spyOn(router, 'navigateByUrl');
-          spy.mockImplementation(() => of(true).toPromise());
+          spy = jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
         });
     }),
   );

@@ -42,7 +42,7 @@ describe('HeroDetailComponent', () => {
           .compileComponents()
           .then(() => {
             const router = TestBed.inject(Router);
-            jest.spyOn(router, 'navigate').mockImplementation(() => of(true).toPromise());
+            jest.spyOn(router, 'navigate').mockResolvedValue(true);
           });
       }),
     );
@@ -196,7 +196,7 @@ describe('HeroDetailComponent', () => {
           .compileComponents()
           .then(() => {
             const router = TestBed.inject(Router);
-            jest.spyOn(router, 'navigate').mockImplementation(() => of(true).toPromise());
+            jest.spyOn(router, 'navigate').mockResolvedValue(true);
 
             activatedRoute.setParamMap({ id: 99999 });
 
@@ -273,7 +273,7 @@ describe('HeroDetailComponent', () => {
           .compileComponents()
           .then(() => {
             const router = TestBed.inject(Router);
-            jest.spyOn(router, 'navigate').mockImplementation(() => of(true).toPromise());
+            jest.spyOn(router, 'navigate').mockResolvedValue(true);
           });
       }),
     );
@@ -311,7 +311,7 @@ describe('HeroDetailComponent', () => {
           .compileComponents()
           .then(() => {
             const router = TestBed.inject(Router);
-            jest.spyOn(router, 'navigate').mockImplementation(() => of(true).toPromise());
+            jest.spyOn(router, 'navigate').mockResolvedValue(true);
           });
       }),
     );
