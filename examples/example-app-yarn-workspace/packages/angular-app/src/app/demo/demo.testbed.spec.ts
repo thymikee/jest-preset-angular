@@ -4,7 +4,6 @@ import { NgModel, NgControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { jest } from '@jest/globals';
-import { DoneFn } from '@jest/types/build/Global';
 
 import { click } from '../../testing';
 
@@ -70,13 +69,14 @@ describe('demo (with TestBed):', () => {
       }),
     );
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('test should wait for ValueService.getObservableDelayValue', (done: DoneFn) => {
-      service.getObservableDelayValue().subscribe((value) => {
-        expect(value).toBe('observable delay value');
-        done();
-      });
-    });
+    it(
+      'test should wait for ValueService.getObservableDelayValue',
+      waitForAsync(() => {
+        service.getObservableDelayValue().subscribe((value) => {
+          expect(value).toBe('observable delay value');
+        });
+      }),
+    );
 
     it('should allow the use of fakeAsync', fakeAsync(() => {
       let value = '';

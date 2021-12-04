@@ -1,5 +1,5 @@
+import { waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { DoneFn } from '@jest/types/build/Global';
 
 import { LightswitchComponent, MasterService, ValueService, ReversePipe } from './demo';
 
@@ -19,19 +19,18 @@ describe('demo (no TestBed):', () => {
       expect(service.getValue()).toBe('real value');
     });
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('#getObservableValue should return value from observable', (done: DoneFn) => {
-      service.getObservableValue().subscribe((value) => {
-        expect(value).toBe('observable value');
-        done();
-      });
-    });
+    it(
+      '#getObservableValue should return value from observable',
+      waitForAsync(() => {
+        service.getObservableValue().subscribe((value) => {
+          expect(value).toBe('observable value');
+        });
+      }),
+    );
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('#getPromiseValue should return value from a promise', (done: DoneFn) => {
-      service.getPromiseValue().then((value) => {
+    it('#getPromiseValue should return value from a promise', async () => {
+      await service.getPromiseValue().then((value) => {
         expect(value).toBe('promise value');
-        done();
       });
     });
   });
