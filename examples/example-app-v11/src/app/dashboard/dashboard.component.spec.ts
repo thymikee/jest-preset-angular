@@ -51,11 +51,9 @@ describe('DashboardComponent (deep)', () => {
   });
 
   describe('after get dashboard heroes (deep)', () => {
-    beforeEach(
-      waitForAsync(() => {
-        fixture.detectChanges();
-      }),
-    );
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
     it('should have heroes', () => {
       expect(component.heroes.length).toBeGreaterThan(0);
@@ -78,11 +76,9 @@ describe('DashboardComponent (deep)', () => {
   });
 
   describe('after get dashboard heroes (shallow)', () => {
-    beforeEach(
-      waitForAsync(() => {
-        fixture.detectChanges();
-      }),
-    );
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
     it('should have heroes', () => {
       expect(component.heroes.length).toBeGreaterThan(0);
