@@ -1,7 +1,7 @@
 import { fakeAsync, ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
 import { Observable, of, throwError } from 'rxjs';
-import { last } from 'rxjs/operators';
+import { last, tap } from 'rxjs/operators';
 
 import { TwainComponent } from './twain.component';
 import { TwainService } from './twain.service';
@@ -128,29 +128,33 @@ describe('TwainComponent', () => {
       }),
     );
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('should show last quote (quote done)', (done: jest.DoneCallback) => {
+    it('should show last quote (async)', async () => {
       fixture.detectChanges();
 
-      component.quote.pipe(last()).subscribe(() => {
-        fixture.detectChanges();
-        expect(quoteEl.textContent).toBe(testQuote);
-        expect(errorMessage()).toBeNull();
-        done();
-      });
+      await component.quote
+        .pipe(last())
+        .pipe(
+          tap(() => {
+            fixture.detectChanges();
+            expect(quoteEl.textContent).toBe(testQuote);
+            expect(errorMessage()).toBeNull();
+          }),
+        )
+        .toPromise();
     });
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('should show quote after getQuote (spy done)', (done: jest.DoneCallback) => {
-      fixture.detectChanges();
-
-      twainService.getQuote().subscribe(() => {
+    it(
+      'should show quote after getQuote',
+      waitForAsync(() => {
         fixture.detectChanges();
-        expect(quoteEl.textContent).toBe(testQuote);
-        expect(errorMessage()).toBeNull();
-        done();
-      });
-    });
+
+        twainService.getQuote().subscribe(() => {
+          fixture.detectChanges();
+          expect(quoteEl.textContent).toBe(testQuote);
+          expect(errorMessage()).toBeNull();
+        });
+      }),
+    );
 
     it('should display error when TwainService fails', fakeAsync(() => {
       getQuoteSpy.mockReturnValue(throwError('TwainService test failure'));

@@ -69,13 +69,14 @@ describe('demo (with TestBed):', () => {
       }),
     );
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('test should wait for ValueService.getObservableDelayValue', (done: jest.DoneCallback) => {
-      service.getObservableDelayValue().subscribe((value) => {
-        expect(value).toBe('observable delay value');
-        done();
-      });
-    });
+    it(
+      'test should wait for ValueService.getObservableDelayValue',
+      waitForAsync(() => {
+        service.getObservableDelayValue().subscribe((value) => {
+          expect(value).toBe('observable delay value');
+        });
+      }),
+    );
 
     it('should allow the use of fakeAsync', fakeAsync(() => {
       let value = '';
