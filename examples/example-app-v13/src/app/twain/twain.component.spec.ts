@@ -1,8 +1,7 @@
 import { fakeAsync, ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { DoneFn } from '@jest/types/build/Global';
-import { Observable, of, throwError } from 'rxjs';
-import { last } from 'rxjs/operators';
+import { firstValueFrom, Observable, of, throwError } from 'rxjs';
+import { last, tap } from 'rxjs/operators';
 
 import { TwainComponent } from './twain.component';
 import { TwainService } from './twain.service';
@@ -63,7 +62,7 @@ describe('TwainComponent', () => {
     });
 
     it('should display error when TwainService fails', fakeAsync(() => {
-      getQuoteSpy.mockReturnValue(throwError('TwainService test failure'));
+      getQuoteSpy.mockReturnValue(throwError(() => 'TwainService test failure'));
 
       fixture.detectChanges();
 
@@ -129,32 +128,35 @@ describe('TwainComponent', () => {
       }),
     );
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('should show last quote (quote done)', (done: DoneFn) => {
+    it('should show last quote (async)', async () => {
       fixture.detectChanges();
 
-      component.quote.pipe(last()).subscribe(() => {
-        fixture.detectChanges();
-        expect(quoteEl.textContent).toBe(testQuote);
-        expect(errorMessage()).toBeNull();
-        done();
-      });
+      await firstValueFrom(
+        component.quote.pipe(last()).pipe(
+          tap(() => {
+            fixture.detectChanges();
+            expect(quoteEl.textContent).toBe(testQuote);
+            expect(errorMessage()).toBeNull();
+          }),
+        ),
+      );
     });
 
-    // eslint-disable-next-line jest/no-done-callback
-    it('should show quote after getQuote (spy done)', (done: DoneFn) => {
-      fixture.detectChanges();
-
-      twainService.getQuote().subscribe(() => {
+    it(
+      'should show quote after getQuote',
+      waitForAsync(() => {
         fixture.detectChanges();
-        expect(quoteEl.textContent).toBe(testQuote);
-        expect(errorMessage()).toBeNull();
-        done();
-      });
-    });
+
+        twainService.getQuote().subscribe(() => {
+          fixture.detectChanges();
+          expect(quoteEl.textContent).toBe(testQuote);
+          expect(errorMessage()).toBeNull();
+        });
+      }),
+    );
 
     it('should display error when TwainService fails', fakeAsync(() => {
-      getQuoteSpy.mockReturnValue(throwError('TwainService test failure'));
+      getQuoteSpy.mockReturnValue(throwError(() => 'TwainService test failure'));
 
       fixture.detectChanges();
       tick();

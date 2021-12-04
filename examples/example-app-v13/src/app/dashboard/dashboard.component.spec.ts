@@ -41,8 +41,7 @@ describe('DashboardComponent (deep)', () => {
           fixture = TestBed.createComponent(DashboardComponent);
           component = fixture.componentInstance;
           router = TestBed.inject(Router);
-          spy = jest.spyOn(router, 'navigateByUrl');
-          spy.mockImplementation(() => of(true).toPromise());
+          spy = jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
         });
     }),
   );
@@ -52,12 +51,9 @@ describe('DashboardComponent (deep)', () => {
   });
 
   describe('after get dashboard heroes (deep)', () => {
-    beforeEach(
-      waitForAsync(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => fixture.detectChanges());
-      }),
-    );
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
     it('should have heroes', () => {
       expect(component.heroes.length).toBeGreaterThan(0);
@@ -80,12 +76,9 @@ describe('DashboardComponent (deep)', () => {
   });
 
   describe('after get dashboard heroes (shallow)', () => {
-    beforeEach(
-      waitForAsync(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => fixture.detectChanges());
-      }),
-    );
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
     it('should have heroes', () => {
       expect(component.heroes.length).toBeGreaterThan(0);
