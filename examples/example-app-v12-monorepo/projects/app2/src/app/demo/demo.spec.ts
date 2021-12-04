@@ -1,5 +1,4 @@
 import { jest } from '@jest/globals';
-import { DoneFn } from '@jest/types/build/Global';
 
 import { LightswitchComponent, MasterService, ValueService, ReversePipe } from './demo';
 
@@ -20,7 +19,7 @@ describe('demo (no TestBed):', () => {
     });
 
     // eslint-disable-next-line jest/no-done-callback
-    it('#getObservableValue should return value from observable', (done: DoneFn) => {
+    it('#getObservableValue should return value from observable', (done: jest.DoneCallback) => {
       service.getObservableValue().subscribe((value) => {
         expect(value).toBe('observable value');
         done();
@@ -28,7 +27,7 @@ describe('demo (no TestBed):', () => {
     });
 
     // eslint-disable-next-line jest/no-done-callback
-    it('#getPromiseValue should return value from a promise', (done: DoneFn) => {
+    it('#getPromiseValue should return value from a promise', (done: jest.DoneCallback) => {
       service.getPromiseValue().then((value) => {
         expect(value).toBe('promise value');
         done();

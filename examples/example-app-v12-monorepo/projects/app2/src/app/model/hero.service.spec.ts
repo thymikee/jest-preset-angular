@@ -2,7 +2,6 @@ import { HttpClient, HttpResponse, HttpErrorResponse, HttpEventType, HttpEvent }
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { DoneFn } from '@jest/types/build/Global';
 import { of, throwError } from 'rxjs';
 
 import { Hero } from './hero';
@@ -22,7 +21,7 @@ describe('HeroesService (with spies)', () => {
   });
 
   // eslint-disable-next-line jest/no-done-callback
-  it('should return expected heroes (HttpClient called once)', (done: DoneFn) => {
+  it('should return expected heroes (HttpClient called once)', (done: jest.DoneCallback) => {
     const expectedHeroes: Hero[] = [
       { id: 1, name: 'A' },
       { id: 2, name: 'B' },
@@ -43,7 +42,7 @@ describe('HeroesService (with spies)', () => {
   });
 
   // eslint-disable-next-line jest/no-done-callback
-  it('should return an error when the server returns a 404', (done: DoneFn) => {
+  it('should return an error when the server returns a 404', (done: jest.DoneCallback) => {
     const errorResponse = new HttpErrorResponse({
       error: 'test 404 error',
       status: 404,
