@@ -1,4 +1,3 @@
-require('jest-preset-angular/ngcc-jest-processor');
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { paths } = require('./tsconfig.json').compilerOptions;
 
@@ -12,6 +11,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
   },
+  globalSetup: 'jest-preset-angular/global-setup',
   moduleNameMapper: {
     ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>' }),
     tslib: 'tslib/tslib.es6.js',
