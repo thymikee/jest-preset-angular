@@ -23,7 +23,7 @@ const nodeModuleDirPath = findNodeModulesDirectory();
 
 if (!process.argv.find((arg) => IGNORE_ARGS.includes(arg))) {
   if (nodeModuleDirPath) {
-    process.stdout.write('ngcc-jest-processor: running ngcc\n');
+    process.stdout.write('\nngcc-jest-processor: running ngcc\n');
     // We spawn instead of using the API because:
     // - NGCC Async uses clustering which is problematic when used via the API which means
     // that we cannot setup multiple cluster masters with different options.

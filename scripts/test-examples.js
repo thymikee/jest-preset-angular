@@ -35,7 +35,15 @@ const executeTest = (projectPath) => {
   logger.log('installing bundled version of jest-preset-angular');
   logger.log();
 
-  ['build', 'presets', 'jest-preset.js', 'ngcc-jest-processor.js', 'package.json', 'setup-jest.js'].forEach((asset) => {
+  [
+    'build',
+    'presets',
+    'global-setup.js',
+    'jest-preset.js',
+    'ngcc-jest-processor.js',
+    'package.json',
+    'setup-jest.js',
+  ].forEach((asset) => {
     const assetToReplace = join(projectPath, 'node_modules', 'jest-preset-angular', asset);
     const assetToCopy = join(rootDir, asset);
     copySync(assetToCopy, assetToReplace);
