@@ -47,10 +47,13 @@
   },
   "dependencies": {
     "bs-logger": "^0.2.6",
-    "esbuild": "0.14.2",
+    "esbuild-wasm": "0.14.2",
     "jest-environment-jsdom": "^27.0.0",
     "pretty-format": "^27.0.0",
     "ts-jest": "^27.0.0"
+  },
+  "optionalDependencies": {
+    "esbuild": "0.14.2"
   },
   "peerDependencies": {
     "@angular/compiler-cli": ">=10.0.0",
