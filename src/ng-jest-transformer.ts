@@ -3,7 +3,6 @@ import path from 'path';
 import type { TransformedSource } from '@jest/transform';
 import type { Config } from '@jest/types';
 import { LogContexts, LogLevels, Logger, createLogger } from 'bs-logger';
-import { transformSync } from 'esbuild';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 import type { ProjectConfigTsJest, TransformOptionsTsJest } from 'ts-jest/dist/types';
@@ -13,18 +12,26 @@ import { NgJestConfig } from './config/ng-jest-config';
 
 export class NgJestTransformer extends TsJestTransformer {
   #ngJestLogger: Logger;
+  #esbuildImpl: typeof import('esbuild');
 
   constructor() {
     super();
     this.#ngJestLogger = createLogger({
       context: {
-        [LogContexts.package]: 'ts-jest',
+        [LogContexts.package]: 'jest-preset-angular',
         [LogContexts.logLevel]: LogLevels.trace,
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         version: require('../package.json').version,
       },
       targets: process.env.NG_JEST_LOG ?? undefined,
     });
+    try {
+      // Use the faster native variant if available.
+      this.#esbuildImpl = require('esbuild');
+    } catch {
+      // If the native variant is not installed then use the WASM-based variant
+      this.#esbuildImpl = require('esbuild-wasm');
+    }
   }
 
   protected _createConfigSet(config: ProjectConfigTsJest | undefined): ConfigSet {
@@ -54,7 +61,7 @@ export class NgJestTransformer extends TsJestTransformer {
       this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
       const compilerOpts = configSet.parsedTsConfig.options;
-      const { code, map } = transformSync(fileContent, {
+      const { code, map } = this.#esbuildImpl.transformSync(fileContent, {
         loader: 'js',
         format: transformOptions.supportsStaticESM && configSet.useESM ? 'esm' : 'cjs',
         target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
