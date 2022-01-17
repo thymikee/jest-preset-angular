@@ -99,6 +99,7 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
     destroyAfterEach: true, // Angular recommends this, but it may break existing tests
   },
 });
+getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 ```
 
 ## Potential issues with Angular 13 ESM package format and workaround
