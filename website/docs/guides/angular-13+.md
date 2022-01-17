@@ -5,7 +5,7 @@ title: Angular >=13
 
 **Angular 13** introduces ESM package format for Angular packages. `jest-preset-angular`
 currently supports testing with Jest in `CommonJS` mode with **Angular 13** using [default preset](../getting-started/presets.md).
-Jest ESM support with **Angular 13** is being worked on and will come in the future releases.
+Jest ESM support with **Angular 13** is new and may have issues.
 
 Starting from **11.0.0**, `jest-preset-angular` introduces a few extra changes to be able to run Jest with **Angular 13**:
 
@@ -46,6 +46,58 @@ module.exports = {
     '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
   },
 };
+```
+
+### Using ES Modules
+
+ES Modules support is new and may encounter issues. See [example-app-v13](https://github.com/thymikee/jest-preset-angular/tree/main/examples/example-app-v13) for an example with tests that run using ESM, and using ESM + isolated.
+
+Your `jest.config.js` should be changed to something like:
+```js
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { paths } = require('./tsconfig.json').compilerOptions;
+
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+module.exports = {
+  preset: 'jest-preset-angular/presets/defaults-esm',
+  globals: {
+    'ts-jest': {
+      useESM: true,
+      stringifyContentPathRegex: '\\.(html|svg)$',
+      tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+    },
+  },
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>' }),
+    tslib: 'tslib/tslib.es6.js',
+  },
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+};
+```
+
+Before upgrading to ng13 and switching to ES Modules, your `setup-jest.ts` file most likely uses the preset `setup-jest`, like the following:
+
+```ts
+// setup-jest.ts
+import 'jest-preset-angular/setup-jest';
+import './jest-global-mocks';
+```
+
+The `jest-preset-angular/setup-jest` file doesn't work with ESM, because it uses `require`. For now you should skip using this file, and replace the contents of your `setup-jest.ts` with:
+
+```ts
+// setup-jest.ts
+import 'zone.js/fesm2015/zone-testing-bundle.min.js';
+import './jest-global-mocks';
+
+import { getTestBed } from '@angular/core/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+
+getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+  teardown: {
+    destroyAfterEach: true // Angular recommends this, but it may break existing tests
+  }
+});
 ```
 
 ## Potential issues with Angular 13 ESM package format and workaround
