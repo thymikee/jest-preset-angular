@@ -53,6 +53,7 @@ module.exports = {
 ES Modules support is new and may encounter issues. See [example-app-v13](https://github.com/thymikee/jest-preset-angular/tree/main/examples/example-app-v13) for an example with tests that run using ESM, and using ESM + isolated.
 
 Your `jest.config.js` should be changed to something like:
+
 ```js
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { paths } = require('./tsconfig.json').compilerOptions;
@@ -95,8 +96,8 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 
 getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
   teardown: {
-    destroyAfterEach: true // Angular recommends this, but it may break existing tests
-  }
+    destroyAfterEach: true, // Angular recommends this, but it may break existing tests
+  },
 });
 ```
 
