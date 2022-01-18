@@ -11,7 +11,6 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
   },
-  globalSetup: 'jest-preset-angular/global-setup',
   moduleNameMapper: {
     ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>' }),
     tslib: 'tslib/tslib.es6.js',

@@ -74,8 +74,7 @@ const executeTest = (projectPath) => {
     env: process.env,
   });
 
-  // TODO: Enable when fully support ESM with Angular 13
-  if (!projectPkg.version.startsWith('13')) {
+  if (projectPkg.version.startsWith('13')) {
     logger.log();
     logger.log('starting the ESM tests with isolatedModules: false using:', ...cmdESMLine);
     logger.log();
