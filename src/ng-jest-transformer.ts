@@ -1,3 +1,4 @@
+import { spawnSync } from 'child_process';
 import path from 'path';
 
 import type { TransformedSource } from '@jest/transform';
@@ -25,13 +26,15 @@ export class NgJestTransformer extends TsJestTransformer {
       },
       targets: process.env.NG_JEST_LOG ?? undefined,
     });
+    let useNativeEsbuild = false;
     try {
-      // Use the faster native variant if available.
-      this.#esbuildImpl = require('esbuild');
-    } catch {
-      // If the native variant is not installed then use the WASM-based variant
-      this.#esbuildImpl = require('esbuild-wasm');
+      const esbuildCheckPath = require.resolve('@angular-devkit/build-angular/esbuild-check.js');
+      const { status, error } = spawnSync(process.execPath, [esbuildCheckPath]);
+      useNativeEsbuild = status === 0 && error === undefined;
+    } catch (e) {
+      useNativeEsbuild = false;
     }
+    this.#esbuildImpl = useNativeEsbuild ? require('esbuild') : require('esbuild-wasm');
   }
 
   protected _createConfigSet(config: ProjectConfigTsJest | undefined): ConfigSet {
