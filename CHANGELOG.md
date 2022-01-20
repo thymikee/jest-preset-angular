@@ -1,3 +1,17 @@
+# [11.1.0](https://github.com/thymikee/jest-preset-angular/compare/v11.0.1...v11.1.0) (2022-01-20)
+
+
+### Bug Fixes
+
+* apply similar fallback as Angular for `esbuild` ([#1283](https://github.com/thymikee/jest-preset-angular/issues/1283)) ([af528e6](https://github.com/thymikee/jest-preset-angular/commit/af528e6003c72ca1affb5ec8d6747c9ea62ae10a)), closes [#1255](https://github.com/thymikee/jest-preset-angular/issues/1255)
+
+
+### DEPRECATIONS
+
+* `ngcc-jest-processor` is deprecated in favor of `globalSetup` file ([#1275](https://github.com/thymikee/jest-preset-angular/issues/1275)) ([75e7368](https://github.com/thymikee/jest-preset-angular/commit/75e73682554c38cc39e3b08807cf19d97c94d8f9))
+
+
+
 ## [11.0.1](https://github.com/thymikee/jest-preset-angular/compare/v11.0.0...v11.0.1) (2021-11-22)
 
 
@@ -21,7 +35,7 @@
 * support Angular 13 in CJS mode ([#1122](https://github.com/thymikee/jest-preset-angular/issues/1122)) ([12d3c6d](https://github.com/thymikee/jest-preset-angular/commit/12d3c6d27fadc3c423ab42d10615526e26826ed6))
 
 
-## Code Refactoring
+### Code Refactoring
 
 * **presets**: improve `transformIgnorePatterns` value ([#1162](https://github.com/thymikee/jest-preset-angular/issues/1162)) ([99a4b1b1](https://github.com/thymikee/jest-preset-angular/commit/99a4b1b1549a13b27bd8d03df181ea6fa69aa073))
 
@@ -54,7 +68,7 @@ Alan Agius, Pete Bacon Darwin from Angular team
 * process `js` files in `node_modules` with `esbuild` ([#1169](https://github.com/thymikee/jest-preset-angular/issues/1169)) ([1de3bf0](https://github.com/thymikee/jest-preset-angular/commit/1de3bf04886fbc91ab821e965ec94a2d8dc741be))
 
 
-## Code Refactoring
+### Code Refactoring
 
 * **presets**: improve `transformIgnorePatterns` value ([#1162](https://github.com/thymikee/jest-preset-angular/issues/1162)) ([99a4b1b1](https://github.com/thymikee/jest-preset-angular/commit/99a4b1b1549a13b27bd8d03df181ea6fa69aa073))
 

@@ -36,6 +36,7 @@ Add the following section:
 module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  globalSetup: 'jest-preset-angular/globalSetup',
 };
 ```
 
@@ -45,7 +46,8 @@ module.exports = {
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"],
+    "globalSetup": "jest-preset-angular/globalSetup"
   }
 }
 ```
@@ -57,6 +59,7 @@ Adjust your `tsconfig.spec.json` to be:
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
+    "module": "CommonJs",
     "types": ["jest"]
   },
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
