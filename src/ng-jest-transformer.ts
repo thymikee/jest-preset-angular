@@ -11,6 +11,11 @@ import type { ProjectConfigTsJest, TransformOptionsTsJest } from 'ts-jest/dist/t
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 
+// Cache the result between multiple transformer instances
+// to avoid spawning multiple processes (which can have a major
+// performance impact when used with multiple projects).
+let useNativeEsbuild: boolean | null = null;
+
 export class NgJestTransformer extends TsJestTransformer {
   #ngJestLogger: Logger;
   #esbuildImpl: typeof import('esbuild');
@@ -26,14 +31,17 @@ export class NgJestTransformer extends TsJestTransformer {
       },
       targets: process.env.NG_JEST_LOG ?? undefined,
     });
-    let useNativeEsbuild = false;
-    try {
-      const esbuildCheckPath = require.resolve('@angular-devkit/build-angular/esbuild-check.js');
-      const { status, error } = spawnSync(process.execPath, [esbuildCheckPath]);
-      useNativeEsbuild = status === 0 && error === undefined;
-    } catch (e) {
-      useNativeEsbuild = false;
+
+    if (useNativeEsbuild === null) {
+      try {
+        const esbuildCheckPath = require.resolve('@angular-devkit/build-angular/esbuild-check.js');
+        const { status, error } = spawnSync(process.execPath, [esbuildCheckPath]);
+        useNativeEsbuild = status === 0 && error === undefined;
+      } catch (e) {
+        useNativeEsbuild = false;
+      }
     }
+
     this.#esbuildImpl = useNativeEsbuild ? require('esbuild') : require('esbuild-wasm');
   }
 
