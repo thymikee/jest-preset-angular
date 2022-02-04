@@ -50,7 +50,6 @@ export class NgJestTransformer extends TsJestTransformer {
     filePath: Config.Path,
     transformOptions: TransformOptionsTsJest,
   ): TransformedSource | string {
-    const configSet = this._createConfigSet(transformOptions.config);
     /**
      * TypeScript < 4.5 doesn't support compiling `.mjs` file by default when running `tsc` which throws error. Also we
      * transform `js` files from `node_modules` assuming that `node_modules` contains compiled files to speed up compilation.
@@ -63,6 +62,7 @@ export class NgJestTransformer extends TsJestTransformer {
     ) {
       this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
+      const configSet = this._createConfigSet(transformOptions.config);
       const compilerOpts = configSet.parsedTsConfig.options;
       const { code, map } = this.#esbuildImpl.transformSync(fileContent, {
         loader: 'js',
