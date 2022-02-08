@@ -4,6 +4,7 @@ import path from 'path';
 import type { TransformedSource } from '@jest/transform';
 import type { Config } from '@jest/types';
 import { LogContexts, LogLevels, Logger, createLogger } from 'bs-logger';
+import { JsonableValue } from 'ts-jest';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 import type { ProjectConfigTsJest, TransformOptionsTsJest } from 'ts-jest/dist/types';
@@ -11,10 +12,15 @@ import type { ProjectConfigTsJest, TransformOptionsTsJest } from 'ts-jest/dist/t
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 
+interface NgCachedConfigSet {
+  configSet: ConfigSet;
+  jestConfig: JsonableValue;
+}
+
 export class NgJestTransformer extends TsJestTransformer {
-  #configSet: ConfigSet | undefined;
   #ngJestLogger: Logger;
   #esbuildImpl: typeof import('esbuild');
+  static #ngCachedConfigSets: NgCachedConfigSet[] = [];
 
   constructor() {
     super();
@@ -51,7 +57,7 @@ export class NgJestTransformer extends TsJestTransformer {
     filePath: Config.Path,
     transformOptions: TransformOptionsTsJest,
   ): TransformedSource | string {
-    this.#configSet = this.#configSet ? this.#configSet : this._createConfigSet(transformOptions.config);
+    const configSet = this.getCachedConfigSet(transformOptions);
     /**
      * TypeScript < 4.5 doesn't support compiling `.mjs` file by default when running `tsc` which throws error. Also we
      * transform `js` files from `node_modules` assuming that `node_modules` contains compiled files to speed up compilation.
@@ -64,11 +70,11 @@ export class NgJestTransformer extends TsJestTransformer {
     ) {
       this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
-      const compilerOpts = this.#configSet.parsedTsConfig.options;
+      const compilerOpts = configSet.parsedTsConfig.options;
       const { code, map } = this.#esbuildImpl.transformSync(fileContent, {
         loader: 'js',
-        format: transformOptions.supportsStaticESM && this.#configSet.useESM ? 'esm' : 'cjs',
-        target: compilerOpts.target === this.#configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
+        format: transformOptions.supportsStaticESM && configSet.useESM ? 'esm' : 'cjs',
+        target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
         sourcemap: compilerOpts.sourceMap,
         sourcefile: filePath,
         sourcesContent: true,
@@ -82,5 +88,27 @@ export class NgJestTransformer extends TsJestTransformer {
     } else {
       return super.process(fileContent, filePath, transformOptions);
     }
+  }
+
+  private getCachedConfigSet(transformOptions: TransformOptionsTsJest): ConfigSet {
+    const { config } = transformOptions;
+
+    let configSet: ConfigSet;
+
+    const cachedConfigSet: NgCachedConfigSet | undefined = NgJestTransformer.#ngCachedConfigSets.find(
+      (cs) => cs.jestConfig.value === config,
+    );
+
+    if (!cachedConfigSet) {
+      configSet = this._createConfigSet(config);
+      NgJestTransformer.#ngCachedConfigSets.push({
+        jestConfig: new JsonableValue(config),
+        configSet,
+      });
+    } else {
+      configSet = cachedConfigSet.configSet;
+    }
+
+    return configSet;
   }
 }
