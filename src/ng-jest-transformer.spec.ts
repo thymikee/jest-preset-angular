@@ -4,7 +4,7 @@ import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 import { NgJestTransformer } from './ng-jest-transformer';
 
-const tr = new NgJestTransformer();
+let tr: NgJestTransformer;
 
 jest.mock('esbuild', () => {
   return {
@@ -16,6 +16,10 @@ jest.mock('esbuild', () => {
 });
 
 describe('NgJestTransformer', () => {
+  beforeEach(() => {
+    tr = new NgJestTransformer();
+  });
+
   test('should create NgJestCompiler and NgJestConfig instances', () => {
     // @ts-expect-error testing purpose
     const cs = tr._createConfigSet({
