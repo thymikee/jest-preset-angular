@@ -4,10 +4,10 @@ import path from 'path';
 import type { TransformedSource } from '@jest/transform';
 import type { Config } from '@jest/types';
 import { LogContexts, LogLevels, Logger, createLogger } from 'bs-logger';
-import { JsonableValue } from 'ts-jest';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
 import type { ProjectConfigTsJest, TransformOptionsTsJest } from 'ts-jest/dist/types';
+import { JsonableValue } from 'ts-jest/dist/utils/jsonable-value';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
