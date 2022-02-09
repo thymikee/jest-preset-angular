@@ -50,7 +50,8 @@ export class NgJestTransformer extends TsJestTransformer {
     filePath: Config.Path,
     transformOptions: TransformOptionsTsJest,
   ): TransformedSource | string {
-    const configSet = this._createConfigSet(transformOptions.config);
+    // @ts-expect-error we are accessing the private cache to avoid creating new objects all the time
+    const configSet = super._configsFor(transformOptions);
     /**
      * TypeScript < 4.5 doesn't support compiling `.mjs` file by default when running `tsc` which throws error. Also we
      * transform `js` files from `node_modules` assuming that `node_modules` contains compiled files to speed up compilation.

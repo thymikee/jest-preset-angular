@@ -105,6 +105,7 @@ describe('NgJestTransformer', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const transformSyncMock = transformSync as unknown as jest.MockInstance<unknown, any>;
     const transformCfg = {
+      cacheFS: new Map(),
       config: {
         cwd: process.cwd(),
         extensionsToTreatAsEsm: [],
@@ -161,6 +162,7 @@ describe('NgJestTransformer', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const transformSyncMock = transformSync as unknown as jest.MockInstance<unknown, any>;
     const transformCfg = {
+      cacheFS: new Map(),
       config: {
         cwd: process.cwd(),
         extensionsToTreatAsEsm: [],
