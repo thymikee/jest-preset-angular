@@ -14,7 +14,7 @@ import { NgJestConfig } from './config/ng-jest-config';
 // Cache the result between multiple transformer instances
 // to avoid spawning multiple processes (which can have a major
 // performance impact when used with multiple projects).
-let useNativeEsbuild: boolean;
+let useNativeEsbuild: boolean | undefined;
 
 export class NgJestTransformer extends TsJestTransformer {
   #ngJestLogger: Logger;
