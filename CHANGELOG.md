@@ -1,3 +1,13 @@
+## [11.1.1](https://github.com/thymikee/jest-preset-angular/compare/v11.0.1...v11.1.1) (2022-02-11)
+
+
+### Performance Improvements
+
+* **transformer:** cache checking `esbuild` result ([#1309](https://github.com/thymikee/jest-preset-angular/issues/1309)) ([3412142](https://github.com/thymikee/jest-preset-angular/commit/341214213786899e2b6722c8c97dcbc0cca5252c))
+* **transformer:** leverage the `ts-jest` config set cache ([#1318](https://github.com/thymikee/jest-preset-angular/issues/1318)) ([d47d1eb](https://github.com/thymikee/jest-preset-angular/commit/d47d1ebdb9248f722408431eba0b061c82dbc127)), closes [#1311](https://github.com/thymikee/jest-preset-angular/issues/1311)
+
+
+
 # [11.1.0](https://github.com/thymikee/jest-preset-angular/compare/v11.0.1...v11.1.0) (2022-01-20)
 
 
