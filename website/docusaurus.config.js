@@ -1,3 +1,6 @@
+// @ts-check
+
+/** @type {import('@docusaurus/types').Config} */
 module.exports = {
   title: 'jest-preset-angular',
   tagline: 'Jest preset configuration for Angular projects.',
