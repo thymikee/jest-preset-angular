@@ -79,18 +79,18 @@ function Home() {
             Angular Ivy? Check out our <Link to="/docs/guides/angular-ivy">Angular Ivy guidance</Link>.
           </div>
           <div className={styles.announcementInner}>
-            Migrate to Angular >=13? Check out our <Link to="/docs/guides/angular-13+">Angular >=13 guidance</Link>
-            .
+            Migrate to Angular {'>'}=13? Check out our{' '}
+            <Link to="/docs/guides/angular-13+">Angular {'>'}=13 guidance</Link>.
           </div>
         </div>
       </header>
       <main>
-        {features && features.length > 0 && (
+        {features?.length && (
           <section className={styles.section}>
             <div className="container text--center">
               <div className="row">
                 {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
+                  <Feature imageUrl={''} key={idx} {...props} />
                 ))}
               </div>
             </div>

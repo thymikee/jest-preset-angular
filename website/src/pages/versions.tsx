@@ -1,13 +1,9 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 import Link from '@docusaurus/Link';
+import {
+  useVersions,
+  useLatestVersion,
+} from '@docusaurus/plugin-content-docs/client';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { useVersions, useLatestVersion } from '@theme/hooks/useDocs';
 import Layout from '@theme/Layout';
 import React from 'react';
 
