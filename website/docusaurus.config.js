@@ -93,6 +93,11 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    algolia: {
+      apiKey: 'c1d7d64da6ede5ee6c576f5aa6099637',
+      indexName: 'jest-preset-angular',
+      contextualSearch: true,
+    },
     hideableSidebar: true,
     colorMode: {
       defaultMode: 'light',

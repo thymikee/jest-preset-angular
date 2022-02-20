@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "yarn tsc && docusaurus start",
+    "start": "docusaurus start",
     "build": "yarn tsc && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "GIT_USER=thymikee USE_SSH=true docusaurus deploy",
