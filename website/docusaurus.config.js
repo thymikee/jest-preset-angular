@@ -94,7 +94,7 @@ module.exports = {
   ],
   themeConfig: {
     algolia: {
-      apiKey: 'c1d7d64da6ede5ee6c576f5aa6099637',
+      apiKey: 'd16c9e3d76b54c8fc2af344ac5d21b0e',
       indexName: 'jest-preset-angular',
       contextualSearch: true,
     },
