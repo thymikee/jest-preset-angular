@@ -9,6 +9,12 @@ To use `jest-preset-angular` with ESM support, you'll first need to check [ESM J
 
 There is also a [preset](../getting-started/presets.md) to work with ESM.
 
+:::tip
+
+We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main/examples) which contains base ESM setup to work with Jest and Angular.
+
+:::
+
 ### Examples
 
 #### Manual configuration

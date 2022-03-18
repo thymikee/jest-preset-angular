@@ -1,7 +1,7 @@
-const jestCfg = require('./jest-esm.config');
+import jestCfg from './jest-esm.config.mjs';
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
+const jestIsolatedCfg = {
   ...jestCfg,
   globals: {
     'ts-jest': {
@@ -12,3 +12,5 @@ module.exports = {
     },
   },
 };
+
+export default jestIsolatedCfg;
