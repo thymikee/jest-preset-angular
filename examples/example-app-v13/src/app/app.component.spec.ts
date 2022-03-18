@@ -21,59 +21,53 @@ let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 
 describe('AppComponent & TestModule', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          AppComponent,
-          RouterLinkDirectiveStub,
-          BannerStubComponent,
-          RouterOutletStubComponent,
-          WelcomeStubComponent,
-        ],
-      })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(AppComponent);
-          comp = fixture.componentInstance;
-        });
-    }),
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        AppComponent,
+        RouterLinkDirectiveStub,
+        BannerStubComponent,
+        RouterOutletStubComponent,
+        WelcomeStubComponent,
+      ],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        comp = fixture.componentInstance;
+      });
+  }));
   tests();
 });
 
 describe('AppComponent & NO_ERRORS_SCHEMA', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [AppComponent, BannerStubComponent, RouterLinkDirectiveStub],
-        schemas: [NO_ERRORS_SCHEMA],
-      })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(AppComponent);
-          comp = fixture.componentInstance;
-        });
-    }),
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent, BannerStubComponent, RouterLinkDirectiveStub],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        comp = fixture.componentInstance;
+      });
+  }));
   tests();
 });
 
 describe('AppComponent & AppModule', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({ imports: [AppModule] })
-        .overrideModule(AppModule, {
-          remove: { imports: [AppRoutingModule] },
-          add: { declarations: [RouterLinkDirectiveStub, RouterOutletStubComponent] },
-        })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(AppComponent);
-          comp = fixture.componentInstance;
-        });
-    }),
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({ imports: [AppModule] })
+      .overrideModule(AppModule, {
+        remove: { imports: [AppRoutingModule] },
+        add: { declarations: [RouterLinkDirectiveStub, RouterOutletStubComponent] },
+      })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        comp = fixture.componentInstance;
+      });
+  }));
 
   tests();
 });

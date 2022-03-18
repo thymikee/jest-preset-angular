@@ -21,30 +21,28 @@ describe('DashboardComponent (deep)', () => {
   let router: Router;
   let spy: ReturnType<typeof jest.spyOn>;
 
-  beforeEach(
-    waitForAsync(() => {
-      void TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule],
-        declarations: [DashboardComponent, DashboardHeroComponent],
-        providers: [
-          {
-            provide: HeroService,
-            useValue: {
-              getHeroes: () => of(getTestHeroes()),
-            },
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
+      imports: [CommonModule, FormsModule, RouterTestingModule],
+      declarations: [DashboardComponent, DashboardHeroComponent],
+      providers: [
+        {
+          provide: HeroService,
+          useValue: {
+            getHeroes: () => of(getTestHeroes()),
           },
-        ],
-        schemas: [NO_ERRORS_SCHEMA],
-      })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(DashboardComponent);
-          component = fixture.componentInstance;
-          router = TestBed.inject(Router);
-          spy = jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
-        });
-    }),
-  );
+        },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(DashboardComponent);
+        component = fixture.componentInstance;
+        router = TestBed.inject(Router);
+        spy = jest.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+      });
+  }));
 
   it('should not have heroes before ngOnInit', () => {
     expect(component.heroes.length).toEqual(0);

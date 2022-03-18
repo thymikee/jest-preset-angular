@@ -26,14 +26,12 @@ let router: Router;
 let location: SpyLocation;
 
 describe('AppComponent & RouterTestingModule', () => {
-  beforeEach(
-    waitForAsync(() => {
-      void TestBed.configureTestingModule({
-        imports: [AppModule, RouterTestingModule.withRoutes(routes)],
-        providers: [{ provide: HeroService, useClass: TestHeroService }],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
+      imports: [AppModule, RouterTestingModule.withRoutes(routes)],
+      providers: [{ provide: HeroService, useClass: TestHeroService }],
+    }).compileComponents();
+  }));
 
   it('should navigate to "Dashboard" immediately', fakeAsync(() => {
     createComponent();
