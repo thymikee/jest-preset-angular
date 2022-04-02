@@ -15,6 +15,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular-devkit/architect@npm:0.1102.19":
+  version: 0.1102.19
+  resolution: "@angular-devkit/architect@npm:0.1102.19"
+  dependencies:
+    "@angular-devkit/core": 11.2.19
+    rxjs: 6.6.3
+  checksum: a98c7c6645d7bff0560e8c5569a75fb335ba504b3be033e556dbb9fc87a18bc27cc9b3ed4f20e1a5e2d14aecab433dc3110d012b0ee2604d15a0d6946d8463d7
+  languageName: node
+  linkType: hard
+
 "@angular-devkit/build-angular@npm:~0.1102.18":
   version: 0.1102.18
   resolution: "@angular-devkit/build-angular@npm:0.1102.18"
@@ -163,14 +173,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:11.2.18":
-  version: 11.2.18
-  resolution: "@angular-devkit/schematics@npm:11.2.18"
+"@angular-devkit/core@npm:11.2.19":
+  version: 11.2.19
+  resolution: "@angular-devkit/core@npm:11.2.19"
   dependencies:
-    "@angular-devkit/core": 11.2.18
+    ajv: 6.12.6
+    fast-json-stable-stringify: 2.1.0
+    magic-string: 0.25.7
+    rxjs: 6.6.3
+    source-map: 0.7.3
+  checksum: 065e4f1c6343438e26472fa55f2d1a7c2ac809dd380bece8cb456b2cf5877e652e28e87b91c2742f451c86d45eab8e5ee3260d330877b789809de84c9e6115ca
+  languageName: node
+  linkType: hard
+
+"@angular-devkit/schematics@npm:11.2.19":
+  version: 11.2.19
+  resolution: "@angular-devkit/schematics@npm:11.2.19"
+  dependencies:
+    "@angular-devkit/core": 11.2.19
     ora: 5.3.0
     rxjs: 6.6.3
-  checksum: bfeb71b4f711d89334d39b49d0b05d2496c9bd6a06d023ca3205b363a945cd5d04bcbd4ee35ba8035170f682df6a787cc03ecb821707147d21739c3cd66957c9
+  checksum: 876a0a8aaab1fe265cc473dcce8b5935f0d72d7590b75679ff4a91757bc58e97704317a4da864df45194516a8af01347dcd48bbd135d98a84c8ca26167d80b1a
   languageName: node
   linkType: hard
 
@@ -186,14 +209,14 @@ __metadata:
   linkType: hard
 
 "@angular/cli@npm:11":
-  version: 11.2.18
-  resolution: "@angular/cli@npm:11.2.18"
+  version: 11.2.19
+  resolution: "@angular/cli@npm:11.2.19"
   dependencies:
-    "@angular-devkit/architect": 0.1102.18
-    "@angular-devkit/core": 11.2.18
-    "@angular-devkit/schematics": 11.2.18
-    "@schematics/angular": 11.2.18
-    "@schematics/update": 0.1102.18
+    "@angular-devkit/architect": 0.1102.19
+    "@angular-devkit/core": 11.2.19
+    "@angular-devkit/schematics": 11.2.19
+    "@schematics/angular": 11.2.19
+    "@schematics/update": 0.1102.19
     "@yarnpkg/lockfile": 1.1.0
     ansi-colors: 4.1.1
     debug: 4.3.1
@@ -213,7 +236,7 @@ __metadata:
     uuid: 8.3.2
   bin:
     ng: bin/ng
-  checksum: 768e54acd781c238cf95ce8ecbba770c4af2ea83c3cc3faeaefecae3fac8aea3a7c4db1f759311b8860f19738ad1d8b344325155e15b6e51351cff4a8f4b29be
+  checksum: 081208066133c299b0835e33324f3da293fa45bc6c81f5ed472986c76d7dccb52aea6fc8d87147d6775fad42a080c9183e8b705d1029f74b89ccf8ef92c64e40
   languageName: node
   linkType: hard
 
@@ -2223,30 +2246,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:11.2.18":
-  version: 11.2.18
-  resolution: "@schematics/angular@npm:11.2.18"
+"@schematics/angular@npm:11.2.19":
+  version: 11.2.19
+  resolution: "@schematics/angular@npm:11.2.19"
   dependencies:
-    "@angular-devkit/core": 11.2.18
-    "@angular-devkit/schematics": 11.2.18
+    "@angular-devkit/core": 11.2.19
+    "@angular-devkit/schematics": 11.2.19
     jsonc-parser: 3.0.0
-  checksum: f853b7e9fd8b65529ac515f73c33a9731fe09f99fa8aae73eb4586cef8986af3af6fc30a8e075d1dca75fe84ae0718441e189beba3293a24f83bf99e887e0601
+  checksum: 5822f3ba2eabb8b9ac0a5f45ca12c9915d8419263a60b1bc9fdbbbb5e8cf47fde3795ac60fa32f7516e7876ba7fdf1efa6769c41056e9de8e35f2b2904a8df4e
   languageName: node
   linkType: hard
 
-"@schematics/update@npm:0.1102.18":
-  version: 0.1102.18
-  resolution: "@schematics/update@npm:0.1102.18"
+"@schematics/update@npm:0.1102.19":
+  version: 0.1102.19
+  resolution: "@schematics/update@npm:0.1102.19"
   dependencies:
-    "@angular-devkit/core": 11.2.18
-    "@angular-devkit/schematics": 11.2.18
+    "@angular-devkit/core": 11.2.19
+    "@angular-devkit/schematics": 11.2.19
     "@yarnpkg/lockfile": 1.1.0
     ini: 2.0.0
     npm-package-arg: ^8.0.0
     pacote: 11.2.4
     semver: 7.3.4
     semver-intersect: 1.4.0
-  checksum: 28bf71d1344f3a823a3fa701f721076d7ea2ec7b413174a7869a9f6b50efa44eaba26d37b5de78081386378f804e9d30518aafec7a22654495903cbc3422730f
+  checksum: 24c1f7c1aaad8db69b8ad86bf8731b12873ae5a1390808c7c5575f2aa968e2bf8f5efb450de6828ae0eb937d8d2d7b516d7048c8a8a0105900619162a49ba789
   languageName: node
   linkType: hard
 
