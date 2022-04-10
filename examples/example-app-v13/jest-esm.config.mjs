@@ -11,6 +11,7 @@ const jestConfig = {
   globalSetup: 'jest-preset-angular/global-setup',
   moduleNameMapper: {
     tslib: 'tslib/tslib.es6.js',
+    rxjs: '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js'
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 }

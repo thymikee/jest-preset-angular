@@ -2,7 +2,6 @@ import { spawnSync } from 'child_process';
 import path from 'path';
 
 import type { TransformedSource } from '@jest/transform';
-import type { Config } from '@jest/types';
 import { LogContexts, LogLevels, Logger, createLogger } from 'bs-logger';
 import { ConfigSet } from 'ts-jest/dist/config/config-set';
 import { TsJestTransformer } from 'ts-jest/dist/ts-jest-transformer';
@@ -53,11 +52,7 @@ export class NgJestTransformer extends TsJestTransformer {
     this._compiler = new NgJestCompiler(configSet, cacheFS);
   }
 
-  process(
-    fileContent: string,
-    filePath: Config.Path,
-    transformOptions: TransformOptionsTsJest,
-  ): TransformedSource | string {
+  process(fileContent: string, filePath: string, transformOptions: TransformOptionsTsJest): TransformedSource | string {
     // @ts-expect-error we are accessing the private cache to avoid creating new objects all the time
     const configSet = super._configsFor(transformOptions);
     /**

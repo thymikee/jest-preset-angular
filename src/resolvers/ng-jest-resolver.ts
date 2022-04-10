@@ -1,10 +1,8 @@
-import type { Config } from '@jest/types';
-
 const ngJestResolver = (
-  path: Config.Path,
+  path: string,
   // `jest-resolve` didn't expose `ResolverOptions` type
   options: { defaultResolver: (path: string, options: Record<string, unknown>) => string },
-): Config.Path =>
+): string =>
   options.defaultResolver(path, {
     ...options,
     packageFilter: (pkg: Record<string, unknown>) => ({
