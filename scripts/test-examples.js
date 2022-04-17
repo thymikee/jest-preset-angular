@@ -46,7 +46,7 @@ const executeTest = (projectPath) => {
   ].forEach((asset) => {
     const assetToReplace = join(projectPath, 'node_modules', 'jest-preset-angular', asset);
     const assetToCopy = join(rootDir, asset);
-    copySync(assetToCopy, assetToReplace);
+    copySync(assetToCopy, assetToReplace, {});
   });
 
   // then we can run the tests

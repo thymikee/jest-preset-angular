@@ -1,5 +1,3 @@
-import { pathsToModuleNameMapper } from "ts-jest/utils";
-
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 const jestConfig = {
   preset: 'jest-preset-angular/presets/defaults-esm',
