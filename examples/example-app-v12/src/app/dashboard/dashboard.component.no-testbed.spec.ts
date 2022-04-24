@@ -28,15 +28,12 @@ describe('DashboardComponent class only', () => {
     expect(comp.heroes.length).toEqual(0);
   });
 
-  it(
-    'should HAVE heroes after HeroService gets them',
-    waitForAsync(() => {
-      comp.ngOnInit();
-      heroService.lastHeroesResult?.subscribe(() => {
-        expect(comp.heroes.length).toBeGreaterThan(0);
-      });
-    }),
-  );
+  it('should HAVE heroes after HeroService gets them', waitForAsync(() => {
+    comp.ngOnInit();
+    heroService.lastHeroesResult?.subscribe(() => {
+      expect(comp.heroes.length).toBeGreaterThan(0);
+    });
+  }));
 
   it('should tell ROUTER to navigate by hero id', () => {
     const hero: Hero = { id: 42, name: 'Abbracadabra' };

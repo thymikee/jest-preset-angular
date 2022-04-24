@@ -73,14 +73,11 @@ describe('async with Angular testing apis', () => {
     expect(flag).toBe(true);
   }));
 
-  test(
-    'waitForAsync should work',
-    waitForAsync(() => {
-      let flag = false;
-      setTimeout(() => {
-        flag = true;
-        expect(flag).toBe(true);
-      }, 100);
-    }),
-  );
+  test('waitForAsync should work', waitForAsync(() => {
+    let flag = false;
+    setTimeout(() => {
+      flag = true;
+      expect(flag).toBe(true);
+    }, 100);
+  }));
 });
