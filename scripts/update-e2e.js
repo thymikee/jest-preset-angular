@@ -20,9 +20,9 @@ glob.sync(`${path.join(process.cwd(), 'e2e')}/**/yarn.lock`).forEach((lockFilePa
 
   execa.sync('yarn', ['install'], { cwd: dirPath });
 
-  logger.log('upgrading all dependencies using yarn up');
+  logger.log('upgrading all dependencies using yarn upgrade');
 
-  execa.sync('yarn', ['up']);
+  execa.sync('yarn', ['upgrade']);
 
   logger.log('    cleaning-up');
 
@@ -51,18 +51,17 @@ exampleAppsToRun.forEach((projectPath, idx) => {
   execa.sync('yarn', ['install'], { cwd: projectPath });
 
   const args = [
-    'up',
+    'update',
     `@angular/cli@${ngVersion}`,
     `@angular/core@${ngVersion}`,
-    'jest@latest',
     'jest-preset-angular@latest',
     '@types/jest@latest',
     'zone.js@latest',
   ];
 
-  logger.log(`    ↳ yarn ${args.join(' ')}`);
+  logger.log(`    ↳ ng ${args.join(' ')}`);
 
-  execa.sync('yarn', args, { cwd: angularAppPath });
+  execa.sync('ng', args, { cwd: angularAppPath });
 
   logger.log('    cleaning-up');
 
