@@ -15,7 +15,7 @@ with Ivy compiler.
 // jest.config.js
 module.exports = {
   // [...]
-  globalSetup: 'jest-preset-angular/globalSetup',
+  globalSetup: 'jest-preset-angular/global-setup',
 };
 ```
 
@@ -24,7 +24,7 @@ module.exports = {
 ```json
 {
   "jest": {
-    "globalSetup": "jest-preset-angular/globalSetup"
+    "globalSetup": "jest-preset-angular/global-setup"
   }
 }
 ```
