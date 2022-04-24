@@ -23,41 +23,53 @@ describe('Angular async helper', () => {
       }, 0);
     });
 
-    it('should run async test with task (setTimeout)', waitForAsync(() => {
-      setTimeout(() => {
-        actuallyDone = true;
-        expect(actuallyDone).toBeTruthy();
-      }, 0);
-    }));
+    it(
+      'should run async test with task (setTimeout)',
+      waitForAsync(() => {
+        setTimeout(() => {
+          actuallyDone = true;
+          expect(actuallyDone).toBeTruthy();
+        }, 0);
+      }),
+    );
 
-    it('should run async test with task (clearInterval)', waitForAsync(() => {
-      const id = setInterval(() => {
-        actuallyDone = true;
-        clearInterval(id);
-        expect(actuallyDone).toBeTruthy();
-      }, 100);
-    }));
+    it(
+      'should run async test with task (clearInterval)',
+      waitForAsync(() => {
+        const id = setInterval(() => {
+          actuallyDone = true;
+          clearInterval(id);
+          expect(actuallyDone).toBeTruthy();
+        }, 100);
+      }),
+    );
 
-    it('should run async test with successful promise', waitForAsync(() => {
-      const p = new Promise((resolve) => {
-        setTimeout(resolve, 10);
-      });
-      p.then(() => {
-        actuallyDone = true;
-        expect(actuallyDone).toBeTruthy();
-      });
-    }));
+    it(
+      'should run async test with successful promise',
+      waitForAsync(() => {
+        const p = new Promise((resolve) => {
+          setTimeout(resolve, 10);
+        });
+        p.then(() => {
+          actuallyDone = true;
+          expect(actuallyDone).toBeTruthy();
+        });
+      }),
+    );
 
-    it('should run async test with failed promise', waitForAsync(() => {
-      const p = new Promise((resolve, reject) => {
-        setTimeout(reject, 10);
-      });
-      p.catch(() => {
-        actuallyDone = true;
-        // eslint-disable-next-line jest/no-conditional-expect
-        expect(actuallyDone).toBeTruthy();
-      });
-    }));
+    it(
+      'should run async test with failed promise',
+      waitForAsync(() => {
+        const p = new Promise((resolve, reject) => {
+          setTimeout(reject, 10);
+        });
+        p.catch(() => {
+          actuallyDone = true;
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(actuallyDone).toBeTruthy();
+        });
+      }),
+    );
 
     it('should run async test with successful delayed Observable', async () => {
       const source = of(true).pipe(delay(10));
@@ -75,17 +87,20 @@ describe('Angular async helper', () => {
         .toPromise();
     });
 
-    it('should run async test with successful delayed Observable (waitForAsync)', waitForAsync(() => {
-      const source = of(true).pipe(delay(10));
-      source.subscribe(
-        () => (actuallyDone = true),
-        // eslint-disable-next-line jest/no-jasmine-globals
-        (err) => fail(err),
-        () => {
-          expect(actuallyDone).toBeTruthy();
-        },
-      );
-    }));
+    it(
+      'should run async test with successful delayed Observable (waitForAsync)',
+      waitForAsync(() => {
+        const source = of(true).pipe(delay(10));
+        source.subscribe(
+          () => (actuallyDone = true),
+          // eslint-disable-next-line jest/no-jasmine-globals
+          (err) => fail(err),
+          () => {
+            expect(actuallyDone).toBeTruthy();
+          },
+        );
+      }),
+    );
 
     it('should run async test with successful delayed Observable (fakeAsync)', fakeAsync(() => {
       const source = of(true).pipe(delay(10));
@@ -172,16 +187,19 @@ describe('Angular async helper', () => {
       callback();
     }
 
-    it('should wait until promise.then is called', waitForAsync(() => {
-      let finished = false;
-      new Promise<void>((res) => {
-        jsonp('localhost:8080/jsonp', () => {
-          finished = true;
-          res();
+    it(
+      'should wait until promise.then is called',
+      waitForAsync(() => {
+        let finished = false;
+        new Promise<void>((res) => {
+          jsonp('localhost:8080/jsonp', () => {
+            finished = true;
+            res();
+          });
+        }).then(() => {
+          expect(finished).toBe(true);
         });
-      }).then(() => {
-        expect(finished).toBe(true);
-      });
-    }));
+      }),
+    );
   });
 });

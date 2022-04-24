@@ -16,15 +16,18 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 })
 class BarComponent {}
 
-test('templateUrl/styleUrls/styles should work', waitForAsync(() => {
-  TestBed.configureTestingModule({
-    declarations: [BarComponent],
-  });
-  const fixture = TestBed.createComponent(BarComponent);
-  fixture.detectChanges();
+test(
+  'templateUrl/styleUrls/styles should work',
+  waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [BarComponent],
+    });
+    const fixture = TestBed.createComponent(BarComponent);
+    fixture.detectChanges();
 
-  const elementToFind = fixture.debugElement.nativeElement.querySelector('p');
-  expect(elementToFind).toBeDefined();
-  expect(window.getComputedStyle(elementToFind).color).toEqual('');
-  expect(window.getComputedStyle(elementToFind).fontSize).toEqual('');
-}));
+    const elementToFind = fixture.debugElement.nativeElement.querySelector('p');
+    expect(elementToFind).toBeDefined();
+    expect(window.getComputedStyle(elementToFind).color).toEqual('');
+    expect(window.getComputedStyle(elementToFind).fontSize).toEqual('');
+  }),
+);

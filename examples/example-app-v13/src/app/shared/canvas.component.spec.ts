@@ -6,22 +6,24 @@ describe('CanvasComponent', () => {
   let fixture: ComponentFixture<CanvasComponent>;
   let component: CanvasComponent;
 
-  beforeEach(waitForAsync(() => {
-    void TestBed.configureTestingModule({
-      declarations: [CanvasComponent],
-    })
-      .compileComponents()
-      .then(() => {
-        (window as typeof window & Record<string, unknown>)['__zone_symbol__FakeAsyncTestMacroTask'] = [
-          {
-            source: 'HTMLCanvasElement.toBlob',
-            callbackArgs: [{ size: 200 }],
-          },
-        ];
-        fixture = TestBed.createComponent(CanvasComponent);
-        component = fixture.componentInstance;
-      });
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      void TestBed.configureTestingModule({
+        declarations: [CanvasComponent],
+      })
+        .compileComponents()
+        .then(() => {
+          (window as typeof window & Record<string, unknown>)['__zone_symbol__FakeAsyncTestMacroTask'] = [
+            {
+              source: 'HTMLCanvasElement.toBlob',
+              callbackArgs: [{ size: 200 }],
+            },
+          ];
+          fixture = TestBed.createComponent(CanvasComponent);
+          component = fixture.componentInstance;
+        });
+    }),
+  );
 
   it('should be able to generate blob data from canvas', fakeAsync(() => {
     fixture.detectChanges();

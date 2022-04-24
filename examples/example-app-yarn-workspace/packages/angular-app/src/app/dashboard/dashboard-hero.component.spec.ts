@@ -27,9 +27,11 @@ describe('DashboardHeroComponent when tested directly', () => {
   let heroDe: DebugElement;
   let heroEl: HTMLElement;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [DashboardHeroComponent] }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({ declarations: [DashboardHeroComponent] }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardHeroComponent);
@@ -90,9 +92,11 @@ describe('DashboardHeroComponent when inside a test host', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let heroEl: HTMLElement;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [DashboardHeroComponent, TestHostComponent] }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({ declarations: [DashboardHeroComponent, TestHostComponent] }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TestHostComponent);

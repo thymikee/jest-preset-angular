@@ -19,11 +19,14 @@ describe('demo (no TestBed):', () => {
       expect(service.getValue()).toBe('real value');
     });
 
-    it('#getObservableValue should return value from observable', waitForAsync(() => {
-      service.getObservableValue().subscribe((value) => {
-        expect(value).toBe('observable value');
-      });
-    }));
+    it(
+      '#getObservableValue should return value from observable',
+      waitForAsync(() => {
+        service.getObservableValue().subscribe((value) => {
+          expect(value).toBe('observable value');
+        });
+      }),
+    );
 
     it('#getPromiseValue should return value from a promise', async () => {
       await service.getPromiseValue().then((value) => {

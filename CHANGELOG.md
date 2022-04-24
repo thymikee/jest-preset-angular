@@ -1,3 +1,12 @@
+## [11.1.2](https://github.com/thymikee/jest-preset-angular/compare/v11.1.1...v11.1.2) (2022-04-24)
+
+
+### Bug Fixes
+
+* correct deprecation message of `ngcc-jest-processor` ([3899abf](https://github.com/thymikee/jest-preset-angular/commit/3899abf5b886826a00d443db364d7b1fb085122b)), closes [#1411](https://github.com/thymikee/jest-preset-angular/issues/1411)
+
+
+
 ## [11.1.1](https://github.com/thymikee/jest-preset-angular/compare/v11.0.1...v11.1.1) (2022-02-11)
 
 
