@@ -1,3 +1,19 @@
+# [12.0.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v11.1.1...v12.0.0-next.0) (2022-04-24)
+
+
+### Features
+
+* remove `ngcc-jest-processor` entry file ([#1414](https://github.com/thymikee/jest-preset-angular/issues/1414)) ([2c5fd20](https://github.com/thymikee/jest-preset-angular/commit/2c5fd20f0535f5441d8bcb477538defdd9529926))
+
+
+## BREAKING CHANGES
+
+* Drop Angular 10 support
+* Require Jest 28
+* `ngcc-jest-processor` entry file is now removed. One should use `jest-preset-angular/global-setup` instead.
+
+
+
 ## [11.1.2](https://github.com/thymikee/jest-preset-angular/compare/v11.1.1...v11.1.2) (2022-04-24)
 
 
