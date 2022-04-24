@@ -21,31 +21,29 @@ describe('TwainComponent', () => {
     return el ? el.textContent : null;
   };
 
-  beforeEach(
-    waitForAsync(() => {
-      void TestBed.configureTestingModule({
-        declarations: [TwainComponent],
-        providers: [
-          {
-            provide: TwainService,
-            useValue: {
-              getQuote: jest.fn(),
-            },
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
+      declarations: [TwainComponent],
+      providers: [
+        {
+          provide: TwainService,
+          useValue: {
+            getQuote: jest.fn(),
           },
-        ],
-      })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(TwainComponent);
-          component = fixture.componentInstance;
-          quoteEl = fixture.nativeElement.querySelector('.twain');
-          twainService = TestBed.inject(TwainService);
-          getQuoteSpy = jest.spyOn(twainService, 'getQuote');
+        },
+      ],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(TwainComponent);
+        component = fixture.componentInstance;
+        quoteEl = fixture.nativeElement.querySelector('.twain');
+        twainService = TestBed.inject(TwainService);
+        getQuoteSpy = jest.spyOn(twainService, 'getQuote');
 
-          getQuoteSpy.mockImplementation(() => of(testQuote));
-        });
-    }),
-  );
+        getQuoteSpy.mockImplementation(() => of(testQuote));
+      });
+  }));
 
   describe('when test with synchronous observable', () => {
     it('should not show quote before OnInit', () => {
@@ -114,19 +112,16 @@ describe('TwainComponent', () => {
       expect(errorMessage()).toBeNull();
     }));
 
-    it(
-      'should show quote after getQuote (waitForAsync)',
-      waitForAsync(() => {
-        fixture.detectChanges();
-        expect(quoteEl.textContent).toBe('...');
+    it('should show quote after getQuote (waitForAsync)', waitForAsync(() => {
+      fixture.detectChanges();
+      expect(quoteEl.textContent).toBe('...');
 
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          expect(quoteEl.textContent).toBe(testQuote);
-          expect(errorMessage()).toBeNull();
-        });
-      }),
-    );
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(quoteEl.textContent).toBe(testQuote);
+        expect(errorMessage()).toBeNull();
+      });
+    }));
 
     it('should show last quote (async)', async () => {
       fixture.detectChanges();
@@ -142,18 +137,15 @@ describe('TwainComponent', () => {
       );
     });
 
-    it(
-      'should show quote after getQuote',
-      waitForAsync(() => {
-        fixture.detectChanges();
+    it('should show quote after getQuote', waitForAsync(() => {
+      fixture.detectChanges();
 
-        twainService.getQuote().subscribe(() => {
-          fixture.detectChanges();
-          expect(quoteEl.textContent).toBe(testQuote);
-          expect(errorMessage()).toBeNull();
-        });
-      }),
-    );
+      twainService.getQuote().subscribe(() => {
+        fixture.detectChanges();
+        expect(quoteEl.textContent).toBe(testQuote);
+        expect(errorMessage()).toBeNull();
+      });
+    }));
 
     it('should display error when TwainService fails', fakeAsync(() => {
       getQuoteSpy.mockReturnValue(throwError(() => 'TwainService test failure'));

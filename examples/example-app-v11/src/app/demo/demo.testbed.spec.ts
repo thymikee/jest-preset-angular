@@ -55,28 +55,19 @@ describe('demo (with TestBed):', () => {
       expect(TestBed.inject(NotProvided, null)).toBeNull();
     });
 
-    it(
-      'test should wait for ValueService.getPromiseValue',
-      waitForAsync(() => {
-        service.getPromiseValue().then((value) => expect(value).toBe('promise value'));
-      }),
-    );
+    it('test should wait for ValueService.getPromiseValue', waitForAsync(() => {
+      service.getPromiseValue().then((value) => expect(value).toBe('promise value'));
+    }));
 
-    it(
-      'test should wait for ValueService.getObservableValue',
-      waitForAsync(() => {
-        service.getObservableValue().subscribe((value) => expect(value).toBe('observable value'));
-      }),
-    );
+    it('test should wait for ValueService.getObservableValue', waitForAsync(() => {
+      service.getObservableValue().subscribe((value) => expect(value).toBe('observable value'));
+    }));
 
-    it(
-      'test should wait for ValueService.getObservableDelayValue',
-      waitForAsync(() => {
-        service.getObservableDelayValue().subscribe((value) => {
-          expect(value).toBe('observable delay value');
-        });
-      }),
-    );
+    it('test should wait for ValueService.getObservableDelayValue', waitForAsync(() => {
+      service.getObservableDelayValue().subscribe((value) => {
+        expect(value).toBe('observable delay value');
+      });
+    }));
 
     it('should allow the use of fakeAsync', fakeAsync(() => {
       let value = '';
@@ -141,13 +132,11 @@ describe('demo (with TestBed):', () => {
       TestBed.configureTestingModule({ providers: [ValueService] });
     });
 
-    beforeEach(
-      waitForAsync(
-        inject([ValueService], (service: ValueService) => {
-          service.getPromiseValue().then((value) => (serviceValue = value));
-        }),
-      ),
-    );
+    beforeEach(waitForAsync(
+      inject([ValueService], (service: ValueService) => {
+        service.getPromiseValue().then((value) => (serviceValue = value));
+      }),
+    ));
 
     it('should use asynchronously modified value ... in synchronous test', () => {
       expect(serviceValue).toBe('promise value');
@@ -155,13 +144,11 @@ describe('demo (with TestBed):', () => {
   });
 
   describe('TestBed component tests', () => {
-    beforeEach(
-      waitForAsync(() => {
-        TestBed.configureTestingModule({
-          imports: [DemoModule],
-        }).compileComponents();
-      }),
-    );
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DemoModule],
+      }).compileComponents();
+    }));
 
     it('should create a component with inline template', () => {
       const fixture = TestBed.createComponent(Child1Component);
@@ -235,38 +222,35 @@ describe('demo (with TestBed):', () => {
       expect(span.textContent).toMatch(/is on/i);
     });
 
-    it(
-      'should support entering text in input box (ngModel)',
-      waitForAsync(() => {
-        const expectedOrigName = 'John';
-        const expectedNewName = 'Sally';
+    it('should support entering text in input box (ngModel)', waitForAsync(() => {
+      const expectedOrigName = 'John';
+      const expectedNewName = 'Sally';
 
-        const fixture = TestBed.createComponent(InputComponent);
-        fixture.detectChanges();
+      const fixture = TestBed.createComponent(InputComponent);
+      fixture.detectChanges();
 
-        const comp = fixture.componentInstance;
-        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+      const comp = fixture.componentInstance;
+      const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
 
-        expect(comp.name).toBe(expectedOrigName);
+      expect(comp.name).toBe(expectedOrigName);
 
-        fixture
-          .whenStable()
-          .then(() => {
-            expect(input.value).toBe(expectedOrigName);
+      fixture
+        .whenStable()
+        .then(() => {
+          expect(input.value).toBe(expectedOrigName);
 
-            input.value = expectedNewName;
+          input.value = expectedNewName;
 
-            expect(comp.name).toBe(expectedOrigName);
+          expect(comp.name).toBe(expectedOrigName);
 
-            input.dispatchEvent(new Event('input'));
+          input.dispatchEvent(new Event('input'));
 
-            return fixture.whenStable();
-          })
-          .then(() => {
-            expect(comp.name).toBe(expectedNewName);
-          });
-      }),
-    );
+          return fixture.whenStable();
+        })
+        .then(() => {
+          expect(comp.name).toBe(expectedNewName);
+        });
+    }));
 
     it('should support entering text in input box (ngModel) - fakeAsync', fakeAsync(() => {
       const expectedOrigName = 'John';
@@ -545,24 +529,21 @@ describe('demo (with TestBed):', () => {
       expect(child.childValue).toBe('foo');
     });
 
-    it(
-      'changed child value flows to parent',
-      waitForAsync(() => {
+    it('changed child value flows to parent', waitForAsync(() => {
+      fixture.detectChanges();
+      getChild();
+
+      child.childValue = 'bar';
+
+      return new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 0);
+      }).then(() => {
         fixture.detectChanges();
-        getChild();
 
-        child.childValue = 'bar';
-
-        return new Promise<void>((resolve) => {
-          setTimeout(() => resolve(), 0);
-        }).then(() => {
-          fixture.detectChanges();
-
-          expect(child.ngOnChangesCounter).toBe(2);
-          expect(parent.parentValue).toBe('bar');
-        });
-      }),
-    );
+        expect(child.ngOnChangesCounter).toBe(2);
+        expect(parent.parentValue).toBe('bar');
+      });
+    }));
 
     it('clicking "Close Child" triggers child OnDestroy', () => {
       fixture.detectChanges();

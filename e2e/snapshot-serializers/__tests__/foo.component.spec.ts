@@ -22,17 +22,14 @@ class FooComponent {
   condition2 = false;
 }
 
-test(
-  'snapshot should work',
-  waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [FooComponent],
-    });
+test('snapshot should work', waitForAsync(() => {
+  TestBed.configureTestingModule({
+    declarations: [FooComponent],
+  });
 
-    const fixture = TestBed.createComponent(FooComponent);
-    fixture.detectChanges();
+  const fixture = TestBed.createComponent(FooComponent);
+  fixture.detectChanges();
 
-    expect(fixture).toMatchSnapshot();
-    expect(fixture.debugElement.nativeElement).toMatchSnapshot();
-  }),
-);
+  expect(fixture).toMatchSnapshot();
+  expect(fixture.debugElement.nativeElement).toMatchSnapshot();
+}));
