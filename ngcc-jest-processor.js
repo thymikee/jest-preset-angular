@@ -1,5 +1,5 @@
 console.warn(
-  'ng-jest-processor is deprecated and will be removed in the next major version v12.' +
+  'ngcc-jest-processor is deprecated and will be removed in the next major version v12.' +
     ' Please use jest-preset-angular/global-setup in Jest config instead, e.g. \n' +
     `
     module.exports = {

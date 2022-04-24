@@ -7,9 +7,11 @@ describe('BannerComponent (initial CLI generated)', () => {
   let component: BannerComponent;
   let fixture: ComponentFixture<BannerComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({ declarations: [BannerComponent] }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BannerComponent);

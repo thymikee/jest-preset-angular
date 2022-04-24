@@ -19,21 +19,23 @@ let fixture: ComponentFixture<HeroListComponent>;
 let page: Page;
 
 describe('HeroListComponent', () => {
-  beforeEach(waitForAsync(() => {
-    const routerSpy = {
-      navigate: jest.fn(),
-    };
+  beforeEach(
+    waitForAsync(() => {
+      const routerSpy = {
+        navigate: jest.fn(),
+      };
 
-    TestBed.configureTestingModule({
-      imports: [HeroModule],
-      providers: [
-        { provide: HeroService, useClass: TestHeroService },
-        { provide: Router, useValue: routerSpy },
-      ],
-    })
-      .compileComponents()
-      .then(createComponent);
-  }));
+      TestBed.configureTestingModule({
+        imports: [HeroModule],
+        providers: [
+          { provide: HeroService, useClass: TestHeroService },
+          { provide: Router, useValue: routerSpy },
+        ],
+      })
+        .compileComponents()
+        .then(createComponent);
+    }),
+  );
 
   it('should display heroes', () => {
     expect(page.heroRows.length).toBeGreaterThan(0);
