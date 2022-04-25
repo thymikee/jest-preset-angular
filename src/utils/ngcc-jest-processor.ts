@@ -20,34 +20,35 @@ function findNodeModulesDirectory(): string {
 
 const nodeModuleDirPath = findNodeModulesDirectory();
 
-export const runNgccJestProcessor = (): void => {
+export const runNgccJestProcessor = (tsconfigPath: string | undefined): void => {
   if (nodeModuleDirPath) {
     process.stdout.write('\nngcc-jest-processor: running ngcc\n');
+
+    const ngccBaseArgs = [
+      ngccPath,
+      '--source' /** basePath */,
+      nodeModuleDirPath,
+      '--properties' /** propertiesToConsider */,
+      /**
+       * There are various properties: fesm2015, fesm5, es2015, esm2015, esm5, main, module, browser to choose from.
+       * Normally, Jest requires `umd`. If running Jest in ESM mode, Jest will require both `umd` + `esm2015`.
+       */
+      ...['es2015', 'main'],
+      '--first-only' /** compileAllFormats */,
+      'false', // make sure that `ngcc` runs on subfolders as well
+      '--async',
+    ];
+    if (tsconfigPath) {
+      ngccBaseArgs.push(...['--tsconfig', tsconfigPath]);
+    }
     // We spawn instead of using the API because:
     // - NGCC Async uses clustering which is problematic when used via the API which means
     // that we cannot setup multiple cluster masters with different options.
     // - We will not be able to have concurrent builds otherwise Ex: App-Shell,
     // as NGCC will create a lock file for both builds and it will cause builds to fails.
-    const { status, error } = spawnSync(
-      process.execPath,
-      [
-        ngccPath,
-        '--source' /** basePath */,
-        nodeModuleDirPath,
-        '--properties' /** propertiesToConsider */,
-        /**
-         * There are various properties: fesm2015, fesm5, es2015, esm2015, esm5, main, module, browser to choose from.
-         * Normally, Jest requires `umd`. If running Jest in ESM mode, Jest will require both `umd` + `esm2015`.
-         */
-        ...['es2015', 'main'],
-        '--first-only' /** compileAllFormats */,
-        'false', // make sure that `ngcc` runs on subfolders as well
-        '--async',
-      ],
-      {
-        stdio: ['inherit', process.stderr, process.stderr],
-      },
-    );
+    const { status, error } = spawnSync(process.execPath, ngccBaseArgs, {
+      stdio: ['inherit', process.stderr, process.stderr],
+    });
     if (status !== 0) {
       const errorMessage: string = error?.message ?? '';
 
