@@ -7,7 +7,7 @@ title: Angular >=13
 currently supports testing with Jest in `CommonJS` mode with **Angular 13** using [default preset](../getting-started/presets.md).
 Jest ESM support with **Angular 13** is new and may have issues.
 
-Starting from **11.0.0**, `jest-preset-angular` introduces a few extra changes to be able to run Jest with **Angular 13**:
+Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes to be able to run Jest with **Angular 13**:
 
 - `ng-jest-resolver` is introduced as a custom Jest resolver to resolve `.mjs` files.
 
