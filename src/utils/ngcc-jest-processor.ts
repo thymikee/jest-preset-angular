@@ -5,7 +5,6 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
 
-const IGNORE_ARGS = ['--clearCache', '--help', '--init', '--listTests', '--showConfig'];
 const ANGULAR_COMPILER_CLI_PKG_NAME = `@angular${path.sep}compiler-cli`;
 let ngccPath = '';
 
@@ -21,7 +20,7 @@ function findNodeModulesDirectory(): string {
 
 const nodeModuleDirPath = findNodeModulesDirectory();
 
-if (!process.argv.find((arg) => IGNORE_ARGS.includes(arg))) {
+export const runNgccJestProcessor = (): void => {
   if (nodeModuleDirPath) {
     process.stdout.write('\nngcc-jest-processor: running ngcc\n');
     // We spawn instead of using the API because:
@@ -61,4 +60,4 @@ if (!process.argv.find((arg) => IGNORE_ARGS.includes(arg))) {
         `'ngcc' must be run before running Jest`,
     );
   }
-}
+};

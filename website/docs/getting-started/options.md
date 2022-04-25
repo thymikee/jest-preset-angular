@@ -10,8 +10,10 @@ More information about `ts-jest` options, see https://kulshekhar.github.io/ts-je
 
 :::important
 
-Since **9.0.0**, `jest-preset-angular` default Jest configuration no longer provides `moduleNameMapper`. If you wish to reuse
-the old `moduleNameMapper` configuration, you can put this into your Jest config
+Since **v9.0.0**, `jest-preset-angular` default Jest configuration no longer provides `moduleNameMapper`. If you wish to reuse
+the old `moduleNameMapper` configuration, you can put this into your Jest config.
+
+Since **v12.0.0**, `jest-preset-angular` has some own config options under `ngJest` option in Jest `globals` config.
 
 ```
 moduleNameMapper: {
