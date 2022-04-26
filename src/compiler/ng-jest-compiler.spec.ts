@@ -1,4 +1,4 @@
-import { ConfigSet } from 'ts-jest/dist/config/config-set';
+import { ConfigSet } from 'ts-jest/dist/legacy/config/config-set';
 
 import { NgJestCompiler } from './ng-jest-compiler';
 
