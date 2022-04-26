@@ -1,3 +1,13 @@
+# [12.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0-next.0...v12.0.0-next.1) (2022-04-26)
+
+
+### Features
+
+* allow running `ngcc` with specific `tsconfig` path ([#1418](https://github.com/thymikee/jest-preset-angular/issues/1418)) ([5f535b5](https://github.com/thymikee/jest-preset-angular/commit/5f535b59227daea6e64e4886b0ea0bd5fd7c1365)), closes [#1348](https://github.com/thymikee/jest-preset-angular/issues/1348)
+* allow skip `ngcc` via `skipNgcc` option in Jest `globals` ([#1417](https://github.com/thymikee/jest-preset-angular/issues/1417)) ([7950b5c](https://github.com/thymikee/jest-preset-angular/commit/7950b5cedfab066a268b16f5c87b5ad3670c6888)), closes [#1396](https://github.com/thymikee/jest-preset-angular/issues/1396)
+
+
+
 # [12.0.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v11.1.1...v12.0.0-next.0) (2022-04-24)
 
 
