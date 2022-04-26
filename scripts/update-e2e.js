@@ -55,6 +55,7 @@ exampleAppsToRun.forEach((projectPath, idx) => {
     `@angular/cli@${ngVersion}`,
     `@angular/core@${ngVersion}`,
     'jest-preset-angular@latest',
+    'jest@latest',
     '@types/jest@latest',
     'zone.js@latest',
   ];

@@ -3,7 +3,7 @@ import path from 'path';
 
 import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
-import { ConfigSet } from 'ts-jest/dist/config/config-set';
+import { ConfigSet } from 'ts-jest/dist/legacy/config/config-set';
 import { TsJestTransformer } from 'ts-jest/dist/legacy/ts-jest-transformer';
 import type { ProjectConfigTsJest, TransformOptionsTsJest } from 'ts-jest/dist/types';
 

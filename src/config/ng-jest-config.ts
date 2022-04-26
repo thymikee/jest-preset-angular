@@ -1,4 +1,4 @@
-import { ConfigSet } from 'ts-jest/dist/config/config-set';
+import { ConfigSet } from 'ts-jest/dist/legacy/config/config-set';
 import type { RawCompilerOptions } from 'ts-jest/dist/raw-compiler-options';
 import type { ParsedCommandLine } from 'typescript';
 
