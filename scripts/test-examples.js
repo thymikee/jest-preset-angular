@@ -66,27 +66,25 @@ const executeTest = (projectPath) => {
     env: process.env,
   });
 
-  if (projectPkg.version.startsWith('13')) {
-    logger.log();
-    logger.log('starting the ESM tests with isolatedModules: false using:', ...cmdESMLine);
-    logger.log();
+  logger.log();
+  logger.log('starting the ESM tests with isolatedModules: false using:', ...cmdESMLine);
+  logger.log();
 
-    execa.sync(cmdESMLine.shift(), cmdESMLine, {
-      cwd: projectPath,
-      stdio: 'inherit',
-      env: process.env,
-    });
+  execa.sync(cmdESMLine.shift(), cmdESMLine, {
+    cwd: projectPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
 
-    logger.log();
-    logger.log('starting the ESM tests with isolatedModules: true using:', ...cmdESMIsolatedLine);
-    logger.log();
+  logger.log();
+  logger.log('starting the ESM tests with isolatedModules: true using:', ...cmdESMIsolatedLine);
+  logger.log();
 
-    execa.sync(cmdESMIsolatedLine.shift(), cmdESMIsolatedLine, {
-      cwd: projectPath,
-      stdio: 'inherit',
-      env: process.env,
-    });
-  }
+  execa.sync(cmdESMIsolatedLine.shift(), cmdESMIsolatedLine, {
+    cwd: projectPath,
+    stdio: 'inherit',
+    env: process.env,
+  });
 };
 
 // This will trigger the build as well (not using yarn since yarn pack is buggy)
