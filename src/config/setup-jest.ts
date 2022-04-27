@@ -1,5 +1,3 @@
-require('../utils/reflect-metadata');
-
 !process.execArgv.includes('--experimental-vm-modules')
   ? require('zone.js/bundles/zone-testing-bundle.umd.js')
   : require('zone.js/fesm2015/zone-testing-bundle.min.js');
