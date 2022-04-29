@@ -6,8 +6,8 @@ const ngTransformerPath = `./src/transformers/downlevel_decorators_transform`;
 const bazelFileGlob = 'src/**/BUILD.bazel';
 const ngTestFolder = 'src/ngtsc/reflection/test';
 const ngTransformerURL =
-  'https://github.com/angular/angular/tree/master/packages/compiler-cli/src/transformers/downlevel_decorators_transform';
-const ngReflectionURL = 'https://github.com/angular/angular/tree/master/packages/compiler-cli/src/ngtsc/reflection';
+  'https://github.com/angular/angular/tree/main/packages/compiler-cli/src/transformers/downlevel_decorators_transform';
+const ngReflectionURL = 'https://github.com/angular/angular/tree/main/packages/compiler-cli/src/ngtsc/reflection';
 const transformersFolder = './src/transformers';
 const ngtscFolder = './src/ngtsc';
 
