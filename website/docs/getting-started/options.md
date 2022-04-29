@@ -13,8 +13,6 @@ More information about `ts-jest` options, see https://kulshekhar.github.io/ts-je
 Since **v9.0.0**, `jest-preset-angular` default Jest configuration no longer provides `moduleNameMapper`. If you wish to reuse
 the old `moduleNameMapper` configuration, you can put this into your Jest config.
 
-Since **v12.0.0**, `jest-preset-angular` has some own config options under `ngJest` option in Jest `globals` config.
-
 ```
 moduleNameMapper: {
   '^src/(.*)$': '<rootDir>/src/$1',
@@ -58,7 +56,7 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
 
 ### Brief explanation of config
 
-- we're using some `"globals"` to pass information about where our tsconfig.json file is that we'd like to be able to transform HTML files through `ts-jest`.
+- We're using some `"globals"` to pass information about configuration to use for code compilation with `ts-jest`.
 - `"moduleFileExtensions"` – our modules are TypeScript (`ts`), HTML (`html`), JavaScript (`js`), JSON (`json`) and ESM JavaScript (`mjs`) files.
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses `RegExp`.
 - `"resolver"` - instruct Jest how to resolve entry file based on `package.json` definitions.

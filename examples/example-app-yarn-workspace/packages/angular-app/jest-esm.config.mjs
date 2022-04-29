@@ -1,17 +1,20 @@
+import ngPreset from 'jest-preset-angular/presets/index.js';
+
+globalThis.ngJest = {
+  skipNgcc: false,
+  tsconfig: 'tsconfig-esm.spec.json',
+};
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 const jestConfig = {
-  preset: 'jest-preset-angular/presets/defaults-esm',
+  ...ngPreset.defaultsESM,
   globals: {
     'ts-jest': {
-      useESM: true,
-      stringifyContentPathRegex: '\\.(html|svg)$',
+      ...ngPreset.defaultsESM.globals["ts-jest"],
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
   },
   globalSetup: 'jest-preset-angular/global-setup',
-  moduleNameMapper: {
-    tslib: 'tslib/tslib.es6.js',
-  },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 }
 
