@@ -7,7 +7,6 @@ const basePreset = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   snapshotSerializers,
