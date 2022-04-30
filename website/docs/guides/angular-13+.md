@@ -7,9 +7,14 @@ title: Angular >=13
 currently supports testing with Jest in `CommonJS` mode with **Angular 13** using [default preset](../getting-started/presets.md).
 Jest ESM support with **Angular 13** is new and may have issues.
 
-Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes to be able to run Jest with **Angular 13**:
+:::important
 
-- `ng-jest-resolver` is introduced as a custom Jest resolver to resolve `.mjs` files.
+With Jest 28 and `jest-preset-angular` **v12.0.0**, `ng-jest-resolver` is no longer required to have in Jest config. This
+resolver is also excluded from our default and default ESM presets.
+
+:::
+
+Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes to be able to run Jest with **Angular 13**:
 
 - `moduleFileExtensions` is updated to include `mjs` files as accepted module format.
 
@@ -31,22 +36,6 @@ module.exports = {
 ```
 
 there are no migration steps required
-
-- If one is **NOT** having `preset: 'jest-preset-angular'` in Jest config, the config needs to be updated with new values for
-  `resolver`, `transformIgnorePatterns` and `transform`:
-
-```js
-// jest.config.js
-module.exports = {
-  // ...other options
-  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
-  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-  transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
-  },
-};
-```
 
 ### Using ES Modules
 
@@ -106,9 +95,6 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
 
 ### `Cannot find modules` error when importing any deep paths from Angular ESM format packages
 
-- Angular 13 ESM package format makes Jest resolution not able to resolve the correct `.mjs` files. Even though we introduced
-  `ng-jest-resolver` as a part of the preset, this resolver won't work for all scenarios. One might get Jest error like
-
 ```
 Cannot find module '@angular/common/locales/xx' from 'src/app/app.component.spec.ts'
 ```
@@ -122,9 +108,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
 };
 ```
-
-If the issue still **persists**, you might need to configure [moduleNameMapper](https://jestjs.io/docs/configuration#modulenamemapper-objectstring-string--arraystring)
-or extend the behavior the default [resolver](https://github.com/thymikee/jest-preset-angular/blob/main/src/resolvers/ng-jest-resolver.ts) of this preset.
 
 ### Usage with Angular libraries which are built with Angular CLI 13
 

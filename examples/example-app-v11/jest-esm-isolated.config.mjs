@@ -5,10 +5,8 @@ const jestIsolatedCfg = {
   ...jestCfg,
   globals: {
     'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
+      ...jestCfg.globals["ts-jest"],
       isolatedModules: true,
-      useESM: true,
     },
   },
 };

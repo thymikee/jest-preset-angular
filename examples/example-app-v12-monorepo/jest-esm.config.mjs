@@ -1,3 +1,8 @@
+globalThis.ngJest = {
+  skipNgcc: false,
+  tsconfig: 'tsconfig-esm.spec.json',
+};
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 const jestConfig = {
   globalSetup: 'jest-preset-angular/global-setup',

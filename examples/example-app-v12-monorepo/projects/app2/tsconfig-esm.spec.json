@@ -1,7 +1,12 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "./tsconfig.spec.json",
+  "extends": "../../tsconfig-base.json",
   "compilerOptions": {
-    "module": "ESNext"
+    "esModuleInterop": true,
+    "module": "ES2020"
   },
-  "include": ["src/environments"]
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
 }
