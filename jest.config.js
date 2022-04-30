@@ -11,7 +11,6 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['examples/.*', 'website/.*'],
-  resolver: '<rootDir>/build/resolvers/ng-jest-resolver',
   snapshotSerializers: [require.resolve('jest-snapshot-serializer-raw')],
   testPathIgnorePatterns: ['/node_modules/', '/examples/', '/e2e/.*/__tests__', '\\.snap$'],
   transform: {

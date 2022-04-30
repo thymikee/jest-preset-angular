@@ -1,3 +1,5 @@
+import type { ResolverOptions } from 'jest-resolve';
+
 import ngJestResolver from './ng-jest-resolver';
 
 test.each([
@@ -9,7 +11,7 @@ test.each([
 
   ngJestResolver('foo', {
     defaultResolver: mockedDefaultResolver,
-  });
+  } as unknown as ResolverOptions);
 
   expect(mockedDefaultResolver).toHaveBeenCalled();
   expect(mockedDefaultResolver.mock.calls[0][0]).toEqual('foo');
