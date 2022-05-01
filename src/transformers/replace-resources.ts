@@ -11,41 +11,10 @@ import ts from 'typescript';
 import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT } from '../constants';
 
 const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
-/**
- * Source https://github.com/angular/angular-cli/blob/master/packages/ngtools/webpack/src/transformers/replace_resources.ts
- *
- * Check `@Component` to do following things:
- * - Replace `templateUrl` path with `require` for `CommonJS` or a constant with `import` for `ESM`
- * - Remove `styles` and `styleUrls` because we don't test css
- *
- * @example
- *
- * Given the input
- * @Component({
- *   selector: 'foo',
- *   templateUrl: './foo.component.html`,
- *   styleUrls: ['./foo.component.scss'],
- *   styles: [`h1 { font-size: 16px }`],
- * })
- *
- * Produced the output for `CommonJS`
- * @Component({
- *   selector: 'foo',
- *   templateUrl: require('./foo.component.html'),
- * })
- *
- * or for `ESM`
- * import __NG_CLI_RESOURCE__0 from './foo.component.html';
- *
- * @Component({
- *   selector: 'foo',
- *   templateUrl: __NG_CLI_RESOURCE__0,
- * })
- */
-export function replaceResources({ program }: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
+
+export const replaceResourceTransformer = (getTypeChecker: () => ts.TypeChecker) => {
   return (context: ts.TransformationContext) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const typeChecker = program!.getTypeChecker();
+    const typeChecker = getTypeChecker();
     const resourceImportDeclarations: ts.ImportDeclaration[] = [];
     const moduleKind = context.getCompilerOptions().module;
     const visitNode: ts.Visitor = (node: ts.Node) => {
@@ -90,6 +59,41 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
       return updatedSourceFile;
     };
   };
+};
+/**
+ * Source https://github.com/angular/angular-cli/blob/master/packages/ngtools/webpack/src/transformers/replace_resources.ts
+ *
+ * Check `@Component` to do following things:
+ * - Replace `templateUrl` path with `require` for `CommonJS` or a constant with `import` for `ESM`
+ * - Remove `styles` and `styleUrls` because we don't test css
+ *
+ * @example
+ *
+ * Given the input
+ * @Component({
+ *   selector: 'foo',
+ *   templateUrl: './foo.component.html`,
+ *   styleUrls: ['./foo.component.scss'],
+ *   styles: [`h1 { font-size: 16px }`],
+ * })
+ *
+ * Produced the output for `CommonJS`
+ * @Component({
+ *   selector: 'foo',
+ *   templateUrl: require('./foo.component.html'),
+ * })
+ *
+ * or for `ESM`
+ * import __NG_CLI_RESOURCE__0 from './foo.component.html';
+ *
+ * @Component({
+ *   selector: 'foo',
+ *   templateUrl: __NG_CLI_RESOURCE__0,
+ * })
+ */
+export function replaceResources({ program }: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return replaceResourceTransformer(program!.getTypeChecker);
 }
 
 function visitDecorator(
