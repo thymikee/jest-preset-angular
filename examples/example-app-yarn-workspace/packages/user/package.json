@@ -1,0 +1,18 @@
+{
+  "name": "user",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jest --no-cache",
+    "test-isolated": "jest -c=jest-isolated.config.js --no-cache",
+    "test-esm": "node --experimental-vm-modules --no-warnings ../../node_modules/jest/bin/jest.js -c=jest-esm.config.mjs --no-cache",
+    "test-esm-isolated": "node --experimental-vm-modules --no-warnings ../../node_modules/jest/bin/jest.js -c=jest-esm-isolated.config.mjs --no-cache"
+  },
+  "devDependencies": {
+    "@angular/common": "^13.3.5",
+    "@angular/core": "^13.3.5",
+    "rxjs": "^7.5.5",
+    "tslib": "^2.4.0",
+    "zone.js": "^0.11.5"
+  }
+}

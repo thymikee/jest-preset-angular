@@ -1,6 +1,7 @@
 {
   "name": "angular-app",
-  "version": "12.0.0",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,29 +11,28 @@
     "test-esm": "node --experimental-vm-modules --no-warnings ../../node_modules/jest/bin/jest.js -c=jest-esm.config.mjs --no-cache",
     "test-esm-isolated": "node --experimental-vm-modules --no-warnings ../../node_modules/jest/bin/jest.js -c=jest-esm-isolated.config.mjs --no-cache"
   },
-  "private": true,
   "dependencies": {
-    "@angular/animations": "~12.2.16",
-    "@angular/common": "~12.2.16",
-    "@angular/compiler": "~12.2.16",
-    "@angular/core": "~12.2.16",
-    "@angular/forms": "~12.2.16",
-    "@angular/platform-browser": "~12.2.16",
-    "@angular/platform-browser-dynamic": "~12.2.16",
-    "@angular/router": "~12.2.16",
-    "angular-in-memory-web-api": "^0.12.0",
-    "rxjs": "~6.6.0",
+    "@angular/animations": "~13.3.5",
+    "@angular/common": "~13.3.5",
+    "@angular/compiler": "~13.3.5",
+    "@angular/core": "~13.3.5",
+    "@angular/forms": "~13.3.5",
+    "@angular/platform-browser": "~13.3.5",
+    "@angular/platform-browser-dynamic": "~13.3.5",
+    "@angular/router": "~13.3.5",
+    "angular-in-memory-web-api": "^0.13.0",
+    "rxjs": "~7.5.5",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.5"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.2.17",
-    "@angular/cli": "~12.2.17",
-    "@angular/compiler-cli": "~12.2.16",
+    "@angular-devkit/build-angular": "~13.3.4",
+    "@angular/cli": "~13.3.4",
+    "@angular/compiler-cli": "~13.3.5",
     "@types/jest": "^27.4.1",
     "@types/node": "^16.11.32",
     "jest": "^28.0.3",
     "jest-preset-angular": "12.0.0-next.1",
-    "typescript": "~4.3.5"
+    "typescript": "~4.6.4"
   }
 }
