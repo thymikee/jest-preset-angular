@@ -1,6 +1,6 @@
 {
   "name": "example-app-yarn-workspace",
-  "version": "12.0.0",
+  "version": "13.0.0",
   "workspaces": {
     "packages": [
       "packages/*"
@@ -8,9 +8,9 @@
   },
   "private": true,
   "scripts": {
-    "test": "yarn workspace angular-app test",
-    "test-isolated": "yarn workspace angular-app test-isolated",
-    "test-esm": "yarn workspace angular-app test-esm",
-    "test-esm-isolated": "yarn workspace angular-app test-esm-isolated"
+    "test": "yarn workspaces run test",
+    "test-isolated": "yarn workspaces run test-isolated",
+    "test-esm": "yarn workspaces run test-esm",
+    "test-esm-isolated": "yarn workspaces run test-esm-isolated"
   }
 }
