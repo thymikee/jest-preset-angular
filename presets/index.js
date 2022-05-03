@@ -1,3 +1,6 @@
-const ngJestPresets = require('../build/presets').default;
+const ngJestPresets = require('../build/presets');
 
-module.exports = ngJestPresets;
+module.exports = {
+  defaults: ngJestPresets.defaultPreset,
+  defaultsESM: ngJestPresets.defaultEsmPreset,
+};
