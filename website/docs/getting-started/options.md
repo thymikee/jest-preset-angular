@@ -22,6 +22,23 @@ moduleNameMapper: {
 }
 ```
 
+### Processing with esbuild
+
+Since **v11.0.0**, `jest-preset-angular` introduced the usage of `esbuild` to process files besides TypeScript API. By default, all `.mjs` files
+will be processed by `esbuild` in `jest-preset-angular`. To configure extra files to process with `esbuild`, one can do the following:
+
+```js
+// jest.config.js
+module.exports = {
+  //...
+  globals: {
+    ngJest: {
+      processWithEsbuild: [<glob_to_files>],
+    },
+  },
+}
+```
+
 :::
 
 ### Exposed configuration
