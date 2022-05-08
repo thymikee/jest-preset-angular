@@ -118,8 +118,8 @@ export const json = function (dir: string, args?: string[], options: RunJestOpti
   }
 };
 
-export const jsonNoCache = (dir: string, args?: string[], options: RunJestOptions = {}): RunJestJsonResult => {
-  return json(dir, args ? [...args, '--no-cache'] : ['--no-cache'], options);
+export const jsonNoCache = (dir: string, jestArgs?: string[], options: RunJestOptions = {}): RunJestJsonResult => {
+  return json(dir, jestArgs ? [...jestArgs, '--no-cache'] : ['--no-cache'], options);
 };
 
 export const onNodeVersions = (versionRange: string, testBody: () => void): void => {

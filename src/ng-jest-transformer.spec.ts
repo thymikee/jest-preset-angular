@@ -115,6 +115,9 @@ describe('NgJestTransformer', () => {
           'ts-jest': {
             tsconfig,
           },
+          ngJest: {
+            processWithEsbuild: ['node_modules/foo.js'],
+          },
         },
       },
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -133,7 +136,7 @@ describe('NgJestTransformer', () => {
       
       export { pi };
     `,
-      'node_modules\\foo.js',
+      'node_modules/foo.js',
       transformCfg,
     );
 
@@ -173,6 +176,9 @@ describe('NgJestTransformer', () => {
             tsconfig,
             useESM: true,
           },
+          ngJest: {
+            processWithEsbuild: ['node_modules/foo.js'],
+          },
         },
       },
       supportsStaticESM: true,
@@ -192,7 +198,7 @@ describe('NgJestTransformer', () => {
       
       export { pi };
     `,
-      'node_modules\\foo.js',
+      'node_modules/foo.js',
       transformCfg,
     );
 

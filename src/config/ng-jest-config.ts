@@ -1,8 +1,26 @@
+import type { Logger } from 'bs-logger';
+import { globsToMatcher } from 'jest-util';
+import type { ProjectConfigTsJest, RawCompilerOptions } from 'ts-jest';
 import { ConfigSet } from 'ts-jest/dist/legacy/config/config-set';
-import type { RawCompilerOptions } from 'ts-jest/dist/raw-compiler-options';
 import type { ParsedCommandLine } from 'typescript';
 
+/**
+ * Some NPM packages like `tslib` is distributed in such a way that `esbuild` cannot process it, so we fall back to use TypeScript API
+ */
+const defaultProcessWithEsbuildPatterns = ['**/*.mjs'];
+
 export class NgJestConfig extends ConfigSet {
+  readonly processWithEsbuild: ReturnType<typeof globsToMatcher>;
+
+  constructor(jestConfig: ProjectConfigTsJest | undefined, parentLogger?: Logger | undefined) {
+    super(jestConfig, parentLogger);
+    const jestGlobalsConfig = jestConfig?.globals?.ngJest ?? Object.create(null);
+    this.processWithEsbuild = globsToMatcher([
+      ...(jestGlobalsConfig.processWithEsbuild ?? []),
+      ...defaultProcessWithEsbuildPatterns,
+    ]);
+  }
+
   /**
    * Override `ts-jest` behavior because we use `readConfiguration` which will read and resolve tsconfig.
    */
