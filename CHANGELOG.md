@@ -1,10 +1,31 @@
+# [12.0.0-next.2](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0-next.1...v12.0.0-next.2) (2022-05-08)
+
+
+### Bug Fixes
+
+* add missing `jest` and `typescript` to peer deps ([#1442](https://github.com/thymikee/jest-preset-angular/issues/1442)) ([6a652af](https://github.com/thymikee/jest-preset-angular/commit/6a652afbe893e344c2d4ed2f00528ab80ed52760)), closes [#1441](https://github.com/thymikee/jest-preset-angular/issues/1441)
+* set range supported version for Angular peer deps ([#1449](https://github.com/thymikee/jest-preset-angular/issues/1449)) ([f3e97d7](https://github.com/thymikee/jest-preset-angular/commit/f3e97d7be377a8099fa183b9e6de00a84786e471))
+
+
+### Features
+
+* add an option to configure which file processed by `esbuild` ([#1455](https://github.com/thymikee/jest-preset-angular/issues/1455)) ([b58d089](https://github.com/thymikee/jest-preset-angular/commit/b58d089c255a600707a35cabcfa62fb413f8153b)), closes [#1413](https://github.com/thymikee/jest-preset-angular/issues/1413) [#1437](https://github.com/thymikee/jest-preset-angular/issues/1437)
+* drop support Node 12 ([04195d5](https://github.com/thymikee/jest-preset-angular/commit/04195d5326e370e76e6f76d1e2c9cf277cf975a0))
+* exclude `ng-jest-resolver` from default/esm presets ([#1440](https://github.com/thymikee/jest-preset-angular/issues/1440)) ([56673c4](https://github.com/thymikee/jest-preset-angular/commit/56673c4c086e6a4bf8fada5c196c5a50481b04f0))
+* **presets:** use `.mjs` extension for ESM preset ([#1448](https://github.com/thymikee/jest-preset-angular/issues/1448)) ([cf7239d](https://github.com/thymikee/jest-preset-angular/commit/cf7239d55a0b3d33c7e6f55f9eb0adae54e9ea3f))
+* remove `reflect-metadata` in `setup-jest` ([#1428](https://github.com/thymikee/jest-preset-angular/issues/1428)) ([5a36729](https://github.com/thymikee/jest-preset-angular/commit/5a367293ba490d7d717963b099db7531c347d1f4))
+* remove `zone-patch` and its fallback ([#1427](https://github.com/thymikee/jest-preset-angular/issues/1427)) ([bf9ea44](https://github.com/thymikee/jest-preset-angular/commit/bf9ea44a643311f3bbfbcbc67b493aa000336bee))
+* use `import 'zone.js'` and `import 'zone.js/testing'` in `setup-jest` ([#1429](https://github.com/thymikee/jest-preset-angular/issues/1429)) ([55f4375](https://github.com/thymikee/jest-preset-angular/commit/55f4375c6671319c5ab5579c03f3fa06e8ade320))
+
+
+
 # [12.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0-next.0...v12.0.0-next.1) (2022-04-26)
 
 
 ### Features
 
 * allow running `ngcc` with specific `tsconfig` path ([#1418](https://github.com/thymikee/jest-preset-angular/issues/1418)) ([5f535b5](https://github.com/thymikee/jest-preset-angular/commit/5f535b59227daea6e64e4886b0ea0bd5fd7c1365)), closes [#1348](https://github.com/thymikee/jest-preset-angular/issues/1348)
-* allow skip `ngcc` via `skipNgcc` option in Jest `globals` ([#1417](https://github.com/thymikee/jest-preset-angular/issues/1417)) ([7950b5c](https://github.com/thymikee/jest-preset-angular/commit/7950b5cedfab066a268b16f5c87b5ad3670c6888)), closes [#1396](https://github.com/thymikee/jest-preset-angular/issues/1396)
+* allow skip `ngcc` via `skipNgcc` option via `globalThis` ([#1417](https://github.com/thymikee/jest-preset-angular/issues/1417)) ([7950b5c](https://github.com/thymikee/jest-preset-angular/commit/7950b5cedfab066a268b16f5c87b5ad3670c6888)), closes [#1396](https://github.com/thymikee/jest-preset-angular/issues/1396)
 
 
 
