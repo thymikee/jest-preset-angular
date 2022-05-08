@@ -8,31 +8,31 @@
     "test": "jest --no-cache",
     "test-isolated": "jest -c=jest-isolated.config.js --no-cache",
     "test-esm": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c=jest-esm.config.mjs --no-cache",
-    "test-esm-isolated": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c=jest-esm-isolated.config.mjs --no-cache --runInBand"
+    "test-esm-isolated": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c=jest-esm-isolated.config.mjs --no-cache"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~13.3.5",
-    "@angular/common": "~13.3.5",
-    "@angular/compiler": "~13.3.5",
-    "@angular/core": "~13.3.5",
-    "@angular/forms": "~13.3.5",
-    "@angular/platform-browser": "~13.3.5",
-    "@angular/platform-browser-dynamic": "~13.3.5",
-    "@angular/router": "~13.3.5",
+    "@angular/animations": "~13.3.6",
+    "@angular/common": "~13.3.6",
+    "@angular/compiler": "~13.3.6",
+    "@angular/core": "~13.3.6",
+    "@angular/forms": "~13.3.6",
+    "@angular/platform-browser": "~13.3.6",
+    "@angular/platform-browser-dynamic": "~13.3.6",
+    "@angular/router": "~13.3.6",
     "angular-in-memory-web-api": "^0.13.0",
     "rxjs": "~7.5.5",
     "tslib": "^2.3.0",
     "zone.js": "^0.11.5"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.3.4",
-    "@angular/cli": "~13.3.4",
-    "@angular/compiler-cli": "~13.3.5",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.32",
-    "jest": "^28.0.3",
-    "jest-preset-angular": "12.0.0-next.1",
+    "@angular-devkit/build-angular": "~13.3.5",
+    "@angular/cli": "~13.3.5",
+    "@angular/compiler-cli": "~13.3.6",
+    "@types/jest": "^27.5.0",
+    "@types/node": "^16.11.33",
+    "jest": "^28.1.0",
+    "jest-preset-angular": "^12.0.0-next.2",
     "typescript": "~4.5.5"
   }
 }
