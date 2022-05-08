@@ -1,27 +1,27 @@
-import fs from 'fs';
 import path from 'path';
 
-import { jsonNoCache as runWithJsonNoCache } from '../run-jest';
+import { onNodeVersions, jsonNoCache as runWithJsonNoCache } from '../run-jest';
+import { runYarnInstall } from '../utils';
 
-const TEST_DIR_NAME = 'process-js-packages';
-const TEST_DIR_PATH = path.join(__dirname, '..', TEST_DIR_NAME);
-const LOG_FILE_NAME = 'ng-jest.log';
-const LOG_FILE_PATH = path.join(TEST_DIR_PATH, LOG_FILE_NAME);
+const DIR = 'process-js-packages';
 
-test(`successfully runs the tests inside ${TEST_DIR_NAME}`, () => {
-  process.env.NG_JEST_LOG = LOG_FILE_NAME;
+beforeAll(() => {
+  runYarnInstall(path.join(__dirname, '..', DIR));
+});
 
-  const { json } = runWithJsonNoCache(TEST_DIR_NAME);
+test(`successfully run the tests inside ${DIR} with CommonJS mode`, () => {
+  const { json } = runWithJsonNoCache(DIR);
 
   expect(json.success).toBe(true);
-  expect(fs.existsSync(LOG_FILE_PATH)).toBe(true);
+});
 
-  const logFileContent = fs.readFileSync(LOG_FILE_PATH, 'utf-8');
-  const logFileContentAsJson = JSON.parse(logFileContent);
+// The versions where vm.Module exists and commonjs with "exports" is not broken
+onNodeVersions('>=12.16.0', () => {
+  test(`successfully run the tests inside ${DIR} with ESM mode`, () => {
+    const { json } = runWithJsonNoCache(DIR, ['-c=jest-esm.config.mjs'], {
+      nodeOptions: '--experimental-vm-modules --no-warnings',
+    });
 
-  expect(/node_modules\/(.*.m?js$)/.test(logFileContentAsJson.context.filePath.replace(/\\/g, '/'))).toBe(true);
-  expect(logFileContentAsJson.message).toBe('process with esbuild');
-
-  delete process.env.NG_JEST_LOG;
-  fs.unlinkSync(LOG_FILE_PATH);
+    expect(json.success).toBe(true);
+  });
 });
