@@ -47,6 +47,7 @@ module.exports = {
          }
     }
 }
+```
 
 
 # [12.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0-next.0...v12.0.0-next.1) (2022-04-26)
