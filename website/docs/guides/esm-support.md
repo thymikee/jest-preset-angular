@@ -15,6 +15,12 @@ We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main
 
 :::
 
+Besides, there is `setup-jest.mjs` to add to Jest setup file to ensure that Jest can set up test environment properly.
+
+```ts
+import 'jest-preset-angular/setup-jest.mjs';
+```
+
 ### Examples
 
 #### Manual configuration

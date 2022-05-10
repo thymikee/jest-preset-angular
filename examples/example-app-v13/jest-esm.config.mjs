@@ -19,7 +19,7 @@ const jestConfig = {
     tslib: 'tslib/tslib.es6.js',
     rxjs: '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
   },
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
 }
 
 export default jestConfig;
