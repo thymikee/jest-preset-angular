@@ -8,10 +8,7 @@ describe('Jest presets', () => {
     expect(preset).toMatchSnapshot();
   });
 
-  test.each([
-    path.join(__dirname, '..', '..', 'presets/defaults/jest-preset.d.ts'),
-    path.join(__dirname, '..', '..', 'presets/defaults-esm/jest-preset.d.ts'),
-  ])('should have the correct types which come from `ts-jest`', (presetTypes) => {
-    expect(fs.readFileSync(presetTypes, 'utf-8')).toMatchSnapshot();
+  test('should have the correct types which come from `ts-jest`', () => {
+    expect(fs.readFileSync(path.join(__dirname, '..', '..', 'presets/index.d.ts'), 'utf-8')).toMatchSnapshot();
   });
 });
