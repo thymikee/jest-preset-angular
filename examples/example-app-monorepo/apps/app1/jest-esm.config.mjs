@@ -1,11 +1,12 @@
+import ngPreset from 'jest-preset-angular/presets/index.js';
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 const jestConfig = {
+  ...ngPreset.defaultsESM,
   displayName: 'app1',
-  preset: 'jest-preset-angular/presets/defaults-esm',
   globals: {
     'ts-jest': {
-      useESM: true,
-      stringifyContentPathRegex: '\\.(html|svg)$',
+      ...ngPreset.defaultsESM.globals["ts-jest"],
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
   },
@@ -13,7 +14,7 @@ const jestConfig = {
     tslib: 'tslib/tslib.es6.js',
     rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
   },
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
 }
 
 export default jestConfig;

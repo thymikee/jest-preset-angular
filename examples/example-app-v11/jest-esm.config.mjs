@@ -15,7 +15,7 @@ const jestConfig = {
     },
   },
   globalSetup: 'jest-preset-angular/global-setup',
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
 }
 
 export default jestConfig;
