@@ -45,6 +45,14 @@ All presets come with default `ts-jest` config options.
 If you want to override any of the options, you'll need to use the JavaScript version of Jest config,
 copy the original options and override the options you need:
 
+:::important
+
+If you choose to override `globals` in order to point at a specific tsconfig, you will need to make sure that original `ts-jest`
+options provided through the default preset are defined to the `globals.ts-jest` section too, otherwise you will get
+errors.
+
+:::
+
 ```js
 // jest.config.js
 const { defaults: jestNgPreset } = require('jest-preset-angular/presets');
@@ -81,11 +89,3 @@ const config: InitialOptionsTsJest = {
 
 export default config;
 ```
-
-:::important
-
-If you choose to override `globals` in order to point at a specific tsconfig, you will need to make sure that original `ts-jest`
-options provided through the default preset are defined to the `globals.ts-jest` section too, otherwise you will get
-errors.
-
-:::
