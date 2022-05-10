@@ -1,6 +1,6 @@
+import type { TsJestAstTransformer } from 'ts-jest';
 import { TsCompiler } from 'ts-jest/dist/legacy/compiler/ts-compiler';
 import { ConfigSet } from 'ts-jest/dist/legacy/config/config-set';
-import type { TsJestAstTransformer } from 'ts-jest/dist/types';
 import type * as ts from 'typescript';
 
 import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
