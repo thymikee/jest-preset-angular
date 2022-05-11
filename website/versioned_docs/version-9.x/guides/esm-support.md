@@ -47,6 +47,17 @@ module.exports = {
 
 #### Use ESM presets
 
+:::tip
+
+Jest will attempt to load **ESM** files from `node_modules` with default `jest-resolve` which usually works for most of the cases.
+However, there are cases like Angular libraries **ESM** built files or **ESM** files which are outside `node_modules` might not be loaded
+correctly.
+
+To fix that, one can use `moduleNameMapper` in jest config to instruct Jest to load the correct **ESM** files or create a
+custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
+
+:::
+
 ```js
 // jest.config.js
 module.exports = {
@@ -64,14 +75,3 @@ module.exports = {
   }
 }
 ```
-
-:::tip
-
-Jest will attempt to load **ESM** files from `node_modules` with default `jest-resolve` which usually works for most of the cases.
-However, there are cases like Angular libraries **ESM** built files or **ESM** files which are outside `node_modules` might not be loaded
-correctly.
-
-To fix that, one can use `moduleNameMapper` in jest config to instruct Jest to load the correct **ESM** files or create a
-custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
-
-:::
