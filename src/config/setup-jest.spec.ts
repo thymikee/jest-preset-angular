@@ -46,14 +46,23 @@ describe('setup-jest', () => {
   };
 
   beforeEach(() => {
+    delete globalThis.ngJest;
     jest.clearAllMocks();
   });
 
   test('should initialize test environment with getTestBed() and initTestEnvironment() for CJS setup-jest', async () => {
+    globalThis.ngJest = {
+      destroyAfterEach: true,
+    };
     await import('../../setup-jest');
 
     expect(mockUmdZoneJs).toHaveBeenCalled();
     assertOnInitTestEnv();
+    expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+      teardown: {
+        destroyAfterEach: true,
+      },
+    });
   });
 
   test('should initialize test environment with getTestBed() and initTestEnvironment() for ESM setup-jest', async () => {
@@ -61,5 +70,6 @@ describe('setup-jest', () => {
 
     expect(mockEsmZoneJs).toHaveBeenCalled();
     assertOnInitTestEnv();
+    expect(mockInitTestEnvironment.mock.calls[0][2]).toBeUndefined();
   });
 });
