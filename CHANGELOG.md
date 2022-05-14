@@ -1,3 +1,12 @@
+## [12.0.1](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0...v12.0.1) (2022-05-14)
+
+
+### Features
+
+* allow configuring `destroyAfterEach` via `globalThis` for setup test env ([#1469](https://github.com/thymikee/jest-preset-angular/issues/1469)) ([9a735f9](https://github.com/thymikee/jest-preset-angular/commit/9a735f9670a1d55743d3dad6abdc0473c22f2cf6)), closes [#1466](https://github.com/thymikee/jest-preset-angular/issues/1466)
+
+
+
 # [12.0.0](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0-next.2...v12.0.0) (2022-05-10)
 
 
