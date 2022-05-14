@@ -1,3 +1,12 @@
+# [12.1.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v12.0.1...v12.1.0-next.0) (2022-05-14)
+
+
+### Features
+
+* supporting angular 14 next ([#1458](https://github.com/thymikee/jest-preset-angular/issues/1458)) ([eedb6e8](https://github.com/thymikee/jest-preset-angular/commit/eedb6e8487ea3b9574a19636300c9d1caadfa792))
+
+
+
 ## [12.0.1](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0...v12.0.1) (2022-05-14)
 
 
