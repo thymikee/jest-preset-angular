@@ -65,70 +65,28 @@ Reference: https://github.com/angular/material2/issues/7101
 
 ### Unexpected token [import|export|other]
 
-This means, that a file is not transformed through TypeScript compiler, e.g. because it is a JS file with TS syntax, or it is published to npm as uncompiled source files. Here's what you can do.
-
-#### Adjust your `tsconfig.spec.json`:
-
-Since Angular released v6, the default `tsconfig.json` and `tsconfig.spec.json` have been changed. Therefore, `jest` will throw an error
+This means, that a file is not transformed through `TypeScript` compiler, e.g. because it is a `JS` file with `TS` syntax, or
+it is published to npm as uncompiled source files. Here's what you can do. A typical Jest error is like this:
 
 ```
-    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,global,jest){import 'jest-preset-angular/setup-jest';
-                                                                                             ^^^^^^
-    SyntaxError: Unexpected token import
-      at ScriptTransformer._transformAndBuildScript (node_modules/jest-runtime/build/script_transformer.js:403:17)
+({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import * as i0 from '@angular/core';
+                                                                                                                                           ^^^^^^
+    SyntaxError: Cannot use import statement outside a module
 ```
 
-What you need to do is adjust your `tsconfig.spec.json` to add the option `"module": "commonjs",`
-
-A default `tsconfig.spec.json` after modifying will look like this
-
-```
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../out-tsc/spec",
-    "module": "commonjs",
-    "types": [
-      "jest",
-      "jsdom",
-      "node"
-    ]
-  },
-  "include": [
-    "**/*.d.ts"
-  ]
-```
-
-#### Adjust your `transformIgnorePatterns` whitelist:
-
-```json5
-{
-  jest: {
-    transformIgnorePatterns: ['node_modules/(?!@ngrx|angular2-ui-switch|ng-dynamic)'],
-  },
-}
-```
-
-By default, Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly. Above snippet means that `@ngrx`, `angular2-ui-switch` and `ng-dynamic` will be transformed, even though they're `node_modules`.
-
-### Observable ... is not a function
-
-Note: This fix is only relevant to Angular v5 and lower.
-
-Since v1.0 this preset doesn't import whole `rxjs` library by default for variety of reasons. This may result in breaking your tests that relied on this behavior. It may however become cumbersome to include e.g. `rxjs/add/operator/map` or `rxjs/add/operator/do` for every test, so as a workaround you can include common operators or other necessary imports in your `setup-jest.ts` file:
+To fix the issue, one needs to adjust `transformIgnorePatterns` whitelist:
 
 ```js
-import 'jest-preset-angular/setup-jest';
-
-// common rxjs imports
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-// ...
-
-import './jestGlobalMocks';
+// jest.config.js
+module.exports = {
+  // ...other options
+  transformIgnorePatterns: ['node_modules/(?!@angular|@ngrx)'],
+};
 ```
+
+By default, Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that
+library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly.
+Above snippet means that `@angular`, `@ngrx` will be transformed, even though they're `node_modules`.
 
 ### Allow vendor libraries like jQuery, etc...
 
@@ -148,3 +106,32 @@ global.$ = global.jQuery = $;
 The same declaration can be applied to other vendor libraries.
 
 Reference: https://github.com/facebook/jest/issues/708
+
+### Coverage fail but tests pass
+
+This issue happens because Jest uses `Babel` behind the screen to create coverage reporter. To fix this issue, one can do the following:
+
+- Install `babel-jest`, `@babel/core` and `@babel/preset-env`
+- Create a `.babelrc` at the same place where Jest config file locates and define the necessary `Babel` plugins.
+  For example
+
+```
+{
+  // this plugin will fix issue with class inheritance
+  "plugins": ["@babel/plugin-transform-classes"]
+}
+```
+
+- Define the usage of `Babel` in Jest config via `ts-jest` option, for example
+
+```
+// jest.config.js
+module.exports = {
+   globals: {
+      'ts-jest': {
+          //...
+          babelConfig: true
+      }
+   }
+}
+```

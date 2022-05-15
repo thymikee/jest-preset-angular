@@ -106,3 +106,32 @@ global.$ = global.jQuery = $;
 The same declaration can be applied to other vendor libraries.
 
 Reference: https://github.com/facebook/jest/issues/708
+
+### Coverage fail but tests pass
+
+This issue happens because Jest uses `Babel` behind the screen to create coverage reporter. To fix this issue, one can do the following:
+
+- Install `babel-jest`, `@babel/core` and `@babel/preset-env`
+- Create a `.babelrc` at the same place where Jest config file locates and define the necessary `Babel` plugins.
+  For example
+
+```
+{
+  // this plugin will fix issue with class inheritance
+  "plugins": ["@babel/plugin-transform-classes"]
+}
+```
+
+- Define the usage of `Babel` in Jest config via `ts-jest` option, for example
+
+```
+// jest.config.js
+module.exports = {
+   globals: {
+      'ts-jest': {
+          //...
+          babelConfig: true
+      }
+   }
+}
+```
