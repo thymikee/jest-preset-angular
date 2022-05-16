@@ -48,14 +48,33 @@ describe('setup-jest', () => {
   beforeEach(() => {
     delete globalThis.ngJest;
     jest.clearAllMocks();
+    jest.resetModules();
   });
 
   test('should initialize test environment with getTestBed() and initTestEnvironment() for CJS setup-jest', async () => {
     globalThis.ngJest = {
       teardown: {
-        destroyAfterEach: true,
+        destroyAfterEach: false,
+        rethrowErrors: true,
       },
     };
+    await import('../../setup-jest');
+
+    expect(mockUmdZoneJs).toHaveBeenCalled();
+    assertOnInitTestEnv();
+    expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+      teardown: {
+        destroyAfterEach: false,
+        rethrowErrors: true,
+      },
+    });
+  });
+
+  test('should initialize test environment with getTestBed() and initTestEnvironment() for CJS setup-jest / 2', async () => {
+    globalThis.ngJest = {
+      destroyAfterEach: true,
+    };
+
     await import('../../setup-jest');
 
     expect(mockUmdZoneJs).toHaveBeenCalled();
