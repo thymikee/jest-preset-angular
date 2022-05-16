@@ -52,7 +52,9 @@ describe('setup-jest', () => {
 
   test('should initialize test environment with getTestBed() and initTestEnvironment() for CJS setup-jest', async () => {
     globalThis.ngJest = {
-      destroyAfterEach: true,
+      teardown: {
+        destroyAfterEach: true,
+      },
     };
     await import('../../setup-jest');
 

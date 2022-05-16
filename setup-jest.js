@@ -5,12 +5,10 @@ const {
   platformBrowserDynamicTesting,
 } = require('@angular/platform-browser-dynamic/testing');
 
-const configuredDestroyAfterEach = globalThis.ngJest?.destroyAfterEach;
-if (configuredDestroyAfterEach !== undefined) {
+const teardown = globalThis.ngJest?.teardown;
+if (teardown !== undefined) {
   getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-    teardown: {
-      destroyAfterEach: configuredDestroyAfterEach,
-    },
+    teardown,
   });
 } else {
   getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
