@@ -51,46 +51,87 @@ describe('setup-jest', () => {
     jest.resetModules();
   });
 
-  test('should initialize test environment with getTestBed() and initTestEnvironment() for CJS setup-jest', async () => {
-    globalThis.ngJest = {
-      teardown: {
-        destroyAfterEach: false,
-        rethrowErrors: true,
-      },
-    };
-    await import('../../setup-jest');
+  describe('for CJS setup-jest, test environment initialization', () => {
+    test('should call getTestBed() and initTestEnvironment() with the ModuleTeardownOptions object passed to ngJest', async () => {
+      globalThis.ngJest = {
+        teardown: {
+          destroyAfterEach: false,
+          rethrowErrors: true,
+        },
+      };
+      await import('../../setup-jest');
 
-    expect(mockUmdZoneJs).toHaveBeenCalled();
-    assertOnInitTestEnv();
-    expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
-      teardown: {
-        destroyAfterEach: false,
-        rethrowErrors: true,
-      },
+      expect(mockUmdZoneJs).toHaveBeenCalled();
+      assertOnInitTestEnv();
+      expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        teardown: {
+          destroyAfterEach: false,
+          rethrowErrors: true,
+        },
+      });
     });
-  });
 
-  test('should initialize test environment with getTestBed() and initTestEnvironment() for CJS setup-jest / 2', async () => {
-    globalThis.ngJest = {
-      destroyAfterEach: true,
-    };
-
-    await import('../../setup-jest');
-
-    expect(mockUmdZoneJs).toHaveBeenCalled();
-    assertOnInitTestEnv();
-    expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
-      teardown: {
+    test('should call getTestBed() and initTestEnvironment() with the destroyAfterEach passed to ngJest', async () => {
+      const spyConsoleWarn = (console.warn = jest.fn());
+      globalThis.ngJest = {
         destroyAfterEach: true,
-      },
+      };
+
+      await import('../../setup-jest');
+
+      expect(mockUmdZoneJs).toHaveBeenCalled();
+      expect(spyConsoleWarn).toHaveBeenCalled();
+      expect(spyConsoleWarn.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"Passing destroyAfterEach for configuring the test environment has been deprecated. Please pass a \`teardown\` object with ModuleTeardownOptions interface instead, see https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98"`,
+      );
+      assertOnInitTestEnv();
+      expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        teardown: {
+          destroyAfterEach: true,
+        },
+      });
     });
   });
 
-  test('should initialize test environment with getTestBed() and initTestEnvironment() for ESM setup-jest', async () => {
-    await import('../../setup-jest.mjs');
+  describe('for ESM setup-jest, test environment initialization', () => {
+    test('should call getTestBed() and initTestEnvironment() with the ModuleTeardownOptions object passed to ngJest', async () => {
+      globalThis.ngJest = {
+        teardown: {
+          destroyAfterEach: false,
+          rethrowErrors: true,
+        },
+      };
+      await import('../../setup-jest.mjs');
 
-    expect(mockEsmZoneJs).toHaveBeenCalled();
-    assertOnInitTestEnv();
-    expect(mockInitTestEnvironment.mock.calls[0][2]).toBeUndefined();
+      expect(mockEsmZoneJs).toHaveBeenCalled();
+      assertOnInitTestEnv();
+      expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        teardown: {
+          destroyAfterEach: false,
+          rethrowErrors: true,
+        },
+      });
+    });
+
+    test('should call getTestBed() and initTestEnvironment() with the destroyAfterEach passed to ngJest', async () => {
+      const spyConsoleWarn = (console.warn = jest.fn());
+      globalThis.ngJest = {
+        destroyAfterEach: true,
+      };
+
+      await import('../../setup-jest.mjs');
+
+      expect(mockEsmZoneJs).toHaveBeenCalled();
+      expect(spyConsoleWarn).toHaveBeenCalled();
+      expect(spyConsoleWarn.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"Passing destroyAfterEach for configuring the test environment has been deprecated. Please pass a \`teardown\` object with ModuleTeardownOptions interface instead, see https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98"`,
+      );
+      assertOnInitTestEnv();
+      expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        teardown: {
+          destroyAfterEach: true,
+        },
+      });
+    });
   });
 });
