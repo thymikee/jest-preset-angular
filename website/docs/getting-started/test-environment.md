@@ -24,4 +24,4 @@ globalThis.ngJest = {
 import 'jest-preset-angular/setup-jest';
 ```
 
-`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct `destroyAfterEach` to `TestBed`.
+`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct [`ModuleTearDownOptions`](https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98) object to `TestBed`.
