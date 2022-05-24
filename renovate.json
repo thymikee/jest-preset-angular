@@ -2,6 +2,7 @@
   "extends": [
     "config:base"
   ],
+  "rangeStrategy": "bump",
   "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa", "chalk"],
   "semanticPrefix": "build(devs-dep)",
@@ -9,8 +10,7 @@
   "packageRules": [
     {
       "matchPackageNames": ["@angular", "angular"],
-      "groupName": "angular",
-      "rangeStrategy": "bump"
+      "groupName": "angular"
     },
     {
       "matchDepTypes": [
