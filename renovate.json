@@ -3,5 +3,6 @@
     "config:base"
   ],
   "schedule": ["after 8am every weekday", "every weekend"],
-  "ignoreDeps": ["@types/node", "execa"]
+  "ignoreDeps": ["@types/node", "execa"],
+  "semanticPrefix": "build(devs-dep)"
 }
