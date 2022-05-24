@@ -9,7 +9,8 @@
   "timezone": "UTC",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@angular", "*angular*"],
+      "matchPackagePatterns": ["^@angular"],
+      "matchPackageNames": ["jest-preset-angular"],
       "groupName": "angular"
     },
     {
