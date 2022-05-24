@@ -10,16 +10,12 @@
   "timezone": "UTC",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@angular"],
-      "groupName": "Angular repo packages"
-    },
-    {
-      "matchPaths": ["examples/**"],
-      "matchPackagePatterns": ["^@angular"],
+      "matchPackagePatterns": ["^@angular", "examples/**/^@angular"],
       "matchPackageNames": ["jest-preset-angular"],
-      "groupName": "Angular example apps"
+      "groupName": "Angular packages"
     },
     {
+      "matchFiles": ["package.json"],
       "matchDepTypes": [
         "dependencies"
       ],
