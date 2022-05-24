@@ -5,7 +5,8 @@
   "rangeStrategy": "bump",
   "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa", "chalk"],
-  "semanticPrefix": "build(devs-dep)",
+  "semanticCommits": "enabled",
+  "semanticCommitType": "build",
   "timezone": "UTC",
   "packageRules": [
     {
