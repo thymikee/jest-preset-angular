@@ -10,8 +10,13 @@
   "packageRules": [
     {
       "matchPackagePatterns": ["^@angular"],
+      "groupName": "Angular repo packages"
+    },
+    {
+      "matchPaths": ["examples/**"],
+      "matchPackagePatterns": ["^@angular"],
       "matchPackageNames": ["jest-preset-angular"],
-      "groupName": "angular"
+      "groupName": "Angular example apps"
     },
     {
       "matchDepTypes": [
