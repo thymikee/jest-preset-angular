@@ -2,5 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "schedule": ["after 8am every weekday", "every weekend"]
+  "schedule": ["after 8am every weekday", "every weekend"],
+  "ignoreDeps": ["@types/node", "execa"]
 }
