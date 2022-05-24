@@ -11,6 +11,12 @@
       "matchPackageNames": ["@angular", "angular"],
       "groupName": "angular",
       "rangeStrategy": "bump"
+    },
+    {
+      "matchDepTypes": [
+        "peerDependencies"
+      ],
+      "enabled": false
     }
   ]
 }
