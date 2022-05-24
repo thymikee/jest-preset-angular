@@ -5,5 +5,12 @@
   "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa"],
   "semanticPrefix": "build(devs-dep)",
-  "timezone": "UTC"
+  "timezone": "UTC",
+  "packageRules": [
+    {
+      "matchPackageNames": ["@angular", "angular"],
+      "groupName": "angular",
+      "rangeStrategy": "bump"
+    }
+  ]
 }
