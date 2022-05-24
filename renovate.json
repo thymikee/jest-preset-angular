@@ -10,7 +10,9 @@
   "timezone": "UTC",
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@angular", "examples/**/^@angular"],
+      "matchPaths": ["examples/**", "e2e/**"],
+      "matchFiles": ["package.json"],
+      "matchPackagePatterns": ["^@angular"],
       "matchPackageNames": ["jest-preset-angular"],
       "groupName": "Angular packages"
     },
