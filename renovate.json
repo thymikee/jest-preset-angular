@@ -1,37 +1,23 @@
 {
   "extends": [
-    "config:base"
+    ":dependencyDashboard",
+    ":prHourlyLimit2",
+    ":prConcurrentLimit10",
+    "workarounds:all"
   ],
   "rangeStrategy": "bump",
-  "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa", "chalk"],
   "semanticCommits": "enabled",
-  "commitMessagePrefix": "build(deps)",
+  "commitMessagePrefix": "build(deps):",
   "timezone": "UTC",
-  "prHourlyLimit": 1,
   "packageRules": [
     {
-      "matchSourceUrlPrefixes": [
-        "https://github.com/angular/angular",
-        "https://github.com/angular/angular-cli"
-      ],
+      "matchPaths": ["package.json"],
       "matchPackagePatterns": [
-        "^@angular/material",
-        "^@angular/cdk"
+        "^@angular"
       ],
-      "enabled": false
-    },
-    {
-      "matchPaths": ["examples/example-app-v13/*"],
-      "matchSourceUrlPrefixes": [
-        "https://github.com/angular/angular",
-        "https://github.com/angular/angular-cli"
-      ],
-      "matchPackagePatterns": [
-        "^@angular/material",
-        "^@angular/cdk"
-      ],
-      "enabled": false
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "Angular packages"
     },
     {
       "matchFiles": ["package.json"],
