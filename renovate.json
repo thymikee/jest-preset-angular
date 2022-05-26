@@ -1,7 +1,4 @@
 {
-  "extends": [
-    "config:base"
-  ],
   "rangeStrategy": "bump",
   "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa", "chalk"],
