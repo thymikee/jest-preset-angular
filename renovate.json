@@ -6,12 +6,11 @@
   "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa", "chalk"],
   "semanticCommits": "enabled",
-  "semanticCommitType": "build",
+  "commitMessagePrefix": "build(deps)",
   "timezone": "UTC",
   "packageRules": [
     {
-      "matchPaths": ["examples/**", "e2e/**"],
-      "matchFiles": ["package.json"],
+      "matchPaths": ["package.json"],
       "matchPackagePatterns": ["^@angular"],
       "matchPackageNames": ["jest-preset-angular"],
       "groupName": "Angular packages"
