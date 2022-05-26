@@ -1,9 +1,9 @@
 {
   "extends": [
     ":dependencyDashboard",
+    "group:commitlintMonorepo",
     ":prHourlyLimit2",
     ":prConcurrentLimit10",
-    "group:commitlintMonorepo",
     "workarounds:all"
   ],
   "rangeStrategy": "bump",
@@ -32,15 +32,24 @@
       "groupName": "Jest packages"
     },
     {
+      "packageNames": ["typescript", "rxjs", "tslib"],
+      "separateMinorPatch": true
+    },
+    {
+      "packageNames": ["typescript", "rxjs", "tslib"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "matchFiles": ["package.json"],
       "matchDepTypes": [
-        "dependencies"
+        "dependencies",
+        "optionalDependencies"
       ],
       "rangeStrategy": "in-range-only"
     },
     {
       "matchDepTypes": [
-        "optionalDependencies",
         "peerDependencies"
       ],
       "enabled": false
