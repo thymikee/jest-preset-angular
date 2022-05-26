@@ -6,18 +6,29 @@
     "workarounds:all"
   ],
   "rangeStrategy": "bump",
-  "ignoreDeps": ["@types/node", "execa", "chalk", "@mdx-js/react", "react", "react-dom"],
+  "ignoreDeps": ["@types/node", "execa", "chalk", "@mdx-js/react", "react", "react-dom", "@types/react"],
   "semanticCommits": "enabled",
   "commitMessagePrefix": "build(deps):",
+  "separateMajorMinor": true,
   "timezone": "UTC",
   "packageRules": [
     {
+      "matchPaths": ["examples/**"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "matchPaths": ["package.json"],
-      "matchPackagePatterns": [
-        "^@angular"
-      ],
+      "matchPackagePatterns": ["^@angular"],
       "matchUpdateTypes": ["patch", "minor"],
       "groupName": "Angular packages"
+    },
+    {
+      "matchPaths": ["package.json"],
+      "matchPackagePatterns": ["jest"],
+      "excludePackageNames": ["eslint-plugin-jest"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "Jest packages"
     },
     {
       "matchFiles": ["package.json"],
