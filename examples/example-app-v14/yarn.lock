@@ -25,15 +25,23 @@
     "@angular-devkit/core" "14.0.0-rc.0"
     rxjs "6.6.7"
 
-"@angular-devkit/build-angular@^14.0.0-rc.0":
-  version "14.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-14.0.0-rc.0.tgz#afdf40a480ba42502188855f1eef20d8fe64b033"
-  integrity sha512-FXouSKnnH5tIgQd4QINSqbW1hrRng1pFJFroG1y3s0GXTzIJtCbw/yWlUzB4FY+iTyUFGec9qSn5anXYbiX7Nw==
+"@angular-devkit/architect@0.1400.0-rc.2":
+  version "0.1400.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1400.0-rc.2.tgz#4ea95c11113c229b86be48bc2b425110b6cd7995"
+  integrity sha512-k2ZGmKhbsMTg2htaSRO1rQW6xVN9lAAwaWIwOijTFehWxeSoAQUJd3V2e/jOy9hQSrrnkg6GI0p2VPie6Xw38A==
+  dependencies:
+    "@angular-devkit/core" "14.0.0-rc.2"
+    rxjs "6.6.7"
+
+"@angular-devkit/build-angular@^14.0.0-rc.2":
+  version "14.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-14.0.0-rc.2.tgz#49dd67da8be72c2f3db6ee0f2a5cc4288b34a966"
+  integrity sha512-xOx11LAZ4JfYekmGxGOdfs98sKR+4a375SqYw/KAtqGjmF69FllIw9YmXqwFzSwQs3vAVt0aDd3NMWUEbW9qQQ==
   dependencies:
     "@ampproject/remapping" "2.2.0"
-    "@angular-devkit/architect" "0.1400.0-rc.0"
-    "@angular-devkit/build-webpack" "0.1400.0-rc.0"
-    "@angular-devkit/core" "14.0.0-rc.0"
+    "@angular-devkit/architect" "0.1400.0-rc.2"
+    "@angular-devkit/build-webpack" "0.1400.0-rc.2"
+    "@angular-devkit/core" "14.0.0-rc.2"
     "@babel/core" "7.17.10"
     "@babel/generator" "7.17.10"
     "@babel/helper-annotate-as-pure" "7.16.7"
@@ -44,7 +52,7 @@
     "@babel/runtime" "7.17.9"
     "@babel/template" "7.16.7"
     "@discoveryjs/json-ext" "0.5.7"
-    "@ngtools/webpack" "14.0.0-rc.0"
+    "@ngtools/webpack" "14.0.0-rc.2"
     ansi-colors "4.1.1"
     babel-loader "8.2.5"
     babel-plugin-istanbul "6.1.1"
@@ -95,18 +103,29 @@
   optionalDependencies:
     esbuild "0.14.38"
 
-"@angular-devkit/build-webpack@0.1400.0-rc.0":
-  version "0.1400.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.1400.0-rc.0.tgz#afc49d9712e2d16e2237bf6cd15dac8f4cd12b3c"
-  integrity sha512-Djxvs1rDoo6Na67AhoCkE31dd9oWegHwIK1MdMtJKGa3XmioecGgpPd1TcC91VCmf7HfJdkfUdESZEDabBG7+w==
+"@angular-devkit/build-webpack@0.1400.0-rc.2":
+  version "0.1400.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.1400.0-rc.2.tgz#6515ce601d34a6d6652c40a78ebca9dcfb955582"
+  integrity sha512-TBeQKt5MdwTFILLXTPibzMepvqaV81/XluRua86U2gCOMWS0zWptecLVqCwaOL60jCe8pio7u/8PxrirsHF0Cw==
   dependencies:
-    "@angular-devkit/architect" "0.1400.0-rc.0"
+    "@angular-devkit/architect" "0.1400.0-rc.2"
     rxjs "6.6.7"
 
 "@angular-devkit/core@14.0.0-rc.0":
   version "14.0.0-rc.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.0.0-rc.0.tgz#939ccf7be5de6e9ab4ca950b1badb473a2dbebd0"
   integrity sha512-c8KisTqWzOPzHC0UxMO3Mt8ZtoS85CqgSit/mCykY79M63mGZWs9FpOjw0/qv+4gzl2C3A9eIGJMP7POFglozw==
+  dependencies:
+    ajv "8.11.0"
+    ajv-formats "2.1.1"
+    jsonc-parser "3.0.0"
+    rxjs "6.6.7"
+    source-map "0.7.3"
+
+"@angular-devkit/core@14.0.0-rc.2":
+  version "14.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.0.0-rc.2.tgz#d979860dddb21fd31191ef7a231887e2af34461d"
+  integrity sha512-8nZDWfhFnzSv2ps6YSA4MoKdHeMbTo7qiIzVD2oCpGoH5oaWEB4VJUWK5rZHSdK4ww0fpLc96tIDLcx28LNRfw==
   dependencies:
     ajv "8.11.0"
     ajv-formats "2.1.1"
@@ -1598,10 +1617,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@ngtools/webpack@14.0.0-rc.0":
-  version "14.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-14.0.0-rc.0.tgz#2580f68868fd1951eefad05acd4e7d77a250511c"
-  integrity sha512-WZ8gJ6/PtdrjsEnCOe3KBy8J1PLyozIEiD2BoRvvCfn6DZ3OK0/VpBoTCQf8CiKffeKbEPZh84UITD/rKDzwmQ==
+"@ngtools/webpack@14.0.0-rc.2":
+  version "14.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-14.0.0-rc.2.tgz#8ffbe4a0365e63db8c0cf54197314145a517b93c"
+  integrity sha512-8LapwOR7MAqRDj0CkPaksO40Qqxo/PTwp0UXTz59gxO+/SvHmfoGCijRHPeBXyV7Ct6fevTG0WwvQAovXNen1w==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
