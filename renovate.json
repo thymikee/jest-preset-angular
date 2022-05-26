@@ -3,10 +3,11 @@
     ":dependencyDashboard",
     ":prHourlyLimit2",
     ":prConcurrentLimit10",
+    "group:commitlintMonorepo",
     "workarounds:all"
   ],
   "rangeStrategy": "bump",
-  "ignoreDeps": ["@types/node", "execa", "chalk", "@mdx-js/react", "react", "react-dom", "@types/react"],
+  "ignoreDeps": ["execa", "chalk", "@mdx-js/react", "react", "react-dom", "@types/react"],
   "semanticCommits": "enabled",
   "commitMessagePrefix": "build(deps):",
   "separateMajorMinor": true,
@@ -19,7 +20,7 @@
     },
     {
       "matchPaths": ["package.json"],
-      "matchPackagePatterns": ["^@angular"],
+      "matchPackagePatterns": ["^@angular", "ng-packagr"],
       "matchUpdateTypes": ["patch", "minor"],
       "groupName": "Angular packages"
     },
