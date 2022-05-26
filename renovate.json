@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "config:base"
+  ],
   "rangeStrategy": "bump",
   "schedule": ["after 8am every weekday", "every weekend"],
   "ignoreDeps": ["@types/node", "execa", "chalk"],
@@ -7,7 +10,7 @@
   "timezone": "UTC",
   "packageRules": [
     {
-      "matchPaths": ["**/examples/**"],
+      "matchPaths": ["**/examples/**/**"],
       "matchSourceUrlPrefixes": [
         "https://github.com/angular/angular",
         "https://github.com/angular/angular-cli"
