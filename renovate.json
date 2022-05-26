@@ -11,9 +11,23 @@
   "packageRules": [
     {
       "matchPaths": ["package.json"],
-      "matchPackagePatterns": ["^@angular"],
-      "matchPackageNames": ["jest-preset-angular"],
+      "matchSourceUrlPrefixes": [
+        "https://github.com/angular/angular",
+        "https://github.com/angular/angular-cli"
+      ],
+      "matchPackagePatterns": [
+        "^@angular/material",
+        "^@angular/cdk"
+      ],
       "groupName": "Angular packages"
+    },
+    {
+      "matchPaths": ["package.json"],
+      "matchSourceUrlPrefixes": [
+        "https://github.com/facebook/jest"
+      ],
+      "matchPackagePatterns": ["jest"],
+      "groupName": "Jest packages"
     },
     {
       "matchFiles": ["package.json"],
