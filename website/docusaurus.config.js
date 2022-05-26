@@ -99,7 +99,11 @@ module.exports = {
       indexName: 'jest-preset-angular',
       contextualSearch: true,
     },
-    hideableSidebar: true,
+    docs: {
+      sidebar: {
+        hideable: true,
+      }
+    },
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
