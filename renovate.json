@@ -9,7 +9,15 @@
     "workarounds:all"
   ],
   "rangeStrategy": "bump",
-  "ignoreDeps": ["execa", "chalk", "@mdx-js/react", "react", "react-dom", "@types/react"],
+  "ignoreDeps": [
+    "execa",
+    "chalk",
+    "@mdx-js/react",
+    "react",
+    "react-dom",
+    "@types/react",
+    "angular-in-memory-web-api"
+  ],
   "semanticCommits": "enabled",
   "commitMessagePrefix": "build(deps):",
   "separateMajorMinor": true,
@@ -38,6 +46,10 @@
       "groupName": "ESLint packages"
     },
     {
+      "matchPackagePrefixes": ["esbuild"],
+      "groupName": "Esbuild packages"
+    },
+    {
       "packageNames": ["typescript", "rxjs", "tslib"],
       "separateMinorPatch": true
     },
@@ -48,16 +60,11 @@
     },
     {
       "matchFiles": ["package.json"],
-      "matchDepTypes": [
-        "dependencies",
-        "optionalDependencies"
-      ],
+      "matchDepTypes": ["dependencies", "optionalDependencies"],
       "rangeStrategy": "in-range-only"
     },
     {
-      "matchDepTypes": [
-        "peerDependencies"
-      ],
+      "matchDepTypes": ["peerDependencies"],
       "enabled": false
     }
   ]
