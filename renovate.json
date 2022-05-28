@@ -5,13 +5,13 @@
     "group:commitlintMonorepo",
     "group:docusaurusMonorepo",
     ":prHourlyLimit2",
-    ":prConcurrentLimit10",
     "workarounds:all"
   ],
   "dependencyDashboard": false,
   "timezone": "UTC",
   "rangeStrategy": "bump",
   "separateMajorMinor": true,
+  "prConcurrentLimit": 2,
   "semanticCommits": "enabled",
   "commitMessagePrefix": "build(deps):",
   "ignoreDeps": [
