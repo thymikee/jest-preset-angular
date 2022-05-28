@@ -8,7 +8,12 @@
     ":prConcurrentLimit10",
     "workarounds:all"
   ],
+  "dependencyDashboard": false,
+  "timezone": "UTC",
   "rangeStrategy": "bump",
+  "separateMajorMinor": true,
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "build(deps):",
   "ignoreDeps": [
     "@mdx-js/react",
     "@types/react",
@@ -17,10 +22,6 @@
     "react",
     "react-dom"
   ],
-  "semanticCommits": "enabled",
-  "commitMessagePrefix": "build(deps):",
-  "separateMajorMinor": true,
-  "timezone": "UTC",
   "packageRules": [
     {
       "matchPaths": ["examples/**"],
