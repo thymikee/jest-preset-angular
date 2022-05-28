@@ -10,13 +10,12 @@
   ],
   "rangeStrategy": "bump",
   "ignoreDeps": [
+    "@mdx-js/react",
+    "@types/react",
     "execa",
     "chalk",
-    "@mdx-js/react",
     "react",
-    "react-dom",
-    "@types/react",
-    "angular-in-memory-web-api"
+    "react-dom"
   ],
   "semanticCommits": "enabled",
   "commitMessagePrefix": "build(deps):",
@@ -50,13 +49,34 @@
       "groupName": "Esbuild packages"
     },
     {
-      "packageNames": ["typescript", "rxjs", "tslib"],
-      "separateMinorPatch": true
+      "matchPackageNames": [
+        "angular-in-memory-web-api",
+        "rxjs",
+        "tslib",
+        "typescript"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "enabled": true
     },
     {
-      "packageNames": ["typescript", "rxjs", "tslib"],
-      "matchUpdateTypes": ["major"],
+      "matchPackageNames": [
+        "angular-in-memory-web-api",
+        "rxjs",
+        "tslib",
+        "typescript"
+      ],
+      "matchUpdateTypes": ["major", "minor"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "angular-in-memory-web-api",
+        "rxjs",
+        "tslib",
+        "typescript"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "enabled": true
     },
     {
       "matchFiles": ["package.json"],
