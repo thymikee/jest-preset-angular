@@ -55,5 +55,6 @@ describe('@jest/globals should work', () => {
     expect(bar).toBe(2);
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   test.todo('a sample todo');
 });
