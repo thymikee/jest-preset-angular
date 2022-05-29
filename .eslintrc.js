@@ -23,12 +23,7 @@ module.exports = {
         createDefaultProgram: false,
       },
       plugins: ['eslint-plugin-prefer-arrow', 'import', 'jsdoc'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:jest/recommended',
-        'plugin:import/typescript',
-        'plugin:prettier/recommended',
-      ],
+      extends: ['plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:prettier/recommended'],
       rules: {
         '@typescript-eslint/array-type': [
           'error',
@@ -60,7 +55,10 @@ module.exports = {
     {
       files: ['*.js'],
       extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-      rules: {},
+    },
+    {
+      files: ['**/*.spec.ts', '**/*.test.ts'],
+      extends: ['plugin:jest/recommended'],
     },
   ],
   rules: {
