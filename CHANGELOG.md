@@ -1,3 +1,13 @@
+# [12.1.0](https://github.com/thymikee/jest-preset-angular/compare/v12.0.1...v12.1.0) (2022-06-03)
+
+
+### Features
+
+* allow passing the `teardown` object to `global-setup` ([#1475](https://github.com/thymikee/jest-preset-angular/issues/1475)) ([3dab02b](https://github.com/thymikee/jest-preset-angular/commit/3dab02b91146379fba7430f9a2ad38b9aa95b37c))
+* support Angular 14 ([#1611](https://github.com/thymikee/jest-preset-angular/issues/1611)) ([7c294d7](https://github.com/thymikee/jest-preset-angular/commit/7c294d7de2c898e5ac3520ce2b27567c91a189c9)), closes [#1410](https://github.com/thymikee/jest-preset-angular/issues/1410)
+
+
+
 ## [12.0.1](https://github.com/thymikee/jest-preset-angular/compare/v12.0.0...v12.0.1) (2022-05-14)
 
 
