@@ -14,6 +14,7 @@ jest.mock('esbuild', () => {
     }),
   };
 });
+const mockedTransformSync = jest.mocked(transformSync);
 
 describe('NgJestTransformer', () => {
   test('should create NgJestCompiler and NgJestConfig instances', () => {
@@ -56,8 +57,7 @@ describe('NgJestTransformer', () => {
       } as any, // eslint-disable-line @typescript-eslint/no-explicit-any,
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any,
-    expect(transformSync as unknown as jest.MockInstance<unknown, any>).not.toHaveBeenCalled();
+    expect(mockedTransformSync).not.toHaveBeenCalled();
   });
 
   test('should not use esbuild to process tslib file', () => {
@@ -83,8 +83,7 @@ describe('NgJestTransformer', () => {
       } as any, // eslint-disable-line @typescript-eslint/no-explicit-any,
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any,
-    expect(transformSync as unknown as jest.MockInstance<unknown, any>).not.toHaveBeenCalled();
+    expect(mockedTransformSync).not.toHaveBeenCalled();
   });
 
   test.each([
@@ -102,8 +101,6 @@ describe('NgJestTransformer', () => {
       tsconfig: {},
     },
   ])('should use esbuild to process mjs or `node_modules` js files to CJS codes', ({ tsconfig }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const transformSyncMock = transformSync as unknown as jest.MockInstance<unknown, any>;
     const transformCfg = {
       cacheFS: new Map(),
       config: {
@@ -140,11 +137,10 @@ describe('NgJestTransformer', () => {
       transformCfg,
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(transformSyncMock.mock.calls[0]).toMatchSnapshot();
-    expect(transformSyncMock.mock.calls[1]).toMatchSnapshot();
+    expect(mockedTransformSync.mock.calls[0]).toMatchSnapshot();
+    expect(mockedTransformSync.mock.calls[1]).toMatchSnapshot();
 
-    transformSyncMock.mockClear();
+    mockedTransformSync.mockClear();
   });
 
   test.each([
@@ -162,8 +158,6 @@ describe('NgJestTransformer', () => {
       tsconfig: {},
     },
   ])('should use esbuild to process mjs or `node_modules` js files to ESM codes', ({ tsconfig }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const transformSyncMock = transformSync as unknown as jest.MockInstance<unknown, any>;
     const transformCfg = {
       cacheFS: new Map(),
       config: {
@@ -202,10 +196,9 @@ describe('NgJestTransformer', () => {
       transformCfg,
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(transformSyncMock.mock.calls[0]).toMatchSnapshot();
-    expect(transformSyncMock.mock.calls[1]).toMatchSnapshot();
+    expect(mockedTransformSync.mock.calls[0]).toMatchSnapshot();
+    expect(mockedTransformSync.mock.calls[1]).toMatchSnapshot();
 
-    transformSyncMock.mockClear();
+    mockedTransformSync.mockClear();
   });
 });
