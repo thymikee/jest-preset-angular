@@ -48,15 +48,17 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
     const typeChecker = program!.getTypeChecker();
     const resourceImportDeclarations: ts.ImportDeclaration[] = [];
     const moduleKind = context.getCompilerOptions().module;
+    const nodeFactory = context.factory;
+
     const visitNode: ts.Visitor = (node: ts.Node) => {
       if (ts.isClassDeclaration(node)) {
         const decorators = ts.visitNodes(node.decorators, (node) =>
           ts.isDecorator(node)
-            ? visitDecorator(context.factory, node, typeChecker, resourceImportDeclarations, moduleKind)
+            ? visitDecorator(nodeFactory, node, typeChecker, resourceImportDeclarations, moduleKind)
             : node,
         );
 
-        return context.factory.updateClassDeclaration(
+        return nodeFactory.updateClassDeclaration(
           node,
           decorators,
           node.modifiers,
@@ -78,10 +80,10 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
       const updatedSourceFile = ts.visitNode(sourceFile, visitNode);
       if (resourceImportDeclarations.length) {
         // Add resource imports
-        return context.factory.updateSourceFile(
+        return nodeFactory.updateSourceFile(
           updatedSourceFile,
           ts.setTextRange(
-            context.factory.createNodeArray([...resourceImportDeclarations, ...updatedSourceFile.statements]),
+            nodeFactory.createNodeArray([...resourceImportDeclarations, ...updatedSourceFile.statements]),
             updatedSourceFile.statements,
           ),
         );
@@ -210,7 +212,7 @@ function createResourceImport(
   if (moduleKind < ts.ModuleKind.ES2015) {
     return nodeFactory.createCallExpression(nodeFactory.createIdentifier(REQUIRE), [], [urlLiteral]);
   } else {
-    const importName = ts.createIdentifier(`__NG_CLI_RESOURCE__${resourceImportDeclarations.length}`);
+    const importName = nodeFactory.createIdentifier(`__NG_CLI_RESOURCE__${resourceImportDeclarations.length}`);
     const importDeclaration = nodeFactory.createImportDeclaration(
       undefined,
       undefined,
