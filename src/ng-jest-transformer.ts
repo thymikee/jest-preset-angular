@@ -32,7 +32,7 @@ export class NgJestTransformer extends TsJestTransformer {
 
     if (useNativeEsbuild === undefined) {
       try {
-        const esbuildCheckPath = require.resolve('@angular-devkit/build-angular/esbuild-check.js');
+        const esbuildCheckPath = require.resolve('../esbuild-check.js');
         const { status, error } = spawnSync(process.execPath, [esbuildCheckPath]);
         useNativeEsbuild = status === 0 && error === undefined;
       } catch (e) {
