@@ -210,3 +210,10 @@ module.exports = (path, options) => {
   });
 };
 ```
+
+```js
+// jest.config.js
+...
+resolver: '<rootDir>/src/jest.resolver.js',
+...
+```
