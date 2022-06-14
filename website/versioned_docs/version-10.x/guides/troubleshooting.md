@@ -144,7 +144,7 @@ This can happen in two identified cases.
 
 #### Javascript library
 
-When using a javascript SDK/Library in Angular, some javascript methods could fail to be properly rendered in tests. Some examples are the `firebase` and `firebase/compat` SDK. 
+When using a javascript SDK/Library in Angular, some javascript methods could fail to be properly rendered in tests. Some examples are the `firebase` and `firebase/compat` SDK.
 
 A typical error could appear as:
 
