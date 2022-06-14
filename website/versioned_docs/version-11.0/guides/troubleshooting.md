@@ -88,6 +88,8 @@ By default, Jest doesn't transform `node_modules`, because they should be valid 
 library authors assume that you'll compile their sources. So you have to tell this to Jest explicitly.
 Above snippet means that `@angular`, `@ngrx` will be transformed, even though they're `node_modules`.
 
+If the dependency causing the issue is a sub dependency of a `node_modules` packages or a module designed to be used with nodeJS, a custom resolver could be required to fix the issue. [See below](#resolver-needed-for-some-javascript-library-or-nested-dependencies) for more information.
+
 ### Allow vendor libraries like jQuery, etc...
 
 The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setup-jest.ts` you can declare jQuery:
@@ -134,4 +136,84 @@ module.exports = {
       }
    }
 }
+```
+
+### Resolver needed for some javascript library or nested dependencies
+
+This can happen in two identified cases.
+
+#### Javascript library
+
+When using a javascript SDK/Library in Angular, some javascript methods could fail to be properly rendered in tests. Some examples are the `firebase` and `firebase/compat` SDK.
+
+A typical error could appear as:
+
+```
+TypeError: Cannot read properties of undefined (reading 'FacebookAuthProvider')
+    import firebase from 'firebase/compat/app';
+
+    > export const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+```
+
+#### Nested dependency (`node_modules` package within another package `node_nodules`)
+
+Some nested dependency tree could trigger some errors while running the tests because some bundles (especially ESM ones) could be somehow errored. An example is the `@angular/fire` package which uses the `@firebase/firestore` package.
+
+A typical error could appear as:
+
+```
+node_modules\@angular\fire\node_modules\@firebase\firestore\dist\index.esm2017.js:12705
+                    function (t, e) {
+                    ^^^^^^^^
+
+    SyntaxError: Function statements require a function name
+```
+
+#### Resolution
+
+In these cases, a `transformIgnorePatterns` whitelisting could not fix the issue. The solution here is to use a custom `resolver`. You may or may not need to remove entries from `transformIgnorePatterns` whitelisting.
+
+Here is an example of a resolver which would fix `firebase` related packages.
+
+```js
+// jest.resolver.js
+module.exports = (path, options) => {
+  // Call the defaultResolver, so we leverage its cache, error handling, etc.
+  return options.defaultResolver(path, {
+    ...options,
+    // Use packageFilter to process parsed `package.json` before the resolution (see https://www.npmjs.com/package/resolve#resolveid-opts-cb)
+    packageFilter: (pkg) => {
+      const pkgNamesToTarget = new Set([
+        'rxjs',
+        '@firebase/auth',
+        '@firebase/storage',
+        '@firebase/functions',
+        '@firebase/database',
+        '@firebase/auth-compat',
+        '@firebase/database-compat',
+        '@firebase/app-compat',
+        '@firebase/firestore',
+        '@firebase/firestore-compat',
+        '@firebase/messaging',
+        '@firebase/util',
+        'firebase',
+      ]);
+
+      if (pkgNamesToTarget.has(pkg.name)) {
+        // console.log('>>>', pkg.name)
+        delete pkg['exports'];
+        delete pkg['module'];
+      }
+
+      return pkg;
+    },
+  });
+};
+```
+
+```js
+// jest.config.js
+...
+resolver: '<rootDir>/src/jest.resolver.js',
+...
 ```
