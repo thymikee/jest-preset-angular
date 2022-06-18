@@ -5,9 +5,9 @@ const glob = require('glob');
 
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'build');
-const examplesRootDir = path.join(rootDir, 'examples');
 const exampleAppsToRun = glob
-  .sync(`${examplesRootDir}/*`)
+  .sync('examples/*')
+  .map((examplePath) => path.join(process.cwd(), examplePath))
   .filter((examplePath) => lstatSync(examplePath).isDirectory() && existsSync(path.join(examplePath, 'package.json')))
   .sort((a, b) => {
     const ngVersion1 = +a.substring(a.indexOf('v') + 1);
