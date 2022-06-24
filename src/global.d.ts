@@ -1,14 +1,17 @@
 /* eslint-disable */
 
-import type { ModuleTeardownOptions } from "@angular/core/testing";
+import type { ModuleTeardownOptions, TestEnvironmentOptions } from '@angular/core/testing';
 
 declare global {
-  var ngJest: {
-    skipNgcc?: boolean;
-    tsconfig?: string;
-    destroyAfterEach?: boolean;
-    teardown?: ModuleTeardownOptions;
-  } | undefined;
+  var ngJest:
+    | {
+        skipNgcc?: boolean;
+        tsconfig?: string;
+        destroyAfterEach?: boolean;
+        teardown?: ModuleTeardownOptions;
+        testEnvironmentOptions?: TestEnvironmentOptions;
+      }
+    | undefined;
 }
 
-export {}
+export {};

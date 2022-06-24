@@ -5,23 +5,36 @@ const {
   platformBrowserDynamicTesting,
 } = require('@angular/platform-browser-dynamic/testing');
 
-let teardown = globalThis.ngJest?.teardown;
+let testEnvironmentOptions = globalThis.ngJest?.testEnvironmentOptions ?? Object.create(null);
+
 const configuredDestroyAfterEach = globalThis.ngJest?.destroyAfterEach;
 if (configuredDestroyAfterEach) {
   console.warn(
     'Passing destroyAfterEach for configuring the test environment has been deprecated.' +
-      ' Please pass a `teardown` object with ModuleTeardownOptions interface instead,' +
-      ' see https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98'
+      ' Please pass a `testEnvironmentOptions` object with TestEnvironmentOptions interface instead,' +
+      ' see https://angular.io/api/core/testing/TestEnvironmentOptions'
   );
-  teardown = {
-    destroyAfterEach: true,
+
+  testEnvironmentOptions = {
+    ...testEnvironmentOptions,
+    teardown: {
+      destroyAfterEach: true,
+    },
   };
 }
 
-if (teardown !== undefined) {
-  getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-    teardown,
-  });
-} else {
-  getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+const configuredTeardown = globalThis.ngJest?.teardown;
+if (configuredTeardown) {
+  console.warn(
+    'Passing teardown for configuring the test environment has been deprecated.' +
+      ' Please pass a `testEnvironmentOptions` object with TestEnvironmentOptions interface instead,' +
+      ' see https://angular.io/api/core/testing/TestEnvironmentOptions'
+  );
+
+  testEnvironmentOptions = {
+    ...testEnvironmentOptions,
+    teardown: configuredTeardown,
+  };
 }
+
+getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), testEnvironmentOptions);

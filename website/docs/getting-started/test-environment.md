@@ -12,16 +12,23 @@ to run with **ESM** mode.
 
 ### Configure test environment
 
-When creating Angular test environment with `TestBed`, it is possible to specify the behavior of `teardown` via `globalThis` in the Jest setup file.
+When creating Angular test environment with `TestBed`, it is possible to specify the `testEnvironmentOptions` via `globalThis` in the Jest setup file.
 For example:
 
 ```ts
 // setup-test.ts
 globalThis.ngJest = {
-  destroyAfterEach: true,
+  testEnvironmentOptions: {
+    teardown: {
+      destroyAfterEach: false,
+      rethrowErrors: true,
+    },
+    errorOnUnknownElements: true,
+    errorOnUnknownProperties: true,
+  },
 };
 
 import 'jest-preset-angular/setup-jest';
 ```
 
-`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct [`ModuleTearDownOptions`](https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98) object to `TestBed`.
+`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct [`TestEnvironmentOptions`](https://angular.io/api/core/testing/TestEnvironmentOptions) object to `TestBed`.
