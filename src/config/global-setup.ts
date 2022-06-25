@@ -1,6 +1,6 @@
 import { runNgccJestProcessor } from '../utils/ngcc-jest-processor';
 
-const GlobalSetup = () => {
+const globalSetup = async () => {
   const ngJestConfig = globalThis.ngJest;
   const tsconfig = ngJestConfig?.tsconfig;
   if (!ngJestConfig?.skipNgcc) {
@@ -8,4 +8,4 @@ const GlobalSetup = () => {
   }
 }
 
-export default GlobalSetup;
+export default globalSetup;
