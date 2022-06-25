@@ -53,6 +53,7 @@ describe('setup-jest', () => {
 
   describe('for CJS setup-jest, test environment initialization', () => {
     test('should call getTestBed() and initTestEnvironment() with the ModuleTeardownOptions object passed to ngJest', async () => {
+      const spyConsoleWarn = (console.warn = jest.fn());
       globalThis.ngJest = {
         teardown: {
           destroyAfterEach: false,
@@ -62,6 +63,10 @@ describe('setup-jest', () => {
       await import('../../setup-jest');
 
       expect(mockUmdZoneJs).toHaveBeenCalled();
+      expect(spyConsoleWarn).toHaveBeenCalled();
+      expect(spyConsoleWarn.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"Passing teardown for configuring the test environment has been deprecated. Please pass a \`testEnvironmentOptions\` object with TestEnvironmentOptions interface instead, see https://angular.io/api/core/testing/TestEnvironmentOptions"`,
+      );
       assertOnInitTestEnv();
       expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
         teardown: {
@@ -82,19 +87,46 @@ describe('setup-jest', () => {
       expect(mockUmdZoneJs).toHaveBeenCalled();
       expect(spyConsoleWarn).toHaveBeenCalled();
       expect(spyConsoleWarn.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"Passing destroyAfterEach for configuring the test environment has been deprecated. Please pass a \`teardown\` object with ModuleTeardownOptions interface instead, see https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98"`,
+        `"Passing destroyAfterEach for configuring the test environment has been deprecated. Please pass a \`testEnvironmentOptions\` object with TestEnvironmentOptions interface instead, see https://angular.io/api/core/testing/TestEnvironmentOptions"`,
       );
       assertOnInitTestEnv();
       expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
         teardown: {
           destroyAfterEach: true,
         },
+      });
+    });
+
+    test('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed to ngJest', async () => {
+      globalThis.ngJest = {
+        testEnvironmentOptions: {
+          teardown: {
+            destroyAfterEach: false,
+            rethrowErrors: true,
+          },
+          errorOnUnknownElements: true,
+          errorOnUnknownProperties: true,
+        },
+      };
+
+      await import('../../setup-jest');
+
+      expect(mockUmdZoneJs).toHaveBeenCalled();
+      assertOnInitTestEnv();
+      expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        teardown: {
+          destroyAfterEach: false,
+          rethrowErrors: true,
+        },
+        errorOnUnknownElements: true,
+        errorOnUnknownProperties: true,
       });
     });
   });
 
   describe('for ESM setup-jest, test environment initialization', () => {
     test('should call getTestBed() and initTestEnvironment() with the ModuleTeardownOptions object passed to ngJest', async () => {
+      const spyConsoleWarn = (console.warn = jest.fn());
       globalThis.ngJest = {
         teardown: {
           destroyAfterEach: false,
@@ -104,6 +136,10 @@ describe('setup-jest', () => {
       await import('../../setup-jest.mjs');
 
       expect(mockEsmZoneJs).toHaveBeenCalled();
+      expect(spyConsoleWarn).toHaveBeenCalled();
+      expect(spyConsoleWarn.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"Passing teardown for configuring the test environment has been deprecated. Please pass a \`testEnvironmentOptions\` object with TestEnvironmentOptions interface instead, see https://angular.io/api/core/testing/TestEnvironmentOptions"`,
+      );
       assertOnInitTestEnv();
       expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
         teardown: {
@@ -124,13 +160,39 @@ describe('setup-jest', () => {
       expect(mockEsmZoneJs).toHaveBeenCalled();
       expect(spyConsoleWarn).toHaveBeenCalled();
       expect(spyConsoleWarn.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"Passing destroyAfterEach for configuring the test environment has been deprecated. Please pass a \`teardown\` object with ModuleTeardownOptions interface instead, see https://github.com/angular/angular/blob/6952a0a3e68481564b2bc4955afb3ac186df6e34/packages/core/testing/src/test_bed_common.ts#L98"`,
+        `"Passing destroyAfterEach for configuring the test environment has been deprecated. Please pass a \`testEnvironmentOptions\` object with TestEnvironmentOptions interface instead, see https://angular.io/api/core/testing/TestEnvironmentOptions"`,
       );
       assertOnInitTestEnv();
       expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
         teardown: {
           destroyAfterEach: true,
         },
+      });
+    });
+
+    test('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed to ngJest', async () => {
+      globalThis.ngJest = {
+        testEnvironmentOptions: {
+          teardown: {
+            destroyAfterEach: false,
+            rethrowErrors: true,
+          },
+          errorOnUnknownElements: true,
+          errorOnUnknownProperties: true,
+        },
+      };
+
+      await import('../../setup-jest.mjs');
+
+      expect(mockEsmZoneJs).toHaveBeenCalled();
+      assertOnInitTestEnv();
+      expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        teardown: {
+          destroyAfterEach: false,
+          rethrowErrors: true,
+        },
+        errorOnUnknownElements: true,
+        errorOnUnknownProperties: true,
       });
     });
   });
