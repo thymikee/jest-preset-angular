@@ -13,6 +13,7 @@
   "prConcurrentLimit": 2,
   "semanticCommits": "enabled",
   "commitMessagePrefix": "build(deps):",
+  "postUpdateOptions": ["yarnDedupeHighest"],
   "ignoreDeps": [
     "@mdx-js/react",
     "@types/react",
