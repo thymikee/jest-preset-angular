@@ -6,6 +6,6 @@ const globalSetup = async () => {
   if (!ngJestConfig?.skipNgcc) {
     runNgccJestProcessor(tsconfig);
   }
-}
+};
 
 export default globalSetup;
