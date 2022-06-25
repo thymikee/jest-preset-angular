@@ -66,4 +66,4 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
   To remove such specific attributes use `no-ng-attributes` serializer. You need to add `no-ng-attributes` serializer manually.
 - `"testEnvironment"` – the test environment to run on.
 - `"transformIgnorePatterns"`: instruct Jest to transform any `.mjs` files which come from `node_modules`.
-- `"transform"` – run every `TS`, `JS`, `MJS`, or `HTML` file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
+- `"transform"` – run every `TS`, `JS`, `MJS`, `HTML`, or `SVG` file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
