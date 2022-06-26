@@ -1,1 +1,1 @@
-module.exports = require('./build/config/global-setup');
+module.exports = require('./build/config/global-setup').globalSetup;

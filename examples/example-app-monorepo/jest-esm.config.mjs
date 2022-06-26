@@ -5,7 +5,7 @@ globalThis.ngJest = {
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 const jestConfig = {
-  globalSetup: 'jest-preset-angular/global-setup',
+  globalSetup: 'jest-preset-angular/global-setup.mjs',
   projects: ['<rootDir>/apps/app1/jest-esm.config.mjs', '<rootDir>/libs/user/jest-esm.config.mjs'],
 };
 
