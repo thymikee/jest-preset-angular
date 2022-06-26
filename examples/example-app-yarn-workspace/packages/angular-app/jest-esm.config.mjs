@@ -14,7 +14,7 @@ const jestConfig = {
       tsconfig: '<rootDir>/tsconfig-esm.spec.json',
     },
   },
-  globalSetup: 'jest-preset-angular/global-setup',
+  globalSetup: 'jest-preset-angular/global-setup.mjs',
   moduleNameMapper: {
     tslib: 'tslib/tslib.es6.js',
     rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',

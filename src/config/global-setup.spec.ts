@@ -1,4 +1,4 @@
-import globalSetup from './global-setup';
+import { globalSetup } from './global-setup';
 
 jest.mock('../utils/ngcc-jest-processor', () => {
   return {

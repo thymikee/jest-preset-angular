@@ -35,13 +35,20 @@ const executeTest = (projectPath) => {
   logger.log('installing bundled version of jest-preset-angular');
   logger.log();
 
-  ['build', 'presets', 'global-setup.js', 'jest-preset.js', 'package.json', 'setup-jest.js', 'setup-jest.mjs'].forEach(
-    (asset) => {
-      const assetToReplace = join(projectPath, 'node_modules', 'jest-preset-angular', asset);
-      const assetToCopy = join(rootDir, asset);
-      copySync(assetToCopy, assetToReplace, {});
-    }
-  );
+  [
+    'build',
+    'presets',
+    'global-setup.js',
+    'global-setup.mjs',
+    'jest-preset.js',
+    'package.json',
+    'setup-jest.js',
+    'setup-jest.mjs',
+  ].forEach((asset) => {
+    const assetToReplace = join(projectPath, 'node_modules', 'jest-preset-angular', asset);
+    const assetToCopy = join(rootDir, asset);
+    copySync(assetToCopy, assetToReplace, {});
+  });
 
   // then we can run the tests
   const cmdLine = ['yarn', 'test'];
