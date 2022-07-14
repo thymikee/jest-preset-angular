@@ -1,3 +1,18 @@
+# [12.2.0](https://github.com/thymikee/jest-preset-angular/compare/v12.1.0...v12.2.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* add esbuild check to fallback to WASM if needed ([#1619](https://github.com/thymikee/jest-preset-angular/issues/1619)) ([1ece767](https://github.com/thymikee/jest-preset-angular/commit/1ece7674231f5c422df4d2cae12ce3920a7346b9))
+
+
+### Features
+
+* add `global-setup.mjs` to use with Jest ESM mode ([#1661](https://github.com/thymikee/jest-preset-angular/issues/1661)) ([97a0ec8](https://github.com/thymikee/jest-preset-angular/commit/97a0ec8e0303b9c3014fce1ae8bdebbb07c32455))
+* allow configuring options `TestEnvironmentOptions` for setup test env ([#1657](https://github.com/thymikee/jest-preset-angular/issues/1657)) ([a64a4ac](https://github.com/thymikee/jest-preset-angular/commit/a64a4acb1248962e023165eb538e2f4f9954fbaa)), closes [#1656](https://github.com/thymikee/jest-preset-angular/issues/1656)
+
+
+
 # [12.1.0](https://github.com/thymikee/jest-preset-angular/compare/v12.0.1...v12.1.0) (2022-06-03)
 
 
