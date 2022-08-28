@@ -1,3 +1,12 @@
+## [12.2.1](https://github.com/thymikee/jest-preset-angular/compare/v12.2.0...v12.2.1) (2022-08-28)
+
+
+### Bug Fixes
+
+* **transformers:** adopt ts 4.8 changes for `replace-resource` ([#1739](https://github.com/thymikee/jest-preset-angular/issues/1739)) ([aea7205](https://github.com/thymikee/jest-preset-angular/commit/aea7205afb9622f2ba09a032505b8dbf5c7105c1)), closes [#1732](https://github.com/thymikee/jest-preset-angular/issues/1732)
+
+
+
 # [12.2.0](https://github.com/thymikee/jest-preset-angular/compare/v12.1.0...v12.2.0) (2022-07-14)
 
 
