@@ -10,6 +10,20 @@ import ts from 'typescript';
 
 import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT } from '../constants';
 
+const isAfterVersion = (targetMajor: number, targetMinor: number): boolean => {
+  const [major, minor] = ts.versionMajorMinor.split('.').map((part) => parseInt(part));
+
+  if (major < targetMajor) {
+    return false;
+  } else if (major > targetMajor) {
+    return true;
+  } else {
+    return minor >= targetMinor;
+  }
+};
+
+const IS_TS_48 = isAfterVersion(4, 8);
+
 const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
 /**
  * Source https://github.com/angular/angular-cli/blob/master/packages/ngtools/webpack/src/transformers/replace_resources.ts
@@ -52,21 +66,7 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
 
     const visitNode: ts.Visitor = (node: ts.Node) => {
       if (ts.isClassDeclaration(node)) {
-        const decorators = ts.visitNodes(node.decorators, (node) =>
-          ts.isDecorator(node)
-            ? visitDecorator(nodeFactory, node, typeChecker, resourceImportDeclarations, moduleKind)
-            : node,
-        );
-
-        return nodeFactory.updateClassDeclaration(
-          node,
-          decorators,
-          node.modifiers,
-          node.name,
-          node.typeParameters,
-          node.heritageClauses,
-          node.members,
-        );
+        return visitClassDeclaration(nodeFactory, typeChecker, node, resourceImportDeclarations, moduleKind);
       }
 
       return ts.visitEachChild(node, visitNode, context);
@@ -92,6 +92,59 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
       return updatedSourceFile;
     };
   };
+}
+
+function visitClassDeclaration(
+  nodeFactory: ts.NodeFactory,
+  typeChecker: ts.TypeChecker,
+  node: ts.ClassDeclaration,
+  resourceImportDeclarations: ts.ImportDeclaration[],
+  moduleKind: ts.ModuleKind | undefined,
+): ts.ClassDeclaration {
+  let decorators: ts.Decorator[] | undefined;
+  let modifiers: ts.Modifier[] | undefined;
+
+  if (IS_TS_48) {
+    node.modifiers?.forEach((modifier) => {
+      if (ts.isDecorator(modifier)) {
+        decorators ??= [];
+        decorators.push(modifier);
+      } else {
+        modifiers = modifiers ??= [];
+        modifiers.push(modifier);
+      }
+    });
+  } else {
+    decorators = node.decorators as unknown as ts.Decorator[];
+    modifiers = node.modifiers as unknown as ts.Modifier[];
+  }
+
+  if (!decorators || !decorators.length) {
+    return node;
+  }
+
+  decorators = decorators.map((current) =>
+    visitDecorator(nodeFactory, current, typeChecker, resourceImportDeclarations, moduleKind),
+  );
+
+  return IS_TS_48
+    ? nodeFactory.updateClassDeclaration(
+        node,
+        [...decorators, ...(modifiers ?? [])],
+        node.name,
+        node.typeParameters,
+        node.heritageClauses,
+        node.members,
+      )
+    : nodeFactory.updateClassDeclaration(
+        node,
+        decorators,
+        modifiers,
+        node.name,
+        node.typeParameters,
+        node.heritageClauses,
+        node.members,
+      );
 }
 
 function visitDecorator(
