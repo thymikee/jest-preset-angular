@@ -33,7 +33,7 @@ module.exports = {
         ],
         '@typescript-eslint/comma-spacing': 'error',
         '@typescript-eslint/no-redeclare': 'error',
-        '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+        '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/prefer-ts-expect-error': 'error',
         'import/order': [
           'error',
