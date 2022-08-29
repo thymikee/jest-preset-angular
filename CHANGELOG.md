@@ -1,3 +1,12 @@
+## [12.2.2](https://github.com/thymikee/jest-preset-angular/compare/v12.2.1...v12.2.2) (2022-08-29)
+
+
+### Bug Fixes
+
+* include `ts_compatibility/src` when publishing the package ([#1747](https://github.com/thymikee/jest-preset-angular/issues/1747)) ([26f021f](https://github.com/thymikee/jest-preset-angular/commit/26f021f65777661db83692115cb7976c656f1503)), closes [#1743](https://github.com/thymikee/jest-preset-angular/issues/1743)
+
+
+
 ## [12.2.1](https://github.com/thymikee/jest-preset-angular/compare/v12.2.0...v12.2.1) (2022-08-28)
 
 
