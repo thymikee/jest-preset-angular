@@ -68,7 +68,7 @@ Adjust your `tsconfig.spec.json` to be:
 #### Global mocks
 
 `jest-preset-angular` uses `JSDOM` which is different from normal browsers. You might need some global browser mocks to
-stimulate the behaviors of real browsers in `JSDOM`. To add global mocks, you can do the following:
+simulate the behaviors of real browsers in `JSDOM`. To add global mocks, you can do the following:
 
 - Create a file `jest-global-mocks.ts` to your root project.
 - Import it in your global setup file:
