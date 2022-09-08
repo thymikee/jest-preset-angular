@@ -22,24 +22,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1402.1":
-  version: 0.1402.1
-  resolution: "@angular-devkit/architect@npm:0.1402.1"
+"@angular-devkit/architect@npm:0.1402.2":
+  version: 0.1402.2
+  resolution: "@angular-devkit/architect@npm:0.1402.2"
   dependencies:
-    "@angular-devkit/core": 14.2.1
+    "@angular-devkit/core": 14.2.2
     rxjs: 6.6.7
-  checksum: 8338710b57ea761695cb77996053d948f76fd2dd4b6a68499a473ad554ec483df1fd2c690c7d2abcf95c60a51f666e15a70cc1e6edd8270104c90a64c57c5ee7
+  checksum: a014bbd941582ad4a263b9d8870accef78c5e26528ba3f7a760c860dbb4ba6b66216361f562da591b579662f2710fb5810d748610aa17b7b4c17f4caa08794e3
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-angular@npm:^14.2.1":
-  version: 14.2.1
-  resolution: "@angular-devkit/build-angular@npm:14.2.1"
+"@angular-devkit/build-angular@npm:^14.2.2":
+  version: 14.2.2
+  resolution: "@angular-devkit/build-angular@npm:14.2.2"
   dependencies:
     "@ampproject/remapping": 2.2.0
-    "@angular-devkit/architect": 0.1402.1
-    "@angular-devkit/build-webpack": 0.1402.1
-    "@angular-devkit/core": 14.2.1
+    "@angular-devkit/architect": 0.1402.2
+    "@angular-devkit/build-webpack": 0.1402.2
+    "@angular-devkit/core": 14.2.2
     "@babel/core": 7.18.10
     "@babel/generator": 7.18.12
     "@babel/helper-annotate-as-pure": 7.18.6
@@ -50,7 +50,7 @@ __metadata:
     "@babel/runtime": 7.18.9
     "@babel/template": 7.18.10
     "@discoveryjs/json-ext": 0.5.7
-    "@ngtools/webpack": 14.2.1
+    "@ngtools/webpack": 14.2.2
     ansi-colors: 4.1.3
     babel-loader: 8.2.5
     babel-plugin-istanbul: 6.1.1
@@ -77,7 +77,7 @@ __metadata:
     parse5-html-rewriting-stream: 6.0.1
     piscina: 3.2.0
     postcss: 8.4.16
-    postcss-import: 14.1.0
+    postcss-import: 15.0.0
     postcss-loader: 7.0.1
     postcss-preset-env: 7.8.0
     regenerator-runtime: 0.13.9
@@ -96,7 +96,7 @@ __metadata:
     tslib: 2.4.0
     webpack: 5.74.0
     webpack-dev-middleware: 5.3.3
-    webpack-dev-server: 4.10.0
+    webpack-dev-server: 4.11.0
     webpack-merge: 5.8.0
     webpack-subresource-integrity: 5.1.0
   peerDependencies:
@@ -124,26 +124,26 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 6b1fb478fc3ad890f15458f70d30b396e9aaa20ac0e015dc17713bfcc69218b959d03bae711a63ad063b1df34d50cf8f077d32d21d4b1b6f1635415a3734cb92
+  checksum: 3829654f52b26bc7bd5c753f867a0b24d649e0b650c24cd6ff0ecbfc0708bab8403c64ece40a349147d2104dd21472ac71e7cf7b8e58e1622f430fab99701086
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-webpack@npm:0.1402.1":
-  version: 0.1402.1
-  resolution: "@angular-devkit/build-webpack@npm:0.1402.1"
+"@angular-devkit/build-webpack@npm:0.1402.2":
+  version: 0.1402.2
+  resolution: "@angular-devkit/build-webpack@npm:0.1402.2"
   dependencies:
-    "@angular-devkit/architect": 0.1402.1
+    "@angular-devkit/architect": 0.1402.2
     rxjs: 6.6.7
   peerDependencies:
     webpack: ^5.30.0
     webpack-dev-server: ^4.0.0
-  checksum: b57c17b14f85bd48c1ae7637a5d576211dcfab90f4dec068258d95a4b09bc6db88bb02a9c6ad17d257726cd9477839b18537e8a0200d5e2d51f5bd7d60c1ca15
+  checksum: fb97fa5eceb043cefce63ee4a8a598496002506c05423437914b721c41e78408750d28b42b9dc1d4594c1c599ea5c28b7be1903b8a3041c46c1e9dd1f2d7575c
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:14.2.1":
-  version: 14.2.1
-  resolution: "@angular-devkit/core@npm:14.2.1"
+"@angular-devkit/core@npm:14.2.2":
+  version: 14.2.2
+  resolution: "@angular-devkit/core@npm:14.2.2"
   dependencies:
     ajv: 8.11.0
     ajv-formats: 2.1.1
@@ -155,7 +155,7 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 67a4c57a6e51bbb7151fa57d5d27e2360dea55b125343ff79939fc7c15dc88b6d027303f98024c3bef3a994a901212ddb2f3d6fd6f6433760e1b7bb504f0648f
+  checksum: 63a38df8a6983eb07933cd4b05ebbdc0f7690ab88ebcb739c15931d048083d84527316d03f81aa37ae2ae601790d789fc4da7a764f11be27ab7edb79cf7528e6
   languageName: node
   linkType: hard
 
@@ -2367,14 +2367,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngtools/webpack@npm:14.2.1":
-  version: 14.2.1
-  resolution: "@ngtools/webpack@npm:14.2.1"
+"@ngtools/webpack@npm:14.2.2":
+  version: 14.2.2
+  resolution: "@ngtools/webpack@npm:14.2.2"
   peerDependencies:
     "@angular/compiler-cli": ^14.0.0
     typescript: ">=4.6.2 <4.9"
     webpack: ^5.54.0
-  checksum: 6adf3ac922bc411ba82f7ded4c2bcdd2162b72570e78169ee39e694daac6b8c5b1c9968f888de159f534a6269dd787ef4dabd85627f5ac39b0f0a844a7d44487
+  checksum: fce1268f3686ed1f974161bed3662915a98a90c75b7bc8fb166fea346794351ef92bc5bb3cb95714f9d235beaa1b14c8856d4ca8d7eac431d30918a96d404df8
   languageName: node
   linkType: hard
 
@@ -7375,7 +7375,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jest-preset-angular@workspace:."
   dependencies:
-    "@angular-devkit/build-angular": ^14.2.1
+    "@angular-devkit/build-angular": ^14.2.2
     "@angular/animations": ^14.2.1
     "@angular/common": ^14.2.1
     "@angular/compiler": ^14.2.1
@@ -9283,16 +9283,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-import@npm:14.1.0":
-  version: 14.1.0
-  resolution: "postcss-import@npm:14.1.0"
+"postcss-import@npm:15.0.0":
+  version: 15.0.0
+  resolution: "postcss-import@npm:15.0.0"
   dependencies:
     postcss-value-parser: ^4.0.0
     read-cache: ^1.0.0
     resolve: ^1.1.7
   peerDependencies:
     postcss: ^8.0.0
-  checksum: cd45d406e90f67cdab9524352e573cc6b4462b790934a05954e929a6653ebd31288ceebc8ce3c3ed7117ae672d9ebbec57df0bceec0a56e9b259c2e71d47ca86
+  checksum: e5048072514f33520348c0c5aaedb5db92da72188e72a7367c26a8d851b9cf92e56aeda30d9c7b4ed1a34f84a58959da1b4b27b4aa23d41fc0ce36efe00bf1d1
   languageName: node
   linkType: hard
 
@@ -11488,9 +11488,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-server@npm:4.10.0":
-  version: 4.10.0
-  resolution: "webpack-dev-server@npm:4.10.0"
+"webpack-dev-server@npm:4.11.0":
+  version: 4.11.0
+  resolution: "webpack-dev-server@npm:4.11.0"
   dependencies:
     "@types/bonjour": ^3.5.9
     "@types/connect-history-api-fallback": ^1.3.5
@@ -11528,7 +11528,7 @@ __metadata:
       optional: true
   bin:
     webpack-dev-server: bin/webpack-dev-server.js
-  checksum: ef9efac45e97cd3f258ab453039ff75423451e2cf5ee98e8cecbac24c33e5c9e1024ef1a3bca0ba12533a1d5fc0601015addef489cdb68fa8f5f2570d2220983
+  checksum: b2c7e9810138d0c6fa670a890410a74b29d4dd23d428e92e61e0233c542689f57caf9b31c031fbcc772170b6710b0752e81fa9cbc41ac0deefdc32d5749ce08d
   languageName: node
   linkType: hard
 
