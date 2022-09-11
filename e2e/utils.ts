@@ -1,14 +1,13 @@
 import path from 'path';
 
-import type { Config } from '@jest/types';
-import { ExecaReturnValue, sync as spawnSync } from 'execa';
+import { type ExecaReturnValue, sync as spawnSync } from 'execa';
 import * as fs from 'graceful-fs';
 
 interface RunResult extends ExecaReturnValue {
   status: number;
   error: Error;
 }
-export const run = (cmd: string, cwd?: Config.Path, env?: Record<string, string>): RunResult => {
+export const run = (cmd: string, cwd?: string, env?: Record<string, string>): RunResult => {
   const args = cmd.split(/\s/).slice(1);
   const spawnOptions = { cwd, env, preferLocal: false, reject: false };
   const result = spawnSync(cmd.split(/\s/)[0], args, spawnOptions) as RunResult;
@@ -30,7 +29,7 @@ export const run = (cmd: string, cwd?: Config.Path, env?: Record<string, string>
   return result;
 };
 
-export const runYarnInstall = (cwd: Config.Path, env?: Record<string, string>): RunResult => {
+export const runYarnInstall = (cwd: string, env?: Record<string, string>): RunResult => {
   const lockfilePath = path.resolve(cwd, 'yarn.lock');
 
   // If the lockfile doesn't exist, yarn's project detection is confused. Just creating an empty file works

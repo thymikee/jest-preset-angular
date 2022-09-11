@@ -148,7 +148,7 @@ describe('HeroDetailComponent', () => {
     it("cannot use `inject` to get component's provided HeroDetailService", () => {
       let service: HeroDetailService;
       fixture = TestBed.createComponent(HeroDetailComponent);
-      expect(inject([HeroDetailService], (hds: HeroDetailService) => (service = hds))).toThrowError(
+      expect(inject([HeroDetailService], (hds: HeroDetailService) => (service = hds))).toThrow(
         /No provider for HeroDetailService/,
       );
 
@@ -332,11 +332,11 @@ class Page {
   }
 
   gotoListSpy: ReturnType<typeof jest.spyOn>;
-  navigateSpy: jest.SpyInstance;
+  navigateSpy: ReturnType<typeof jest.spyOn>;
 
   constructor(someFixture: ComponentFixture<HeroDetailComponent>) {
     const routerSpy = someFixture.debugElement.injector.get(Router) as unknown as {
-      navigate: jest.SpyInstance;
+      navigate: ReturnType<typeof jest.spyOn>;
     };
     this.navigateSpy = routerSpy.navigate;
 

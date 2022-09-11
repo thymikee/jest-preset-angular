@@ -5,7 +5,7 @@ exports[`Jest presets should have the correct types which come from \`ts-jest\` 
   defaults: {
     transformIgnorePatterns: string[];
     transform: {
-      '^.+\\\\\\\\.(ts|js|mjs|html|svg)$': string;
+      '^.+\\\\.(ts|js|mjs|html|svg)$': string;
     };
     globals: import('ts-jest').GlobalConfigTsJest;
     testEnvironment: string;
@@ -38,7 +38,7 @@ exports[`Jest presets should have the correct types which come from \`ts-jest\` 
       tslib: string;
     };
     transform: {
-      '^.+\\\\\\\\.(ts|js|html|svg)$': string;
+      '^.+\\\\.(ts|js|html|svg)$': string;
     };
     transformIgnorePatterns: string[];
     testEnvironment: string;
@@ -51,67 +51,67 @@ export default _default;
 `;
 
 exports[`Jest presets should return the correct jest config 1`] = `
-Object {
-  "globals": Object {
-    "ts-jest": Object {
-      "stringifyContentPathRegex": "\\\\.(html|svg)$",
+{
+  "globals": {
+    "ts-jest": {
+      "stringifyContentPathRegex": "\\.(html|svg)$",
       "tsconfig": "<rootDir>/tsconfig.spec.json",
     },
   },
-  "moduleFileExtensions": Array [
+  "moduleFileExtensions": [
     "ts",
     "html",
     "js",
     "json",
     "mjs",
   ],
-  "snapshotSerializers": Array [
+  "snapshotSerializers": [
     "jest-preset-angular/build/serializers/html-comment",
     "jest-preset-angular/build/serializers/ng-snapshot",
     "jest-preset-angular/build/serializers/no-ng-attributes",
   ],
   "testEnvironment": "jsdom",
-  "transform": Object {
-    "^.+\\\\.(ts|js|mjs|html|svg)$": "jest-preset-angular",
+  "transform": {
+    "^.+\\.(ts|js|mjs|html|svg)$": "jest-preset-angular",
   },
-  "transformIgnorePatterns": Array [
-    "node_modules/(?!.*\\\\.mjs$)",
+  "transformIgnorePatterns": [
+    "node_modules/(?!.*\\.mjs$)",
   ],
 }
 `;
 
 exports[`Jest presets should return the correct jest config 2`] = `
-Object {
-  "extensionsToTreatAsEsm": Array [
+{
+  "extensionsToTreatAsEsm": [
     ".ts",
   ],
-  "globals": Object {
-    "ts-jest": Object {
-      "stringifyContentPathRegex": "\\\\.(html|svg)$",
+  "globals": {
+    "ts-jest": {
+      "stringifyContentPathRegex": "\\.(html|svg)$",
       "tsconfig": "<rootDir>/tsconfig.spec.json",
       "useESM": true,
     },
   },
-  "moduleFileExtensions": Array [
+  "moduleFileExtensions": [
     "ts",
     "html",
     "js",
     "json",
     "mjs",
   ],
-  "moduleNameMapper": Object {
+  "moduleNameMapper": {
     "tslib": "tslib/tslib.es6.js",
   },
-  "snapshotSerializers": Array [
+  "snapshotSerializers": [
     "jest-preset-angular/build/serializers/html-comment",
     "jest-preset-angular/build/serializers/ng-snapshot",
     "jest-preset-angular/build/serializers/no-ng-attributes",
   ],
   "testEnvironment": "jsdom",
-  "transform": Object {
-    "^.+\\\\.(ts|js|html|svg)$": "jest-preset-angular",
+  "transform": {
+    "^.+\\.(ts|js|html|svg)$": "jest-preset-angular",
   },
-  "transformIgnorePatterns": Array [
+  "transformIgnorePatterns": [
     "node_modules/(?!tslib)",
   ],
 }
