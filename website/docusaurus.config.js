@@ -83,6 +83,8 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/thymikee/jest-preset-angular/edit/main/website',
           remarkPlugins: [
