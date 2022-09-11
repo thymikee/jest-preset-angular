@@ -25,10 +25,9 @@ import 'jest-preset-angular/setup-jest.mjs';
 
 #### Manual configuration
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
-  // [...]
+  //...
   extensionsToTreatAsEsm: ['.ts'],
   globals: {
     'ts-jest': {
@@ -40,10 +39,27 @@ module.exports = {
 };
 ```
 
-```json
-// OR package.json
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //...
+  extensionsToTreatAsEsm: ['.ts'],
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$',
+      useESM: true,
+    },
+  },
+};
+
+export default jestConfig;
+```
+
+```JSON tab
 {
-  // [...]
+  //...
   "jest": {
     "extensionsToTreatAsEsm": [".ts"],
     "globals": {
@@ -70,18 +86,28 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 
 :::
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
-  // [...]
+  //...
   preset: 'jest-preset-angular/presets/defaults-esm',
 };
 ```
 
-```json
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig = {
+  //...
+  preset: 'jest-preset-angular/presets/defaults-esm',
+};
+
+export default jestConfig;
+```
+
+```JSON tab
 // OR package.json
 {
-  // [...]
+  //...
   "jest": {
     "preset": "jest-preset-angular/presets/defaults-esm"
   }

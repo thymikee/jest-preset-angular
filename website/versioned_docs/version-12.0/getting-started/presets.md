@@ -17,8 +17,7 @@ title: Presets
 In most cases, simply setting the `preset` key to the desired preset name in your Jest config should be enough to start
 using TypeScript with Jest (assuming you added `jest-preset-angular` to your `devDependencies` of course):
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
   // [...]
   // Replace `jest-preset-angular` with the preset you want to use
@@ -27,10 +26,22 @@ module.exports = {
 };
 ```
 
-```json
-// OR package.json
-{
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
   // [...]
+  // Replace `jest-preset-angular` with the preset you want to use
+  // from the above list
+  preset: 'jest-preset-angular',
+};
+
+export default jestConfig;
+```
+
+```JSON tab
+{
+  //...
   "jest": {
     // Replace `jest-preset-angular` with the preset you want to use
     // from the above list
@@ -53,8 +64,7 @@ errors.
 
 :::
 
-```js
-// jest.config.js
+```js tab
 const { defaults: jestNgPreset } = require('jest-preset-angular/presets');
 // const { defaultsESM: jestNgPreset } = require('jest-preset-angular/presets')
 
@@ -69,23 +79,19 @@ module.exports = {
 };
 ```
 
-Or through TypeScript (if `ts-node` is installed):
+```ts tab
+import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-```ts
-// jest.config.ts
-import type { InitialOptionsTsJest } from 'ts-jest/dist/types';
-import { defaults as jestNgPreset } from 'jest-preset-angular/presets';
-// import { defaultsESM as jestNgPreset } from 'jest-preset-angular/presets'
-
-const config: InitialOptionsTsJest = {
+const jestConfig: Config = {
   // [...]
   globals: {
     'ts-jest': {
-      ...jestNgPreset.globals['ts-jest'],
+      ...presets.defaults.globals['ts-jest'],
       // [...your overriden options]
     },
   },
 };
 
-export default config;
+export default jestConfig;
 ```

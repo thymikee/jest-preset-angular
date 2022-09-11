@@ -13,13 +13,32 @@ More information about `ts-jest` options, see https://kulshekhar.github.io/ts-je
 Since **v9.0.0**, `jest-preset-angular` default Jest configuration no longer provides `moduleNameMapper`. If you wish to reuse
 the old `moduleNameMapper` configuration, you can put this into your Jest config.
 
+```js tab
+module.exports = {
+  //...
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+    '^assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^environments/(.*)$': '<rootDir>/src/environments/$1',
+  },
+};
 ```
-moduleNameMapper: {
-  '^src/(.*)$': '<rootDir>/src/$1',
-  '^app/(.*)$': '<rootDir>/src/app/$1',
-  '^assets/(.*)$': '<rootDir>/src/assets/$1',
-  '^environments/(.*)$': '<rootDir>/src/environments/$1',
-}
+
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //...
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+    '^assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^environments/(.*)$': '<rootDir>/src/environments/$1',
+  },
+};
+
+export default jestConfig;
 ```
 
 ### Processing with esbuild
@@ -27,8 +46,7 @@ moduleNameMapper: {
 Since **v11.0.0**, `jest-preset-angular` introduced the usage of `esbuild` to process files besides TypeScript API. By default, all `.mjs` files
 will be processed by `esbuild` in `jest-preset-angular`. To configure extra files to process with `esbuild`, one can do the following:
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
   //...
   globals: {
@@ -39,11 +57,26 @@ module.exports = {
 }
 ```
 
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //...
+  globals: {
+    ngJest: {
+      processWithEsbuild: [<glob_to_files>],
+    },
+  },
+}
+
+export default jestConfig;
+```
+
 :::
 
 ### Exposed configuration
 
-```js
+```js tab
 const snapshotSerializers = require('../build/serializers');
 
 module.exports = {
@@ -62,6 +95,30 @@ module.exports = {
     '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
   },
 };
+```
+
+```ts tab
+import type { Config } from 'jest';
+import snapshotSerializers from 'jest-preset-angular/build/serializers';
+
+const jestConfig: Config = {
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.(html|svg)$',
+    },
+  },
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
+  snapshotSerializers,
+  testEnvironment: 'jsdom',
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+  },
+};
+
+export default jestConfig;
 ```
 
 :::important

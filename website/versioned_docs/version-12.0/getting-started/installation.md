@@ -31,8 +31,7 @@ Add the following section:
 
 - to your root `jest.config.js`
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
@@ -40,9 +39,19 @@ module.exports = {
 };
 ```
 
-- or to your root `package.json`
+```ts tab
+import type { Config } from 'jest';
 
-```json
+const jestConfig: Config = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  globalSetup: 'jest-preset-angular/global-setup',
+};
+
+export default jestConfig;
+```
+
+```JSON tab
 {
   "jest": {
     "preset": "jest-preset-angular",
