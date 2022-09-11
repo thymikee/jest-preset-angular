@@ -2075,6 +2075,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/remark-plugin-npm2yarn@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@docusaurus/remark-plugin-npm2yarn@npm:2.1.0"
+  dependencies:
+    npm-to-yarn: ^1.0.1
+    tslib: ^2.4.0
+    unist-util-visit: ^2.0.3
+  checksum: eac6a9a6164f812cf8a5d6bb8f8d3807e0b2d203d66ca9615cffae0c7f819b61e8295d653d77d0deac29371c1c7ee4e45209c161ff1bdb8d2de2d523abc212d7
+  languageName: node
+  linkType: hard
+
 "@docusaurus/responsive-loader@npm:^1.7.0":
   version: 1.7.0
   resolution: "@docusaurus/responsive-loader@npm:1.7.0"
@@ -5049,6 +5060,16 @@ __metadata:
   dependencies:
     "@leichtgewicht/ip-codec": ^2.0.1
   checksum: 196ff74a0669126cf5fc901a5849b72f625bd7a4cb163b3f4d41fbe19ed0b017cf7674daef5b0acbd448c094fcd795e501d7066f301be428e4acecfcf3c5f336
+  languageName: node
+  linkType: hard
+
+"docusaurus-remark-plugin-tab-blocks@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "docusaurus-remark-plugin-tab-blocks@npm:1.2.0"
+  dependencies:
+    unist-util-is: ^4.0.0
+    unist-util-visit: ^2.0.0
+  checksum: f4354046a61dee9d5e43a95ce356c1dfc276a7790e57db5c1c50564e72c8fbd4d0696f8b09c2b8bc1d465873a7637d6868aff7dfa694f65e1f1cad7adbfcfd68
   languageName: node
   linkType: hard
 
@@ -8154,6 +8175,13 @@ __metadata:
   dependencies:
     path-key: ^3.0.0
   checksum: 5374c0cea4b0bbfdfae62da7bbdf1e1558d338335f4cacf2515c282ff358ff27b2ecb91ffa5330a8b14390ac66a1e146e10700440c1ab868208430f56b5f4d23
+  languageName: node
+  linkType: hard
+
+"npm-to-yarn@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "npm-to-yarn@npm:1.0.1"
+  checksum: b34958ddfc7a5e4ce3012f1bdf60d448c2a5027e10b733aad0462fbd0de0354b8cd27abde8b36691f9fc970660f48bbec86516ec4e07c36be63375ee9e1d37d9
   languageName: node
   linkType: hard
 
@@ -11660,10 +11688,12 @@ __metadata:
     "@docusaurus/plugin-ideal-image": ^2.1.0
     "@docusaurus/plugin-pwa": ^2.1.0
     "@docusaurus/preset-classic": ^2.1.0
+    "@docusaurus/remark-plugin-npm2yarn": ^2.1.0
     "@mdx-js/react": ^1.6.22
     "@tsconfig/docusaurus": ^1.0.6
     "@types/react": ^16.14.26
     clsx: ^1.2.1
+    docusaurus-remark-plugin-tab-blocks: ^1.2.0
     latest-version: ^7.0.0
     react: ^16.14.0
     react-dom: ^16.14.0

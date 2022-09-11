@@ -85,6 +85,10 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/thymikee/jest-preset-angular/edit/main/website',
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+            require('docusaurus-remark-plugin-tab-blocks'),
+          ]
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

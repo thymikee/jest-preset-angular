@@ -11,17 +11,25 @@ with Ivy compiler.
 
 - to your root `jest.config.js`
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
-  // [...]
+  //...
   globalSetup: 'jest-preset-angular/global-setup',
 };
 ```
 
-- or to your root `package.json`
+```ts tab
+import type { Config } from 'jest';
 
-```json
+const jestConfig: Config = {
+  //...
+  globalSetup: 'jest-preset-angular/global-setup',
+};
+
+export default jestConfig;
+```
+
+```JSON tab
 {
   "jest": {
     "globalSetup": "jest-preset-angular/global-setup"
@@ -33,15 +41,30 @@ module.exports = {
 
 Since **v12.0.0**, `jest-preset-angular` provide a possibility to skip `ngcc` via `globalThis` by doing the following
 
-```js
-// jest.config.js
+```js tab
 globalThis.ngJest = {
   skipNgcc: true,
   tsconfig: 'tsconfig.spec.json', // this is the project root tsconfig
 };
 
 module.exports = {
-  // [...]
+  //...
   globalSetup: 'jest-preset-angular/global-setup',
 };
+```
+
+```ts tab
+import type { Config } from 'jest';
+
+globalThis.ngJest = {
+  skipNgcc: true,
+  tsconfig: 'tsconfig.spec.json', // this is the project root tsconfig
+};
+
+const jestConfig: Config = {
+  //...
+  globalSetup: 'jest-preset-angular/global-setup',
+};
+
+export default jestConfig;
 ```

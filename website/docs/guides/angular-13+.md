@@ -27,11 +27,20 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 - If one is using the default preset as following:
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
   preset: 'jest-preset-angular',
 };
+```
+
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  preset: 'jest-preset-angular',
+};
+
+export default jestConfig;
 ```
 
 there are no migration steps required
@@ -42,7 +51,7 @@ ES Modules support is new and may encounter issues. See [example-app-v13](https:
 
 Your `jest.config.js` should be changed to something like:
 
-```js
+```js tab
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { paths } = require('./tsconfig.json').compilerOptions;
 
@@ -62,6 +71,30 @@ module.exports = {
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };
+```
+
+```ts tab
+import type { Config } from 'jest';
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { compilerOptions } from './tsconfig.json';
+
+const jestConfig: Config = {
+  preset: 'jest-preset-angular/presets/defaults-esm',
+  globals: {
+    'ts-jest': {
+      useESM: true,
+      stringifyContentPathRegex: '\\.(html|svg)$',
+      tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+    },
+  },
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
+    tslib: 'tslib/tslib.es6.js',
+  },
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+};
+
+export default jestConfig;
 ```
 
 Before upgrading to ng13 and switching to ES Modules, your `setup-jest.ts` file most likely uses the preset `setup-jest`, like the following:
@@ -88,12 +121,22 @@ Cannot find module '@angular/common/locales/xx' from 'src/app/app.component.spec
 
 To fix this issue, one needs to add `mjs` to `moduleFileExtensions` as following
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
   // ...other options
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
 };
+```
+
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  // ...other options
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+};
+
+export default jestConfig;
 ```
 
 ### Usage with Angular libraries which are built with Angular CLI 13
@@ -104,10 +147,20 @@ libraries in Jest **CommonJS** mode.
 
 To fix this issue, one should modify `transformIgnorePatterns` to be as following:
 
-```js
-// jest.config.js
+```js tab
 module.exports = {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
 };
+```
+
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  // ...other options
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+};
+
+export default jestConfig;
 ```

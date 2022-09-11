@@ -1,4 +1,4 @@
-import { type TsJestAstTransformer, TsCompiler, ConfigSet } from 'ts-jest';
+import { type TsJestAstTransformer, TsCompiler, type ConfigSet } from 'ts-jest';
 import type * as ts from 'typescript';
 
 import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
