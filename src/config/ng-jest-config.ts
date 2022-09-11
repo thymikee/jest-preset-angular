@@ -1,7 +1,6 @@
 import type { Logger } from 'bs-logger';
 import { globsToMatcher } from 'jest-util';
-import type { ProjectConfigTsJest, RawCompilerOptions } from 'ts-jest';
-import { ConfigSet } from 'ts-jest/dist/legacy/config/config-set';
+import { type ProjectConfigTsJest, type RawCompilerOptions, ConfigSet } from 'ts-jest';
 import type { ParsedCommandLine } from 'typescript';
 
 /**
