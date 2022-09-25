@@ -33,12 +33,6 @@ export class NgJestConfig extends ConfigSet {
     result.options.enableResourceInlining = false;
     // Since we define preset default also transform `js` so we need to set `allowJs` true
     result.options.allowJs = true;
-    const ts = this.compilerModule;
-    const scriptTarget = result.options.target ?? ts.ScriptTarget?.ES2015;
-    if (scriptTarget > ts.ScriptTarget?.ES2016) {
-      // See https://github.com/angular/components/issues/21632#issuecomment-764975917
-      result.options.target = ts.ScriptTarget?.ES2015;
-    }
 
     return result;
   }

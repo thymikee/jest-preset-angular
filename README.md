@@ -76,6 +76,10 @@ Adjust your `tsconfig.spec.json` to be:
 }
 ```
 
+**IMPORTANT**
+
+Angular doesn't support native `async/await` in testing with `target` higher than `ES2016`, see https://github.com/angular/components/issues/21632#issuecomment-764975917
+
 ## Migration from Angular < 13
 
 Check out our [Migration from Angular < 13 guidance](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-13+)
