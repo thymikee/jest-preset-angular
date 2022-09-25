@@ -15,19 +15,4 @@ describe('NgJestConfig', () => {
     expect(compilerOptions.allowJs).toBe(true);
     expect(compilerOptions.target).toBe(ScriptTarget.ES2015);
   });
-
-  test('should set typescript target to ES2015 if user is using target higher than ES2016', () => {
-    expect(
-      new NgJestConfig({
-        globals: {
-          'ts-jest': {
-            tsconfig: {
-              target: 'ES2017',
-            },
-          },
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any).parsedTsConfig.options.target,
-    ).toBe(ScriptTarget.ES2015);
-  });
 });
