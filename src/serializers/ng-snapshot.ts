@@ -66,7 +66,7 @@ const print = (fixture: unknown, print: Printer, indent: Indent, opts: PluginOpt
       .map((node: VEDebugNode) => Array.from(node.renderElement.childNodes).map(print).join(''))
       .join(opts.edgeSpacing);
   }
-  const attributes = Object.keys(componentInstance);
+  const attributes = Object.keys(componentInstance).filter(key => key !== '__ngContext__');
   if (attributes.length) {
     componentAttrs += attributes
       .sort()
