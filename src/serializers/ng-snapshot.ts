@@ -38,6 +38,7 @@ interface PluginOptions {
 type Indent = (indentSpaces: string) => string;
 type Printer = (elementToSerialize: unknown) => string;
 
+const attributesToRemovePatterns = ['__ngContext'];
 const ivyEnabled = (): boolean => {
   // Should be required lazily, since it will throw an exception
   // `Cannot resolve parameters...`.
@@ -66,7 +67,7 @@ const print = (fixture: unknown, print: Printer, indent: Indent, opts: PluginOpt
       .map((node: VEDebugNode) => Array.from(node.renderElement.childNodes).map(print).join(''))
       .join(opts.edgeSpacing);
   }
-  const attributes = Object.keys(componentInstance).filter((key) => key !== '__ngContext__');
+  const attributes = Object.keys(componentInstance).filter((key) => !attributesToRemovePatterns.includes(key));
   if (attributes.length) {
     componentAttrs += attributes
       .sort()
