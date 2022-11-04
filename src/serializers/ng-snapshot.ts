@@ -38,7 +38,7 @@ interface PluginOptions {
 type Indent = (indentSpaces: string) => string;
 type Printer = (elementToSerialize: unknown) => string;
 
-const attributesToRemovePatterns = ['__ngContext'];
+const attributesToRemovePatterns = ['__ngContext__'];
 const ivyEnabled = (): boolean => {
   // Should be required lazily, since it will throw an exception
   // `Cannot resolve parameters...`.
