@@ -305,7 +305,7 @@ describe('demo (with TestBed):', () => {
       expect(inputEl.providerTokens).toContain(NgModel);
 
       const ngControl = inputEl.injector.get(NgControl);
-      expect(ngControl).toEqual(expect.any(NgControl));
+      expect(ngControl).toBeInstanceOf(NgControl);
 
       expect(inputEl.listeners.length).toBeGreaterThan(2);
     });
