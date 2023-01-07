@@ -1,10 +1,9 @@
 import { transformSync } from 'esbuild';
+import { TsJestTransformer } from 'ts-jest';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 import { NgJestTransformer } from './ng-jest-transformer';
-
-const tr = new NgJestTransformer();
 
 jest.mock('esbuild', () => {
   return {
@@ -17,7 +16,16 @@ jest.mock('esbuild', () => {
 const mockedTransformSync = jest.mocked(transformSync);
 
 describe('NgJestTransformer', () => {
+  beforeEach(() => {
+    // @ts-expect-error testing purpose
+    TsJestTransformer._cachedConfigSets = [];
+  });
+
   test('should create NgJestCompiler and NgJestConfig instances', () => {
+    const tr = new NgJestTransformer({
+      isolatedModules: true,
+    });
+
     // @ts-expect-error testing purpose
     const cs = tr._createConfigSet({
       cwd: process.cwd(),
@@ -35,6 +43,9 @@ describe('NgJestTransformer', () => {
   });
 
   test('should not use esbuild to process js files which are not from `node_modules`', () => {
+    const tr = new NgJestTransformer({
+      isolatedModules: true,
+    });
     tr.process(
       `
       const pi = parseFloat(3.124);
@@ -48,11 +59,6 @@ describe('NgJestTransformer', () => {
           extensionsToTreatAsEsm: [],
           testMatch: [],
           testRegex: [],
-          globals: {
-            'ts-jest': {
-              isolatedModules: true,
-            },
-          },
         },
       } as any, // eslint-disable-line @typescript-eslint/no-explicit-any,
     );
@@ -61,6 +67,9 @@ describe('NgJestTransformer', () => {
   });
 
   test('should not use esbuild to process tslib file', () => {
+    const tr = new NgJestTransformer({
+      isolatedModules: true,
+    });
     tr.process(
       `
       const pi = parseFloat(3.124);
@@ -74,11 +83,6 @@ describe('NgJestTransformer', () => {
           extensionsToTreatAsEsm: [],
           testMatch: [],
           testRegex: [],
-          globals: {
-            'ts-jest': {
-              isolatedModules: true,
-            },
-          },
         },
       } as any, // eslint-disable-line @typescript-eslint/no-explicit-any,
     );
@@ -109,15 +113,15 @@ describe('NgJestTransformer', () => {
         testMatch: [],
         testRegex: [],
         globals: {
-          'ts-jest': {
-            tsconfig,
-          },
           ngJest: {
             processWithEsbuild: ['node_modules/foo.js'],
           },
         },
       },
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    const tr = new NgJestTransformer({
+      tsconfig,
+    });
     tr.process(
       `
       const pi = parseFloat(3.124);
@@ -166,10 +170,6 @@ describe('NgJestTransformer', () => {
         testMatch: [],
         testRegex: [],
         globals: {
-          'ts-jest': {
-            tsconfig,
-            useESM: true,
-          },
           ngJest: {
             processWithEsbuild: ['node_modules/foo.js'],
           },
@@ -177,6 +177,10 @@ describe('NgJestTransformer', () => {
       },
       supportsStaticESM: true,
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    const tr = new NgJestTransformer({
+      tsconfig,
+      useESM: true,
+    });
     tr.process(
       `
       const pi = parseFloat(3.124);

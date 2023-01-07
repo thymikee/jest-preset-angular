@@ -1,14 +1,11 @@
 export default {
-  extensionsToTreatAsEsm: ['.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig-esm.spec.json',
+  extensionsToTreatAsEsm: [".ts"],
+  transform: {
+    "^.+\\.(ts|js)$": ["<rootDir>/../../build/index.js", {
+      tsconfig: "tsconfig-esm.spec.json",
       useESM: true,
       isolatedModules: true,
-    },
-  },
-  transform: {
-    '^.+\\.(ts|js)$': '<rootDir>/../../build/index.js',
+    }],
   },
   moduleNameMapper: {
     '@googlemaps/markerclusterer': '@googlemaps/markerclusterer/dist/index.esm.js',
