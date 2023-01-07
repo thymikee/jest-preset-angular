@@ -2,10 +2,14 @@ const baseCfg = require('./jest.config');
 
 module.exports = {
   ...baseCfg,
-  globals: {
-    'ts-jest': {
-      ...baseCfg.globals['ts-jest'],
-      isolatedModules: true,
-    },
+  transform: {
+    ...baseCfg.transform,
+    '^.+\\.(ts|mjs|js|html)$': [
+      '<rootDir>/../../build/index.js',
+      {
+        ...require('./ts-jest.config'),
+        isolatedModules: true,
+      },
+    ],
   },
 };

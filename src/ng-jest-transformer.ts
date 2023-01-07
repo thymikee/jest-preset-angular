@@ -3,6 +3,7 @@ import { spawnSync } from 'child_process';
 import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
 import { type ProjectConfigTsJest, type TransformOptionsTsJest, ConfigSet, TsJestTransformer } from 'ts-jest';
+import { TsJestGlobalOptions } from 'ts-jest/dist/types';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
@@ -16,8 +17,8 @@ export class NgJestTransformer extends TsJestTransformer {
   #ngJestLogger: Logger;
   #esbuildImpl: typeof import('esbuild');
 
-  constructor() {
-    super();
+  constructor(tsJestConfig?: TsJestGlobalOptions | undefined) {
+    super(tsJestConfig);
     this.#ngJestLogger = createLogger({
       context: {
         [LogContexts.package]: 'jest-preset-angular',
