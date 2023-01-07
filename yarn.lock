@@ -15,24 +15,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1500.4":
-  version: 0.1500.4
-  resolution: "@angular-devkit/architect@npm:0.1500.4"
+"@angular-devkit/architect@npm:0.1500.5":
+  version: 0.1500.5
+  resolution: "@angular-devkit/architect@npm:0.1500.5"
   dependencies:
-    "@angular-devkit/core": 15.0.4
+    "@angular-devkit/core": 15.0.5
     rxjs: 6.6.7
-  checksum: 80900e0ac44b8c5e84ea2c8edb5ca1469b75a7e2cbbbb5da7a9a833f423bcbd208a10d41346e19dfc0092a257275fc90bbde26c6fe8a3ee6d03b4cb24fb2b195
+  checksum: 81809e855d0a145e229a377a54aa7714825c8f1ca0f06522d5b84df45c8fbd4c4228ecd647033a9d9156f496fd2966f12d30dcec0cea3cf968a3a00f0a35d637
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-angular@npm:^15.0.4":
-  version: 15.0.4
-  resolution: "@angular-devkit/build-angular@npm:15.0.4"
+"@angular-devkit/build-angular@npm:^15.0.5":
+  version: 15.0.5
+  resolution: "@angular-devkit/build-angular@npm:15.0.5"
   dependencies:
     "@ampproject/remapping": 2.2.0
-    "@angular-devkit/architect": 0.1500.4
-    "@angular-devkit/build-webpack": 0.1500.4
-    "@angular-devkit/core": 15.0.4
+    "@angular-devkit/architect": 0.1500.5
+    "@angular-devkit/build-webpack": 0.1500.5
+    "@angular-devkit/core": 15.0.5
     "@babel/core": 7.20.2
     "@babel/generator": 7.20.4
     "@babel/helper-annotate-as-pure": 7.18.6
@@ -43,7 +43,7 @@ __metadata:
     "@babel/runtime": 7.20.1
     "@babel/template": 7.18.10
     "@discoveryjs/json-ext": 0.5.7
-    "@ngtools/webpack": 15.0.4
+    "@ngtools/webpack": 15.0.5
     ansi-colors: 4.1.3
     autoprefixer: 10.4.13
     babel-loader: 9.1.0
@@ -117,26 +117,26 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: dbd7ad99edcc4bdc7c9dddd3ec055c66c0605ff9b86d261c27a5fb6e49ab9ef87e506d2925764ab405eb6b0dc25eb1222e81beac7cf07c2576c5ba324c0a65a4
+  checksum: 94ae94c03860da87b51304d50e502ccd3617e3beb9648423b876675c9de207be73cf06e562211d6db659d0ae21d07db9e90763238c8e938c97e318b636f59c54
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-webpack@npm:0.1500.4":
-  version: 0.1500.4
-  resolution: "@angular-devkit/build-webpack@npm:0.1500.4"
+"@angular-devkit/build-webpack@npm:0.1500.5":
+  version: 0.1500.5
+  resolution: "@angular-devkit/build-webpack@npm:0.1500.5"
   dependencies:
-    "@angular-devkit/architect": 0.1500.4
+    "@angular-devkit/architect": 0.1500.5
     rxjs: 6.6.7
   peerDependencies:
     webpack: ^5.30.0
     webpack-dev-server: ^4.0.0
-  checksum: 393e7498aa16eb250c22b60bc433ac49e84178900357ca5b50ad17065df42f484171a5fcda21abd6bce8f8bf269f2aaddc5f19b84b05fdb74c12010ed87a6a7d
+  checksum: d52fb8ed7a4f8ecd51a4e279c709a23d7bdaf354cd8d7d44b8d2e54e2558fbdcd98179aa64f4e42c79f152812254e0915e940cd63bcd0e8def4e520b489e07d8
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:15.0.4":
-  version: 15.0.4
-  resolution: "@angular-devkit/core@npm:15.0.4"
+"@angular-devkit/core@npm:15.0.5":
+  version: 15.0.5
+  resolution: "@angular-devkit/core@npm:15.0.5"
   dependencies:
     ajv: 8.11.0
     ajv-formats: 2.1.1
@@ -148,7 +148,7 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: e2d7488cae4f11b008fdf3cc10cb6cfdec09a7ba36b31b7199308d21cae016bfaf41701c5e1003af6dbc1d02b929471f89a924fc258da7129d72cc9b945136cc
+  checksum: 8062e9b147b126585983f0a7ba509f7d6b5dc30a25c7c39d3919f5d06592e6becde3350f49b1d402ff600f64287396ffe08e4cb8499da116162b30d668e12ea8
   languageName: node
   linkType: hard
 
@@ -2196,14 +2196,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngtools/webpack@npm:15.0.4":
-  version: 15.0.4
-  resolution: "@ngtools/webpack@npm:15.0.4"
+"@ngtools/webpack@npm:15.0.5":
+  version: 15.0.5
+  resolution: "@ngtools/webpack@npm:15.0.5"
   peerDependencies:
     "@angular/compiler-cli": ^15.0.0
     typescript: ~4.8.2
     webpack: ^5.54.0
-  checksum: 56264999f457359e215a4cd3c489f97878f7b7e3a91dca5106b633e40da1d5fe376db8b744262edef73b4051137fe9f8048104ba94b245e3c82daa2cd9f622af
+  checksum: f1d000d2dc597e995f2531b2742300f6fec605c64b9267d1ea95775907779b6fccc60536d4e43a2a667f15e50cbca3e9669258de278943ebe15f1ec6dafbbacd
   languageName: node
   linkType: hard
 
@@ -7200,7 +7200,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jest-preset-angular@workspace:."
   dependencies:
-    "@angular-devkit/build-angular": ^15.0.4
+    "@angular-devkit/build-angular": ^15.0.5
     "@angular/animations": ^15.0.4
     "@angular/common": ^15.0.4
     "@angular/compiler": ^15.0.4
