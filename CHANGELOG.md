@@ -1,3 +1,13 @@
+## [12.2.4](https://github.com/thymikee/jest-preset-angular/compare/v12.2.3...v12.2.4) (2023-01-16)
+
+
+### Bug Fixes
+
+* support TypeScript 4.2 for Angular 12 ([8b59e79](https://github.com/thymikee/jest-preset-angular/commit/8b59e798b565679a26945d95e0539685cfc62a3c))
+* Including Angular fix for downlevel-ctor transformer, see https://github.com/angular/angular/pull/48638
+
+
+
 ## [12.2.2](https://github.com/thymikee/jest-preset-angular/compare/v12.2.1...v12.2.2) (2022-08-29)
 
 
