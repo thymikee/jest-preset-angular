@@ -6,9 +6,9 @@ const ngTransformerPath = `./src/transformers/downlevel_decorators_transform`;
 const bazelFileGlob = 'src/**/BUILD.bazel';
 const ngTestFolder = 'src/ngtsc/reflection/test';
 const ngTransformerURL =
-  'https://github.com/angular/angular/tree/main/packages/compiler-cli/src/transformers/downlevel_decorators_transform';
-const ngReflectionURL = 'https://github.com/angular/angular/tree/main/packages/compiler-cli/src/ngtsc/reflection';
-const tsCompatUrl = 'https://github.com/angular/angular/tree/main/packages/compiler-cli/src/ngtsc/ts_compatibility';
+  'https://github.com/angular/angular/blob/15.0.4/packages/compiler-cli/src/transformers/downlevel_decorators_transform';
+const ngReflectionURL = 'https://github.com/angular/angular/blob/15.0.4/packages/compiler-cli/src/ngtsc/reflection';
+const tsCompatUrl = 'https://github.com/angular/angular/blob/15.0.4/packages/compiler-cli/src/ngtsc/ts_compatibility';
 const transformersFolder = './src/transformers';
 const ngtscFolder = './src/ngtsc';
 
