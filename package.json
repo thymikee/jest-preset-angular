@@ -1,6 +1,6 @@
 {
   "name": "jest-preset-angular",
-  "version": "12.2.4",
+  "version": "12.2.5",
   "description": "Jest preset configuration for Angular projects",
   "license": "MIT",
   "engines": {
@@ -27,7 +27,7 @@
     "testing"
   ],
   "scripts": {
-    "build": "node scripts/prebuild.js && tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json",
     "postinstall": "husky install",
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --fix --ext .js,.ts .",
