@@ -1,13 +1,16 @@
 const jestCfg = require('./jest.config');
+const { defaultTransformerOptions } = require('jest-preset-angular/presets');
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   ...jestCfg,
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-      isolatedModules: true,
-    },
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        ...defaultTransformerOptions,
+        isolatedModules: true,
+      },
+    ],
   },
 };

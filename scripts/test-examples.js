@@ -50,6 +50,14 @@ const executeTest = (projectPath) => {
     copySync(assetToCopy, assetToReplace, {});
   });
 
+  logger.log('installing bundled version of ts-jest');
+  logger.log();
+
+  const assetToReplace = join(projectPath, 'node_modules', 'ts-jest');
+  const assetToCopy = join(rootDir, 'node_modules', 'ts-jest');
+
+  copySync(assetToCopy, assetToReplace, {});
+
   // then we can run the tests
   const cmdLine = ['yarn', 'test'];
   const cmdIsolatedLine = ['yarn', 'test-isolated'];
