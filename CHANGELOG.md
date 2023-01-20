@@ -1,3 +1,12 @@
+## [12.2.5](https://github.com/thymikee/jest-preset-angular/compare/v12.2.4...v12.2.5) (2023-01-18)
+
+
+### Bug Fixes
+
+* Fix support for Angular 12 caused by the fix with downlevel-ctor transformer from https://github.com/angular/angular/pull/48638
+
+
+
 ## [12.2.4](https://github.com/thymikee/jest-preset-angular/compare/v12.2.3...v12.2.4) (2023-01-16)
 
 
