@@ -29,12 +29,15 @@ import 'jest-preset-angular/setup-jest.mjs';
 module.exports = {
   //...
   extensionsToTreatAsEsm: ['.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$',
-      useESM: true,
-    },
+  transform: {
+    '^.+\\.(ts|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html)$',
+        useESM: true,
+      },
+    ],
   },
 };
 ```
@@ -45,12 +48,15 @@ import type { Config } from 'jest';
 const jestConfig: Config = {
   //...
   extensionsToTreatAsEsm: ['.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$',
-      useESM: true,
-    },
+  transform: {
+    '^.+\\.(ts|js|html|svg)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+        useESM: true,
+      },
+    ],
   },
 };
 
@@ -62,13 +68,16 @@ export default jestConfig;
   //...
   "jest": {
     "extensionsToTreatAsEsm": [".ts"],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "<rootDir>/tsconfig.spec.json",
-        "stringifyContentPathRegex": "\\.html$",
-        "useESM": true
-      }
-    }
+    "transform": {
+      "^.+\\.(ts|js|html|svg)$": [
+        "jest-preset-angular",
+        {
+          "tsconfig": "<rootDir>/tsconfig.spec.json",
+          "stringifyContentPathRegex": "\\.(html|svg)$",
+          "useESM": true,
+        },
+      ],
+    },
   }
 }
 ```

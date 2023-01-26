@@ -58,23 +58,26 @@ copy the original options and override the options you need:
 
 :::important
 
-If you choose to override `globals` in order to point at a specific tsconfig, you will need to make sure that original `ts-jest`
-options provided through the default preset are defined to the `globals.ts-jest` section too, otherwise you will get
+If you choose to override `transform` in order to point at a specific tsconfig, you will need to make sure that original `ts-jest`
+options provided through the default preset are defined to the `transform` section too, otherwise you will get
 errors.
 
 :::
 
 ```js tab
-const { defaults: jestNgPreset } = require('jest-preset-angular/presets');
-// const { defaultsESM: jestNgPreset } = require('jest-preset-angular/presets')
+const { defaultTransformerOptions } = require('jest-preset-angular/presets');
+// const { defaultTransformerOptions } = require('jest-preset-angular/presets')
 
 module.exports = {
   // [...]
-  globals: {
-    'ts-jest': {
-      ...jestNgPreset.globals['ts-jest'],
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular', 
+      {
+        ...defaultTransformerOptions,
       // [...your overriden options]
-    },
+      }
+    ],
   },
 };
 ```
@@ -85,11 +88,14 @@ import presets from 'jest-preset-angular/presets';
 
 const jestConfig: Config = {
   // [...]
-  globals: {
-    'ts-jest': {
-      ...presets.defaults.globals['ts-jest'],
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular', 
+      {
+        ...presets.defaultTransformerOptions,
       // [...your overriden options]
-    },
+      }
+    ],
   },
 };
 
