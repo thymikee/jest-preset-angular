@@ -1,3 +1,12 @@
+## [12.2.6](https://github.com/thymikee/jest-preset-angular/compare/v12.2.5...v12.2.6) (2023-01-26)
+
+
+### Bug Fixes
+
+* **serializers:** remove `__ngContext__` from snapshots ([#1816](https://github.com/thymikee/jest-preset-angular/issues/1816)) ([6997b0b](https://github.com/thymikee/jest-preset-angular/commit/6997b0bc2020e8b7d88d55a107f03c60f8ab8ee1))
+
+
+
 ## [12.2.5](https://github.com/thymikee/jest-preset-angular/compare/v12.2.4...v12.2.5) (2023-01-18)
 
 
