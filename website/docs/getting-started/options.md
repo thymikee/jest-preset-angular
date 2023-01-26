@@ -92,7 +92,7 @@ module.exports = {
         tsconfig: '<rootDir>/tsconfig.spec.json',
         stringifyContentPathRegex: '\\.(html|svg)$',
       },
-    ]
+    ],
   },
 };
 ```
@@ -112,8 +112,8 @@ const jestConfig: Config = {
       'jest-preset-angular',
       {
         tsconfig: '<rootDir>/tsconfig.spec.json',
-        stringifyContentPathRegex: '\\.(html|svg)$'
-      }
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
     ],
   },
 };

@@ -72,11 +72,11 @@ module.exports = {
   // [...]
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
-      'jest-preset-angular', 
+      'jest-preset-angular',
       {
         ...defaultTransformerOptions,
-      // [...your overriden options]
-      }
+        // [...your overriden options]
+      },
     ],
   },
 };
@@ -90,11 +90,11 @@ const jestConfig: Config = {
   // [...]
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
-      'jest-preset-angular', 
+      'jest-preset-angular',
       {
         ...presets.defaultTransformerOptions,
-      // [...your overriden options]
-      }
+        // [...your overriden options]
+      },
     ],
   },
 };
