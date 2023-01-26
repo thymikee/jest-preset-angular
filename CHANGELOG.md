@@ -1,3 +1,21 @@
+# [13.0.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v12.2.2...v13.0.0-next.0) (2023-01-26)
+
+
+### Bug Fixes
+
+* add `jest-util` to list of `dependencies` ([#1777](https://github.com/thymikee/jest-preset-angular/issues/1777)) ([db8f7c9](https://github.com/thymikee/jest-preset-angular/commit/db8f7c90a5c2395ac7b6b24be9baf56331a57198)), closes [#1773](https://github.com/thymikee/jest-preset-angular/issues/1773)
+* typo in `esbuild-check.js` ([#1806](https://github.com/thymikee/jest-preset-angular/issues/1806)) ([c2f2b61](https://github.com/thymikee/jest-preset-angular/commit/c2f2b611e8893b04904907e8255cd6a4b28dddf9))
+
+
+### Features
+
+* **config:** remove hardcoded logic setting `target` to `ES2015` ([#1788](https://github.com/thymikee/jest-preset-angular/issues/1788)) ([695c730](https://github.com/thymikee/jest-preset-angular/commit/695c73022c4011cca477b8d6d62c174a8c01a9ec))
+* drop support for Angular 11 ([#1767](https://github.com/thymikee/jest-preset-angular/issues/1767)) ([22f2cd6](https://github.com/thymikee/jest-preset-angular/commit/22f2cd638fcafeee47f7f21169f8b52a28428caf))
+* drop support for Angular 12 ([#1843](https://github.com/thymikee/jest-preset-angular/issues/1843)) ([dc58df1](https://github.com/thymikee/jest-preset-angular/commit/dc58df132e58d51b01f0bcb96dd11aa362f5e2a6))
+* remove `destroyAfterEach` and `teardown` options ([#1768](https://github.com/thymikee/jest-preset-angular/issues/1768)) ([fe4c73b](https://github.com/thymikee/jest-preset-angular/commit/fe4c73b68536188fa6c89a35e60504bd7e7515df))
+
+
+
 ## [12.2.6](https://github.com/thymikee/jest-preset-angular/compare/v12.2.5...v12.2.6) (2023-01-26)
 
 
