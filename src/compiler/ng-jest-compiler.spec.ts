@@ -9,14 +9,16 @@ describe('NgJestCompiler', () => {
       extensionsToTreatAsEsm: [],
       testMatch: [],
       testRegex: [],
-      globals: {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        'ts-jest': {
-          isolatedModules: true,
-          tsconfig: {
-            sourceMap: false,
+      transform: {
+        '^.+\\.(ts|js|mjs|html|svg)$': [
+          'ts-jest',
+          {
+            isolatedModules: true,
+            tsconfig: {
+              sourceMap: false,
+            },
           },
-        },
+        ],
       },
     } as any); // eslint-disable-line @typescript-eslint/no-explicit-any
     const compiler = new NgJestCompiler(ngJestConfig, new Map());

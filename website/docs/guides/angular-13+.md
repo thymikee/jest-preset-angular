@@ -23,7 +23,7 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 ## Migration steps from Angular < 13
 
-- Upgrade the project to **Angular 13** following https://update.angular.io/
+- Upgrade the project to **Angular 13** following <https://update.angular.io/>
 
 - If one is using the default preset as following:
 
@@ -55,15 +55,19 @@ Your `jest.config.js` should be changed to something like:
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { paths } = require('./tsconfig.json').compilerOptions;
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   preset: 'jest-preset-angular/presets/defaults-esm',
-  globals: {
-    'ts-jest': {
-      useESM: true,
-      stringifyContentPathRegex: '\\.(html|svg)$',
-      tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-    },
+  transform: {
+    '^.+\\.(ts|js|html|svg)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+        isolatedModules: true,
+        useESM: true,
+      },
+    ],
   },
   moduleNameMapper: {
     ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>' }),
@@ -80,12 +84,16 @@ import { compilerOptions } from './tsconfig.json';
 
 const jestConfig: Config = {
   preset: 'jest-preset-angular/presets/defaults-esm',
-  globals: {
-    'ts-jest': {
-      useESM: true,
-      stringifyContentPathRegex: '\\.(html|svg)$',
-      tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-    },
+  transform: {
+    '^.+\\.(ts|js|html|svg)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+        isolatedModules: true,
+        useESM: true,
+      },
+    ],
   },
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),

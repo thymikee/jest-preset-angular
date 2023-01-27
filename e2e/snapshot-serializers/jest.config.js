@@ -1,9 +1,4 @@
 module.exports = {
-  globals: {
-    'ts-jest': {
-      stringifyContentPathRegex: '\\.html$',
-    },
-  },
   resolver: '<rootDir>/../../build/resolvers/ng-jest-resolver',
   setupFilesAfterEnv: ['<rootDir>/../../setup-jest.js'],
   snapshotSerializers: [
@@ -13,7 +8,7 @@ module.exports = {
   ],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js|mjs|html)$': '<rootDir>/../../build/index.js',
+    '^.+\\.(ts|js|mjs|html)$': ['<rootDir>/../../build/index.js', require('./ts-jest.config')],
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
 };
