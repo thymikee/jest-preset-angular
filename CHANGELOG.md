@@ -1,3 +1,12 @@
+# [13.0.0-next.1](https://github.com/thymikee/jest-preset-angular/compare/v13.0.0-next.0...v13.0.0-next.1) (2023-01-27)
+
+
+### Features
+
+* support Jest 29 ([#1937](https://github.com/thymikee/jest-preset-angular/issues/1937)) ([b0b57a7](https://github.com/thymikee/jest-preset-angular/commit/b0b57a7df09fe3d84baccdc4f032ffbb9235bb69)), closes [#1774](https://github.com/thymikee/jest-preset-angular/issues/1774)
+
+
+
 # [13.0.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v12.2.2...v13.0.0-next.0) (2023-01-26)
 
 
