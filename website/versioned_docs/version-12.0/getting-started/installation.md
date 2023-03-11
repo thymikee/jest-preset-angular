@@ -21,6 +21,12 @@ yarn add -D jest jest-preset-angular @types/jest
 
 ### Configuration
 
+:::important
+
+Angular doesn't support native `async/await` in testing with `target` higher than `ES2016`, see https://github.com/angular/components/issues/21632#issuecomment-764975917
+
+:::
+
 In your project root, create `setup-jest.ts` file with following contents:
 
 ```ts
@@ -74,12 +80,6 @@ Adjust your `tsconfig.spec.json` to be:
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
 ```
-
-:::important
-
-Angular doesn't support native `async/await` in testing with `target` higher than `ES2016`, see https://github.com/angular/components/issues/21632#issuecomment-764975917
-
-:::
 
 ### Customizing
 
