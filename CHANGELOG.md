@@ -19,6 +19,7 @@
 * Drop support for Angular 11, 12
 * Jest 29 is required
 * `destroyAfterEach` and `teardown` are no longer available to use, please use `testEnvironmentOptions` instead.
+* `target` is `tsconfig` is now respected according to user configuration, it is no longer hardcoded at `ES2015`. See also note at https://thymikee.github.io/jest-preset-angular/docs/getting-started/installation
 
 
 
