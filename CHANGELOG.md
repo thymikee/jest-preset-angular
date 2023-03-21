@@ -1,3 +1,12 @@
+## [13.0.1](https://github.com/thymikee/jest-preset-angular/compare/v13.0.0...v13.0.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **serializer:** replace `ɵivyEnabled` with workaround to detect Ivy mode  ([#2016](https://github.com/thymikee/jest-preset-angular/issues/2016)) ([44d3922](https://github.com/thymikee/jest-preset-angular/commit/44d3922632b4f513d43d5b92a176554ecafb1de1)), closes [#2003](https://github.com/thymikee/jest-preset-angular/issues/2003)
+
+
+
 # [13.0.0](https://github.com/thymikee/jest-preset-angular/compare/v13.0.0-next.1...v13.0.0) (2023-02-18)
 
 
