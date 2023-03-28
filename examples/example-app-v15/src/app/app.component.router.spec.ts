@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { DebugElement } from '@angular/core';
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router, RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { jest } from '@jest/globals';
+import { jest, expect } from '@jest/globals';
 import { of } from 'rxjs';
 
 import { click } from '../testing';
@@ -32,6 +32,19 @@ describe('AppComponent & RouterTestingModule', () => {
       providers: [{ provide: HeroService, useClass: TestHeroService }],
     }).compileComponents();
   }));
+
+  it('should throw an error', async () => {
+    expect.assertions(1);
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    try {
+      await app.testFunction();
+    } catch (e) {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(true).toEqual(true);
+    }
+  });
 
   it('should navigate to "Dashboard" immediately', fakeAsync(() => {
     createComponent();
