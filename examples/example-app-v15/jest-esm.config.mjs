@@ -21,6 +21,7 @@ const jestConfig = {
         tsconfig: '<rootDir>/tsconfig-esm.spec.json',
         stringifyContentPathRegex: '\\.(html|svg)$',
         useESM: true,
+        babelConfig: true,
       },
     ],
   },

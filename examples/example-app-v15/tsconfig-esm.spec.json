@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "module": "ES2020"
+    "module": "ES2020",
+    "target": "ES2020"
   },
   "include": [
     "src/**/*.spec.ts",
