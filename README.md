@@ -91,7 +91,7 @@ Check out our [Angular Ivy guidance](https://thymikee.github.io/jest-preset-angu
 ## Example projects with base Jest configuration
 
 We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main/examples) to provide a basic setup to use Jest in an Angular project.
-The `examples` folder consist of several example Angular applications from **v10** to **13**, as well as example projects
+The `examples` folder consist of several example Angular applications from **v10** to **15**, as well as example projects
 with `yarn workspace` or monorepo structure.
 
 ## Built With
