@@ -1,6 +1,6 @@
 {
   "name": "jest-preset-angular",
-  "version": "13.0.1",
+  "version": "13.0.2",
   "description": "Jest preset configuration for Angular projects",
   "license": "MIT",
   "engines": {
@@ -55,22 +55,22 @@
     "esbuild": ">=0.13.8"
   },
   "peerDependencies": {
-    "@angular-devkit/build-angular": ">=13.0.0 <16.0.0",
-    "@angular/compiler-cli": ">=13.0.0 <16.0.0",
-    "@angular/core": ">=13.0.0 <16.0.0",
-    "@angular/platform-browser-dynamic": ">=13.0.0 <16.0.0",
+    "@angular-devkit/build-angular": ">=13.0.0 <17.0.0",
+    "@angular/compiler-cli": ">=13.0.0 <17.0.0",
+    "@angular/core": ">=13.0.0 <17.0.0",
+    "@angular/platform-browser-dynamic": ">=13.0.0 <17.0.0",
     "jest": "^29.0.0",
     "typescript": ">=4.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.2.8",
-    "@angular/animations": "^15.2.9",
-    "@angular/common": "^15.2.9",
-    "@angular/compiler": "^15.2.9",
-    "@angular/compiler-cli": "~15.2.9",
-    "@angular/core": "^15.2.9",
-    "@angular/platform-browser": "^15.2.9",
-    "@angular/platform-browser-dynamic": "^15.2.9",
+    "@angular-devkit/build-angular": "^16.0.0",
+    "@angular/animations": "^16.0.0",
+    "@angular/common": "^16.0.0",
+    "@angular/compiler": "^16.0.0",
+    "@angular/compiler-cli": "~16.0.0",
+    "@angular/core": "^16.0.0",
+    "@angular/platform-browser": "^16.0.0",
+    "@angular/platform-browser-dynamic": "^16.0.0",
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-angular": "^17.4.4",
     "@jest/transform": "^29.5.0",
@@ -104,7 +104,7 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",
-    "zone.js": "^0.12.0"
+    "zone.js": "^0.13.0"
   },
   "packageManager": "yarn@3.5.1"
 }
