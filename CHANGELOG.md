@@ -1,3 +1,13 @@
+# [13.1.0](https://github.com/thymikee/jest-preset-angular/compare/v13.0.1...v13.1.0) (2023-05-06)
+
+
+### Features
+
+* bump peer deps to support angular 16 ([#2061](https://github.com/thymikee/jest-preset-angular/issues/2061)) ([18abd21](https://github.com/thymikee/jest-preset-angular/commit/18abd21fc63f4c3669878ed74f5a380852c4c193))
+* **utils:** skip ngcc processing in ng16 or higher ([#2063](https://github.com/thymikee/jest-preset-angular/issues/2063)) ([2661988](https://github.com/thymikee/jest-preset-angular/commit/266198863242804e0cd79c83f151247194b37b06))
+
+
+
 ## [13.0.1](https://github.com/thymikee/jest-preset-angular/compare/v13.0.0...v13.0.1) (2023-03-21)
 
 
