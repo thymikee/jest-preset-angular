@@ -5,7 +5,7 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
 
-const ANGULAR_COMPILER_CLI_PKG_NAME = `@angular${path.sep}compiler-cli`;
+const ANGULAR_COMPILER_CLI_PKG_NAME = '@angular/compiler-cli';
 let ngccPath = '';
 
 try {
@@ -20,13 +20,14 @@ try {
   }
 }
 function findNodeModulesDirectory(): string {
-  return ngccPath.substring(0, ngccPath.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME));
+  return ngccPath.substring(0, ngccPath.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME.replace('/', path.sep)));
 }
 
 function findAngularCompilerCliVersion(): string {
-  const path = require.resolve(ANGULAR_COMPILER_CLI_PKG_NAME);
-  const substringLength = path.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME) + ANGULAR_COMPILER_CLI_PKG_NAME.length;
-  const ngCompilerCliFolder = path.substring(0, substringLength);
+  const packagePath = require.resolve(ANGULAR_COMPILER_CLI_PKG_NAME);
+  const substringLength =
+    packagePath.indexOf(ANGULAR_COMPILER_CLI_PKG_NAME.replace('/', path.sep)) + ANGULAR_COMPILER_CLI_PKG_NAME.length;
+  const ngCompilerCliFolder = packagePath.substring(0, substringLength);
   const ngCompilerCliPackageJson = `${ngCompilerCliFolder}/package.json`;
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { version } = require(ngCompilerCliPackageJson);
