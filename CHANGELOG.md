@@ -1,3 +1,12 @@
+## [13.1.1](https://github.com/thymikee/jest-preset-angular/compare/v13.1.0...v13.1.1) (2023-05-14)
+
+
+### Bug Fixes
+
+* file separator issue on Windows causing error in `ngcc-jest-processor` ([#2079](https://github.com/thymikee/jest-preset-angular/issues/2079)) ([b6b3911](https://github.com/thymikee/jest-preset-angular/commit/b6b391155204120f31dc5538fee554c93b10d001))
+
+
+
 # [13.1.0](https://github.com/thymikee/jest-preset-angular/compare/v13.0.1...v13.1.0) (2023-05-06)
 
 
