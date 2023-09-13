@@ -1,4 +1,5 @@
-require('zone.js/bundles/zone-testing-bundle.umd');
+require('zone.js');
+require('zone.js/testing');
 const { getTestBed } = require('@angular/core/testing');
 const {
   BrowserDynamicTestingModule,

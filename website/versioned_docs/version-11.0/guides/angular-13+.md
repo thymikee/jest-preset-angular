@@ -88,7 +88,8 @@ The `jest-preset-angular/setup-jest` file doesn't work with ESM, because it uses
 
 ```ts
 // setup-jest.ts
-import 'zone.js/fesm2015/zone-testing-bundle.min.js';
+import 'zone.js';
+import 'zone.js/testing';
 import './jest-global-mocks';
 
 import { getTestBed } from '@angular/core/testing';
