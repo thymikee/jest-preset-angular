@@ -19,6 +19,15 @@ const hasAttributesToClean = (attribute: Attr): boolean =>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 const serialize = (node: Element, ...rest: any): string => {
     const nodeCopy = node.cloneNode(true) as Element;
+
+    // if parent of original node is body,
+    // means the node is additionally generated when call TestBed.createComponent,
+    // this node will have id="root{n}", will cause snapshot testing not stable,
+    // so the id attribute should be removed
+    if (node.parentElement?.tagName === 'BODY') {
+        nodeCopy.removeAttribute('id');
+    }
+
     // Remove angular-specific attributes
     Object.values(nodeCopy.attributes)
         .filter(hasAttributesToRemove)
