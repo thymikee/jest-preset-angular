@@ -19,6 +19,15 @@ const hasAttributesToClean = (attribute: Attr): boolean =>
 
 const removeAngularAttributes = (node: Element): Element => {
     const nodeCopy = node.cloneNode(true) as Element;
+    // if parent of original node is body,
+    // means the node is additionally generated when call TestBed.createComponent,
+    // this node will have id="root{n}", will cause snapshot testing not stable,
+    // so the id attribute should be removed
+    if (node.parentElement?.tagName === 'BODY') {
+        nodeCopy.removeAttribute('id');
+    }
+
+    // Remove angular-specific attributes
     Object.values(nodeCopy.attributes)
         .filter(hasAttributesToRemove)
         .forEach((attribute) => nodeCopy.attributes.removeNamedItem(attribute.name));
