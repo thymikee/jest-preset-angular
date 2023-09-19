@@ -1,3 +1,12 @@
+## [13.1.2](https://github.com/thymikee/jest-preset-angular/compare/v13.1.1...v13.1.2) (2023-09-19)
+
+
+### Code Refactoring
+
+* refactor import `zone.js/testing` instead of `zone-testing-bundle` ([#2163](https://github.com/thymikee/jest-preset-angular/issues/2163)) ([5128ecb](https://github.com/thymikee/jest-preset-angular/commit/e47ae67f86749d872953d2fc1221e2d9c5128ecb)), closes [#2162](https://github.com/thymikee/jest-preset-angular/issues/2162)
+
+
+
 ## [13.1.1](https://github.com/thymikee/jest-preset-angular/compare/v13.1.0...v13.1.1) (2023-05-14)
 
 
