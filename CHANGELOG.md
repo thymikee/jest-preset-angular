@@ -1,3 +1,12 @@
+## [13.1.3](https://github.com/thymikee/jest-preset-angular/compare/v13.1.2...v13.1.3) (2023-11-06)
+
+
+### Features
+
+* **deps:** extend version support range to Angular 17 ([#2179](https://github.com/thymikee/jest-preset-angular/issues/2179)) ([5434e22](https://github.com/thymikee/jest-preset-angular/commit/5434e2216013cbd9c750e644b9fd78216c9cdee3))
+
+
+
 ## [13.1.2](https://github.com/thymikee/jest-preset-angular/compare/v13.1.1...v13.1.2) (2023-09-19)
 
 
