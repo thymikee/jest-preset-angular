@@ -1,3 +1,12 @@
+## [13.1.4](https://github.com/thymikee/jest-preset-angular/compare/v13.1.3...v13.1.4) (2023-11-11)
+
+
+### Bug Fixes
+
+* **transformers:** handle single string styles or styleUrl property ([#2186](https://github.com/thymikee/jest-preset-angular/issues/2186)) ([0c99aae](https://github.com/thymikee/jest-preset-angular/commit/0c99aae402c8c7edbef8b1c64d2a7e41a76a6b60))
+
+
+
 ## [13.1.3](https://github.com/thymikee/jest-preset-angular/compare/v13.1.2...v13.1.3) (2023-11-06)
 
 
