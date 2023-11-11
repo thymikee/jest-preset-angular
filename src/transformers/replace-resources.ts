@@ -8,7 +8,7 @@
 import type { TsCompilerInstance } from 'ts-jest';
 import ts from 'typescript';
 
-import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT } from '../constants';
+import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT, STYLE_URL } from '../constants';
 
 const isAfterVersion = (targetMajor: number, targetMinor: number): boolean => {
   const [major, minor] = ts.versionMajorMinor.split('.').map((part) => parseInt(part));
@@ -225,12 +225,26 @@ function visitComponentMetadata(
       return nodeFactory.updatePropertyAssignment(node, nodeFactory.createIdentifier(TEMPLATE), importName);
 
     case STYLES:
+      if (!ts.isArrayLiteralExpression(node.initializer) && !ts.isStringLiteral(node.initializer)) {
+        return node;
+      }
+
+      return undefined;
+
     case STYLE_URLS:
       if (!ts.isArrayLiteralExpression(node.initializer)) {
         return node;
       }
 
       return undefined;
+
+    case STYLE_URL:
+      if (!ts.isStringLiteral(node.initializer)) {
+        return node;
+      }
+
+      return undefined;
+
     default:
       return node;
   }

@@ -2,6 +2,8 @@
 export const TEMPLATE_URL = 'templateUrl';
 /** Angular component decorator styleUrls property name */
 export const STYLE_URLS = 'styleUrls';
+/** Angular component decorator styleUrl property name */
+export const STYLE_URL = 'styleUrl';
 /** Angular component decorator styles property name */
 export const STYLES = 'styles';
 /** Angular component decorator template property name */
