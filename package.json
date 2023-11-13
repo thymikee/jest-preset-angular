@@ -28,7 +28,6 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "postinstall": "husky install",
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --fix --ext .js,.ts .",
     "lint-prettier": "prettier \"**/*.{yml,yaml,md}\" --write",
