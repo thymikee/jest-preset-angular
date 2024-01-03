@@ -3,13 +3,7 @@
 
 ### Bug Fixes
 
-* Fix TS5 + ESM hang; and upgrade dev dependencies to ng17 ([#2197](https://github.com/thymikee/jest-preset-angular/issues/2197)) ([90797e5](https://github.com/thymikee/jest-preset-angular/commit/90797e511f7ba511a653a88002ae28fed4bbbca1)), closes [thymikee/jest-preset-angular#2138](https://github.com/thymikee/jest-preset-angular/issues/2138) [#2138](https://github.com/thymikee/jest-preset-angular/issues/2138) [#2196](https://github.com/thymikee/jest-preset-angular/issues/2196)
-* **transformers:** handle single string styles or styleUrl property ([#2186](https://github.com/thymikee/jest-preset-angular/issues/2186)) ([cf00f55](https://github.com/thymikee/jest-preset-angular/commit/cf00f55612f590bb26613e569338bc72eba4ba08))
-
-
-### Features
-
-* drop support Angular 13 and 14 ([#2180](https://github.com/thymikee/jest-preset-angular/issues/2180)) ([b4ad1c6](https://github.com/thymikee/jest-preset-angular/commit/b4ad1c6036844d98f91a7bcd5e1f32a02d4ae549))
+* Fix TS5 + ESM hang ([#2197](https://github.com/thymikee/jest-preset-angular/issues/2197)) ([90797e5](https://github.com/thymikee/jest-preset-angular/commit/90797e511f7ba511a653a88002ae28fed4bbbca1)), closes  [#2138](https://github.com/thymikee/jest-preset-angular/issues/2138) [#2196](https://github.com/thymikee/jest-preset-angular/issues/2196)
 
 
 
