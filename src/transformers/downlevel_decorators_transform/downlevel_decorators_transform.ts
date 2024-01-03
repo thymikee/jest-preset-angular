@@ -436,7 +436,7 @@ export function getDownlevelDecoratorsTransform(
       const modifiers = decoratorsToKeep.length ?
           ts.setTextRange(
               ts.factory.createNodeArray(combineModifiers(decoratorsToKeep, getModifiers(element))),
-              element.modifiers) :
+            (element as any).modifiers) :
           getModifiers(element);
 
       return [element.name.text, cloneClassElementWithModifiers(element, modifiers), toLower];

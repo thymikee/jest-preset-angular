@@ -9,6 +9,7 @@ import type { TsCompilerInstance } from 'ts-jest';
 import ts from 'typescript';
 
 import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT, STYLE_URL } from '../constants';
+import { getDecorators, getModifiers, toMutableArray } from '../ngtsc/ts_compatibility';
 
 const isAfterVersion = (targetMajor: number, targetMinor: number): boolean => {
   const [major, minor] = ts.versionMajorMinor.split('.').map((part) => parseInt(part));
@@ -23,6 +24,9 @@ const isAfterVersion = (targetMajor: number, targetMinor: number): boolean => {
 };
 
 const IS_TS_48 = isAfterVersion(4, 8);
+
+/** Whether the current TypeScript version is after 5.0. */
+const IS_AFTER_TS_50 = isAfterVersion(5, 0);
 
 const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts') && !fileName.endsWith('.ngstyle.ts');
 /**
@@ -77,7 +81,7 @@ export function replaceResources({ program }: TsCompilerInstance): ts.Transforme
         return sourceFile;
       }
 
-      const updatedSourceFile = ts.visitNode(sourceFile, visitNode);
+      const updatedSourceFile = ts.visitNode(sourceFile, visitNode) as ts.SourceFile;
       if (resourceImportDeclarations.length) {
         // Add resource imports
         return nodeFactory.updateSourceFile(
@@ -115,8 +119,8 @@ function visitClassDeclaration(
       }
     });
   } else {
-    decorators = node.decorators as unknown as ts.Decorator[];
-    modifiers = node.modifiers as unknown as ts.Modifier[];
+    decorators = toMutableArray(getDecorators(node));
+    modifiers = toMutableArray(getModifiers(node));
   }
 
   if (!decorators || !decorators.length) {
@@ -127,6 +131,7 @@ function visitClassDeclaration(
     visitDecorator(nodeFactory, current, typeChecker, resourceImportDeclarations, moduleKind),
   );
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   return IS_TS_48
     ? nodeFactory.updateClassDeclaration(
         node,
@@ -136,7 +141,7 @@ function visitClassDeclaration(
         node.heritageClauses,
         node.members,
       )
-    : nodeFactory.updateClassDeclaration(
+    : (nodeFactory as any).updateClassDeclaration(
         node,
         decorators,
         modifiers,
@@ -145,6 +150,7 @@ function visitClassDeclaration(
         node.heritageClauses,
         node.members,
       );
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 function visitDecorator(
@@ -192,7 +198,8 @@ function visitDecorator(
   return nodeFactory.updateDecorator(
     node,
     nodeFactory.updateCallExpression(decoratorFactory, decoratorFactory.expression, decoratorFactory.typeArguments, [
-      nodeFactory.updateObjectLiteralExpression(objectExpression, properties),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      nodeFactory.updateObjectLiteralExpression(objectExpression, properties as any),
     ]),
   );
 }
@@ -280,12 +287,22 @@ function createResourceImport(
     return nodeFactory.createCallExpression(nodeFactory.createIdentifier(REQUIRE), [], [urlLiteral]);
   } else {
     const importName = nodeFactory.createIdentifier(`__NG_CLI_RESOURCE__${resourceImportDeclarations.length}`);
-    const importDeclaration = nodeFactory.createImportDeclaration(
-      undefined,
-      undefined,
-      nodeFactory.createImportClause(false, importName, undefined),
-      urlLiteral,
-    );
+    let importDeclaration: ts.ImportDeclaration;
+    if (IS_AFTER_TS_50) {
+      importDeclaration = nodeFactory.createImportDeclaration(
+        undefined,
+        nodeFactory.createImportClause(false, importName, undefined),
+        urlLiteral,
+      );
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      importDeclaration = (nodeFactory as any).createImportDeclaration(
+        undefined,
+        undefined,
+        nodeFactory.createImportClause(false, importName, undefined),
+        urlLiteral,
+      );
+    }
     resourceImportDeclarations.push(importDeclaration);
 
     return importName;
