@@ -131,6 +131,7 @@ function visitClassDeclaration(
     visitDecorator(nodeFactory, current, typeChecker, resourceImportDeclarations, moduleKind),
   );
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   return IS_TS_48
     ? nodeFactory.updateClassDeclaration(
         node,
@@ -149,6 +150,7 @@ function visitClassDeclaration(
         node.heritageClauses,
         node.members,
       );
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 function visitDecorator(
@@ -196,6 +198,7 @@ function visitDecorator(
   return nodeFactory.updateDecorator(
     node,
     nodeFactory.updateCallExpression(decoratorFactory, decoratorFactory.expression, decoratorFactory.typeArguments, [
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       nodeFactory.updateObjectLiteralExpression(objectExpression, properties as any),
     ]),
   );
@@ -292,6 +295,7 @@ function createResourceImport(
         urlLiteral,
       );
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       importDeclaration = (nodeFactory as any).createImportDeclaration(
         undefined,
         undefined,
