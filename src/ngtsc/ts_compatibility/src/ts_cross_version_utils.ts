@@ -264,7 +264,8 @@ export const updateConstructorDeclaration: Ts48UpdateConstructorDeclarationFn = 
  * We should remove it once we have dropped support for the older versions.
  */
 export const getDecorators: (node: ts.Node) => readonly ts.Decorator[] | undefined =
-    IS_AFTER_TS_48 ? (ts as any).getDecorators : node => node.decorators;
+    IS_AFTER_TS_48 ? (ts.getDecorators as (node: ts.Node) => readonly ts.Decorator[] | undefined)
+        : node => (node as any).decorators;
 
 /**
  * Gets the modifiers that have been set on a node.
@@ -273,7 +274,8 @@ export const getDecorators: (node: ts.Node) => readonly ts.Decorator[] | undefin
  * We should remove it once we have dropped support for the older versions.
  */
 export const getModifiers: (node: ts.Node) => readonly ts.Modifier[] | undefined =
-    IS_AFTER_TS_48 ? (ts as any).getModifiers : node => node.modifiers;
+    IS_AFTER_TS_48 ? (ts.getModifiers as (node: ts.Node) => readonly ts.Modifier[] | undefined)
+        : node => (node as any).modifiers;
 
 /**
  * Combines an optional array of decorators with an optional array of modifiers into a single
@@ -340,4 +342,11 @@ function isAfterVersion(targetMajor: number, targetMinor: number): boolean {
   }
 
   return major === targetMajor ? minor >= targetMinor : true;
+}
+
+export function toMutableArray<T>(immutableArray: readonly T[] | undefined): T[] | undefined {
+  if (immutableArray) {
+    return [...immutableArray];
+  }
+  return undefined;
 }
