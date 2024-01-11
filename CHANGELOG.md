@@ -1,3 +1,12 @@
+## [13.1.6](https://github.com/thymikee/jest-preset-angular/compare/v13.1.5...v13.1.6) (2024-01-11)
+
+
+### Bug Fixes
+
+* revert drop support Angular 13, 14 ([#2214](https://github.com/thymikee/jest-preset-angular/issues/2214)) ([9ed9354](https://github.com/thymikee/jest-preset-angular/commit/9ed93548ce1a03528cd0343a1b08f98b7939e91c)), closes [#2213](https://github.com/thymikee/jest-preset-angular/issues/2213)
+
+
+
 ## [13.1.5](https://github.com/thymikee/jest-preset-angular/compare/v13.1.3...v13.1.5) (2024-01-03)
 
 
