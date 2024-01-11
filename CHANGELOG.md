@@ -1,3 +1,17 @@
+# [14.0.0](https://github.com/thymikee/jest-preset-angular/compare/v13.1.6...v14.0.0) (2024-01-11)
+
+
+### Features
+
+* drop support Angular 13, 14 ([a3091b5](https://github.com/thymikee/jest-preset-angular/commit/a3091b54cdf9c204226085ceeb565cddbb7425d0))
+
+
+## BREAKING CHANGES
+
+* Drop support for Angular 11, 12
+
+
+
 ## [13.1.6](https://github.com/thymikee/jest-preset-angular/compare/v13.1.5...v13.1.6) (2024-01-11)
 
 
