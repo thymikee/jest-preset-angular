@@ -25,24 +25,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1700.9":
-  version: 0.1700.9
-  resolution: "@angular-devkit/architect@npm:0.1700.9"
-  dependencies:
-    "@angular-devkit/core": 17.0.9
-    rxjs: 7.8.1
-  checksum: c45e3f28e3201374df503850e585baae00413f35a2c3850ab171bb91a6049a720ece0a19465834f861c56bbe6244e3792508ad49cfa9bc038e1d64f013cb0431
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/build-angular@npm:^17.0.9":
-  version: 17.0.9
-  resolution: "@angular-devkit/build-angular@npm:17.0.9"
+"@angular-devkit/build-angular@npm:^17.0.10":
+  version: 17.0.10
+  resolution: "@angular-devkit/build-angular@npm:17.0.10"
   dependencies:
     "@ampproject/remapping": 2.2.1
-    "@angular-devkit/architect": 0.1700.9
-    "@angular-devkit/build-webpack": 0.1700.9
-    "@angular-devkit/core": 17.0.9
+    "@angular-devkit/architect": 0.1700.10
+    "@angular-devkit/build-webpack": 0.1700.10
+    "@angular-devkit/core": 17.0.10
     "@babel/core": 7.23.2
     "@babel/generator": 7.23.0
     "@babel/helper-annotate-as-pure": 7.22.5
@@ -53,7 +43,7 @@ __metadata:
     "@babel/preset-env": 7.23.2
     "@babel/runtime": 7.23.2
     "@discoveryjs/json-ext": 0.5.7
-    "@ngtools/webpack": 17.0.9
+    "@ngtools/webpack": 17.0.10
     "@vitejs/plugin-basic-ssl": 1.0.1
     ansi-colors: 4.1.3
     autoprefixer: 10.4.16
@@ -139,20 +129,20 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 68f2c042224100758d95876a832dff1e2600d6d0613b992bf027425e47ba50000aec0f3bf5e9eb43e635429a82de1c5e712b0f210db310b06c72ad47207d2373
+  checksum: 52267ddb578fea247635c5d12122e72743e83c5522f8613352899d2991debe166b440ddd0b7824842c59471b2984ab37ba1275f66c570f7245d6174d52ff2294
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-webpack@npm:0.1700.9":
-  version: 0.1700.9
-  resolution: "@angular-devkit/build-webpack@npm:0.1700.9"
+"@angular-devkit/build-webpack@npm:0.1700.10":
+  version: 0.1700.10
+  resolution: "@angular-devkit/build-webpack@npm:0.1700.10"
   dependencies:
-    "@angular-devkit/architect": 0.1700.9
+    "@angular-devkit/architect": 0.1700.10
     rxjs: 7.8.1
   peerDependencies:
     webpack: ^5.30.0
     webpack-dev-server: ^4.0.0
-  checksum: 3e771f5447aa697b88cf540cdf105b89e816f0797c05a5b0dd7258fed2edfb65c9d5f9ef2616843805d1db519a9fa9e88068cc02e4b0efd5854912a8c54887a0
+  checksum: 9f779952827a79acccd99cf594dd524becd3e0f44c2572ba6da541d4bcf23195706c57d06a103b8823692db76d73e2456d86828ba7eab1cca6a7c9b48ee9bd6f
   languageName: node
   linkType: hard
 
@@ -172,25 +162,6 @@ __metadata:
     chokidar:
       optional: true
   checksum: 909c113dc0bfe1c2ff74509089bce3ee508eba8f3948011b3ef3f7f9903add48b09edb3c2da48fe502eb50377cd7c1a1b6507bb89d2ed7d8e8b5d1d12353442e
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/core@npm:17.0.9":
-  version: 17.0.9
-  resolution: "@angular-devkit/core@npm:17.0.9"
-  dependencies:
-    ajv: 8.12.0
-    ajv-formats: 2.1.1
-    jsonc-parser: 3.2.0
-    picomatch: 3.0.1
-    rxjs: 7.8.1
-    source-map: 0.7.4
-  peerDependencies:
-    chokidar: ^3.5.2
-  peerDependenciesMeta:
-    chokidar:
-      optional: true
-  checksum: c2c77e0c459a36f6d63cb477c5710238880e2a50ce2f8133f0dffaaf823c04f006129c54a58729745073e5d298a3df75b4a8d863ee8ea21f7102d71c3377c2a9
   languageName: node
   linkType: hard
 
@@ -2393,14 +2364,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngtools/webpack@npm:17.0.9":
-  version: 17.0.9
-  resolution: "@ngtools/webpack@npm:17.0.9"
+"@ngtools/webpack@npm:17.0.10":
+  version: 17.0.10
+  resolution: "@ngtools/webpack@npm:17.0.10"
   peerDependencies:
     "@angular/compiler-cli": ^17.0.0
     typescript: ">=5.2 <5.3"
     webpack: ^5.54.0
-  checksum: 6fffbb62400757947b43a3738274f3e6667e2e9696ab8cfefeb9f2bc14985460c1fd9e5618bc24feafc097194885bddef6a66bb10c46275907ba26c3fb25f35f
+  checksum: c1dbc17dc46ac97188a0bb16a0fe1d264d255563fd6f5bf4cb3b3c6741bb726bba6f89606264c3ace155ddae745083d3192297400a500b9472fb449c2749e471
   languageName: node
   linkType: hard
 
@@ -5275,7 +5246,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-app-v17@workspace:."
   dependencies:
-    "@angular-devkit/build-angular": ^17.0.9
+    "@angular-devkit/build-angular": ^17.0.10
     "@angular/animations": ^17.0.8
     "@angular/cli": ^17.0.10
     "@angular/common": ^17.0.0
