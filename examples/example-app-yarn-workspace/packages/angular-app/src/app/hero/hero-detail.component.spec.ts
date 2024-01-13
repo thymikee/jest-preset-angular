@@ -1,9 +1,8 @@
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { jest } from '@jest/globals';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 import { ActivatedRoute, ActivatedRouteStub, click } from '../../testing';
 import { Hero } from '../model/hero';
@@ -11,11 +10,9 @@ import { HeroService } from '../model/hero.service';
 import { TestHeroService } from '../model/testing/test-hero.service';
 import { getTestHeroes } from '../model/testing/test-heroes';
 import { SharedModule } from '../shared/shared.module';
-import { TitleCasePipe } from '../shared/title-case.pipe';
 
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroDetailService } from './hero-detail.service';
-import { HeroModule } from './hero.module';
 
 let activatedRoute: ActivatedRouteStub;
 let component: HeroDetailComponent;
@@ -32,7 +29,7 @@ describe('HeroDetailComponent', () => {
   describe('with HeroModule setup', () => {
     beforeEach(waitForAsync(() => {
       void TestBed.configureTestingModule({
-        imports: [HeroModule, RouterTestingModule],
+        imports: [HeroDetailComponent, RouterTestingModule],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRoute },
           { provide: HeroService, useClass: TestHeroService },
@@ -41,7 +38,7 @@ describe('HeroDetailComponent', () => {
         .compileComponents()
         .then(() => {
           const router = TestBed.inject(Router);
-          jest.spyOn(router, 'navigate').mockResolvedValue(true);
+          jest.spyOn(router, 'navigate').mockImplementation(() => firstValueFrom(of(true)));
         });
     }));
 
@@ -175,7 +172,7 @@ describe('HeroDetailComponent', () => {
 
     beforeEach(waitForAsync(() => {
       void TestBed.configureTestingModule({
-        imports: [HeroModule, RouterTestingModule],
+        imports: [HeroDetailComponent, RouterTestingModule],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRoute },
           { provide: HeroDetailService, useValue: {} },
@@ -187,7 +184,7 @@ describe('HeroDetailComponent', () => {
         .compileComponents()
         .then(() => {
           const router = TestBed.inject(Router);
-          jest.spyOn(router, 'navigate').mockResolvedValue(true);
+          jest.spyOn(router, 'navigate').mockImplementation(() => firstValueFrom(of(true)));
 
           activatedRoute.setParamMap({ id: 99999 });
 
@@ -250,8 +247,7 @@ describe('HeroDetailComponent', () => {
   describe('with FormsModule setup', () => {
     beforeEach(waitForAsync(() => {
       void TestBed.configureTestingModule({
-        imports: [FormsModule, RouterTestingModule],
-        declarations: [HeroDetailComponent, TitleCasePipe],
+        imports: [RouterTestingModule, HeroDetailComponent],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRoute },
           { provide: HeroService, useClass: TestHeroService },
@@ -260,7 +256,7 @@ describe('HeroDetailComponent', () => {
         .compileComponents()
         .then(() => {
           const router = TestBed.inject(Router);
-          jest.spyOn(router, 'navigate').mockResolvedValue(true);
+          jest.spyOn(router, 'navigate').mockImplementation(() => firstValueFrom(of(true)));
         });
     }));
 
@@ -283,8 +279,7 @@ describe('HeroDetailComponent', () => {
   describe('with SharedModule setup', () => {
     beforeEach(waitForAsync(() => {
       void TestBed.configureTestingModule({
-        imports: [SharedModule, RouterTestingModule],
-        declarations: [HeroDetailComponent],
+        imports: [RouterTestingModule, HeroDetailComponent],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRoute },
           { provide: HeroService, useClass: TestHeroService },
@@ -293,7 +288,7 @@ describe('HeroDetailComponent', () => {
         .compileComponents()
         .then(() => {
           const router = TestBed.inject(Router);
-          jest.spyOn(router, 'navigate').mockResolvedValue(true);
+          jest.spyOn(router, 'navigate').mockImplementation(() => firstValueFrom(of(true)));
         });
     }));
 

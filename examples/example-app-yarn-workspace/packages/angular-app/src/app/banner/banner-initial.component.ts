@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-banner',
   template: `<p>banner works!</p>`,
   styles: [],
+  standalone: true,
 })
 export class BannerComponent {}

@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { Observable, of, throwError } from 'rxjs';
+import { firstValueFrom, Observable, of, throwError } from 'rxjs';
 import { last, tap } from 'rxjs/operators';
 
 import { TwainComponent } from './twain.component';
@@ -23,16 +23,13 @@ describe('TwainComponent', () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-      declarations: [TwainComponent],
-      providers: [
-        {
-          provide: TwainService,
-          useValue: {
-            getQuote: jest.fn(),
-          },
-        },
-      ],
+      imports: [TwainComponent],
     })
+      .overrideProvider(TwainService, {
+        useValue: {
+          getQuote: jest.fn(),
+        },
+      })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(TwainComponent);
@@ -60,7 +57,7 @@ describe('TwainComponent', () => {
     });
 
     it('should display error when TwainService fails', fakeAsync(() => {
-      getQuoteSpy.mockReturnValue(throwError('TwainService test failure'));
+      getQuoteSpy.mockReturnValue(throwError(() => 'TwainService test failure'));
 
       fixture.detectChanges();
 
@@ -126,16 +123,15 @@ describe('TwainComponent', () => {
     it('should show last quote (async)', async () => {
       fixture.detectChanges();
 
-      await component.quote
-        .pipe(last())
-        .pipe(
+      await firstValueFrom(
+        component.quote.pipe(last()).pipe(
           tap(() => {
             fixture.detectChanges();
             expect(quoteEl.textContent).toBe(testQuote);
             expect(errorMessage()).toBeNull();
           }),
-        )
-        .toPromise();
+        ),
+      );
     });
 
     it('should show quote after getQuote', waitForAsync(() => {
@@ -149,7 +145,7 @@ describe('TwainComponent', () => {
     }));
 
     it('should display error when TwainService fails', fakeAsync(() => {
-      getQuoteSpy.mockReturnValue(throwError('TwainService test failure'));
+      getQuoteSpy.mockReturnValue(throwError(() => 'TwainService test failure'));
 
       fixture.detectChanges();
       tick();

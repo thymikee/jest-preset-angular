@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, startWith } from 'rxjs/operators';
@@ -21,6 +22,9 @@ import { TwainService } from './twain.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [AsyncPipe, NgIf],
+  providers: [TwainService],
 })
 export class TwainComponent implements OnInit {
   errorMessage!: string;

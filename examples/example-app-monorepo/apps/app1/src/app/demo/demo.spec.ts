@@ -5,7 +5,7 @@ import { LightswitchComponent, MasterService, ValueService, ReversePipe } from '
 
 // eslint-disable-next-line jest/no-export
 export class FakeValueService extends ValueService {
-  value = 'faked service value';
+  override value = 'faked service value';
 }
 
 describe('demo (no TestBed):', () => {

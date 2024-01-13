@@ -7,6 +7,7 @@ const jestConfig = {
   moduleNameMapper: {
     tslib: 'tslib/tslib.es6.js',
     rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
+    'libs/(.*)$': '<rootDir>/../../libs/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
   transform: {

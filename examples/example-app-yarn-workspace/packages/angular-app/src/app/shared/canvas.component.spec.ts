@@ -8,11 +8,11 @@ describe('CanvasComponent', () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-      declarations: [CanvasComponent],
+      imports: [CanvasComponent],
     })
       .compileComponents()
       .then(() => {
-        (window as typeof window & Record<string, unknown>).__zone_symbol__FakeAsyncTestMacroTask = [
+        (window as typeof window & Record<string, unknown>)['__zone_symbol__FakeAsyncTestMacroTask'] = [
           {
             source: 'HTMLCanvasElement.toBlob',
             callbackArgs: [{ size: 200 }],

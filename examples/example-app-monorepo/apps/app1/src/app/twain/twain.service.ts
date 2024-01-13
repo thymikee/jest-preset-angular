@@ -24,10 +24,10 @@ export class TwainService {
               return of(null);
             }
 
-            return throwError('Cannot get Twain quotes from the server');
+            return throwError(() => 'Cannot get Twain quotes from the server');
           }),
           take(2),
-          concatMap(() => throwError('There are no Twain quotes')),
+          concatMap(() => throwError(() => 'There are no Twain quotes')),
         ),
       ),
     );

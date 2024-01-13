@@ -1,6 +1,6 @@
 import { fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { interval, of } from 'rxjs';
+import { firstValueFrom, interval, of } from 'rxjs';
 import { delay, take, tap } from 'rxjs/operators';
 
 describe('Angular async helper', () => {
@@ -61,8 +61,8 @@ describe('Angular async helper', () => {
 
     it('should run async test with successful delayed Observable', async () => {
       const source = of(true).pipe(delay(10));
-      await source
-        .pipe(
+      await firstValueFrom(
+        source.pipe(
           tap({
             next: () => (actuallyDone = true),
             // eslint-disable-next-line jest/no-jasmine-globals
@@ -71,32 +71,32 @@ describe('Angular async helper', () => {
               expect(actuallyDone).toBeTruthy();
             },
           }),
-        )
-        .toPromise();
+        ),
+      );
     });
 
     it('should run async test with successful delayed Observable (waitForAsync)', waitForAsync(() => {
       const source = of(true).pipe(delay(10));
-      source.subscribe(
-        () => (actuallyDone = true),
+      source.subscribe({
+        next: () => (actuallyDone = true),
         // eslint-disable-next-line jest/no-jasmine-globals
-        (err) => fail(err),
-        () => {
+        error: (err) => fail(err),
+        complete: () => {
           expect(actuallyDone).toBeTruthy();
         },
-      );
+      });
     }));
 
     it('should run async test with successful delayed Observable (fakeAsync)', fakeAsync(() => {
       const source = of(true).pipe(delay(10));
-      source.subscribe(
-        () => (actuallyDone = true),
+      source.subscribe({
+        next: () => (actuallyDone = true),
         // eslint-disable-next-line jest/no-jasmine-globals
-        (err) => fail(err),
-        () => {
+        error: (err) => fail(err),
+        complete: () => {
           expect(actuallyDone).toBeTruthy();
         },
-      );
+      });
 
       tick(10);
     }));

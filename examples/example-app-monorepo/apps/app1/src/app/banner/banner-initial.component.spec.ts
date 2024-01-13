@@ -8,7 +8,7 @@ describe('BannerComponent (initial CLI generated)', () => {
   let fixture: ComponentFixture<BannerComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] }).compileComponents();
+    TestBed.configureTestingModule({ imports: [BannerComponent] }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('BannerComponent (initial CLI generated)', () => {
 
 describe('BannerComponent (minimal)', () => {
   it('should create', () => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] });
+    TestBed.configureTestingModule({ imports: [BannerComponent] });
     const fixture = TestBed.createComponent(BannerComponent);
     const component = fixture.componentInstance;
     expect(component).toBeDefined();
@@ -36,7 +36,7 @@ describe('BannerComponent (with beforeEach)', () => {
   let fixture: ComponentFixture<BannerComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] });
+    TestBed.configureTestingModule({ imports: [BannerComponent] });
     fixture = TestBed.createComponent(BannerComponent);
     component = fixture.componentInstance;
   });

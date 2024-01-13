@@ -1,3 +1,4 @@
+import { UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Hero } from '../model/hero';
@@ -8,6 +9,8 @@ import { Hero } from '../model/hero';
     {{ hero.name | uppercase }}
   </div>`,
   styleUrls: ['./dashboard-hero.component.css'],
+  standalone: true,
+  imports: [UpperCasePipe],
 })
 export class DashboardHeroComponent {
   @Input() hero!: Hero;

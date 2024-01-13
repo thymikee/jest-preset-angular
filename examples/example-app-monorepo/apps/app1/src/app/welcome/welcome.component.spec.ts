@@ -1,6 +1,5 @@
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
-import { UserService } from '../../../../../libs/user/src/public-api';
+import { UserService } from 'libs/user/src/public-api';
 
 import { WelcomeComponent } from './welcome.component';
 
@@ -55,7 +54,7 @@ describe('WelcomeComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [WelcomeComponent],
+      imports: [WelcomeComponent],
       providers: [{ provide: UserService, useValue: userServiceStub }],
     });
 

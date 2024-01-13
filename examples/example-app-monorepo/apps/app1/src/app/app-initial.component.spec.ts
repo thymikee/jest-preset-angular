@@ -7,7 +7,7 @@ import { AppComponent } from './app-initial.component';
 describe('AppComponent (initial CLI version)', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      imports: [AppComponent],
     }).compileComponents();
   }));
   it('should create the app', waitForAsync(() => {
@@ -35,7 +35,7 @@ describe('AppComponent (initial CLI version - as it should be)', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      imports: [AppComponent],
     });
 
     fixture = TestBed.createComponent(AppComponent);
