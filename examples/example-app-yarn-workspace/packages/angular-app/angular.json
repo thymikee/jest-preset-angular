@@ -70,24 +70,23 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "example-app-v12:build"
+            "buildTarget": "example-app-v12:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "example-app-v12:build:production"
+              "buildTarget": "example-app-v12:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-app-v12:build"
+            "buildTarget": "example-app-v12:build"
           }
         }
       }
     }
   },
-  "defaultProject": "example-app-v12",
   "cli": {
     "packageManager": "yarn"
   }

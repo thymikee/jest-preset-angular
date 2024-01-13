@@ -1,9 +1,9 @@
 import { Directive, Input, HostListener } from '@angular/core';
-import { NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Directive({
   selector: '[routerLink]',
+  standalone: true,
 })
 export class RouterLinkDirectiveStub {
   @Input('routerLink') public linkParams: RouterLink | null = null;
@@ -15,8 +15,3 @@ export class RouterLinkDirectiveStub {
     this.navigatedTo = this.linkParams;
   }
 }
-
-@NgModule({
-  declarations: [RouterLinkDirectiveStub],
-})
-export class RouterStubsModule {}

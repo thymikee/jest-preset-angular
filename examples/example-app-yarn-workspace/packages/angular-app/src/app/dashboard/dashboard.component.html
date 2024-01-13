@@ -1,6 +1,5 @@
 <h2 highlight>{{ title }}</h2>
 
 <div class="grid grid-pad">
-  <dashboard-hero *ngFor="let hero of heroes" class="col-1-4" [hero]="hero" (selected)="gotoDetail($event)">
-  </dashboard-hero>
+  <dashboard-hero *ngFor="let hero of heroes" class="col-1-4" [hero]="hero" (selected)="gotoDetail($event)" />
 </div>

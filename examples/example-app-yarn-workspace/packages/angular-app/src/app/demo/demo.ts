@@ -425,7 +425,6 @@ export const demoProviders = [MasterService, ValueService];
   imports: [BrowserModule, FormsModule],
   declarations: demoDeclarations,
   providers: demoProviders,
-  entryComponents: [DemoComponent],
   bootstrap: [DemoComponent],
 })
 export class DemoModule {}

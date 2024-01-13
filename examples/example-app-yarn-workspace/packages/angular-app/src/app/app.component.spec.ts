@@ -1,20 +1,21 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { RouterLinkDirectiveStub } from '../testing';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppModule } from './app.module';
+import { BannerComponent } from './banner/banner.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
-@Component({ selector: 'app-banner', template: '' })
+@Component({ selector: 'app-banner', template: '', standalone: true })
 class BannerStubComponent {}
 
-@Component({ selector: 'router-outlet', template: '' })
+@Component({ selector: 'router-outlet', template: '', standalone: true })
 class RouterOutletStubComponent {}
 
-@Component({ selector: 'app-welcome', template: '' })
+@Component({ selector: 'app-welcome', template: '', standalone: true })
 class WelcomeStubComponent {}
 
 let comp: AppComponent;
@@ -23,14 +24,14 @@ let fixture: ComponentFixture<AppComponent>;
 describe('AppComponent & TestModule', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        RouterLinkDirectiveStub,
-        BannerStubComponent,
-        RouterOutletStubComponent,
-        WelcomeStubComponent,
-      ],
+      imports: [AppComponent],
     })
+      .overrideComponent(AppComponent, {
+        remove: { imports: [RouterLink, RouterOutlet, WelcomeComponent, BannerComponent] },
+        add: {
+          imports: [RouterLinkDirectiveStub, RouterOutletStubComponent, BannerStubComponent, WelcomeStubComponent],
+        },
+      })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(AppComponent);
@@ -43,9 +44,15 @@ describe('AppComponent & TestModule', () => {
 describe('AppComponent & NO_ERRORS_SCHEMA', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent, BannerStubComponent, RouterLinkDirectiveStub],
+      imports: [AppComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(AppComponent, {
+        remove: { imports: [RouterLink, RouterOutlet, WelcomeComponent, BannerComponent] },
+        add: {
+          imports: [RouterLinkDirectiveStub, RouterOutletStubComponent, BannerStubComponent, WelcomeStubComponent],
+        },
+      })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(AppComponent);
@@ -57,10 +64,12 @@ describe('AppComponent & NO_ERRORS_SCHEMA', () => {
 
 describe('AppComponent & AppModule', () => {
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [AppModule] })
-      .overrideModule(AppModule, {
-        remove: { imports: [AppRoutingModule] },
-        add: { declarations: [RouterLinkDirectiveStub, RouterOutletStubComponent] },
+    TestBed.configureTestingModule({ imports: [AppComponent] })
+      .overrideComponent(AppComponent, {
+        remove: { imports: [RouterLink, RouterOutlet, BannerComponent, WelcomeComponent] },
+        add: {
+          imports: [RouterLinkDirectiveStub, RouterOutletStubComponent, BannerStubComponent, WelcomeStubComponent],
+        },
       })
       .compileComponents()
       .then(() => {

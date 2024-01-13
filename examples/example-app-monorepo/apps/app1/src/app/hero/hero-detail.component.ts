@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Hero } from '../model/hero';
+import { TitleCasePipe } from '../shared/title-case.pipe';
 
 import { HeroDetailService } from './hero-detail.service';
 
@@ -9,6 +12,8 @@ import { HeroDetailService } from './hero-detail.service';
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css'],
+  standalone: true,
+  imports: [TitleCasePipe, FormsModule, NgIf],
   providers: [HeroDetailService],
 })
 export class HeroDetailComponent implements OnInit {

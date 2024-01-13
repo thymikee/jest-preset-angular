@@ -7,8 +7,7 @@ import { HighlightDirective } from './highlight.directive';
 import { TitleCasePipe } from './title-case.pipe';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, CanvasComponent, HighlightDirective, TitleCasePipe],
   exports: [CommonModule, FormsModule, HighlightDirective, TitleCasePipe, CanvasComponent],
-  declarations: [HighlightDirective, TitleCasePipe, CanvasComponent],
 })
 export class SharedModule {}

@@ -10,7 +10,7 @@ describe('BannerComponent (AutoChangeDetect)', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BannerComponent],
+      imports: [BannerComponent],
       providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
     });
     fixture = TestBed.createComponent(BannerComponent);

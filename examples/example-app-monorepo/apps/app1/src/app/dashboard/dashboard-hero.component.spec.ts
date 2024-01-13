@@ -28,7 +28,7 @@ describe('DashboardHeroComponent when tested directly', () => {
   let heroEl: HTMLElement;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [DashboardHeroComponent] }).compileComponents();
+    TestBed.configureTestingModule({ imports: [DashboardHeroComponent] }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -91,7 +91,7 @@ describe('DashboardHeroComponent when inside a test host', () => {
   let heroEl: HTMLElement;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [DashboardHeroComponent, TestHostComponent] }).compileComponents();
+    TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -115,6 +115,8 @@ describe('DashboardHeroComponent when inside a test host', () => {
 
 @Component({
   template: ` <dashboard-hero [hero]="hero" (selected)="onSelected($event)"> </dashboard-hero>`,
+  standalone: true,
+  imports: [DashboardHeroComponent],
 })
 class TestHostComponent {
   hero: Hero = { id: 42, name: 'Test Name' };

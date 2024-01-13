@@ -10,7 +10,7 @@ describe('BannerComponent (external files)', () => {
   describe('setup that may fail', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [BannerComponent],
+        imports: [BannerComponent],
       });
       fixture = TestBed.createComponent(BannerComponent);
     });
@@ -23,7 +23,7 @@ describe('BannerComponent (external files)', () => {
   describe('Two beforeEach', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [BannerComponent],
+        imports: [BannerComponent],
       }).compileComponents();
     });
 
@@ -39,7 +39,7 @@ describe('BannerComponent (external files)', () => {
   describe('One beforeEach', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [BannerComponent],
+        imports: [BannerComponent],
       }).compileComponents();
       fixture = TestBed.createComponent(BannerComponent);
       component = fixture.componentInstance;

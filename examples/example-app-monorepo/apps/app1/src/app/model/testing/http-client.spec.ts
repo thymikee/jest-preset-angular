@@ -73,15 +73,15 @@ describe('HttpClient testing', () => {
   it('can test for 404 error', () => {
     const emsg = 'deliberate 404 error';
 
-    httpClient.get<Data[]>(testUrl).subscribe(
-      () => {
+    httpClient.get<Data[]>(testUrl).subscribe({
+      next: () => {
         throw new Error('should have failed with the 404 error');
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         expect(error.status).toEqual(404);
         expect(error.error).toEqual(emsg);
       },
-    );
+    });
 
     const req = httpTestingController.expectOne(testUrl);
 
@@ -91,14 +91,14 @@ describe('HttpClient testing', () => {
   it('can test for network error', () => {
     const emsg = 'simulated network error';
 
-    httpClient.get<Data[]>(testUrl).subscribe(
-      () => {
+    httpClient.get<Data[]>(testUrl).subscribe({
+      next: () => {
         throw new Error('should have failed with the network error');
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         expect(error.error.message).toEqual(emsg);
       },
-    );
+    });
 
     const req = httpTestingController.expectOne(testUrl);
 

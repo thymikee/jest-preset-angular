@@ -8,7 +8,7 @@ let fixture: ComponentFixture<FooComponent>;
 describe.skip('FooComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [FooComponent],
+      imports: [FooComponent],
     }).createComponent(FooComponent);
     fixture.detectChanges();
   });

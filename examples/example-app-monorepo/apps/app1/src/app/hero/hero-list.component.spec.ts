@@ -10,7 +10,6 @@ import { getTestHeroes } from '../model/testing/test-heroes';
 import { HighlightDirective } from '../shared/highlight.directive';
 
 import { HeroListComponent } from './hero-list.component';
-import { HeroModule } from './hero.module';
 
 const HEROES = getTestHeroes();
 
@@ -25,7 +24,7 @@ describe('HeroListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HeroModule],
+      imports: [HeroListComponent],
       providers: [
         { provide: HeroService, useClass: TestHeroService },
         { provide: Router, useValue: routerSpy },

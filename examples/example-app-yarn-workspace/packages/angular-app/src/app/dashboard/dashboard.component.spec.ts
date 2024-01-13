@@ -23,8 +23,7 @@ describe('DashboardComponent (deep)', () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule],
-      declarations: [DashboardComponent, DashboardHeroComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule, DashboardComponent],
       providers: [
         {
           provide: HeroService,

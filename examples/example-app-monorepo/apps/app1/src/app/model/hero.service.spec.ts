@@ -28,14 +28,14 @@ describe('HeroesService (with spies)', () => {
 
     httpClientSpy.get.mockReturnValue(of(expectedHeroes));
 
-    heroService.getHeroes().subscribe(
-      (heroes) => {
+    heroService.getHeroes().subscribe({
+      next: (heroes) => {
         expect(heroes).toEqual(expectedHeroes);
       },
-      () => {
+      error: () => {
         throw new Error('Error getting heroes');
       },
-    );
+    });
     expect(httpClientSpy.get.mock.calls.length).toBe(1);
   }));
 
@@ -46,16 +46,16 @@ describe('HeroesService (with spies)', () => {
       statusText: 'Not Found',
     });
 
-    httpClientSpy.get.mockReturnValue(throwError(errorResponse));
+    httpClientSpy.get.mockReturnValue(throwError(() => errorResponse));
 
-    heroService.getHeroes().subscribe(
-      () => {
+    heroService.getHeroes().subscribe({
+      next: () => {
         throw new Error('expected an error, not heroes');
       },
-      (error) => {
+      error: (error) => {
         expect(error.message).toContain('test 404 error');
       },
-    );
+    });
   }));
 });
 
@@ -106,12 +106,12 @@ describe('HeroesService (with mocks)', () => {
 
     it('should turn 404 into a user-friendly error', () => {
       const msg = 'Deliberate 404';
-      heroService.getHeroes().subscribe(
-        () => {
+      heroService.getHeroes().subscribe({
+        next: () => {
           throw new Error('expected to fail');
         },
-        (error) => expect(error.message).toContain(msg),
-      );
+        error: (error) => expect(error.message).toContain(msg),
+      });
 
       const req = httpTestingController.expectOne(heroService.heroesUrl);
 
@@ -149,12 +149,12 @@ describe('HeroesService (with mocks)', () => {
     it('should turn 404 error into user-facing error', () => {
       const msg = 'Deliberate 404';
       const updateHero: Hero = { id: 1, name: 'A' };
-      heroService.updateHero(updateHero).subscribe(
-        () => {
+      heroService.updateHero(updateHero).subscribe({
+        next: () => {
           throw new Error('expected to fail');
         },
-        (error) => expect(error.message).toContain(msg),
-      );
+        error: (error) => expect(error.message).toContain(msg),
+      });
 
       const req = httpTestingController.expectOne(heroService.heroesUrl);
 
@@ -165,12 +165,12 @@ describe('HeroesService (with mocks)', () => {
       const emsg = 'simulated network error';
 
       const updateHero: Hero = { id: 1, name: 'A' };
-      heroService.updateHero(updateHero).subscribe(
-        () => {
+      heroService.updateHero(updateHero).subscribe({
+        next: () => {
           throw new Error('expected to fail');
         },
-        (error) => expect(error.message).toContain(emsg),
-      );
+        error: (error) => expect(error.message).toContain(emsg),
+      });
 
       const req = httpTestingController.expectOne(heroService.heroesUrl);
 

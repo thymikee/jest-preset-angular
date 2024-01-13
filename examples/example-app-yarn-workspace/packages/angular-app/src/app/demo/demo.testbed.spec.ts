@@ -598,5 +598,5 @@ class FakeGrandchildComponent {}
 
 @Injectable()
 class FakeValueService extends ValueService {
-  value = 'faked value';
+  override value = 'faked value';
 }

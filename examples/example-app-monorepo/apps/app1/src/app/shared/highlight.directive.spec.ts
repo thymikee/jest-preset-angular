@@ -19,7 +19,8 @@ describe('HighlightDirective', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [HighlightDirective, TestComponent],
+      declarations: [TestComponent],
+      imports: [HighlightDirective],
     }).createComponent(TestComponent);
 
     fixture.detectChanges();
