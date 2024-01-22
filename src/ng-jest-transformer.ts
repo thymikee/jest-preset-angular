@@ -1,8 +1,8 @@
 import { spawnSync } from 'child_process';
 
-import type { TransformedSource, TransformOptions } from '@jest/transform';
+import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
-import { type TsJestTransformerOptions, type ProjectConfigTsJest, ConfigSet, TsJestTransformer } from 'ts-jest';
+import { type TsJestTransformerOptions, ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
@@ -41,7 +41,7 @@ export class NgJestTransformer extends TsJestTransformer {
     this.#esbuildImpl = useNativeEsbuild ? require('esbuild') : require('esbuild-wasm');
   }
 
-  protected _createConfigSet(config: ProjectConfigTsJest | undefined): ConfigSet {
+  protected _createConfigSet(config: TsJestTransformOptions['config'] | undefined): ConfigSet {
     return new NgJestConfig(config);
   }
 
@@ -49,7 +49,7 @@ export class NgJestTransformer extends TsJestTransformer {
     this._compiler = new NgJestCompiler(configSet, cacheFS);
   }
 
-  process(fileContent: string, filePath: string, transformOptions: TransformOptions): TransformedSource {
+  process(fileContent: string, filePath: string, transformOptions: TsJestTransformOptions): TransformedSource {
     // @ts-expect-error we are accessing the private cache to avoid creating new objects all the time
     const configSet = super._configsFor(transformOptions);
     if (configSet.processWithEsbuild(filePath)) {

@@ -1,6 +1,6 @@
 import type { Logger } from 'bs-logger';
 import { globsToMatcher } from 'jest-util';
-import { type ProjectConfigTsJest, type RawCompilerOptions, ConfigSet } from 'ts-jest';
+import { type RawCompilerOptions, ConfigSet, type TsJestTransformOptions } from 'ts-jest';
 import type { ParsedCommandLine } from 'typescript';
 
 /**
@@ -11,7 +11,7 @@ const defaultProcessWithEsbuildPatterns = ['**/*.mjs'];
 export class NgJestConfig extends ConfigSet {
   readonly processWithEsbuild: ReturnType<typeof globsToMatcher>;
 
-  constructor(jestConfig: ProjectConfigTsJest | undefined, parentLogger?: Logger | undefined) {
+  constructor(jestConfig: TsJestTransformOptions['config'] | undefined, parentLogger?: Logger | undefined) {
     super(jestConfig, parentLogger);
     const jestGlobalsConfig = jestConfig?.globals?.ngJest ?? Object.create(null);
     this.processWithEsbuild = globsToMatcher([
