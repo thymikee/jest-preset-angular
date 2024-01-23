@@ -3530,7 +3530,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:10.4.16, autoprefixer@npm:^10.4.16":
+"autoprefixer@npm:10.4.16":
   version: 10.4.16
   resolution: "autoprefixer@npm:10.4.16"
   dependencies:
@@ -4459,13 +4459,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cuint@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "cuint@npm:0.2.2"
-  checksum: b8127a93a7f16ce120ffcb22108014327c9808b258ee20e7dbb4c6740d7cb0f0c12d18a054eb716b0f2470090666abaae8a082d3cd5ef0e94fa447dd155842c4
-  languageName: node
-  linkType: hard
-
 "data-urls@npm:^3.0.2":
   version: 3.0.2
   resolution: "data-urls@npm:3.0.2"
@@ -4597,10 +4590,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dependency-graph@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "dependency-graph@npm:0.11.0"
-  checksum: 477204beaa9be69e642bc31ffe7a8c383d0cf48fa27acbc91c5df01431ab913e65c154213d2ef83d034c98d77280743ec85e5da018a97a18dd43d3c0b78b28cd
+"dependency-graph@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "dependency-graph@npm:1.0.0"
+  checksum: c2e37c599877e5006020715686aa4f2c04746644124a0037f074873f5f9ccb3f2e8402393a280d52c26b9949deea0fbfeab3eb9e9839332dc7f37eede6c6f743
   languageName: node
   linkType: hard
 
@@ -5067,7 +5060,7 @@ __metadata:
     angular-in-memory-web-api: ^0.17.0
     jest: ^29.7.0
     jest-preset-angular: ^14.0.0
-    ng-packagr: ^17.0.3
+    ng-packagr: ^17.1.1
     rxjs: ^7.8.1
     tslib: ^2.6.2
     typescript: ~5.2.2
@@ -7186,7 +7179,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"make-dir@npm:^3.0.0, make-dir@npm:^3.0.2, make-dir@npm:~3.1.0":
+"make-dir@npm:^3.0.0, make-dir@npm:^3.0.2":
   version: 3.1.0
   resolution: "make-dir@npm:3.1.0"
   dependencies:
@@ -7333,15 +7326,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:~2.5.2":
-  version: 2.5.2
-  resolution: "mime@npm:2.5.2"
-  bin:
-    mime: cli.js
-  checksum: dd3c93d433d41a09f6a1cfa969b653b769899f3bd573e7bfcea33bdc8b0cc4eba57daa2f95937369c2bd2b6d39d62389b11a4309fe40d1d3a1b736afdedad0ff
-  languageName: node
-  linkType: hard
-
 "mimic-fn@npm:^2.1.0":
   version: 2.1.0
   resolution: "mimic-fn@npm:2.1.0"
@@ -7391,15 +7375,6 @@ __metadata:
   dependencies:
     brace-expansion: ^2.0.1
   checksum: 253487976bf485b612f16bf57463520a14f512662e592e95c571afdab1442a6a6864b6c88f248ce6fc4ff0b6de04ac7aa6c8bb51e868e99d1d65eb0658a708b5
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:~3.0.4":
-  version: 3.0.8
-  resolution: "minimatch@npm:3.0.8"
-  dependencies:
-    brace-expansion: ^1.1.7
-  checksum: 850cca179cad715133132693e6963b0db64ab0988c4d211415b087fc23a3e46321e2c5376a01bf5623d8782aba8bdf43c571e2e902e51fdce7175c7215c29f8b
   languageName: node
   linkType: hard
 
@@ -7613,22 +7588,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ng-packagr@npm:^17.0.3":
-  version: 17.0.3
-  resolution: "ng-packagr@npm:17.0.3"
+"ng-packagr@npm:^17.1.1":
+  version: 17.1.1
+  resolution: "ng-packagr@npm:17.1.1"
   dependencies:
     "@rollup/plugin-json": ^6.0.1
     "@rollup/plugin-node-resolve": ^15.2.3
     "@rollup/wasm-node": ^4.5.0
     ajv: ^8.12.0
     ansi-colors: ^4.1.3
-    autoprefixer: ^10.4.16
     browserslist: ^4.22.1
     cacache: ^18.0.0
     chokidar: ^3.5.3
     commander: ^11.1.0
     convert-source-map: ^2.0.0
-    dependency-graph: ^0.11.0
+    dependency-graph: ^1.0.0
     esbuild: ^0.19.0
     esbuild-wasm: ^0.19.5
     fast-glob: ^3.3.1
@@ -7637,17 +7611,16 @@ __metadata:
     jsonc-parser: ^3.2.0
     less: ^4.2.0
     ora: ^5.1.0
-    piscina: ^4.1.0
+    piscina: ^4.2.0
     postcss: ^8.4.31
-    postcss-url: ^10.1.3
     rollup: ^4.5.0
     rxjs: ^7.8.1
     sass: ^1.69.5
   peerDependencies:
-    "@angular/compiler-cli": ^17.0.0 || ^17.0.0-next.0
+    "@angular/compiler-cli": ^17.0.0 || ^17.1.0-next.0 || ^17.2.0-next.0
     tailwindcss: ^2.0.0 || ^3.0.0
     tslib: ^2.3.0
-    typescript: ">=5.2 <5.3"
+    typescript: ">=5.2 <5.4"
   dependenciesMeta:
     esbuild:
       optional: true
@@ -7658,7 +7631,7 @@ __metadata:
       optional: true
   bin:
     ng-packagr: cli/main.js
-  checksum: 76bb42a8870ae1a83ee8e7b6bf39db8c45aa9c68e2f11d43f810ce04016abb09d3ae61d1153e5cf047ba01ae0784bdbc4c7f0ea3dbc6719ce00d64b99622da10
+  checksum: 7a84405168e2a44dd70abc8be52379014ed8f2d1fdeb8b18a0dec17e3eff504bcaa08f8987f44a082490ad319fdb816260087f2effee6d8333599c76482e9866
   languageName: node
   linkType: hard
 
@@ -8259,7 +8232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"piscina@npm:4.2.1, piscina@npm:^4.1.0":
+"piscina@npm:4.2.1":
   version: 4.2.1
   resolution: "piscina@npm:4.2.1"
   dependencies:
@@ -8270,6 +8243,18 @@ __metadata:
     nice-napi:
       optional: true
   checksum: 82a30309260ca11d10d9617971afec8238572a4f89a7c73ef6e7756cef6c4ab0351fa22e860e631ae9773fa0e32fed4724bdc8579a959ad03eac6cbaae90be0c
+  languageName: node
+  linkType: hard
+
+"piscina@npm:^4.2.0":
+  version: 4.3.0
+  resolution: "piscina@npm:4.3.0"
+  dependencies:
+    nice-napi: ^1.0.2
+  dependenciesMeta:
+    nice-napi:
+      optional: true
+  checksum: 6ac6f2e1e13c52fadc2f9f474618ccfbed11b3808492df758c8e9221899b4010cb9d7832b39c5a37b29946fdf0b46d097a113e712207e50c65fd6338c5123186
   languageName: node
   linkType: hard
 
@@ -8356,20 +8341,6 @@ __metadata:
     cssesc: ^3.0.0
     util-deprecate: ^1.0.2
   checksum: 46afaa60e3d1998bd7adf6caa374baf857cc58d3ff944e29459c9a9e4680a7fe41597bd5b755fc81d7c388357e9bf67c0251d047c640a09f148e13606b8a8608
-  languageName: node
-  linkType: hard
-
-"postcss-url@npm:^10.1.3":
-  version: 10.1.3
-  resolution: "postcss-url@npm:10.1.3"
-  dependencies:
-    make-dir: ~3.1.0
-    mime: ~2.5.2
-    minimatch: ~3.0.4
-    xxhashjs: ~0.2.2
-  peerDependencies:
-    postcss: ^8.0.0
-  checksum: 5983dbd20eabc0ba394a80aec14b6d6fdb986632ff6a4d3a6f0afc478d639f8a753a5c1e2bc7b9f6692befdb578372e7b288ab3d29bfa6b0d3ee06afca645f06
   languageName: node
   linkType: hard
 
@@ -10403,15 +10374,6 @@ __metadata:
   version: 2.2.0
   resolution: "xmlchars@npm:2.2.0"
   checksum: 8c70ac94070ccca03f47a81fcce3b271bd1f37a591bf5424e787ae313fcb9c212f5f6786e1fa82076a2c632c0141552babcd85698c437506dfa6ae2d58723062
-  languageName: node
-  linkType: hard
-
-"xxhashjs@npm:~0.2.2":
-  version: 0.2.2
-  resolution: "xxhashjs@npm:0.2.2"
-  dependencies:
-    cuint: ^0.2.2
-  checksum: cf6baf05bafe5651dbf108008bafdb1ebe972f65228633f00b56c49d7a1e614a821fe3345c4eb27462994c7c954d982eae05871be6a48146f30803dd87f3c3b6
   languageName: node
   linkType: hard
 
