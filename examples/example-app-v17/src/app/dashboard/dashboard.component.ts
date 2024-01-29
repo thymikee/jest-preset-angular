@@ -18,7 +18,10 @@ import { DashboardHeroComponent } from './dashboard-hero.component';
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 
-  constructor(private router: Router, private heroService: HeroService) {}
+  constructor(
+    private router: Router,
+    private heroService: HeroService,
+  ) {}
 
   ngOnInit() {
     this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));

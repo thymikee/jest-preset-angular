@@ -18,7 +18,10 @@ export class HeroListComponent {
   heroes: Observable<Hero[]>;
   selectedHero!: Hero;
 
-  constructor(private router: Router, private heroService: HeroService) {
+  constructor(
+    private router: Router,
+    private heroService: HeroService,
+  ) {
     this.heroes = this.heroService.getHeroes();
   }
 
