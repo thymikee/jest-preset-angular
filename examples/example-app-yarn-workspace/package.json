@@ -8,9 +8,9 @@
   },
   "private": true,
   "scripts": {
-    "test": "yarn workspaces foreach run test",
-    "test-isolated": "yarn workspaces foreach run test-isolated",
-    "test-esm": "yarn workspaces foreach run test-esm",
-    "test-esm-isolated": "yarn workspaces foreach run test-esm-isolated"
+    "test": "yarn workspaces foreach -A run test",
+    "test-isolated": "yarn workspaces foreach -A run test-isolated",
+    "test-esm": "yarn workspaces foreach -A run test-esm",
+    "test-esm-isolated": "yarn workspaces foreach -A run test-esm-isolated"
   }
 }
