@@ -2,16 +2,16 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 6
-  cacheKey: 8
+  version: 8
+  cacheKey: 10
 
 "@googlemaps/markerclusterer@npm:^2.0.15":
   version: 2.0.15
   resolution: "@googlemaps/markerclusterer@npm:2.0.15"
   dependencies:
-    fast-deep-equal: ^3.1.3
-    supercluster: ^7.1.3
-  checksum: bb3201212fe4e0d18a22979ad1aaf9796f958ddb5e2a8bc3aa4d2666ce8e81d70d05ebca7c1d8c85027775678d825408795ff34d925316f244e027dee9b0a883
+    fast-deep-equal: "npm:^3.1.3"
+    supercluster: "npm:^7.1.3"
+  checksum: 10/484d4e1fbacf94d9ce8fd8abf8df1322d186c1899da95166c347bb6b6af10258590f26edda955a214cc97fc593797aae337a388abdb8527ccdbb45bbcb4a535a
   languageName: node
   linkType: hard
 
@@ -19,36 +19,36 @@ __metadata:
   version: 4.17.12
   resolution: "@types/lodash-es@npm:4.17.12"
   dependencies:
-    "@types/lodash": "*"
-  checksum: 990a99e2243bebe9505cb5ad19fbc172beb4a8e00f9075c99fc06c46c2801ffdb40bc2867271cf580d5f48994fc9fb076ec92cd60a20e621603bf22114e5b077
+    "@types/lodash": "npm:*"
+  checksum: 10/56b9a433348b11c31051c6fa9028540a033a08fb80b400c589d740446c19444d73b217cf1471d4036448ef686a83e8cf2a35d1fadcb3f2105f26701f94aebb07
   languageName: node
   linkType: hard
 
 "@types/lodash@npm:*":
   version: 4.14.182
   resolution: "@types/lodash@npm:4.14.182"
-  checksum: 7dd137aa9dbabd632408bd37009d984655164fa1ecc3f2b6eb94afe35bf0a5852cbab6183148d883e9c73a958b7fec9a9bcf7c8e45d41195add6a18c34958209
+  checksum: 10/6c0d3fa682331d7631676817acf4b8b74842a9df0fb63dacbbc6a31b94e266edca550ac096cec8ce95df4fc72cf550a6321322e27872d4dfa15c1003197f6c85
   languageName: node
   linkType: hard
 
 "fast-deep-equal@npm:^3.1.3":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
-  checksum: e21a9d8d84f53493b6aa15efc9cfd53dd5b714a1f23f67fb5dc8f574af80df889b3bce25dc081887c6d25457cce704e636395333abad896ccdec03abaf1f3f9d
+  checksum: 10/e21a9d8d84f53493b6aa15efc9cfd53dd5b714a1f23f67fb5dc8f574af80df889b3bce25dc081887c6d25457cce704e636395333abad896ccdec03abaf1f3f9d
   languageName: node
   linkType: hard
 
 "kdbush@npm:^3.0.0":
   version: 3.0.0
   resolution: "kdbush@npm:3.0.0"
-  checksum: bc5fa433958e42664a8a92457e4f0d1db55b3b8e36956aac0102964adb2eab043bdbff156570dc8d867144ceff588fb7a1c6e099ba9be068cd1767a73e1ace92
+  checksum: 10/dd1c4b550de185129297a5a7c68655fc72311d8a70691bacfba820b46e53c3056116c795be12b7530be46e4c9e8cd3357f7c1af3c59077982cf221632cc4bc88
   languageName: node
   linkType: hard
 
 "lodash-es@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash-es@npm:4.17.21"
-  checksum: 05cbffad6e2adbb331a4e16fbd826e7faee403a1a04873b82b42c0f22090f280839f85b95393f487c1303c8a3d2a010048bf06151a6cbe03eee4d388fb0a12d2
+  checksum: 10/03f39878ea1e42b3199bd3f478150ab723f93cc8730ad86fec1f2804f4a07c6e30deaac73cad53a88e9c3db33348bb8ceeb274552390e7a75d7849021c02df43
   languageName: node
   linkType: hard
 
@@ -56,10 +56,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "process-js-packages@workspace:."
   dependencies:
-    "@googlemaps/markerclusterer": ^2.0.15
-    "@types/lodash-es": ^4.17.12
-    lodash-es: ^4.17.21
-    tslib: ^2.4.1
+    "@googlemaps/markerclusterer": "npm:^2.0.15"
+    "@types/lodash-es": "npm:^4.17.12"
+    lodash-es: "npm:^4.17.21"
+    tslib: "npm:^2.4.1"
   languageName: unknown
   linkType: soft
 
@@ -67,14 +67,14 @@ __metadata:
   version: 7.1.5
   resolution: "supercluster@npm:7.1.5"
   dependencies:
-    kdbush: ^3.0.0
-  checksum: 69863238870093b96617135884721b6343746e14f396b2d67d6b55c52c362ec0516c5e386aa21815e75a9cef2054e831ac34023d0d8b600091d28cea0794f027
+    kdbush: "npm:^3.0.0"
+  checksum: 10/5e5efaf0b2a01e71aadf33322fbfd52fdc06e7ca7d3e35e696380b7255f95fa1fc5bb9ac1e3212ee2923092da4cd7592d1e28a89713355e2b6e9bb9fed788f9c
   languageName: node
   linkType: hard
 
 "tslib@npm:^2.4.1":
   version: 2.4.1
   resolution: "tslib@npm:2.4.1"
-  checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
+  checksum: 10/e14311d5392ec0e3519feb9afdb54483d7f3aa2d3def6f1a1a30bd3deca5dfeadd106e80bee9ba880bce86a2e50854c9fe5958572cd188d7ac6f8625101a6a8f
   languageName: node
   linkType: hard
