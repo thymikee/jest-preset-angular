@@ -41,7 +41,8 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
-    "update-e2e": "node scripts/update-e2e.js"
+    "update-e2e": "node scripts/update-e2e.js",
+    "build-ng-source": "node scripts/prebuild.js"
   },
   "dependencies": {
     "bs-logger": "^0.2.6",
