@@ -42,12 +42,12 @@
     },
     {
       "extends": ["packages:eslint"],
-      "excludePackageNames": ["eslint-plugin-prettier"],
+      "excludePackageNames": ["eslint-plugin-prettier", "eslint-config-prettier"],
       "groupName": "ESLint packages"
     },
     {
-      "matchPackagePrefixes": ["esbuild"],
-      "groupName": "Esbuild packages"
+      "matchPackagePatterns": ["prettier"],
+      "groupName": "Prettier packages"
     },
     {
       "matchPackageNames": [
@@ -79,7 +79,7 @@
       "enabled": false
     },
     {
-      "matchPackageNames": [
+      "matchPackagePatterns": [
         "esbuild"
       ],
       "enabled": false
