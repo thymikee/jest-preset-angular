@@ -40,8 +40,7 @@
     "doc:build": "cd website && yarn build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable",
-    "update-e2e": "node scripts/update-e2e.js"
+    "postpublish": "pinst --enable"
   },
   "dependencies": {
     "bs-logger": "^0.2.6",

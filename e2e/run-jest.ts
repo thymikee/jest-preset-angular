@@ -3,7 +3,6 @@ import path from 'path';
 import type { FormattedTestResults } from '@jest/test-result';
 import execa from 'execa';
 import * as fs from 'graceful-fs';
-import semver from 'semver';
 import stripAnsi from 'strip-ansi';
 
 import { normalizeIcons } from './utils';
@@ -97,7 +96,7 @@ function normalizeStdoutAndStderrOnResult(result: RunJestResult, options: RunJes
 //   'success', 'startTime', 'numTotalTests', 'numTotalTestSuites',
 //   'numRuntimeErrorTestSuites', 'numPassedTests', 'numFailedTests',
 //   'numPendingTests', 'testResults'
-export const json = function (dir: string, args?: string[], options: RunJestOptions = {}): RunJestJsonResult {
+const json = function (dir: string, args?: string[], options: RunJestOptions = {}): RunJestJsonResult {
   args = [...(args || []), '--json'];
   const result = runJest(dir, args, options);
   try {
@@ -120,19 +119,4 @@ export const json = function (dir: string, args?: string[], options: RunJestOpti
 
 export const jsonNoCache = (dir: string, jestArgs?: string[], options: RunJestOptions = {}): RunJestJsonResult => {
   return json(dir, jestArgs ? [...jestArgs, '--no-cache'] : ['--no-cache'], options);
-};
-
-export const onNodeVersions = (versionRange: string, testBody: () => void): void => {
-  const description = `on node ${versionRange}`;
-  if (semver.satisfies(process.versions.node, versionRange)) {
-    // eslint-disable-next-line jest/valid-title
-    describe(description, () => {
-      testBody();
-    });
-  } else {
-    // eslint-disable-next-line jest/valid-title,jest/no-disabled-tests
-    describe.skip(description, () => {
-      testBody();
-    });
-  }
 };
