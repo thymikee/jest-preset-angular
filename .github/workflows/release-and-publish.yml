@@ -43,7 +43,7 @@ jobs:
       # it
       - name: Checkout code
         # https://github.com/marketplace/actions/checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         # Runs a single command using the runners shell
       - name: Create release for tag
         uses: actions/create-release@latest
