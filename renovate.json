@@ -25,11 +25,10 @@
   "packageRules": [
     {
       "matchPaths": ["examples/**"],
-      "matchUpdateTypes": ["major"],
       "enabled": false
     },
     {
-      "matchPaths": ["package.json"],
+      "matchPaths": ["package.json", "examples/**", "e2e/**"],
       "matchPackagePatterns": ["^@angular", "ng-packagr"],
       "matchUpdateTypes": ["patch", "minor"],
       "groupName": "Angular packages"
@@ -43,6 +42,7 @@
     },
     {
       "extends": ["packages:eslint"],
+      "excludePackageNames": ["eslint-plugin-prettier"],
       "groupName": "ESLint packages"
     },
     {
