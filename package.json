@@ -28,7 +28,6 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "postinstall": "husky install",
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --fix --ext .js,.ts .",
     "lint-prettier": "prettier \"**/*.{yml,yaml,md}\" --write",
@@ -40,7 +39,8 @@
     "doc:build": "cd website && yarn build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "prepare": "husky"
   },
   "dependencies": {
     "bs-logger": "^0.2.6",
@@ -93,7 +93,7 @@
     "fs-extra": "^11.2.0",
     "github-files-fetcher": "^1.6.0",
     "glob": "^10.3.10",
-    "husky": "^8.0.3",
+    "husky": "^9.0.7",
     "jest": "^29.7.0",
     "jest-snapshot-serializer-raw": "^1.2.0",
     "pinst": "^3.0.0",
