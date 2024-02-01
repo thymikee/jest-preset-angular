@@ -23,7 +23,7 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 ## Migration steps from Angular < 13
 
-- Upgrade the project to **Angular 13** following https://update.angular.io/
+- Upgrade the project to **Angular 13** following [guide](https://update.angular.io/)
 
 - If one is using the default preset as following:
 
