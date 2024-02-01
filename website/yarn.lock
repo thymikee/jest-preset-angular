@@ -5281,13 +5281,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-remark-plugin-tab-blocks@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "docusaurus-remark-plugin-tab-blocks@npm:1.3.1"
+"docusaurus-remark-plugin-tab-blocks@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "docusaurus-remark-plugin-tab-blocks@npm:3.0.0"
   dependencies:
-    unist-util-is: "npm:^4.0.0"
-    unist-util-visit: "npm:^2.0.0"
-  checksum: 10/ce9a00b009478aa21e3fde7dc867de5b7d1091bd18a1a724b6ea81aacbf2ec2c356a84d2237cc125122b9cd1b498755362e6f3aefbe4ce1654543180b3ff2353
+    unist-util-is: "npm:^6.0.0"
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 10/d33b85b33743fb500166847ae2889a17c49c57f5fa1b1e344b07433b3743bbbef85cbe25c134e6488340397a809f8e3ffde25ce482d9584808879902bd102ec0
   languageName: node
   linkType: hard
 
@@ -12149,13 +12149,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-is@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "unist-util-is@npm:4.1.0"
-  checksum: 10/c046cc87c0a4f797b2afce76d917218e6a9af946a56cb5a88cb7f82be34f16c11050a10ddc4c66a3297dbb2782ca7d72a358cd77900b439ea9c683ba003ffe90
-  languageName: node
-  linkType: hard
-
 "unist-util-is@npm:^6.0.0":
   version: 6.0.0
   resolution: "unist-util-is@npm:6.0.0"
@@ -12202,16 +12195,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-visit-parents@npm:^3.0.0":
-  version: 3.1.1
-  resolution: "unist-util-visit-parents@npm:3.1.1"
-  dependencies:
-    "@types/unist": "npm:^2.0.0"
-    unist-util-is: "npm:^4.0.0"
-  checksum: 10/1b18343d88a0ad9cafaf8164ff8a1d3e3903328b3936b1565d61731f0b5778b9b9f400c455d3ad5284eeebcfdd7558ce24eb15c303a9cc0bd9218d01b2116923
-  languageName: node
-  linkType: hard
-
 "unist-util-visit-parents@npm:^6.0.0":
   version: 6.0.1
   resolution: "unist-util-visit-parents@npm:6.0.1"
@@ -12219,17 +12202,6 @@ __metadata:
     "@types/unist": "npm:^3.0.0"
     unist-util-is: "npm:^6.0.0"
   checksum: 10/645b3cbc5e923bc692b1eb1a9ca17bffc5aabc25e6090ff3f1489bff8effd1890b28f7a09dc853cb6a7fa0da8581bfebc9b670a68b53c4c086cb9610dfd37701
-  languageName: node
-  linkType: hard
-
-"unist-util-visit@npm:^2.0.0":
-  version: 2.0.3
-  resolution: "unist-util-visit@npm:2.0.3"
-  dependencies:
-    "@types/unist": "npm:^2.0.0"
-    unist-util-is: "npm:^4.0.0"
-    unist-util-visit-parents: "npm:^3.0.0"
-  checksum: 10/1fe19d500e212128f96d8c3cfa3312846e586b797748a1fd195fe6479f06bc90a6f6904deb08eefc00dd58e83a1c8a32fb8677252d2273ad7a5e624525b69b8f
   languageName: node
   linkType: hard
 
@@ -12611,7 +12583,7 @@ __metadata:
     "@mdx-js/react": "npm:^3.0.0"
     "@types/react": "npm:^18.2.49"
     clsx: "npm:^2.1.0"
-    docusaurus-remark-plugin-tab-blocks: "npm:^1.3.1"
+    docusaurus-remark-plugin-tab-blocks: "npm:^3.0.0"
     latest-version: "npm:^7.0.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
