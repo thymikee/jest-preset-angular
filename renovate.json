@@ -24,7 +24,8 @@
   ],
   "packageRules": [
     {
-      "matchPaths": ["examples/**"],
+      "matchPaths": ["examples/example-app-v15"],
+      "matchPackagePatterns": ["^@angular", "ng-packagr"],
       "enabled": false
     },
     {
