@@ -5,7 +5,6 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['examples/.*', 'website/.*'],
-  snapshotSerializers: [require.resolve('jest-snapshot-serializer-raw')],
   testPathIgnorePatterns: ['/node_modules/', '/examples/', '/e2e/.*/__tests__', '\\.snap$'],
   transform: {
     '^.+\\.(ts|js|mjs|html)$': [
