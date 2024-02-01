@@ -1,20 +1,13 @@
-import { spawnSync } from 'child_process';
-
 import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
+import { transformSync } from 'esbuild';
 import { type TsJestTransformerOptions, ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 
-// Cache the result between multiple transformer instances
-// to avoid spawning multiple processes (which can have a major
-// performance impact when used with multiple projects).
-let useNativeEsbuild: boolean | undefined;
-
 export class NgJestTransformer extends TsJestTransformer {
   #ngJestLogger: Logger;
-  #esbuildImpl: typeof import('esbuild');
 
   constructor(tsJestConfig?: TsJestTransformerOptions) {
     super(tsJestConfig);
@@ -27,18 +20,6 @@ export class NgJestTransformer extends TsJestTransformer {
       },
       targets: process.env.NG_JEST_LOG ?? undefined,
     });
-
-    if (useNativeEsbuild === undefined) {
-      try {
-        const esbuildCheckPath = require.resolve('../esbuild-check.js');
-        const { status, error } = spawnSync(process.execPath, [esbuildCheckPath]);
-        useNativeEsbuild = status === 0 && error === undefined;
-      } catch (e) {
-        useNativeEsbuild = false;
-      }
-    }
-
-    this.#esbuildImpl = useNativeEsbuild ? require('esbuild') : require('esbuild-wasm');
   }
 
   protected _createConfigSet(config: TsJestTransformOptions['config'] | undefined): ConfigSet {
@@ -56,7 +37,7 @@ export class NgJestTransformer extends TsJestTransformer {
       this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
       const compilerOpts = configSet.parsedTsConfig.options;
-      const { code, map } = this.#esbuildImpl.transformSync(fileContent, {
+      const { code, map } = transformSync(fileContent, {
         loader: 'js',
         format: transformOptions.supportsStaticESM && configSet.useESM ? 'esm' : 'cjs',
         target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
