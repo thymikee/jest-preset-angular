@@ -6,7 +6,7 @@ title: Options
 `jest-preset-angular` uses `ts-jest` options under the hood, which are located under the `globals` of Jest config object
 in the `package.json` file of your project, or through a `jest.config.js`, or `jest.config.ts` file.
 
-More information about `ts-jest` options, see https://kulshekhar.github.io/ts-jest/docs/next/getting-started/options
+More information about `ts-jest` options, see [doc](https://kulshekhar.github.io/ts-jest/docs/getting-started/options)
 
 ### Exposed configuration
 

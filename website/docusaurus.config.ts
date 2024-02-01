@@ -1,7 +1,7 @@
-// @ts-check
+import type {Config} from "@docusaurus/types";
+import { themes } from "prism-react-renderer";
 
-/** @type {import('@docusaurus/types').Config} */
-module.exports = {
+const config: Config = {
   title: 'jest-preset-angular',
   tagline: 'Jest preset configuration for Angular projects.',
   url: 'https://thymikee.github.io',
@@ -85,7 +85,7 @@ module.exports = {
         docs: {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve('./sidebars.json'),
           editUrl: 'https://github.com/thymikee/jest-preset-angular/edit/main/website',
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
@@ -121,8 +121,8 @@ module.exports = {
         '⭐️ If you like jest-preset-angular, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/thymikee/jest-preset-angular">GitHub</a>! ⭐️',
     },
     prism: {
-      theme: require('prism-react-renderer/themes/github'),
-      darkTheme: require('prism-react-renderer/themes/dracula'),
+      theme: themes.github,
+      darkTheme: themes.dracula,
     },
     navbar: {
       hideOnScroll: true,
@@ -205,3 +205,5 @@ module.exports = {
     },
   },
 };
+
+export default config;
