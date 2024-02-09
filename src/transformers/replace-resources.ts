@@ -9,7 +9,6 @@ import type { TsCompilerInstance } from 'ts-jest';
 import ts from 'typescript';
 
 import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT, STYLE_URL } from '../constants';
-import { getDecorators, getModifiers, toMutableArray } from '../ngtsc/ts_compatibility';
 
 const isAfterVersion = (targetMajor: number, targetMinor: number): boolean => {
   const [major, minor] = ts.versionMajorMinor.split('.').map((part) => parseInt(part));
@@ -119,8 +118,8 @@ function visitClassDeclaration(
       }
     });
   } else {
-    decorators = toMutableArray(getDecorators(node));
-    modifiers = toMutableArray(getModifiers(node));
+    decorators = [...(ts.getDecorators(node) ?? [])];
+    modifiers = [...(ts.getModifiers(node) ?? [])];
   }
 
   if (!decorators || !decorators.length) {

@@ -27,13 +27,14 @@
     "testing"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build-transformers-bundle": "esbuild --bundle --minify src/transformers/jit_transform.d.ts --platform=node --outfile=./src/transformers/jit_transform.js --format=cjs --define:import.meta.url=import_meta_url --inject:./src/transformers/esm_interop_inject.cjs && cp src/transformers/jit_transform.js build/transformers/jit_transform.js",
+    "build": "tsc -p tsconfig.build.json && yarn build-transformers-bundle",
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --fix --ext .js,.ts .",
     "lint-prettier": "prettier \"**/*.{yml,yaml,md}\" --write",
     "lint-prettier-ci": "prettier \"**/*.{yml,yaml,md}\" --check",
     "pretest": "tsc -p tsconfig.spec.json --noEmit",
-    "test": "jest",
+    "test": "yarn build && jest",
     "test-examples": "node scripts/test-examples.js",
     "doc": "cd website && yarn start",
     "doc:build": "cd website && yarn build",

@@ -1,7 +1,7 @@
 import { type TsJestAstTransformer, TsCompiler, type ConfigSet } from 'ts-jest';
 import type * as ts from 'typescript';
 
-import { constructorParametersDownlevelTransform } from '../transformers/downlevel-ctor';
+import { angularJitApplicationTransform } from '../transformers/jit_transform';
 import { replaceResources } from '../transformers/replace-resources';
 
 export class NgJestCompiler extends TsCompiler {
@@ -112,6 +112,9 @@ export class NgJestCompiler extends TsCompiler {
   }
 
   protected _makeTransformers(customTransformers: TsJestAstTransformer): ts.CustomTransformers {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const program = this.program!;
+
     return {
       ...super._makeTransformers(customTransformers).after,
       ...super._makeTransformers(customTransformers).afterDeclarations,
@@ -120,8 +123,7 @@ export class NgJestCompiler extends TsCompiler {
           beforeTransformer.factory(this, beforeTransformer.options),
         ),
         replaceResources(this),
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        constructorParametersDownlevelTransform(this.program!),
+        angularJitApplicationTransform(program),
       ] as Array<ts.TransformerFactory<ts.SourceFile> | ts.CustomTransformerFactory>,
     };
   }
