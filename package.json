@@ -27,7 +27,7 @@
     "testing"
   ],
   "scripts": {
-    "build-transformers-bundle": "esbuild --bundle src/transformers/jit_transform.d.ts --platform=node --external:typescript --outfile=./src/transformers/jit_transform.js --format=cjs --define:import.meta.url=import_meta_url --inject:./src/transformers/esm_interop_inject.cjs && cp src/transformers/jit_transform.js build/transformers/jit_transform.js",
+    "build-transformers-bundle": "esbuild --bundle --minify src/transformers/jit_transform.d.ts --platform=node --external:typescript --outfile=./src/transformers/jit_transform.js --format=cjs --define:import.meta.url=import_meta_url --inject:./src/transformers/esm_interop_inject.cjs && cp src/transformers/jit_transform.js build/transformers/jit_transform.js",
     "build": "tsc -p tsconfig.build.json && yarn build-transformers-bundle",
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --fix --ext .js,.ts .",
