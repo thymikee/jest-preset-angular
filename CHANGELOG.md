@@ -1,3 +1,14 @@
+## [14.0.1](https://github.com/thymikee/jest-preset-angular/compare/v14.0.0...v14.0.1) (2024-02-09)
+
+
+### Features
+
+* remove esbuild-check workaround ([2e0fa38](https://github.com/thymikee/jest-preset-angular/commit/2e0fa38bbcbca1a2db326687284cffe912d7ebdd))
+* set version for `esbuild` to be version from Angular 15.x.x ([af38578](https://github.com/thymikee/jest-preset-angular/commit/af3857885365a182b88f003e4592cceee5af849c))
+* support signal inputs, queries and model ([#2303](https://github.com/thymikee/jest-preset-angular/issues/2303)) ([7f7a22f](https://github.com/thymikee/jest-preset-angular/commit/7f7a22f3ab4068a7574f64e37f819a0eff3e86c3)), closes [#2246](https://github.com/thymikee/jest-preset-angular/issues/2246) [#2255](https://github.com/thymikee/jest-preset-angular/issues/2255)
+
+
+
 # [14.0.0](https://github.com/thymikee/jest-preset-angular/compare/v13.1.6...v14.0.0) (2024-01-11)
 
 
