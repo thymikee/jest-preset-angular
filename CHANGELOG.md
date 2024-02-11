@@ -1,3 +1,12 @@
+## [14.0.2](https://github.com/thymikee/jest-preset-angular/compare/v14.0.1...v14.0.2) (2024-02-11)
+
+
+### Performance Improvements
+
+* reduce package size and speed up execution ([d7cbbac](https://github.com/thymikee/jest-preset-angular/commit/d7cbbace9bdaca69114a959d89f0a0c466db4092))
+
+
+
 ## [14.0.1](https://github.com/thymikee/jest-preset-angular/compare/v14.0.0...v14.0.1) (2024-02-09)
 
 
