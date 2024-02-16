@@ -1,3 +1,12 @@
+## [14.0.3](https://github.com/thymikee/jest-preset-angular/compare/v14.0.2...v14.0.3) (2024-02-16)
+
+
+### Features
+
+* support signal queries in Angular 17.2 ([a57ad7d](https://github.com/thymikee/jest-preset-angular/commit/a57ad7dcdd1d1d70fb4cc61c9a52dd1b3008ce82))
+
+
+
 ## [14.0.2](https://github.com/thymikee/jest-preset-angular/compare/v14.0.1...v14.0.2) (2024-02-11)
 
 
