@@ -9,7 +9,9 @@ exports[`snapshot should work 1`] = `
 >
   <p>
     Line 1
-  </p><div>
+  </p><div
+    id="root0"
+  >
     <div>
        val1 
     </div>
@@ -18,13 +20,13 @@ exports[`snapshot should work 1`] = `
 `;
 
 exports[`snapshot should work 2`] = `
-<div
-  id="root0"
->
+<div>
   <p>
     Line 1
   </p>
-  <div>
+  <div
+    id="root0"
+  >
     <div>
        val1 
     </div>
