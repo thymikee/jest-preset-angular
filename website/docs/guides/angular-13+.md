@@ -172,3 +172,25 @@ const jestConfig: Config = {
 
 export default jestConfig;
 ```
+
+### Usage with Ionic 6 or 7
+
+To support Ionic 6 or 7 you will need to modify `transformIgnorePatterns` to be as following:
+
+```js tab
+module.exports = {
+  // ...other options
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs$))'],
+};
+```
+
+```ts tab
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  // ...other options
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs$))'],
+};
+
+export default jestConfig;
+```
