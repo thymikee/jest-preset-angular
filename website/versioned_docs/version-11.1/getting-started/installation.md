@@ -93,7 +93,6 @@ import './jest-global-mocks';
 An example for `jest-global-mocks.ts`
 
 ```
-Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(document, 'doctype', {
   value: '<!DOCTYPE html>',
 });
