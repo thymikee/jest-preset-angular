@@ -2,23 +2,11 @@ import { DebugElement } from '@angular/core';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { first } from 'rxjs/operators';
 
 import { click } from '../../testing';
 import { Hero } from '../model/hero';
 
 import { DashboardHeroComponent } from './dashboard-hero.component';
-
-describe('DashboardHeroComponent class only', () => {
-  it('raises the selected event when clicked', () => {
-    const comp = new DashboardHeroComponent();
-    const hero: Hero = { id: 42, name: 'Test' };
-    comp.hero = hero;
-
-    comp.selected.pipe(first()).subscribe((selectedHero: Hero) => expect(selectedHero).toBe(hero));
-    comp.click();
-  });
-});
 
 describe('DashboardHeroComponent when tested directly', () => {
   let comp: DashboardHeroComponent;
@@ -40,7 +28,7 @@ describe('DashboardHeroComponent when tested directly', () => {
 
     expectedHero = { id: 42, name: 'Test Name' };
 
-    comp.hero = expectedHero;
+    fixture.componentRef.setInput('hero', expectedHero);
 
     fixture.detectChanges();
   });
@@ -50,25 +38,9 @@ describe('DashboardHeroComponent when tested directly', () => {
     expect(heroEl.textContent).toContain(expectedPipedName);
   });
 
-  it('should raise selected event when clicked (triggerEventHandler)', () => {
-    let selectedHero: Hero | undefined;
-    comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
-
-    heroDe.triggerEventHandler('click', null);
-    expect(selectedHero).toBe(expectedHero);
-  });
-
-  it('should raise selected event when clicked (element.click)', () => {
-    let selectedHero: Hero | undefined;
-    comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
-
-    heroEl.click();
-    expect(selectedHero).toBe(expectedHero);
-  });
-
   it('should raise selected event when clicked (click helper with DebugElement)', () => {
     let selectedHero: Hero | undefined;
-    comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
+    comp.selected.subscribe((hero: Hero) => (selectedHero = hero));
 
     click(heroDe);
 
@@ -77,7 +49,7 @@ describe('DashboardHeroComponent when tested directly', () => {
 
   it('should raise selected event when clicked (click helper with native element)', () => {
     let selectedHero: Hero | undefined;
-    comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
+    comp.selected.subscribe((hero: Hero) => (selectedHero = hero));
 
     click(heroEl);
 
