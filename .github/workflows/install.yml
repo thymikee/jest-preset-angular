@@ -1,4 +1,4 @@
-name: Test
+name: Install dependencies
 
 on:
   workflow_call:
@@ -14,7 +14,8 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  prepare_cache:
+    name: Prepare yarn cache for ${{ inputs.os }} on Node v${{ inputs.node }}
     runs-on: ${{ inputs.os }}
 
     steps:
@@ -39,11 +40,15 @@ jobs:
             ${{ runner.os }}-${{ inputs.node }}-build
 
       - uses: actions/setup-node@v4
+        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
         with:
           node-version: ${{ inputs.node }}
 
-      - name: Run tests
-        run: yarn test
-
-      - name: Run tests in example projects
-        run: yarn test-examples
+      - name: Install dependencies
+        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
+        run: |
+          yarn --immutable
+          yarn --cwd examples/example-app-monorepo
+          yarn --cwd examples/example-app-v15
+          yarn --cwd examples/example-app-v17
+          yarn --cwd examples/example-app-yarn-workspace

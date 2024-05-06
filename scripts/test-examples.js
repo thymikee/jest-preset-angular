@@ -20,11 +20,6 @@ const executeTest = (projectPath) => {
   logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectPath, '='.repeat(20));
   logger.log();
 
-  logger.log('cleaning up');
-  logger.log();
-
-  execa.sync('rimraf', [join(projectPath, 'node_modules')]);
-
   // then we install it in the repo
   logger.log('ensuring all dependencies of target project are installed');
   logger.log();

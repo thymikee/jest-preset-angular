@@ -1,4 +1,4 @@
-name: Test
+name: Code standard check
 
 on:
   workflow_call:
@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  lint:
     runs-on: ${{ inputs.os }}
 
     steps:
@@ -42,8 +42,8 @@ jobs:
         with:
           node-version: ${{ inputs.node }}
 
-      - name: Run tests
-        run: yarn test
+      - name: Run ESLint check
+        run: yarn lint
 
-      - name: Run tests in example projects
-        run: yarn test-examples
+      - name: Run Prettier check
+        run: yarn lint-prettier-ci
