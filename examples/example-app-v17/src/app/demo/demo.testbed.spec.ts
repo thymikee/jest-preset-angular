@@ -431,9 +431,9 @@ describe('demo (with TestBed):', () => {
       fixture.detectChanges();
 
       const el = fixture.debugElement.children[0];
-      const comp = el.componentInstance;
+      const comp = el.componentInstance as NeedsContentComponent;
 
-      expect(comp.children.toArray().length).toBe(4);
+      expect(comp.children().length).toBe(4);
 
       expect(el.references['nc']).toBe(comp);
 

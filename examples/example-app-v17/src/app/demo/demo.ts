@@ -1,6 +1,5 @@
 import {
   Component,
-  ContentChildren,
   Directive,
   EventEmitter,
   Injectable,
@@ -15,6 +14,8 @@ import {
   Pipe,
   PipeTransform,
   SimpleChanges,
+  TemplateRef,
+  contentChildren,
 } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -256,7 +257,7 @@ export class InnerCompWithExternalTemplateComponent {}
 
 @Component({ selector: 'needs-content', template: '<ng-content></ng-content>' })
 export class NeedsContentComponent {
-  @ContentChildren('content') children: unknown;
+  children = contentChildren('content');
 }
 
 @Component({

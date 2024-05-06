@@ -1,5 +1,5 @@
 import 'zone.js/plugins/zone-patch-canvas';
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, viewChild } from '@angular/core';
 
 @Component({
   selector: 'sample-canvas',
@@ -8,10 +8,10 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class CanvasComponent implements AfterViewInit {
   blobSize = 0;
-  @ViewChild('sampleCanvas') sampleCanvas?: ElementRef<HTMLCanvasElement>;
+  sampleCanvas = viewChild<ElementRef<HTMLCanvasElement>>('sampleCanvas');
 
   ngAfterViewInit() {
-    const canvas = this.sampleCanvas?.nativeElement;
+    const canvas = this.sampleCanvas()?.nativeElement;
     const context = canvas?.getContext('2d');
 
     if (typeof context !== 'undefined' && context !== null) {
