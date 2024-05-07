@@ -1,3 +1,13 @@
+## [14.0.4](https://github.com/thymikee/jest-preset-angular/compare/v14.0.3...v14.0.4) (2024-05-07)
+
+
+### Features
+
+* Support generic type for signal queries, closes [#2392](https://github.com/thymikee/jest-preset-angular/issues/2392)
+* Support `outputFromObservable`, closes [#2374](https://github.com/thymikee/jest-preset-angular/issues/2374)
+* Support `input.required`, closes [#2370](https://github.com/thymikee/jest-preset-angular/issues/2370)
+
+
 ## [14.0.3](https://github.com/thymikee/jest-preset-angular/compare/v14.0.2...v14.0.3) (2024-02-16)
 
 
