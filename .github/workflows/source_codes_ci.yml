@@ -1,12 +1,16 @@
-name: CI
+name: Source codes CI
 
 on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'website/**'
   pull_request:
     branches:
       - '**'
+    paths-ignore:
+      - 'website/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
