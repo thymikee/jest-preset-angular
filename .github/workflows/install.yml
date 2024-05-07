@@ -19,12 +19,13 @@ jobs:
     runs-on: ${{ inputs.os }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
         with:
           fetch-depth: 20
           fetch-tags: false
 
-      - name: Restore cached node modules
+      - name: Restore cached node modules ♻️
         id: cache-yarn
         uses: actions/cache@v4
         with:
@@ -37,14 +38,15 @@ jobs:
             examples/example-app-yarn-workspace/node_modules
           key: ${{ inputs.os }}-${{ inputs.node }}-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-${{ inputs.node }}-build
+            ${{ inputs.os }}-${{ inputs.node }}-build
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node version ⚙️
+        uses: actions/setup-node@v4
         if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
         with:
           node-version: ${{ inputs.node }}
 
-      - name: Install dependencies
+      - name: Install 🔧
         if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
         run: |
           yarn --immutable
