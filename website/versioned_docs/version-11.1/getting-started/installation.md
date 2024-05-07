@@ -72,6 +72,17 @@ Adjust your `tsconfig.spec.json` to be:
 }
 ```
 
+Adjust `scripts` part your `package.json` to use `jest` instead of `ng`, e.g.
+
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
+```
+
 ### Customizing
 
 #### Global mocks
