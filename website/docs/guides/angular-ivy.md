@@ -3,6 +3,12 @@ id: angular-ivy
 title: Angular Ivy
 ---
 
+:::important
+
+This step is **OPTIONAL**
+
+:::
+
 Starting from **v9.0.0+**, `jest-preset-angular` is fully compatible with Angular Ivy. To make sure that Jest uses the
 Angular Ivy, you must run `ngcc` before running tests. `ngcc` will transform all Angular-format packages to be compatible
 with Ivy compiler.
