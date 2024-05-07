@@ -41,7 +41,6 @@ Add the following section:
 module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  globalSetup: 'jest-preset-angular/global-setup',
 };
 ```
 
@@ -51,7 +50,6 @@ import type { Config } from 'jest';
 const jestConfig: Config = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  globalSetup: 'jest-preset-angular/global-setup',
 };
 
 export default jestConfig;
@@ -61,8 +59,7 @@ export default jestConfig;
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"],
-    "globalSetup": "jest-preset-angular/global-setup"
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
   }
 }
 ```
