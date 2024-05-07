@@ -1,9 +1,5 @@
 import ngPreset from 'jest-preset-angular/presets/index.js';
 
-globalThis.ngJest = {
-  tsconfig: 'tsconfig-esm.spec.json',
-};
-
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 const jestConfig = {
   ...ngPreset.defaultsESM,
