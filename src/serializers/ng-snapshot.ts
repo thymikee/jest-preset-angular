@@ -1,4 +1,4 @@
-import type { ComponentRef, DebugNode, Type, ɵCssSelectorList, ɵNgModuleType } from '@angular/core';
+import type { ComponentRef, Type, ɵCssSelectorList } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import type { Colors } from 'pretty-format';
 
@@ -21,11 +21,6 @@ interface NgComponentFixture extends ComponentFixture<unknown> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentInstance: Record<string, any>;
 }
-interface VEDebugNode {
-  renderElement: {
-    childNodes: DebugNode[];
-  };
-}
 
 /**
  * The following types haven't been exported by jest so temporarily we copy typings from 'pretty-format'
@@ -39,36 +34,19 @@ type Indent = (indentSpaces: string) => string;
 type Printer = (elementToSerialize: unknown) => string;
 
 const attributesToRemovePatterns = ['__ngContext__'];
-const ivyEnabled = (): boolean => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { NgModule }: typeof import('@angular/core') = require('@angular/core');
 
-  class IvyModule {}
-  NgModule()(IvyModule);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return !!(IvyModule as ɵNgModuleType<unknown>).ɵmod;
-};
-
-const print = (fixture: unknown, print: Printer, indent: Indent, opts: PluginOptions, colors: Colors): string => {
-  let nodes = '';
+const print = (
+  fixture: NgComponentFixture,
+  print: Printer,
+  indent: Indent,
+  opts: PluginOptions,
+  colors: Colors,
+): string => {
   let componentAttrs = '';
-  let componentName = '';
-  const componentRef = (fixture as NgComponentFixture).componentRef;
-  const componentInstance = (fixture as NgComponentFixture).componentInstance;
-
-  if (ivyEnabled()) {
-    const componentDef = componentRef.componentType.ɵcmp;
-    componentName = componentDef.selectors[0][0] as string;
-    nodes = Array.from(componentRef.location.nativeElement.childNodes).map(print).join('');
-  } else {
-    componentName = componentRef._elDef.element?.name;
-    nodes = (componentRef._view.nodes ?? [])
-      // eslint-disable-next-line no-prototype-builtins
-      .filter((node: VEDebugNode) => node?.hasOwnProperty('renderElement'))
-      .map((node: VEDebugNode) => Array.from(node.renderElement.childNodes).map(print).join(''))
-      .join(opts.edgeSpacing);
-  }
+  const { componentRef, componentInstance } = fixture;
+  const componentDef = componentRef.componentType.ɵcmp;
+  const componentName = componentDef.selectors[0][0] as string;
+  const nodes = Array.from(componentRef.location.nativeElement.childNodes).map(print).join('');
   const attributes = Object.keys(componentInstance).filter((key) => !attributesToRemovePatterns.includes(key));
   if (attributes.length) {
     componentAttrs += attributes

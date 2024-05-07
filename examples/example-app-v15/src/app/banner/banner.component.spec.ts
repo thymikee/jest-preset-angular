@@ -20,14 +20,10 @@ describe('BannerComponent (inline template)', () => {
     expect(h1.textContent).toEqual('');
   });
 
-  it('should display original title', () => {
+  it('should display the component', () => {
     fixture.detectChanges();
-    expect(h1.textContent).toContain(component.title);
-  });
 
-  it('should display original title after detectChanges()', () => {
-    fixture.detectChanges();
-    expect(h1.textContent).toContain(component.title);
+    expect(fixture.debugElement.nativeElement).toMatchSnapshot();
   });
 
   it('should display a different test title', () => {
