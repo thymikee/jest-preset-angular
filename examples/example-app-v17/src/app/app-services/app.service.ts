@@ -1,5 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { Request } from 'express';
+import { Injectable, inject } from '@angular/core';
 
 import { REQUEST } from './app.tokens';
 
@@ -7,5 +6,5 @@ import { REQUEST } from './app.tokens';
   providedIn: 'root',
 })
 export class AppService {
-  constructor(@Inject(REQUEST) @Optional() private request: Request) {}
+  private request = inject(REQUEST);
 }

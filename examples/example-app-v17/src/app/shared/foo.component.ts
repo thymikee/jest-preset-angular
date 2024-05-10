@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { Services } from '../app-services';
 
@@ -7,5 +7,5 @@ import { Services } from '../app-services';
   standalone: true,
 })
 export class FooComponent {
-  constructor(private appService: Services.AppService) {}
+  private appService = inject(Services.AppService);
 }
