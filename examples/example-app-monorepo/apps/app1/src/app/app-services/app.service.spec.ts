@@ -1,13 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AppService } from './app.service';
+import { REQUEST } from './app.tokens';
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('AppService', () => {
+describe('AppService', () => {
   let service: AppService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: REQUEST,
+          useValue: {},
+        },
+      ],
+    });
     service = TestBed.inject(AppService);
   });
 

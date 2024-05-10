@@ -1,14 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { REQUEST } from '../app-services/app.tokens';
+
 import { FooComponent } from './foo.component';
 
-let fixture: ComponentFixture<FooComponent>;
+describe('FooComponent', () => {
+  let fixture: ComponentFixture<FooComponent>;
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('FooComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [FooComponent],
+      providers: [
+        {
+          provide: REQUEST,
+          useValue: {},
+        },
+      ],
     }).createComponent(FooComponent);
     fixture.detectChanges();
   });
