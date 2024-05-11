@@ -1,22 +1,20 @@
 import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideLocationMocks, SpyLocation } from '@angular/common/testing';
 import { DebugElement } from '@angular/core';
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router, RouterLinkWithHref } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router, RouterLink } from '@angular/router';
 import { jest } from '@jest/globals';
-import { of } from 'rxjs';
 
-import { click } from '../testing';
+import { asyncData, click } from '../testing';
 
 import { AboutComponent } from './about/about.component';
-import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppModule } from './app.module';
+import { appConfig } from './app.config';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeroService } from './model/hero.service';
-import { TestHeroService } from './model/testing/test-hero.service';
+import { HeroService, UserService } from './model';
+import { TestHeroService } from './model/testing';
 import { TwainService } from './twain/twain.service';
 
 let comp: AppComponent;
@@ -25,19 +23,33 @@ let page: Page;
 let router: Router;
 let location: SpyLocation;
 
-describe('AppComponent & RouterTestingModule', () => {
+describe('AppComponent & router testing', () => {
   beforeEach(waitForAsync(() => {
-    void TestBed.configureTestingModule({
-      imports: [AppModule, RouterTestingModule.withRoutes(routes)],
-      providers: [{ provide: HeroService, useClass: TestHeroService }],
+    TestBed.configureTestingModule({
+      ...appConfig,
+      providers: [
+        { provide: HeroService, useClass: TestHeroService },
+        UserService,
+        TwainService,
+        provideHttpClient(),
+        provideLocationMocks(),
+        provideRouter([
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+          { path: 'about', component: AboutComponent },
+          { path: 'dashboard', component: DashboardComponent },
+        ]),
+      ],
     }).compileComponents();
   }));
 
   it('should navigate to "Dashboard" immediately', fakeAsync(() => {
     createComponent();
     tick();
+
     expect(location.path()).toEqual('/dashboard');
+
     const el = fixture.debugElement.query(By.directive(DashboardComponent));
+
     expect(el).toBeTruthy();
   }));
 
@@ -45,8 +57,11 @@ describe('AppComponent & RouterTestingModule', () => {
     createComponent();
     click(page.aboutLinkDe);
     advance();
+
     expect(location.path()).toEqual('/about');
+
     const el = fixture.debugElement.query(By.directive(AboutComponent));
+
     expect(el).toBeTruthy();
   }));
 
@@ -54,8 +69,11 @@ describe('AppComponent & RouterTestingModule', () => {
     createComponent();
     location.simulateHashChange('/about');
     advance();
+
     expect(location.path()).toEqual('/about');
+
     const el = fixture.debugElement.query(By.directive(AboutComponent));
+
     expect(el).toBeTruthy();
   }));
 });
@@ -74,7 +92,7 @@ function createComponent() {
   location = injector.get(Location) as SpyLocation;
   router = injector.get(Router);
   router.initialNavigation();
-  jest.spyOn(injector.get(TwainService), 'getQuote').mockReturnValue(of('Test Quote'));
+  jest.spyOn(injector.get(TwainService), 'getQuote').mockReturnValue(asyncData('Test Quote'));
   advance();
 
   page = new Page();
@@ -90,7 +108,7 @@ class Page {
   fixture: ComponentFixture<AppComponent>;
 
   constructor() {
-    const links = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+    const links = fixture.debugElement.queryAll(By.directive(RouterLink));
     this.aboutLinkDe = links[2];
     this.dashboardLinkDe = links[0];
     this.heroesLinkDe = links[1];

@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -8,7 +9,7 @@ describe('BannerComponent (initial CLI generated)', () => {
   let fixture: ComponentFixture<BannerComponent>;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] }).compileComponents();
+    TestBed.configureTestingModule({ imports: [BannerComponent] }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -24,9 +25,10 @@ describe('BannerComponent (initial CLI generated)', () => {
 
 describe('BannerComponent (minimal)', () => {
   it('should create', () => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] });
+    TestBed.configureTestingModule({ imports: [BannerComponent] });
     const fixture = TestBed.createComponent(BannerComponent);
     const component = fixture.componentInstance;
+
     expect(component).toBeDefined();
   });
 });
@@ -36,7 +38,7 @@ describe('BannerComponent (with beforeEach)', () => {
   let fixture: ComponentFixture<BannerComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ declarations: [BannerComponent] });
+    TestBed.configureTestingModule({ imports: [BannerComponent] });
     fixture = TestBed.createComponent(BannerComponent);
     component = fixture.componentInstance;
   });
@@ -47,21 +49,30 @@ describe('BannerComponent (with beforeEach)', () => {
 
   it('should contain "banner works!"', () => {
     const bannerElement: HTMLElement = fixture.nativeElement;
+
     expect(bannerElement.textContent).toContain('banner works!');
   });
 
   it('should have <p> with "banner works!"', () => {
-    const p = <HTMLElement>fixture.nativeElement.querySelector('p');
-    expect(p?.textContent).toEqual('banner works!');
+    const bannerElement: HTMLElement = fixture.nativeElement;
+    const p = bannerElement.querySelector('p')!;
+
+    expect(p.textContent).toEqual('banner works!');
   });
 
   it('should find the <p> with fixture.debugElement.nativeElement)', () => {
-    const p = <HTMLElement>fixture.debugElement.nativeElement.querySelector('p');
-    expect(p?.textContent).toEqual('banner works!');
+    const bannerDe: DebugElement = fixture.debugElement;
+    const bannerEl: HTMLElement = bannerDe.nativeElement;
+    const p = bannerEl.querySelector('p')!;
+
+    expect(p.textContent).toEqual('banner works!');
   });
 
   it('should find the <p> with fixture.debugElement.query(By.css)', () => {
-    const p = <HTMLElement>fixture.debugElement.query(By.css('p')).nativeElement;
+    const bannerDe: DebugElement = fixture.debugElement;
+    const paragraphDe = bannerDe.query(By.css('p'));
+    const p: HTMLElement = paragraphDe.nativeElement;
+
     expect(p.textContent).toEqual('banner works!');
   });
 });

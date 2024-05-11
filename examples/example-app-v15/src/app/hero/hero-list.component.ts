@@ -1,14 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Hero } from '../model/hero';
 import { HeroService } from '../model/hero.service';
+import { sharedImports } from '../shared/shared';
 
 @Component({
+  standalone: true,
   selector: 'app-heroes',
   templateUrl: './hero-list.component.html',
   styleUrls: ['./hero-list.component.css'],
+  imports: [AsyncPipe, sharedImports],
 })
 export class HeroListComponent {
   heroes: Observable<Hero[]>;

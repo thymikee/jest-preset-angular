@@ -5,10 +5,12 @@ import { By } from '@angular/platform-browser';
 import { HighlightDirective } from './highlight.directive';
 
 @Component({
+  standalone: true,
   template: ` <h2 highlight="yellow">Something Yellow</h2>
     <h2 highlight>The Default (Gray)</h2>
     <h2>No Highlight</h2>
     <input #box [highlight]="box.value" value="cyan" />`,
+  imports: [HighlightDirective],
 })
 class TestComponent {}
 
@@ -19,13 +21,12 @@ describe('HighlightDirective', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [HighlightDirective, TestComponent],
+      imports: [HighlightDirective, TestComponent],
     }).createComponent(TestComponent);
 
     fixture.detectChanges();
 
     des = fixture.debugElement.queryAll(By.directive(HighlightDirective));
-
     bareH2 = fixture.debugElement.query(By.css('h2:not([highlight])'));
   });
 
@@ -35,12 +36,14 @@ describe('HighlightDirective', () => {
 
   it('should color 1st <h2> background "yellow"', () => {
     const bgColor = des[0].nativeElement.style.backgroundColor;
+
     expect(bgColor).toBe('yellow');
   });
 
   it('should color 2nd <h2> background w/ default color', () => {
     const dir = des[1].injector.get(HighlightDirective) as HighlightDirective;
     const bgColor = des[1].nativeElement.style.backgroundColor;
+
     expect(bgColor).toBe(dir.defaultColor);
   });
 
@@ -62,11 +65,13 @@ describe('HighlightDirective', () => {
 
   it('can inject `HighlightDirective` in 1st <h2>', () => {
     const dir = des[0].injector.get(HighlightDirective);
-    expect(dir).toBeTruthy();
+
+    expect(des[0].injector.get(HighlightDirective)).toBeTruthy();
   });
 
   it('cannot inject `HighlightDirective` in 3rd <h2>', () => {
     const dir = bareH2.injector.get(HighlightDirective, null);
+
     expect(dir).toBe(null);
   });
 

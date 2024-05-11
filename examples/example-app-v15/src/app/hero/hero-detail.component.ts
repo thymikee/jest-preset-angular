@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { Hero } from '../model/hero';
+import { sharedImports } from '../shared/shared';
 
 import { HeroDetailService } from './hero-detail.service';
 
 @Component({
+  standalone: true,
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css'],
   providers: [HeroDetailService],
+  imports: [sharedImports, RouterLink],
 })
 export class HeroDetailComponent implements OnInit {
   constructor(
@@ -21,10 +24,12 @@ export class HeroDetailComponent implements OnInit {
   hero!: Hero;
 
   ngOnInit(): void {
+    // get hero when `id` param changes
     this.route.paramMap.subscribe((pmap) => this.getHero(pmap.get('id')));
   }
 
   private getHero(id: string | null): void {
+    // when no id or id===0, create new blank hero
     if (!id) {
       this.hero = { id: 0, name: '' } as Hero;
 
@@ -35,7 +40,7 @@ export class HeroDetailComponent implements OnInit {
       if (hero) {
         this.hero = hero;
       } else {
-        this.gotoList();
+        this.gotoList(); // id not found; navigate to list
       }
     });
   }

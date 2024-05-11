@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../model/user.service';
 
 @Component({
+  standalone: true,
   selector: 'app-welcome',
   template: '<h3 class="welcome"><i>{{welcome}}</i></h3>',
 })
