@@ -10,7 +10,7 @@ describe('BannerComponent (external files)', () => {
   describe('setup that may fail', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [BannerComponent],
+        imports: [BannerComponent],
       });
       fixture = TestBed.createComponent(BannerComponent);
     });
@@ -23,7 +23,7 @@ describe('BannerComponent (external files)', () => {
   describe('Two beforeEach', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [BannerComponent],
+        imports: [BannerComponent],
       }).compileComponents();
     });
 
@@ -39,7 +39,7 @@ describe('BannerComponent (external files)', () => {
   describe('One beforeEach', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [BannerComponent],
+        imports: [BannerComponent],
       }).compileComponents();
       fixture = TestBed.createComponent(BannerComponent);
       component = fixture.componentInstance;
@@ -56,12 +56,14 @@ describe('BannerComponent (external files)', () => {
 
     it('should display original title', () => {
       fixture.detectChanges();
+
       expect(h1.textContent).toContain(component.title);
     });
 
     it('should display a different test title', () => {
       component.title = 'Test Title';
       fixture.detectChanges();
+
       expect(h1.textContent).toContain('Test Title');
     });
   }

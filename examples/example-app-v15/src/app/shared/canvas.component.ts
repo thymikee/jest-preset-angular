@@ -2,6 +2,7 @@ import 'zone.js/plugins/zone-patch-canvas';
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'sample-canvas',
   template: '<canvas #sampleCanvas width="200" height="200"></canvas>',
 })

@@ -42,9 +42,16 @@ module.exports = {
               order: 'asc',
               caseInsensitive: true,
             },
-            // this is the default order except for added `internal` in the middle
             groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
             'newlines-between': 'always',
+            pathGroups: [
+              {
+                pattern: '@shared/*',
+                group: 'internal',
+                position: 'before',
+              },
+            ],
+            pathGroupsExcludedImportTypes: ['@shared'],
           },
         ],
         'object-shorthand': 'error',
