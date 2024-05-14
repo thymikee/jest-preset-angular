@@ -1,21 +1,19 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterLink, RouterOutlet } from '@angular/router';
-
-import { RouterLinkDirectiveStub } from '../testing';
+import { provideRouter, Router, RouterLink } from '@angular/router';
+import { UserService } from '@user';
 
 import { AppComponent } from './app.component';
-import { BannerComponent } from './banner/banner.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { appConfig } from './app.config';
 
-@Component({ selector: 'app-banner', template: '', standalone: true })
+@Component({ standalone: true, selector: 'app-banner', template: '' })
 class BannerStubComponent {}
 
-@Component({ selector: 'router-outlet', template: '', standalone: true })
+@Component({ standalone: true, selector: 'router-outlet', template: '' })
 class RouterOutletStubComponent {}
 
-@Component({ selector: 'app-welcome', template: '', standalone: true })
+@Component({ standalone: true, selector: 'app-welcome', template: '' })
 class WelcomeStubComponent {}
 
 let comp: AppComponent;
@@ -24,14 +22,10 @@ let fixture: ComponentFixture<AppComponent>;
 describe('AppComponent & TestModule', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [AppComponent],
+      ...appConfig,
+      imports: [AppComponent, BannerStubComponent, RouterLink, RouterOutletStubComponent, WelcomeStubComponent],
+      providers: [provideRouter([]), UserService],
     })
-      .overrideComponent(AppComponent, {
-        remove: { imports: [RouterLink, RouterOutlet, WelcomeComponent, BannerComponent] },
-        add: {
-          imports: [RouterLinkDirectiveStub, RouterOutletStubComponent, BannerStubComponent, WelcomeStubComponent],
-        },
-      })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(AppComponent);
@@ -44,51 +38,28 @@ describe('AppComponent & TestModule', () => {
 describe('AppComponent & NO_ERRORS_SCHEMA', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [AppComponent],
+      ...appConfig,
+      imports: [AppComponent, BannerStubComponent, RouterLink],
+      providers: [provideRouter([]), UserService],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(AppComponent, {
-        remove: { imports: [RouterLink, RouterOutlet, WelcomeComponent, BannerComponent] },
-        add: {
-          imports: [RouterLinkDirectiveStub, RouterOutletStubComponent, BannerStubComponent, WelcomeStubComponent],
-        },
-      })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(AppComponent);
         comp = fixture.componentInstance;
       });
   }));
-  tests();
-});
-
-describe('AppComponent & AppModule', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [AppComponent] })
-      .overrideComponent(AppComponent, {
-        remove: { imports: [RouterLink, RouterOutlet, BannerComponent, WelcomeComponent] },
-        add: {
-          imports: [RouterLinkDirectiveStub, RouterOutletStubComponent, BannerStubComponent, WelcomeStubComponent],
-        },
-      })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(AppComponent);
-        comp = fixture.componentInstance;
-      });
-  }));
-
   tests();
 });
 
 function tests() {
-  let routerLinks: RouterLinkDirectiveStub[];
-  let debugElements: DebugElement[];
+  let routerLinks: RouterLink[];
+  let linkDes: DebugElement[];
 
   beforeEach(() => {
     fixture.detectChanges();
-    debugElements = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
-    routerLinks = debugElements.map((de) => de.injector.get(RouterLinkDirectiveStub));
+    linkDes = fixture.debugElement.queryAll(By.directive(RouterLink));
+    routerLinks = linkDes.map((de) => de.injector.get(RouterLink));
   });
 
   it('can instantiate the component', () => {
@@ -97,17 +68,19 @@ function tests() {
 
   it('can get RouterLinks from template', () => {
     expect(routerLinks.length).toEqual(3);
-    expect(routerLinks[0].linkParams).toBe('/dashboard');
-    expect(routerLinks[1].linkParams).toBe('/heroes');
-    expect(routerLinks[2].linkParams).toBe('/about');
+    expect(routerLinks[0].href).toContain('/dashboard');
+    expect(routerLinks[1].href).toContain('/heroes');
+    expect(routerLinks[2].href).toContain('/about');
   });
 
-  it('can click Heroes link in template', () => {
-    const heroesLinkDe = debugElements[1];
-    const heroesLink = routerLinks[1];
-    expect(heroesLink.navigatedTo).toBeNull();
-    heroesLinkDe.triggerEventHandler('click', null);
+  it('can click Heroes link in template', fakeAsync(() => {
+    const heroesLinkDe = linkDes[1];
+    TestBed.inject(Router).resetConfig([{ path: '**', children: [] }]);
+
+    heroesLinkDe.triggerEventHandler('click', { button: 0 });
+    tick();
     fixture.detectChanges();
-    expect(heroesLink.navigatedTo).toBe('/heroes');
-  });
+
+    expect(TestBed.inject(Router).url).toBe('/heroes');
+  }));
 }

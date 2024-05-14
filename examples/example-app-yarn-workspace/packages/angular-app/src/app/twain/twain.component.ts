@@ -1,30 +1,22 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, startWith } from 'rxjs/operators';
 
+import { sharedImports } from '@shared/shared';
+
 import { TwainService } from './twain.service';
 
 @Component({
+  standalone: true,
   selector: 'twain-quote',
   template: ` <p class="twain">
       <i>{{ quote | async }}</i>
     </p>
-    <button (click)="getQuote()">Next quote</button>
+    <button type="button" (click)="getQuote()">Next quote</button>
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>`,
-  styles: [
-    `
-      .twain {
-        font-style: italic;
-      }
-      .error {
-        color: red;
-      }
-    `,
-  ],
-  standalone: true,
-  imports: [AsyncPipe, NgIf],
-  providers: [TwainService],
+  styles: ['.twain { font-style: italic; } .error { color: red; }'],
+  imports: [AsyncPipe, sharedImports],
 })
 export class TwainComponent implements OnInit {
   errorMessage!: string;
