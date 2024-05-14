@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Hero } from '../model/hero';
-import { HeroService } from '../model/hero.service';
+import { Hero, HeroService } from '../model';
 
 @Injectable({ providedIn: 'root' })
 export class HeroDetailService {

@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Hero } from '../model/hero';
-import { HeroService } from '../model/hero.service';
-import { sharedImports } from '../shared/shared';
+import { sharedImports } from '@shared/shared';
+
+import { Hero, HeroService } from '../model';
 
 @Component({
   standalone: true,
