@@ -6,8 +6,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { routes } from './app.routes';
 import { InMemoryDataService } from './in-memory-data.service';
-import { HeroService } from './model/hero.service';
-import { UserService } from './model/user.service';
+import { HeroService, UserService } from './model';
 import { TwainService } from './twain/twain.service';
 
 export const appProviders = [

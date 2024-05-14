@@ -1,7 +1,7 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Hero } from '../model/hero';
+import { Hero } from '../model';
 
 @Component({
   standalone: true,

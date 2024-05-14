@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
-import { Hero } from '../model/hero';
-import { sharedImports } from '../shared/shared';
+import { sharedImports } from '@shared/shared';
+
+import { Hero } from '../model';
 
 import { HeroDetailService } from './hero-detail.service';
 

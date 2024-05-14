@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-import { sharedImports } from '../shared/shared';
+import { sharedImports } from '@shared/shared';
 
 export interface Hero {
   name: string;
