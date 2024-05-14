@@ -52,24 +52,6 @@ describe('DashboardHeroComponent when tested directly', () => {
     expect(heroEl.textContent).toContain(expectedPipedName);
   });
 
-  it('should raise selected event when clicked (triggerEventHandler)', () => {
-    let selectedHero: Hero | undefined;
-    comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
-
-    heroDe.triggerEventHandler('click');
-
-    expect(selectedHero).toBe(expectedHero);
-  });
-
-  it('should raise selected event when clicked (element.click)', () => {
-    let selectedHero: Hero | undefined;
-    comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
-
-    heroEl.click();
-
-    expect(selectedHero).toBe(expectedHero);
-  });
-
   it('should raise selected event when clicked (click helper with DebugElement)', () => {
     let selectedHero: Hero | undefined;
     comp.selected.pipe(first()).subscribe((hero: Hero) => (selectedHero = hero));
