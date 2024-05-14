@@ -5,6 +5,6 @@ import * as Services from './app.service';
 import { HighlightDirective } from './highlight.directive';
 import { TitleCasePipe } from './title-case.pipe';
 
-export const sharedImports = [FormsModule, HighlightDirective, TitleCasePipe, NgIf, NgFor];
+const sharedImports = [FormsModule, HighlightDirective, TitleCasePipe, NgIf, NgFor];
 
-export { Services };
+export { Services, sharedImports, HighlightDirective, TitleCasePipe };
