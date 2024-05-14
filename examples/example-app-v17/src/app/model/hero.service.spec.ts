@@ -2,14 +2,15 @@ import { HttpClient, HttpResponse, HttpErrorResponse, HttpEventType, HttpEvent }
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { of, throwError } from 'rxjs';
+
+import { asyncData, asyncError } from '../../testing';
 
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
 
 describe('HeroesService (with spies)', () => {
   const httpClient = new HttpClient({
-    handle: () => of({} as HttpEvent<HttpEventType.Sent>),
+    handle: () => asyncData({} as HttpEvent<HttpEventType.Sent>),
   });
   const httpClientSpy = {
     get: jest.spyOn(httpClient, 'get'),
@@ -26,7 +27,7 @@ describe('HeroesService (with spies)', () => {
       { id: 2, name: 'B' },
     ];
 
-    httpClientSpy.get.mockReturnValue(of(expectedHeroes));
+    httpClientSpy.get.mockReturnValue(asyncData(expectedHeroes));
 
     heroService.getHeroes().subscribe({
       next: (heroes) => {
@@ -46,7 +47,7 @@ describe('HeroesService (with spies)', () => {
       statusText: 'Not Found',
     });
 
-    httpClientSpy.get.mockReturnValue(throwError(() => errorResponse));
+    httpClientSpy.get.mockReturnValue(asyncError(errorResponse));
 
     heroService.getHeroes().subscribe({
       next: () => {

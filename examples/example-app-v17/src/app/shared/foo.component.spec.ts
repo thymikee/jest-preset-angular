@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { REQUEST } from '../app-services/app.tokens';
+import { REQUEST } from '@shared/app.tokens';
 
 import { FooComponent } from './foo.component';
 

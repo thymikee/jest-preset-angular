@@ -13,12 +13,14 @@ describe('Angular async helper', () => {
 
     it('should run normal test', () => {
       actuallyDone = true;
+
       expect(actuallyDone).toBeTruthy();
     });
 
     it('should run normal async test', () => {
       setTimeout(() => {
         actuallyDone = true;
+
         expect(actuallyDone).toBeTruthy();
       }, 0);
     });
@@ -26,6 +28,7 @@ describe('Angular async helper', () => {
     it('should run async test with task (setTimeout)', waitForAsync(() => {
       setTimeout(() => {
         actuallyDone = true;
+
         expect(actuallyDone).toBeTruthy();
       }, 0);
     }));
@@ -34,6 +37,7 @@ describe('Angular async helper', () => {
       const id = setInterval(() => {
         actuallyDone = true;
         clearInterval(id);
+
         expect(actuallyDone).toBeTruthy();
       }, 100);
     }));
@@ -44,6 +48,7 @@ describe('Angular async helper', () => {
       });
       p.then(() => {
         actuallyDone = true;
+
         expect(actuallyDone).toBeTruthy();
       });
     }));
@@ -54,6 +59,7 @@ describe('Angular async helper', () => {
       });
       p.catch(() => {
         actuallyDone = true;
+
         // eslint-disable-next-line jest/no-conditional-expect
         expect(actuallyDone).toBeTruthy();
       });
@@ -118,8 +124,11 @@ describe('Angular async helper', () => {
       }
       const callback = jest.fn();
       nestedTimer(callback);
+
       expect(callback).not.toHaveBeenCalled();
+
       tick(0);
+
       expect(callback).toHaveBeenCalled();
     }));
 
@@ -129,10 +138,15 @@ describe('Angular async helper', () => {
       }
       const callback = jest.fn();
       nestedTimer(callback);
+
       expect(callback).not.toHaveBeenCalled();
+
       tick(0, { processNewMacroTasksSynchronously: false });
+
       expect(callback).not.toHaveBeenCalled();
+
       tick(0);
+
       expect(callback).toHaveBeenCalled();
     }));
 
