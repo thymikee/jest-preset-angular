@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HeroService {
   readonly heroesUrl = 'api/heroes';
 
@@ -19,7 +19,7 @@ export class HeroService {
     return this.http.get<Hero[]>(this.heroesUrl).pipe(catchError(this.handleError('getHeroes'))) as Observable<Hero[]>;
   }
 
-  getHero(id: number | string): Observable<Hero> {
+  getHero(id: number | string): Observable<Hero | undefined> {
     if (typeof id === 'string') {
       id = parseInt(id, 10);
     }

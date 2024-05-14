@@ -1,32 +1,33 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { CanvasComponent } from './canvas.component';
 
 describe('CanvasComponent', () => {
-  let fixture: ComponentFixture<CanvasComponent>;
-  let component: CanvasComponent;
-
+  beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__zone_symbol__FakeAsyncTestMacroTask = [
+      {
+        source: 'HTMLCanvasElement.toBlob',
+        callbackArgs: [{ size: 200 }],
+      },
+    ];
+  });
   beforeEach(waitForAsync(() => {
-    void TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [CanvasComponent],
-    })
-      .compileComponents()
-      .then(() => {
-        (window as typeof window & Record<string, unknown>)['__zone_symbol__FakeAsyncTestMacroTask'] = [
-          {
-            source: 'HTMLCanvasElement.toBlob',
-            callbackArgs: [{ size: 200 }],
-          },
-        ];
-        fixture = TestBed.createComponent(CanvasComponent);
-        component = fixture.componentInstance;
-      });
+    }).compileComponents();
   }));
 
   it('should be able to generate blob data from canvas', fakeAsync(() => {
+    const fixture = TestBed.createComponent(CanvasComponent);
+    const canvasComp = fixture.componentInstance;
+
     fixture.detectChanges();
-    expect(component.blobSize).toBe(0);
+
+    expect(canvasComp.blobSize).toBe(0);
+
     tick();
-    expect(component.blobSize).toBeGreaterThan(0);
+
+    expect(canvasComp.blobSize).toBeGreaterThan(0);
   }));
 });

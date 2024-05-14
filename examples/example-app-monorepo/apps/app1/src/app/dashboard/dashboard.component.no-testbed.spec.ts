@@ -2,8 +2,8 @@ import { waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { jest } from '@jest/globals';
 
-import { Hero } from '../model/hero';
-import { TestHeroService } from '../model/testing/test-hero.service';
+import { Hero } from '../model';
+import { TestHeroService } from '../model/testing';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -42,6 +42,7 @@ describe('DashboardComponent class only', () => {
     comp.gotoDetail(hero);
 
     const navArgs = spy.mock.calls[0][0];
+
     expect(navArgs).toBe('/heroes/42');
   });
 });

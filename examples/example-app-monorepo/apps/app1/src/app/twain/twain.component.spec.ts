@@ -1,7 +1,9 @@
 import { fakeAsync, ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
-import { firstValueFrom, Observable, of, throwError } from 'rxjs';
+import { firstValueFrom, of, throwError } from 'rxjs';
 import { last, tap } from 'rxjs/operators';
+
+import { asyncData } from '../../testing';
 
 import { TwainComponent } from './twain.component';
 import { TwainService } from './twain.service';
@@ -10,7 +12,6 @@ describe('TwainComponent', () => {
   let fixture: ComponentFixture<TwainComponent>;
   let component: TwainComponent;
   let twainService: TwainService;
-
   let getQuoteSpy: ReturnType<typeof jest.spyOn>;
   let quoteEl: HTMLElement;
   const testQuote = 'Test Quote';
@@ -21,26 +22,25 @@ describe('TwainComponent', () => {
     return el ? el.textContent : null;
   };
 
-  beforeEach(waitForAsync(() => {
-    void TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [TwainComponent],
-    })
-      .overrideProvider(TwainService, {
-        useValue: {
-          getQuote: jest.fn(),
+      providers: [
+        {
+          provide: TwainService,
+          useValue: {
+            getQuote: jest.fn(),
+          },
         },
-      })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(TwainComponent);
-        component = fixture.componentInstance;
-        quoteEl = fixture.nativeElement.querySelector('.twain');
-        twainService = TestBed.inject(TwainService);
-        getQuoteSpy = jest.spyOn(twainService, 'getQuote');
-
-        getQuoteSpy.mockImplementation(() => of(testQuote));
-      });
-  }));
+      ],
+    });
+    fixture = TestBed.createComponent(TwainComponent);
+    component = fixture.componentInstance;
+    quoteEl = fixture.nativeElement.querySelector('.twain');
+    twainService = TestBed.inject(TwainService);
+    getQuoteSpy = jest.spyOn(twainService, 'getQuote');
+    getQuoteSpy.mockImplementation(() => of(testQuote));
+  });
 
   describe('when test with synchronous observable', () => {
     it('should not show quote before OnInit', () => {
@@ -73,15 +73,7 @@ describe('TwainComponent', () => {
   describe('when test with asynchronous observable', () => {
     beforeEach(() => {
       getQuoteSpy.mockClear();
-      getQuoteSpy.mockImplementation(
-        () =>
-          new Observable<typeof testQuote>((observer) => {
-            setTimeout(() => {
-              observer.next(testQuote);
-              observer.complete();
-            }, 0);
-          }),
-      );
+      getQuoteSpy.mockImplementation(() => asyncData(testQuote));
     });
 
     it('should not show quote before OnInit', () => {
@@ -139,6 +131,7 @@ describe('TwainComponent', () => {
 
       twainService.getQuote().subscribe(() => {
         fixture.detectChanges();
+
         expect(quoteEl.textContent).toBe(testQuote);
         expect(errorMessage()).toBeNull();
       });
