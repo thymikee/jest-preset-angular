@@ -1,5 +1,5 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 import { Hero } from '../model';
 
@@ -8,16 +8,17 @@ import { Hero } from '../model';
   selector: 'dashboard-hero',
   template: `
     <button type="button" (click)="click()" class="hero">
-      {{ hero.name | uppercase }}
+      {{ hero().name | uppercase }}
     </button>
   `,
   styleUrls: ['./dashboard-hero.component.css'],
   imports: [UpperCasePipe],
 })
 export class DashboardHeroComponent {
-  @Input() hero!: Hero;
-  @Output() selected = new EventEmitter<Hero>();
+  hero = input.required<Hero>();
+  readonly selected = output<Hero>();
+
   click() {
-    this.selected.emit(this.hero);
+    this.selected.emit(this.hero());
   }
 }
