@@ -1,20 +1,19 @@
-import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
-import { Hero } from '../model/hero';
-import { TitleCasePipe } from '../shared/title-case.pipe';
+import { sharedImports } from '@shared/shared';
+
+import { Hero } from '../model';
 
 import { HeroDetailService } from './hero-detail.service';
 
 @Component({
+  standalone: true,
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css'],
-  standalone: true,
-  imports: [TitleCasePipe, FormsModule, NgIf],
   providers: [HeroDetailService],
+  imports: [sharedImports, RouterLink],
 })
 export class HeroDetailComponent implements OnInit {
   constructor(
@@ -26,10 +25,12 @@ export class HeroDetailComponent implements OnInit {
   hero!: Hero;
 
   ngOnInit(): void {
+    // get hero when `id` param changes
     this.route.paramMap.subscribe((pmap) => this.getHero(pmap.get('id')));
   }
 
   private getHero(id: string | null): void {
+    // when no id or id===0, create new blank hero
     if (!id) {
       this.hero = { id: 0, name: '' } as Hero;
 
@@ -40,7 +41,7 @@ export class HeroDetailComponent implements OnInit {
       if (hero) {
         this.hero = hero;
       } else {
-        this.gotoList();
+        this.gotoList(); // id not found; navigate to list
       }
     });
   }

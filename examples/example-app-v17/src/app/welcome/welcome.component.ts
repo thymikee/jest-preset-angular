@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../model/user.service';
+import { UserService } from '../model';
 
 @Component({
+  standalone: true,
   selector: 'app-welcome',
   template: '<h3 class="welcome"><i>{{welcome}}</i></h3>',
-  standalone: true,
 })
 export class WelcomeComponent implements OnInit {
   welcome = '';

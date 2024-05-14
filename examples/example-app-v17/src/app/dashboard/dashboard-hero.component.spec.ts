@@ -1,10 +1,10 @@
-import { DebugElement } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { click } from '../../testing';
-import { Hero } from '../model/hero';
+import { appProviders } from '../app.config';
+import { Hero } from '../model';
 
 import { DashboardHeroComponent } from './dashboard-hero.component';
 
@@ -16,7 +16,10 @@ describe('DashboardHeroComponent when tested directly', () => {
   let heroEl: HTMLElement;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [DashboardHeroComponent] }).compileComponents();
+    TestBed.configureTestingModule({
+      providers: appProviders,
+      imports: [DashboardHeroComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -25,9 +28,7 @@ describe('DashboardHeroComponent when tested directly', () => {
 
     heroDe = fixture.debugElement.query(By.css('.hero'));
     heroEl = heroDe.nativeElement;
-
     expectedHero = { id: 42, name: 'Test Name' };
-
     fixture.componentRef.setInput('hero', expectedHero);
 
     fixture.detectChanges();
@@ -35,6 +36,7 @@ describe('DashboardHeroComponent when tested directly', () => {
 
   it('should display hero name in uppercase', () => {
     const expectedPipedName = expectedHero.name.toUpperCase();
+
     expect(heroEl.textContent).toContain(expectedPipedName);
   });
 
@@ -63,7 +65,10 @@ describe('DashboardHeroComponent when inside a test host', () => {
   let heroEl: HTMLElement;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({ imports: [TestHostComponent] }).compileComponents();
+    TestBed.configureTestingModule({
+      providers: appProviders,
+      imports: [DashboardHeroComponent, TestHostComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -75,6 +80,7 @@ describe('DashboardHeroComponent when inside a test host', () => {
 
   it('should display hero name', () => {
     const expectedPipedName = testHost.hero.name.toUpperCase();
+
     expect(heroEl.textContent).toContain(expectedPipedName);
   });
 
@@ -86,9 +92,9 @@ describe('DashboardHeroComponent when inside a test host', () => {
 });
 
 @Component({
-  template: ` <dashboard-hero [hero]="hero" (selected)="onSelected($event)"> </dashboard-hero>`,
   standalone: true,
   imports: [DashboardHeroComponent],
+  template: ` <dashboard-hero [hero]="hero" (selected)="onSelected($event)"> </dashboard-hero>`,
 })
 class TestHostComponent {
   hero: Hero = { id: 42, name: 'Test Name' };

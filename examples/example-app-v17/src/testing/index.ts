@@ -1,13 +1,6 @@
 import { DebugElement } from '@angular/core';
-import { tick, ComponentFixture } from '@angular/core/testing';
 
-export * from './activated-route-stub';
-export * from './router-link-directive-stub';
-
-export function advance(f: ComponentFixture<unknown>): void {
-  tick();
-  f.detectChanges();
-}
+export * from './async-observable-helpers';
 
 interface IButtonClickEvent {
   button: number;
