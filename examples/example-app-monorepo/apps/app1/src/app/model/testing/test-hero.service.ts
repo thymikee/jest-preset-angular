@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { asyncData } from '../../../testing';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
@@ -11,11 +11,11 @@ import { getTestHeroes } from './test-heroes';
 @Injectable()
 export class TestHeroService extends HeroService {
   constructor() {
-    super({} as HttpClient);
+    super(null!);
   }
 
   heroes = getTestHeroes();
-  lastHeroResult?: Observable<Hero>;
+  lastHeroResult?: Observable<Hero | undefined>;
   lastHeroesResult?: Observable<Hero[]>;
 
   override addHero(hero: Hero): Observable<Hero> {
@@ -27,27 +27,17 @@ export class TestHeroService extends HeroService {
   }
 
   override getHeroes(): Observable<Hero[]> {
-    this.lastHeroesResult = new Observable<ReturnType<typeof getTestHeroes>>((observer) => {
-      setTimeout(() => {
-        observer.next(this.heroes);
-        observer.complete();
-      }, 0);
-    });
+    this.lastHeroesResult = asyncData(this.heroes);
 
     return this.lastHeroesResult;
   }
 
-  override getHero(id: number | string): Observable<Hero> {
+  override getHero(id: number | string): Observable<Hero | undefined> {
     if (typeof id === 'string') {
       id = parseInt(id, 10);
     }
     const hero = this.heroes.find((h) => h.id === id);
-    this.lastHeroResult = new Observable<Hero>((observer) => {
-      setTimeout(() => {
-        observer.next(hero);
-        observer.complete();
-      }, 0);
-    });
+    this.lastHeroResult = asyncData(hero);
 
     return this.lastHeroResult;
   }

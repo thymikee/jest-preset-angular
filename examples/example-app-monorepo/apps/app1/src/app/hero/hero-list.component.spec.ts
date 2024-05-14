@@ -4,10 +4,12 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { jest } from '@jest/globals';
 
-import { HeroService } from '../model/hero.service';
-import { TestHeroService } from '../model/testing/test-hero.service';
+import { HighlightDirective } from '@shared/highlight.directive';
+
+import { appConfig } from '../app.config';
+import { HeroService } from '../model';
+import { TestHeroService } from '../model/testing';
 import { getTestHeroes } from '../model/testing/test-heroes';
-import { HighlightDirective } from '../shared/highlight.directive';
 
 import { HeroListComponent } from './hero-list.component';
 
@@ -24,7 +26,7 @@ describe('HeroListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HeroListComponent],
+      ...appConfig,
       providers: [
         { provide: HeroService, useClass: TestHeroService },
         { provide: Router, useValue: routerSpy },
@@ -41,15 +43,16 @@ describe('HeroListComponent', () => {
   it('1st hero should match 1st test hero', () => {
     const expectedHero = HEROES[0];
     const actualHero = page.heroRows[0].textContent;
+
     expect(actualHero).toContain(expectedHero.id.toString());
     expect(actualHero).toContain(expectedHero.name);
   });
 
   it('should select hero on click', fakeAsync(() => {
     const expectedHero = HEROES[1];
-    const li = page.heroRows[1];
+    const btn = page.heroRows[1].querySelector('button');
 
-    li.dispatchEvent(new Event('click'));
+    btn!.dispatchEvent(new Event('click'));
     tick();
 
     expect(comp.selectedHero).toEqual(expectedHero);
@@ -57,12 +60,12 @@ describe('HeroListComponent', () => {
 
   it('should navigate to selected hero detail on click', fakeAsync(() => {
     const expectedHero = HEROES[1];
-    const li = page.heroRows[1];
+    const btn = page.heroRows[1].querySelector('button');
 
-    li.dispatchEvent(new Event('click'));
+    btn!.dispatchEvent(new Event('click'));
     tick();
 
-    expect(page.navSpy.mock.calls.length).toBeTruthy();
+    expect(page.navSpy).toHaveBeenCalled();
 
     const navArgs = page.navSpy.mock.calls[0][0];
     expect(navArgs[0]).toContain('heroes');
@@ -72,6 +75,7 @@ describe('HeroListComponent', () => {
   it('should find `HighlightDirective` with `By.directive', () => {
     const h2 = fixture.debugElement.query(By.css('h2'));
     const directive = fixture.debugElement.query(By.directive(HighlightDirective));
+
     expect(h2).toBe(directive);
   });
 
@@ -102,18 +106,14 @@ function createComponent() {
 
 class Page {
   heroRows: HTMLLIElement[];
-
   highlightDe: DebugElement;
-
   navSpy: ReturnType<typeof jest.spyOn>;
 
   constructor() {
     const heroRowNodes = fixture.nativeElement.querySelectorAll('li');
-    this.heroRows = Array.from(heroRowNodes);
-
-    this.highlightDe = fixture.debugElement.query(By.directive(HighlightDirective));
-
     const router = fixture.debugElement.injector.get(Router);
+    this.heroRows = Array.from(heroRowNodes);
+    this.highlightDe = fixture.debugElement.query(By.directive(HighlightDirective));
     this.navSpy = jest.spyOn(router, 'navigate');
   }
 }

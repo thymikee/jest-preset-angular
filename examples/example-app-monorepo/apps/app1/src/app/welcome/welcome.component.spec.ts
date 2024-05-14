@@ -1,5 +1,5 @@
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { UserService } from 'libs/user/src/public-api';
+import { UserService } from 'libs/user/src/lib/user.service';
 
 import { WelcomeComponent } from './welcome.component';
 
@@ -14,10 +14,8 @@ describe('WelcomeComponent (class only)', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      // provide the component-under-test and dependent service
       providers: [WelcomeComponent, { provide: UserService, useClass: MockUserService }],
     });
-    // inject both the component and the dependent service.
     comp = TestBed.inject(WelcomeComponent);
     userService = TestBed.inject(UserService);
   });
@@ -28,12 +26,14 @@ describe('WelcomeComponent (class only)', () => {
 
   it('should welcome logged in user after Angular calls ngOnInit', () => {
     comp.ngOnInit();
+
     expect(comp.welcome).toContain(userService.user.name);
   });
 
   it('should ask user to log in if not logged in after ngOnInit', () => {
     userService.isLoggedIn = false;
     comp.ngOnInit();
+
     expect(comp.welcome).not.toContain(userService.user.name);
     expect(comp.welcome).toContain('log in');
   });
@@ -44,7 +44,6 @@ describe('WelcomeComponent', () => {
   let componentUserService: UserService;
   let userService: UserService;
   let el: HTMLElement;
-
   let userServiceStub: Partial<UserService>;
 
   beforeEach(() => {
@@ -52,7 +51,6 @@ describe('WelcomeComponent', () => {
       isLoggedIn: true,
       user: { name: 'Test User' },
     };
-
     TestBed.configureTestingModule({
       imports: [WelcomeComponent],
       providers: [{ provide: UserService, useValue: userServiceStub }],
@@ -68,6 +66,7 @@ describe('WelcomeComponent', () => {
   it('should welcome the user', () => {
     fixture.detectChanges();
     const content = el.textContent;
+
     expect(content).toContain('Welcome');
     expect(content).toContain('Test User');
   });
@@ -75,6 +74,7 @@ describe('WelcomeComponent', () => {
   it('should welcome "Bubba"', () => {
     userService.user.name = 'Bubba';
     fixture.detectChanges();
+
     expect(el.textContent).toContain('Bubba');
   });
 
@@ -82,6 +82,7 @@ describe('WelcomeComponent', () => {
     userService.isLoggedIn = false;
     fixture.detectChanges();
     const content = el.textContent;
+
     expect(content).not.toContain('Welcome');
     expect(content).toMatch(/log in/i);
   });

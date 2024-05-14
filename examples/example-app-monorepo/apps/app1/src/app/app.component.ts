@@ -5,9 +5,9 @@ import { BannerComponent } from './banner/banner.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: true,
-  imports: [RouterLink, RouterOutlet, WelcomeComponent, BannerComponent],
+  imports: [BannerComponent, WelcomeComponent, RouterOutlet, RouterLink],
 })
 export class AppComponent {}
