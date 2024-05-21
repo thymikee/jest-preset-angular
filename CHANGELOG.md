@@ -1,3 +1,13 @@
+# [14.1.0](https://github.com/thymikee/jest-preset-angular/compare/v14.0.4...v14.1.0) (2024-05-21)
+
+
+### Features
+
+* extend version support range to Angular 18 ([24e097d](https://github.com/thymikee/jest-preset-angular/commit/24e097d835b805b94732dc93a8a445b4915223ca))
+* remove ivy flag for snapshot serializer ([3433cd8](https://github.com/thymikee/jest-preset-angular/commit/3433cd8a226712e86c77bfa4e1b6d906a39699d9))
+
+
+
 ## [14.0.4](https://github.com/thymikee/jest-preset-angular/compare/v14.0.3...v14.0.4) (2024-05-07)
 
 
