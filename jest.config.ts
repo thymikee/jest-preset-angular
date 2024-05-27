@@ -1,5 +1,6 @@
-/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
-module.exports = {
+import type { JestConfigWithTsJest } from 'ts-jest';
+
+const config: JestConfigWithTsJest = {
   moduleNameMapper: {
     '@angular/compiler-cli/ngcc': '<rootDir>/node_modules/@angular/compiler-cli/bundles/ngcc/main-ngcc.js',
   },
@@ -16,3 +17,5 @@ module.exports = {
     ],
   },
 };
+
+export default config;
