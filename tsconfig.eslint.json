@@ -1,4 +1,7 @@
 {
   "extends": "./tsconfig.json",
+  "files": [
+    "jest.config.ts"
+  ],
   "include": ["src", "e2e", "examples", "presets"]
 }
