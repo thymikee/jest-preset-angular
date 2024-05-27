@@ -18,6 +18,7 @@ In most cases, simply setting the `preset` key to the desired preset name in you
 using TypeScript with Jest (assuming you added `jest-preset-angular` to your `devDependencies` of course):
 
 ```js tab
+// jest.config.js
 module.exports = {
   // [...]
   // Replace `jest-preset-angular` with the preset you want to use
@@ -27,6 +28,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -37,17 +39,6 @@ const jestConfig: Config = {
 };
 
 export default jestConfig;
-```
-
-```JSON tab
-{
-  //...
-  "jest": {
-    // Replace `jest-preset-angular` with the preset you want to use
-    // from the above list
-    "preset": "jest-preset-angular"
-  }
-}
 ```
 
 ### Advanced
@@ -65,6 +56,7 @@ errors.
 :::
 
 ```js tab
+// jest.config.js
 const { defaultTransformerOptions } = require('jest-preset-angular/presets');
 // const { defaultTransformerOptions } = require('jest-preset-angular/presets')
 
@@ -83,6 +75,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 

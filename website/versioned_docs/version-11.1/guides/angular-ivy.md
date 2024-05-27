@@ -9,9 +9,9 @@ with Ivy compiler.
 
 `jest-preset-angular` also provides a Jest `global-setup.js` file to help you to run `ngcc` with Jest. Add to the following section:
 
-- to your root `jest.config.js`
+- to your root Jest config
 
-```js
+```js tab
 // jest.config.js
 module.exports = {
   // [...]
@@ -19,12 +19,14 @@ module.exports = {
 };
 ```
 
-- or to your root `package.json`
+```ts tab
+// jest.config.ts
+import type { Config } from 'jest-config';
 
-```json
-{
-  "jest": {
-    "globalSetup": "jest-preset-angular/global-setup"
-  }
-}
+const jestConfig: Config = {
+  // [...]
+  globalSetup: 'jest-preset-angular/global-setup',
+};
+
+export default jestConfig;
 ```

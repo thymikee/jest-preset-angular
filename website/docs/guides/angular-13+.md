@@ -28,12 +28,14 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 - If one is using the default preset as following:
 
 ```js tab
+// jest.config.js
 module.exports = {
   preset: 'jest-preset-angular',
 };
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -52,6 +54,7 @@ ES Modules support is new and may encounter issues. See [example-app-v13](https:
 Your `jest.config.js` should be changed to something like:
 
 ```js tab
+// jest.config.js
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const { paths } = require('./tsconfig.json').compilerOptions;
 
@@ -78,6 +81,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
@@ -130,6 +134,7 @@ Cannot find module '@angular/common/locales/xx' from 'src/app/app.component.spec
 To fix this issue, one needs to add `mjs` to `moduleFileExtensions` as following
 
 ```js tab
+// jest.config.js
 module.exports = {
   // ...other options
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
@@ -137,6 +142,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -156,6 +162,7 @@ libraries in Jest **CommonJS** mode.
 To fix this issue, one should modify `transformIgnorePatterns` to be as following:
 
 ```js tab
+// jest.config.js
 module.exports = {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
@@ -163,6 +170,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -178,6 +186,7 @@ export default jestConfig;
 To support Ionic 6 or 7 you will need to modify `transformIgnorePatterns` to be as following:
 
 ```js tab
+// jest.config.js
 module.exports = {
   // ...other options
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs$))'],
@@ -185,6 +194,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {

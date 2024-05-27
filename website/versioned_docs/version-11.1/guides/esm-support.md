@@ -34,23 +34,6 @@ module.exports = {
 };
 ```
 
-```json
-// OR package.json
-{
-  // [...]
-  "jest": {
-    "extensionsToTreatAsEsm": [".ts"],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "<rootDir>/tsconfig.spec.json",
-        "stringifyContentPathRegex": "\\.html$",
-        "useESM": true
-      }
-    }
-  }
-}
-```
-
 #### Use ESM presets
 
 :::tip
@@ -70,14 +53,4 @@ module.exports = {
   // [...]
   preset: 'jest-preset-angular/presets/defaults-esm',
 };
-```
-
-```json
-// OR package.json
-{
-  // [...]
-  "jest": {
-    "preset": "jest-preset-angular/presets/defaults-esm"
-  }
-}
 ```

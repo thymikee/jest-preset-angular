@@ -20,7 +20,8 @@ With Angular 8 and higher, a [change to the way the Angular CLI works](https://g
 
 In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setup-jest.ts`:
 
-```typescript
+```ts
+// setup-jest.ts
 require('core-js/es/reflect');
 require('core-js/proposals/reflect-metadata');
 ```
@@ -50,7 +51,8 @@ The currently used JSDOM version handles this, but older versions used before v7
 
 Add this to your `jestGlobalMocks` file
 
-```js
+```ts
+// jestGlobalMocks.ts
 Object.defineProperty(document.body.style, 'transform', {
   value: () => {
     return {
@@ -94,13 +96,15 @@ If the dependency causing the issue is a sub dependency of a `node_modules` pack
 
 The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setup-jest.ts` you can declare jQuery:
 
-```js
+```ts
+// setup-jest.ts
 window.$ = require('path/to/jquery');
 ```
 
 or
 
-```js
+```ts
+// setup-jest.ts
 import $ from 'jquery';
 global.$ = global.jQuery = $;
 ```
@@ -213,9 +217,9 @@ module.exports = (path, options) => {
 
 ```js
 // jest.config.js
-...
-resolver: '<rootDir>/src/jest.resolver.js',
-...
+module.exports = {
+  resolver: '<rootDir>/src/jest.resolver.js',
+};
 ```
 
 ### Inject dependencies with TypeScript interface or exported namespace
