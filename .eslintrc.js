@@ -1,77 +1,115 @@
-module.exports = {
-  env: {
-    node: true,
-    es6: true,
-    'jest/globals': true,
-  },
-  globals: {
-    globalThis: false,
-  },
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-  overrides: [
-    {
-      files: ['*.ts'],
-      parserOptions: {
+const baseJsTsConfig = {
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/recommended',
+        'plugin:import/typescript',
+        'plugin:prettier/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
         project: 'tsconfig.eslint.json',
-        impliedStrict: true,
-        createDefaultProgram: false,
-      },
-      plugins: ['eslint-plugin-prefer-arrow', 'import', 'jsdoc'],
-      extends: ['plugin:@typescript-eslint/recommended', 'plugin:import/typescript', 'plugin:prettier/recommended'],
-      rules: {
-        '@typescript-eslint/array-type': [
-          'error',
-          {
-            default: 'array-simple',
-          },
-        ],
-        '@typescript-eslint/comma-spacing': 'error',
-        '@typescript-eslint/no-redeclare': 'error',
-        '@typescript-eslint/no-unused-vars': 'off',
-        '@typescript-eslint/prefer-ts-expect-error': 'error',
+    },
+    rules: {
+        '@typescript-eslint/no-empty-function': 'error',
+        '@typescript-eslint/no-shadow': 'error',
+        '@typescript-eslint/no-use-before-define': ['error', { classes: false, functions: false }],
+        '@typescript-eslint/no-useless-constructor': 'error',
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/prefer-readonly': 'error',
+        curly: ['error', 'all'],
+        'import/extensions': 'off',
+        'import/no-extraneous-dependencies': 'off',
+        'import/no-relative-packages': 'off',
+        'import/no-unresolved': 'off',
         'import/order': [
-          'error',
-          {
-            alphabetize: {
-              order: 'asc',
-              caseInsensitive: true,
+            'error',
+            {
+                alphabetize: {
+                    order: 'asc',
+                },
+                groups: ['builtin', 'external', ['internal', 'parent', 'sibling']],
+                'newlines-between': 'always',
             },
-            groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-            'newlines-between': 'always',
-            pathGroups: [
-              {
-                pattern: '@shared/*',
-                group: 'internal',
-                position: 'before',
-              },
-            ],
-            pathGroupsExcludedImportTypes: ['@shared'],
-          },
         ],
-        'object-shorthand': 'error',
-        'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: 'return' }],
-        'prefer-object-spread': 'error',
-      },
+        'import/prefer-default-export': 'off',
+        'no-console': 'off',
+        'no-empty-function': 'off',
+        'no-plusplus': 'off',
+        'no-shadow': 'off',
+        'no-underscore-dangle': 'off',
+        'no-use-before-define': 'off',
+        'no-useless-constructor': 'off',
+        'padding-line-between-statements': [
+            'error',
+            {
+                blankLine: 'always',
+                prev: '*',
+                next: 'return',
+            },
+        ],
+        'prettier/prettier': [
+            'error',
+            {
+                singleAttributePerLine: true,
+                printWidth: 120,
+                singleQuote: true,
+                tabWidth: 4,
+                semi: true,
+                trailingComma: 'all',
+                parser: 'typescript',
+            },
+        ],
     },
-    {
-      files: ['*.js'],
-      extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+};
+
+module.exports = {
+    env: {
+        node: true,
+        es2020: true,
     },
-    {
-      files: ['**/*.spec.ts', '**/*.test.ts'],
-      extends: ['plugin:jest/recommended'],
-    },
-  ],
-  rules: {
-    'comma-spacing': 'off',
-    'no-redeclare': 'off',
-    'no-shadow': 'off',
-    quotes: 'off',
-  },
+    overrides: [
+        {
+            ...baseJsTsConfig,
+            files: ['*.ts', '*.js'],
+            extends: [
+                'plugin:@angular-eslint/recommended',
+                'plugin:@angular-eslint/template/process-inline-templates',
+                ...baseJsTsConfig.extends,
+            ],
+            rules: {
+                ...baseJsTsConfig.rules,
+                '@angular-eslint/component-class-suffix': 'off',
+                '@angular-eslint/component-selector': 'off',
+                '@angular-eslint/directive-selector': 'off',
+                '@angular-eslint/no-input-rename': 'off',
+            },
+        },
+        {
+            files: ['*.html'],
+            parser: '@angular-eslint/template-parser',
+            extends: [
+                'plugin:@angular-eslint/template/recommended',
+                'plugin:@angular-eslint/template/accessibility',
+                'plugin:prettier/recommended',
+            ],
+            rules: {
+                'prettier/prettier': [
+                    'error',
+                    {
+                        singleAttributePerLine: true,
+                        printWidth: 120,
+                        tabWidth: 4,
+                        semi: false,
+                        parser: 'angular',
+                    },
+                ],
+            },
+        },
+        {
+            ...baseJsTsConfig,
+            files: ['*.spec.ts', 'e2e/**/__tests__/**/*.js'],
+            extends: ['plugin:jest/recommended', ...baseJsTsConfig.extends],
+        },
+    ],
 };

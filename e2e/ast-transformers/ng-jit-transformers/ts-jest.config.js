@@ -1,3 +1,3 @@
 module.exports = {
-  stringifyContentPathRegex: '\\.html$',
+    stringifyContentPathRegex: '\\.html$',
 };

@@ -1,3 +1,3 @@
 module.exports = {
-  transform: { '^.+\\.(ts|js|html)$': '<rootDir>/../../../build/index.js' },
+    transform: { '^.+\\.(ts|js|html)$': '<rootDir>/../../../build/index.js' },
 };

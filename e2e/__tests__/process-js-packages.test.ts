@@ -6,11 +6,11 @@ import { runYarnInstall } from '../utils';
 const DIR = 'process-js-packages';
 
 beforeAll(() => {
-  runYarnInstall(path.join(__dirname, '..', DIR));
+    runYarnInstall(path.join(__dirname, '..', DIR));
 });
 
 test(`successfully run the tests inside ${DIR} with CommonJS mode`, () => {
-  const { json } = runWithJsonNoCache(DIR);
+    const { json } = runWithJsonNoCache(DIR);
 
-  expect(json.success).toBe(true);
+    expect(json.success).toBe(true);
 });

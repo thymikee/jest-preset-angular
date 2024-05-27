@@ -3,8 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import { REQUEST } from './app.tokens';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AppService {
-  private request = inject(REQUEST);
+    private readonly request = inject(REQUEST);
 }

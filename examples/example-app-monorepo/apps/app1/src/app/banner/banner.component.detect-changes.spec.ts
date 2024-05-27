@@ -3,35 +3,35 @@ import { ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/
 import { BannerComponent } from './banner.component';
 
 describe('BannerComponent (AutoChangeDetect)', () => {
-  let comp: BannerComponent;
-  let fixture: ComponentFixture<BannerComponent>;
-  let h1: HTMLElement;
+    let comp: BannerComponent;
+    let fixture: ComponentFixture<BannerComponent>;
+    let h1: HTMLElement;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [BannerComponent],
-      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [BannerComponent],
+            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+        });
+        fixture = TestBed.createComponent(BannerComponent);
+        comp = fixture.componentInstance;
+        h1 = fixture.nativeElement.querySelector('h1');
     });
-    fixture = TestBed.createComponent(BannerComponent);
-    comp = fixture.componentInstance;
-    h1 = fixture.nativeElement.querySelector('h1');
-  });
 
-  it('should display original title', () => {
-    expect(h1.textContent).toContain(comp.title);
-  });
+    it('should display original title', () => {
+        expect(h1.textContent).toContain(comp.title);
+    });
 
-  it('should still see original title after comp.title change', () => {
-    const oldTitle = comp.title;
-    comp.title = 'Test Title';
+    it('should still see original title after comp.title change', () => {
+        const oldTitle = comp.title;
+        comp.title = 'Test Title';
 
-    expect(h1.textContent).toContain(oldTitle);
-  });
+        expect(h1.textContent).toContain(oldTitle);
+    });
 
-  it('should display updated title after detectChanges', () => {
-    comp.title = 'Test Title';
-    fixture.detectChanges();
+    it('should display updated title after detectChanges', () => {
+        comp.title = 'Test Title';
+        fixture.detectChanges();
 
-    expect(h1.textContent).toContain(comp.title);
-  });
+        expect(h1.textContent).toContain(comp.title);
+    });
 });

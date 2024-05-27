@@ -10,15 +10,15 @@ import { HeroService, UserService } from './model';
 import { TwainService } from './twain/twain.service';
 
 export const appProviders = [
-  provideRouter(routes),
-  provideHttpClient(),
-  provideProtractorTestingSupport(),
-  importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })),
-  HeroService,
-  TwainService,
-  UserService,
+    provideRouter(routes),
+    provideHttpClient(),
+    provideProtractorTestingSupport(),
+    importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })),
+    HeroService,
+    TwainService,
+    UserService,
 ];
 
 export const appConfig = {
-  providers: appProviders,
+    providers: appProviders,
 };
