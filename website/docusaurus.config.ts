@@ -1,4 +1,8 @@
+import path from 'node:path';
+
+import npm2yarn from '@docusaurus/remark-plugin-npm2yarn';
 import type { Config } from '@docusaurus/types';
+import tabBlocks from 'docusaurus-remark-plugin-tab-blocks';
 import { themes } from 'prism-react-renderer';
 
 const config: Config = {
@@ -85,15 +89,12 @@ const config: Config = {
         docs: {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-          sidebarPath: require.resolve('./sidebars.json'),
+          sidebarPath: path.resolve('./sidebars.json'),
           editUrl: 'https://github.com/thymikee/jest-preset-angular/edit/main/website',
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
-            require('docusaurus-remark-plugin-tab-blocks'),
-          ],
+          remarkPlugins: [[npm2yarn, { sync: true }], tabBlocks],
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: path.resolve('./src/css/custom.css'),
         },
       },
     ],
