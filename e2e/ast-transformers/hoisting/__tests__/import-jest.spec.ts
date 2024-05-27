@@ -1,5 +1,4 @@
-import { test, jest } from '@jest/globals';
-import { jest as aliasedJest } from '@jest/globals';
+import { test, jest, jest as aliasedJest } from '@jest/globals';
 import * as JestGlobals from '@jest/globals';
 
 import a from '../__test_modules__/a';
@@ -14,19 +13,19 @@ JestGlobals.jest.unmock('../__test_modules__/c');
 // tests
 
 test('named import', () => {
-  // @ts-expect-error property added by Jest
-  expect(a._isMockFunction).toBeUndefined();
-  expect(a()).toBe('unmocked');
+    // @ts-expect-error property added by Jest
+    expect(a._isMockFunction).toBeUndefined();
+    expect(a()).toBe('unmocked');
 });
 
 test('aliased named import', () => {
-  // @ts-expect-error property added by Jest
-  expect(b._isMockFunction).toBeUndefined();
-  expect(b()).toBe('unmocked');
+    // @ts-expect-error property added by Jest
+    expect(b._isMockFunction).toBeUndefined();
+    expect(b()).toBe('unmocked');
 });
 
 test('namespace import', () => {
-  // @ts-expect-error property added by Jest
-  expect(c._isMockFunction).toBeUndefined();
-  expect(c()).toBe('unmocked');
+    // @ts-expect-error property added by Jest
+    expect(c._isMockFunction).toBeUndefined();
+    expect(c()).toBe('unmocked');
 });

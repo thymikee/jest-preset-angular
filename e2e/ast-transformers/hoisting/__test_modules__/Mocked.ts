@@ -1,7 +1,7 @@
 export default class Mocked {
-  readonly isMocked: boolean;
+    readonly isMocked: boolean;
 
-  constructor() {
-    this.isMocked = true;
-  }
+    constructor() {
+        this.isMocked = true;
+    }
 }

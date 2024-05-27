@@ -20,67 +20,67 @@ let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 
 describe('AppComponent & TestModule', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      ...appConfig,
-      imports: [AppComponent, BannerStubComponent, RouterLink, RouterOutletStubComponent, WelcomeStubComponent],
-      providers: [provideRouter([]), UserService],
-    })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(AppComponent);
-        comp = fixture.componentInstance;
-      });
-  }));
-  tests();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            ...appConfig,
+            imports: [AppComponent, BannerStubComponent, RouterLink, RouterOutletStubComponent, WelcomeStubComponent],
+            providers: [provideRouter([]), UserService],
+        })
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(AppComponent);
+                comp = fixture.componentInstance;
+            });
+    }));
+    tests();
 });
 
 describe('AppComponent & NO_ERRORS_SCHEMA', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      ...appConfig,
-      imports: [AppComponent, BannerStubComponent, RouterLink],
-      providers: [provideRouter([]), UserService],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(AppComponent);
-        comp = fixture.componentInstance;
-      });
-  }));
-  tests();
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            ...appConfig,
+            imports: [AppComponent, BannerStubComponent, RouterLink],
+            providers: [provideRouter([]), UserService],
+            schemas: [NO_ERRORS_SCHEMA],
+        })
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(AppComponent);
+                comp = fixture.componentInstance;
+            });
+    }));
+    tests();
 });
 
 function tests() {
-  let routerLinks: RouterLink[];
-  let linkDes: DebugElement[];
+    let routerLinks: RouterLink[];
+    let linkDes: DebugElement[];
 
-  beforeEach(() => {
-    fixture.detectChanges();
-    linkDes = fixture.debugElement.queryAll(By.directive(RouterLink));
-    routerLinks = linkDes.map((de) => de.injector.get(RouterLink));
-  });
+    beforeEach(() => {
+        fixture.detectChanges();
+        linkDes = fixture.debugElement.queryAll(By.directive(RouterLink));
+        routerLinks = linkDes.map((de) => de.injector.get(RouterLink));
+    });
 
-  it('can instantiate the component', () => {
-    expect(comp).not.toBeNull();
-  });
+    it('can instantiate the component', () => {
+        expect(comp).not.toBeNull();
+    });
 
-  it('can get RouterLinks from template', () => {
-    expect(routerLinks.length).toEqual(3);
-    expect(routerLinks[0].href).toContain('/dashboard');
-    expect(routerLinks[1].href).toContain('/heroes');
-    expect(routerLinks[2].href).toContain('/about');
-  });
+    it('can get RouterLinks from template', () => {
+        expect(routerLinks.length).toEqual(3);
+        expect(routerLinks[0].href).toContain('/dashboard');
+        expect(routerLinks[1].href).toContain('/heroes');
+        expect(routerLinks[2].href).toContain('/about');
+    });
 
-  it('can click Heroes link in template', fakeAsync(() => {
-    const heroesLinkDe = linkDes[1];
-    TestBed.inject(Router).resetConfig([{ path: '**', children: [] }]);
+    it('can click Heroes link in template', fakeAsync(() => {
+        const heroesLinkDe = linkDes[1];
+        TestBed.inject(Router).resetConfig([{ path: '**', children: [] }]);
 
-    heroesLinkDe.triggerEventHandler('click', { button: 0 });
-    tick();
-    fixture.detectChanges();
+        heroesLinkDe.triggerEventHandler('click', { button: 0 });
+        tick();
+        fixture.detectChanges();
 
-    expect(TestBed.inject(Router).url).toBe('/heroes');
-  }));
+        expect(TestBed.inject(Router).url).toBe('/heroes');
+    }));
 }

@@ -1,7 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "files": [
-    "jest.config.ts"
+    "jest.config.ts",
+    ".eslintrc.js"
   ],
-  "include": ["src", "e2e", "examples", "presets", "website"]
+  "include": ["src", "presets", "website", "*.js", "scripts", "examples", "e2e"]
 }

@@ -1,5 +1,5 @@
 jest.mock('./banana', () => {
-  const exports = 'apple';
+    const exports = 'apple';
 
-  return exports;
+    return exports;
 });

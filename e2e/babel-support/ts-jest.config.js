@@ -1,3 +1,3 @@
 module.exports = {
-  babelConfig: true,
+    babelConfig: true,
 };

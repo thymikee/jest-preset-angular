@@ -1,7 +1,7 @@
 export default class Unmocked {
-  readonly isUnmocked: boolean;
+    readonly isUnmocked: boolean;
 
-  constructor() {
-    this.isUnmocked = true;
-  }
+    constructor() {
+        this.isUnmocked = true;
+    }
 }

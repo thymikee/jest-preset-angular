@@ -2,15 +2,15 @@ import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 
 @Directive({ standalone: true, selector: '[highlight]' })
 export class HighlightDirective implements OnChanges {
-  defaultColor = 'rgb(211, 211, 211)'; // lightgray
+    defaultColor = 'rgb(211, 211, 211)'; // lightgray
 
-  @Input('highlight') bgColor = '';
+    @Input('highlight') bgColor = '';
 
-  constructor(private el: ElementRef) {
-    el.nativeElement.style.customProperty = true;
-  }
+    constructor(private readonly el: ElementRef) {
+        el.nativeElement.style.customProperty = true;
+    }
 
-  ngOnChanges() {
-    this.el.nativeElement.style.backgroundColor = this.bgColor || this.defaultColor;
-  }
+    ngOnChanges() {
+        this.el.nativeElement.style.backgroundColor = this.bgColor || this.defaultColor;
+    }
 }
