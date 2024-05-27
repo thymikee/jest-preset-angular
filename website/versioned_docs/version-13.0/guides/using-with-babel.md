@@ -28,6 +28,7 @@ _Note: do not use a `.babelrc` file otherwise the packages that you specify in t
 3. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 
 ```js tab
+// jest.config.js
 module.exports = {
   //...
   transform: {
@@ -38,6 +39,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {

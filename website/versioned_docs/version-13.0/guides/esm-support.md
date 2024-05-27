@@ -26,6 +26,7 @@ import 'jest-preset-angular/setup-jest.mjs';
 #### Manual configuration
 
 ```js tab
+// jest.config.js
 module.exports = {
   //...
   extensionsToTreatAsEsm: ['.ts'],
@@ -43,6 +44,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -63,25 +65,6 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-```JSON tab
-{
-  //...
-  "jest": {
-    "extensionsToTreatAsEsm": [".ts"],
-    "transform": {
-      "^.+\\.(ts|js|html|svg)$": [
-        "jest-preset-angular",
-        {
-          "tsconfig": "<rootDir>/tsconfig.spec.json",
-          "stringifyContentPathRegex": "\\.(html|svg)$",
-          "useESM": true,
-        },
-      ],
-    },
-  }
-}
-```
-
 #### Use ESM presets
 
 :::tip
@@ -96,6 +79,7 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 :::
 
 ```js tab
+// jest.config.js
 module.exports = {
   //...
   preset: 'jest-preset-angular/presets/defaults-esm',
@@ -103,6 +87,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig = {
@@ -111,14 +96,4 @@ const jestConfig = {
 };
 
 export default jestConfig;
-```
-
-```JSON tab
-// OR package.json
-{
-  //...
-  "jest": {
-    "preset": "jest-preset-angular/presets/defaults-esm"
-  }
-}
 ```

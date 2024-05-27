@@ -27,18 +27,6 @@ module.exports = {
 };
 ```
 
-```json
-// OR package.json
-{
-  // [...]
-  "jest": {
-    // Replace `jest-preset-angular` with the preset you want to use
-    // from the above list
-    "preset": "jest-preset-angular"
-  }
-}
-```
-
 ### Advanced
 
 All presets come with default `ts-jest` config options.

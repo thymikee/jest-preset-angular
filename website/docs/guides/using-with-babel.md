@@ -10,6 +10,7 @@ If you wish to use `Babel`, you need to say jest to transpile such files manuall
 2. Install `@babel/preset-env` and add `babel.config.js` (or modify existing if needed) with the following content:
 
 ```js
+// babel.config.js
 module.exports = function (api) {
   api.cache(true);
 
@@ -28,6 +29,7 @@ _Note: do not use a `.babelrc` file otherwise the packages that you specify in t
 3. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 
 ```js tab
+// jest.config.js
 module.exports = {
   //...
   transform: {
@@ -38,6 +40,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {

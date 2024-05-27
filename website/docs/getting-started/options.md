@@ -14,6 +14,7 @@ Since **v9.0.0**, `jest-preset-angular` default Jest configuration no longer pro
 the old `moduleNameMapper` configuration, you can put this into your Jest config.
 
 ```js tab
+// jest.config.js
 module.exports = {
   //...
   moduleNameMapper: {
@@ -26,6 +27,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -47,6 +49,7 @@ Since **v11.0.0**, `jest-preset-angular` introduced the usage of `esbuild` to pr
 will be processed by `esbuild` in `jest-preset-angular`. To configure extra files to process with `esbuild`, one can do the following:
 
 ```js tab
+// jest.config.js
 module.exports = {
   //...
   globals: {
@@ -58,6 +61,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -77,6 +81,7 @@ export default jestConfig;
 ### Exposed configuration
 
 ```js tab
+// jest.config.js
 const snapshotSerializers = require('../build/serializers');
 
 module.exports = {
@@ -98,6 +103,7 @@ module.exports = {
 ```
 
 ```ts tab
+// jest.config.ts
 import type { Config } from 'jest';
 import snapshotSerializers from 'jest-preset-angular/build/serializers';
 

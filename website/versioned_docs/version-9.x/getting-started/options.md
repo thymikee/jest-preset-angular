@@ -13,7 +13,7 @@ More information about `ts-jest` options, see [doc](https://kulshekhar.github.io
 Since **v9.0.0**, `jest-preset-angular` default Jest configuration no longer provides `moduleNameMapper`. If you wish to reuse
 the old `moduleNameMapper` configuration, you can put this into your Jest config
 
-```
+```js
 moduleNameMapper: {
   '^src/(.*)$': '<rootDir>/src/$1',
   '^app/(.*)$': '<rootDir>/src/app/$1',
