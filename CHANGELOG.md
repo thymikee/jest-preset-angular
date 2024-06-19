@@ -1,3 +1,11 @@
+## [14.1.1](https://github.com/thymikee/jest-preset-angular/compare/v14.1.0...v14.1.1) (2024-06-19)
+
+
+### Features
+
+* feat: add polyfill for TextEncoder ([c0af6c3](https://github.com/thymikee/jest-preset-angular/commit/c0af6c3)), closes [#1914](https://github.com/thymikee/jest-preset-angular/issues/1914) [#2514](https://github.com/thymikee/jest-preset-angular/issues/2514)
+
+
 # [14.1.0](https://github.com/thymikee/jest-preset-angular/compare/v14.0.4...v14.1.0) (2024-05-21)
 
 
@@ -294,13 +302,13 @@
 
 ## BREAKING CHANGES
 
-* Since **Angular 11**, the minimum version of `zone.js` is **0.11.x** and Angular 10 is EOL, so now we can use zone patch directly from `zone.js`. 
+* Since **Angular 11**, the minimum version of `zone.js` is **0.11.x** and Angular 10 is EOL, so now we can use zone patch directly from `zone.js`.
 If one is not using `zone.js@0.11.x`, please upgrade.
 * Now we are using Angular AST transformers, `reflect-metadata` is not needed anymore.
 * **Jest 28** correctly resolves Angular package format files so the `ng-jest-resolver` is now optional.
 * **Node 12** is no longer support
-* Previously, we always checked file extension `.mjs` and any files from `node_modules` excluding `tslib` to be processed with `esbuild`. 
-With the new option `processWithEsbuild`, now we put default all `.mjs` files to be processed by `esbuild`. Files like `lodash-es` default isn't processed by `esbuild`. 
+* Previously, we always checked file extension `.mjs` and any files from `node_modules` excluding `tslib` to be processed with `esbuild`.
+With the new option `processWithEsbuild`, now we put default all `.mjs` files to be processed by `esbuild`. Files like `lodash-es` default isn't processed by `esbuild`.
 If you wish to use `esbuild` to process such files, please configure in your Jest config like
 ```
 // jest.config.js
@@ -459,7 +467,7 @@ Alan Agius, Pete Bacon Darwin from Angular team
 ## BREAKING CHANGES
 
 * **NodeJs** range version support now is `^12.20.0 || ^14.15.0 || >=16.10.0`
-* Due to the introduction of **ESM package format** for Angular packages, several things are added to the **default preset** 
+* Due to the introduction of **ESM package format** for Angular packages, several things are added to the **default preset**
 to handle `.mjs` files from **Angular ESM packages**. Please check our migration documentation at https://thymikee.github.io/jest-preset-angular/docs/next/guides/angular-13+
 
 
@@ -644,7 +652,7 @@ module.exports = {
 * When generating a new project from Angular CLI, by default the `tsconfig.json` doesn't contain any path mappings
   hence removing `moduleNameMapper` from preset will make sure that the preset works in pair with `tsconfig.json`.
   Ones who are relying on the value of `moduleNameMapper` from the preset should create their own `moduleNameMapper`
-  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping. 
+  config manually or via `ts-jest` util https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping.
 
 If you wish to reuse the old configuration of `moduleNameMapper`, you can put this into your Jest config
 ```
