@@ -47,6 +47,7 @@ describe('setup-jest', () => {
 
     beforeEach(() => {
         delete globalThis.ngJest;
+        delete globalThis.TextEncoder;
         jest.clearAllMocks();
         jest.resetModules();
     });
@@ -78,6 +79,12 @@ describe('setup-jest', () => {
                 errorOnUnknownProperties: true,
             });
         });
+
+        test('should always have TextEncoder in globalThis', async () => {
+            await import('../../setup-jest');
+
+            expect(globalThis.TextEncoder).toBeDefined();
+        });
     });
 
     describe('for ESM setup-jest, test environment initialization', () => {
@@ -106,6 +113,12 @@ describe('setup-jest', () => {
                 errorOnUnknownElements: true,
                 errorOnUnknownProperties: true,
             });
+        });
+
+        test('should always have TextEncoder in globalThis', async () => {
+            await import('../../setup-jest.mjs');
+
+            expect(globalThis.TextEncoder).toBeDefined();
         });
     });
 });
