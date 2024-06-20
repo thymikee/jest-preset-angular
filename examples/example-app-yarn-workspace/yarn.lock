@@ -35,6 +35,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular-devkit/architect@npm:0.1800.5":
+  version: 0.1800.5
+  resolution: "@angular-devkit/architect@npm:0.1800.5"
+  dependencies:
+    "@angular-devkit/core": "npm:18.0.5"
+    rxjs: "npm:7.8.1"
+  checksum: 10/5a45a54b67597851d3350a4e01847362a480263824d44267df4abeeb75e23e9bbe0be792477d8bdb3dfbc68e75b218c2577ffd79d5262a87c2ee811470e210e4
+  languageName: node
+  linkType: hard
+
 "@angular-devkit/build-angular@npm:^17.3.8":
   version: 17.3.8
   resolution: "@angular-devkit/build-angular@npm:17.3.8"
@@ -198,6 +208,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular-devkit/core@npm:18.0.5":
+  version: 18.0.5
+  resolution: "@angular-devkit/core@npm:18.0.5"
+  dependencies:
+    ajv: "npm:8.13.0"
+    ajv-formats: "npm:3.0.1"
+    jsonc-parser: "npm:3.2.1"
+    picomatch: "npm:4.0.2"
+    rxjs: "npm:7.8.1"
+    source-map: "npm:0.7.4"
+  peerDependencies:
+    chokidar: ^3.5.2
+  peerDependenciesMeta:
+    chokidar:
+      optional: true
+  checksum: 10/b27b1535211a901b7a53190f1e38dd40a66bcf2ec3335e4db898bea236edbaa02ab32d56d595f0a6bf681c2dd8e05ed67c0a4b17a03e96cf69d816b89cdb8d28
+  languageName: node
+  linkType: hard
+
 "@angular-devkit/schematics@npm:18.0.4":
   version: 18.0.4
   resolution: "@angular-devkit/schematics@npm:18.0.4"
@@ -222,12 +251,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/build@npm:^18.0.4":
-  version: 18.0.4
-  resolution: "@angular/build@npm:18.0.4"
+"@angular/build@npm:^18.0.5":
+  version: 18.0.5
+  resolution: "@angular/build@npm:18.0.5"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.1800.4"
+    "@angular-devkit/architect": "npm:0.1800.5"
     "@babel/core": "npm:7.24.5"
     "@babel/helper-annotate-as-pure": "npm:7.22.5"
     "@babel/helper-split-export-declaration": "npm:7.24.5"
@@ -273,7 +302,7 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 10/299b6111ce7e488935ccb6df933b8b4646c46b6f37dd50162acf10780eafa099dcafaf48bc843f42c4440b5c3bd9a2306c5811376369e20726ba590d2ea4ac79
+  checksum: 10/86f88fdee5fba0ded6ccc0f0c9c041722382aec4cb3451bd871ee7182fdfb50c23d51f3d8ab05e7ff770ae549ff33599fdd64a5c4c6f3aefeec34c498120a31c
   languageName: node
   linkType: hard
 
@@ -4176,7 +4205,7 @@ __metadata:
   resolution: "angular-app@workspace:packages/angular-app"
   dependencies:
     "@angular/animations": "npm:^18.0.3"
-    "@angular/build": "npm:^18.0.4"
+    "@angular/build": "npm:^18.0.5"
     "@angular/cli": "npm:^18.0.4"
     "@angular/common": "npm:^18.0.3"
     "@angular/compiler": "npm:^18.0.3"
