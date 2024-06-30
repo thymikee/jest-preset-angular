@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import type { TsCompilerInstance } from 'ts-jest';
 import ts from 'typescript';
 
 import { STYLES, STYLE_URLS, TEMPLATE_URL, TEMPLATE, REQUIRE, COMPONENT, STYLE_URL } from '../constants';
@@ -59,10 +58,9 @@ const shouldTransform = (fileName: string) => !fileName.endsWith('.ngfactory.ts'
  *   templateUrl: __NG_CLI_RESOURCE__0,
  * })
  */
-export function replaceResources({ program }: TsCompilerInstance): ts.TransformerFactory<ts.SourceFile> {
+export function replaceResources(program: ts.Program): ts.TransformerFactory<ts.SourceFile> {
     return (context: ts.TransformationContext) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const typeChecker = program!.getTypeChecker();
+        const typeChecker = program.getTypeChecker();
         const resourceImportDeclarations: ts.ImportDeclaration[] = [];
         const moduleKind = context.getCompilerOptions().module;
         const nodeFactory = context.factory;
