@@ -66,6 +66,12 @@
     },
     {
       "matchPaths": ["examples/example-app-v17/package.json"],
+      "matchPackagePatterns": ["^angular", "^@angular"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "matchPaths": ["examples/example-app-v17/package.json"],
       "matchDepNames": ["angular-in-memory-web-api", "typescript"],
       "enabled": false
     },
