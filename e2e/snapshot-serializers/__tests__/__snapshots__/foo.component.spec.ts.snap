@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshot should work 1`] = `
+exports[`FooComponent should allow generating snapshot 1`] = `
 <foo
   condition1={[Function Boolean]}
   condition2="false"
@@ -17,7 +17,36 @@ exports[`snapshot should work 1`] = `
 </foo>
 `;
 
-exports[`snapshot should work 2`] = `
+exports[`FooComponent should allow generating snapshot 2`] = `
+<div
+  id="root1"
+>
+  <p>
+    Line 1
+  </p>
+  <div>
+    <div>
+       val1 
+    </div>
+    
+    
+  </div>
+</div>
+`;
+
+exports[`FooComponent should allow generating snapshot with removed component attributes with snapshot serializer option 1`] = `
+<foo>
+  <p>
+    Line 1
+  </p><div>
+    <div>
+       val1 
+    </div>
+  </div>
+</foo>
+`;
+
+exports[`FooComponent should allow generating snapshot with removed component attributes with snapshot serializer option 2`] = `
 <div
   id="root0"
 >

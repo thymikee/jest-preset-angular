@@ -82,7 +82,7 @@ export default jestConfig;
 
 ```js tab
 // jest.config.js
-const snapshotSerializers = require('../build/serializers');
+const snapshotSerializers = require('jest-preset-angular/build/serializers');
 
 module.exports = {
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
@@ -140,10 +140,7 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
 - `"moduleFileExtensions"` – our modules are TypeScript (`ts`), HTML (`html`), JavaScript (`js`), JSON (`json`) and ESM JavaScript (`mjs`) files.
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses `RegExp`.
 - `"resolver"` - instruct Jest how to resolve entry file based on `package.json` definitions.
-- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds
-  some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc).
-  This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable.
-  To remove such specific attributes use `no-ng-attributes` serializer. You need to add `no-ng-attributes` serializer manually.
+- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. See more in [Snapshot testing](../guides/snapshot-testing.md)
 - `"testEnvironment"` – the test environment to run on.
 - `"transformIgnorePatterns"`: instruct Jest to transform any `.mjs` files which come from `node_modules`.
 - `"transform"` – run every `TS`, `JS`, `MJS`, `HTML`, or `SVG` file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
