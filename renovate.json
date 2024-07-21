@@ -3,6 +3,9 @@
     "group:babelMonorepo",
     "group:commitlintMonorepo",
     "group:docusaurusMonorepo",
+    "group:angularMonorepo",
+    "group:angular-cliMonorepo",
+    "group:angularmaterialMonorepo",
     ":prHourlyLimit2",
     "workarounds:all"
   ],
@@ -25,16 +28,18 @@
   "packageRules": [
     {
       "matchPaths": ["examples/example-app-v15/package.json", "examples/example-app-v17/package.json"],
+      "matchSourceUrls": [
+        "https://github.com/angular/angular",
+        "https://github.com/angular/angular-cli"
+      ],
+      "matchPackageNames": [
+        "rxjs",
+        "tslib",
+        "typescript"
+      ],
       "enabled": false
     },
     {
-      "matchPaths": ["package.json", "examples/**", "e2e/**"],
-      "matchPackagePatterns": ["^@angular", "ng-packagr"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "groupName": "Angular packages"
-    },
-    {
-      "matchPaths": ["package.json"],
       "matchPackagePatterns": ["jest"],
       "excludePackageNames": ["eslint-plugin-jest"],
       "matchUpdateTypes": ["patch", "minor"],
@@ -48,26 +53,6 @@
     {
       "matchPackagePatterns": ["prettier"],
       "groupName": "Prettier packages"
-    },
-    {
-      "matchPackageNames": [
-        "angular-in-memory-web-api",
-        "rxjs",
-        "tslib",
-        "typescript"
-      ],
-      "matchUpdateTypes": ["major", "minor"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": [
-        "angular-in-memory-web-api",
-        "rxjs",
-        "tslib",
-        "typescript"
-      ],
-      "matchUpdateTypes": ["patch"],
-      "enabled": true
     },
     {
       "matchFiles": ["package.json"],
