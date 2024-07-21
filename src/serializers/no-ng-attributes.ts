@@ -1,4 +1,4 @@
-import { plugins } from 'pretty-format';
+import { plugins, type NewPlugin } from 'pretty-format';
 
 const jestDOMElementSerializer = plugins.DOMElement;
 
@@ -13,24 +13,28 @@ const attributesToClean: Record<string, RegExp[]> = {
 };
 const hasAttributesToRemove = (attribute: Attr): boolean =>
     attributesToRemovePatterns.some((removePattern) => attribute.name.startsWith(removePattern));
+
 const hasAttributesToClean = (attribute: Attr): boolean =>
     Object.keys(attributesToClean).some((removePatternKey) => attribute.name === removePatternKey);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-const serialize = (node: Element, ...rest: any): string => {
+const removeAngularAttributes = (node: Element): Element => {
     const nodeCopy = node.cloneNode(true) as Element;
-    // Remove angular-specific attributes
     Object.values(nodeCopy.attributes)
         .filter(hasAttributesToRemove)
         .forEach((attribute) => nodeCopy.attributes.removeNamedItem(attribute.name));
-    // Remove angular auto-added classes
+
+    return nodeCopy;
+};
+
+const cleanAngularClasses = (node: Element): Element => {
+    const nodeCopy = node.cloneNode(true) as Element;
     Object.values(nodeCopy.attributes)
         .filter(hasAttributesToClean)
-        .forEach((attribute: Attr) => {
+        .forEach((attribute) => {
             attribute.value = attribute.value
                 .split(' ')
                 .filter(
-                    (attrValue: string) =>
+                    (attrValue) =>
                         !attributesToClean[attribute.name].some((attributeCleanRegex) =>
                             attributeCleanRegex.test(attrValue),
                         ),
@@ -43,19 +47,31 @@ const serialize = (node: Element, ...rest: any): string => {
             }
         });
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+    return nodeCopy;
+};
+
+const shouldSerializeElement = (val: Element): boolean => {
+    return Object.values(val.attributes).some(
+        (attribute) => hasAttributesToRemove(attribute) || hasAttributesToClean(attribute),
+    );
+};
+
+const serialize: NewPlugin['serialize'] = (node, ...rest) => {
+    let nodeCopy = removeAngularAttributes(node);
+    nodeCopy = cleanAngularClasses(nodeCopy);
+
     return jestDOMElementSerializer.serialize(nodeCopy, ...rest);
 };
 
-const serializeTestFn = (val: Element): boolean =>
-    !!val.attributes &&
-    Object.values(val.attributes).some(
-        (attribute: Attr) => hasAttributesToRemove(attribute) || hasAttributesToClean(attribute),
-    );
-const test = (val: unknown): boolean => !!val && jestDOMElementSerializer.test(val) && serializeTestFn(val as Element);
+const test: NewPlugin['test'] = (val) => {
+    if (!val || !(val instanceof Element)) {
+        return false;
+    }
+
+    return jestDOMElementSerializer.test(val) && shouldSerializeElement(val);
+};
 
 export = {
     serialize,
     test,
-};
+} satisfies NewPlugin;
