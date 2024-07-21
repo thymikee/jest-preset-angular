@@ -28,27 +28,22 @@
   "packageRules": [
     {
       "matchPaths": ["examples/example-app-v15/package.json"],
-      "excludeDepPatterns": ["^angular", "^@angular"],
-      "excludeDepNames": [
-        "rxjs",
-        "tslib",
+      "excludePackagePatterns": [
+        "^angular",
+        "^@angular",
         "typescript",
         "zone.js"
-      ]
+      ],
+      "matchUpdateTypes": ["patch", "minor"]
     },
     {
       "matchPaths": ["examples/example-app-v17/package.json"],
-      "matchSourceUrls": [
-        "https://github.com/angular/angular",
-        "https://github.com/angular/angular-cli"
+      "excludePackagePatterns": [
+        "^angular",
+        "^@angular",
+        "typescript"
       ],
-      "excludeDepNames": [
-        "angular-in-memory-web-api",
-        "rxjs",
-        "tslib",
-        "typescript",
-        "zone.js"
-      ]
+      "matchUpdateTypes": ["patch", "minor"]
     },
     {
       "matchPackagePatterns": ["jest"],
