@@ -28,21 +28,10 @@
   "packageRules": [
     {
       "matchPaths": ["examples/example-app-v15/package.json"],
-      "excludePackagePatterns": [
-        "^angular",
-        "^@angular",
-        "typescript",
-        "zone.js"
-      ],
       "matchUpdateTypes": ["patch", "minor"]
     },
     {
       "matchPaths": ["examples/example-app-v17/package.json"],
-      "excludePackagePatterns": [
-        "^angular",
-        "^@angular",
-        "typescript"
-      ],
       "matchUpdateTypes": ["patch", "minor"]
     },
     {
@@ -73,6 +62,16 @@
       "matchPackagePatterns": [
         "esbuild"
       ],
+      "enabled": false
+    },
+    {
+      "matchPaths": ["examples/example-app-v17/package.json"],
+      "matchDepNames": ["angular-in-memory-web-api", "typescript"],
+      "enabled": false
+    },
+    {
+      "matchPaths": ["examples/example-app-v15/package.json"],
+      "matchPackagePatterns": ["^angular", "^@angular", "typescript", "zone.js"],
       "enabled": false
     }
   ]
