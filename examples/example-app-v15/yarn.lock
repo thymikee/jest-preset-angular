@@ -2723,17 +2723,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 17.0.25
-  resolution: "@types/node@npm:17.0.25"
-  checksum: 10/7b18daede52e2b8a41a9a6c6c0e062eb6fec39343c30deefe312c2ba8c7089eab4c47e0252deac775fb5313e56dc0aa19db3f8c7cc930956d196426dfa86cf6c
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^16.18.103":
-  version: 16.18.103
-  resolution: "@types/node@npm:16.18.103"
-  checksum: 10/3ec07c68f828d2ce788c1e367a65efafd34b2313e5db35a9a6c0cc48676919a61adaa35ac8e7160912ab64d70c3cd05f2aacda7ec41057400ef5ceec7d78c678
+"@types/node@npm:*, @types/node@npm:^20.14.11":
+  version: 20.14.11
+  resolution: "@types/node@npm:20.14.11"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/344e1ce1ed16c86ed1c4209ab4d1de67db83dd6b694a6fabe295c47144dde2c58dabddae9f39a0a2bdd246e95f8d141ccfe848e464884b48b8918df4f7788025
   languageName: node
   linkType: hard
 
@@ -4845,7 +4840,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^15.2.10"
     "@angular/router": "npm:^15.2.10"
     "@types/jest": "npm:^29.5.12"
-    "@types/node": "npm:^16.18.103"
+    "@types/node": "npm:^20.14.11"
     angular-in-memory-web-api: "npm:~0.15.0"
     jest: "npm:^29.7.0"
     jest-preset-angular: "npm:^14.1.1"
@@ -9177,6 +9172,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/5659316360b5cc2d6f5931b346401fa534107b68b60179cf14970e27978f0936c1d5c46f4b5b8175f8cba0430f522b3ce355b4b724c0ea36ce6c0347fab25afd
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 10/0097779d94bc0fd26f0418b3a05472410408877279141ded2bd449167be1aed7ea5b76f756562cb3586a07f251b90799bab22d9019ceba49c037c76445f7cddd
   languageName: node
   linkType: hard
 
