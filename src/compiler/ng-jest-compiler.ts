@@ -1,8 +1,8 @@
-import os from 'node:os';
-import path from 'node:path';
+import os from 'os';
+import path from 'path';
 
 import { type TsJestAstTransformer, TsCompiler, type ConfigSet } from 'ts-jest';
-import type ts from 'typescript';
+import type * as ts from 'typescript';
 
 import { angularJitApplicationTransform } from '../transformers/jit_transform';
 import { replaceResources } from '../transformers/replace-resources';

@@ -475,5 +475,179 @@ describe('NgJestCompiler', () => {
                 ], MyComp);
             `);
         });
+
+        it.failing('should capture constructor type metadata with `emitDecoratorMetadata` enabled', () => {
+            const { code, diagnostics } = transformCjs(
+                `
+                    import {Directive} from '@angular/core';
+                    import {MyOtherClass} from './other-file';
+
+                    @Directive()
+                    export class MyDir {
+                        constructor(other: MyOtherClass) {}
+                    }
+                `,
+                { emitDecoratorMetadata: true },
+            );
+
+            expect(diagnostics.length).toBe(0);
+            expect(code).toContain('const other_file_1 = require("./other-file");');
+            // This is actual output code
+            // `
+            //     MyDir.ctorParameters = () => [
+            //         { type: other_file_1.MyOtherClass }
+            //     ];
+            //     exports.MyDir = MyDir = tslib_1.__decorate([
+            //         (0, core_1.Directive)(),
+            //         tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof other_file_1.MyOtherClass !== \\"undefined\\" && other_file_1.MyOtherClass) === \\"function\\" ? _a : Object]])
+            //     ], MyDir);
+            // `
+            expect(code).toContain(dedent`
+                MyDir.ctorParameters = () => [
+                    { type: other_file_1.MyOtherClass }
+                ];
+                exports.MyDir = MyDir = tslib_1.__decorate([
+                    (0, core_1.Directive)(),
+                    tslib_1.__metadata("design:paramtypes", Object])
+                ], MyDir);
+            `);
+        });
+
+        it.failing('should properly serialize constructor parameter with external qualified name type', () => {
+            // This test doesn't pass because `transpileModule` can't resolve `import *`
+            const { code, diagnostics } = transformCjs(`
+                import {Directive} from '@angular/core';
+                import * as externalFile from './other-file';
+
+                @Directive()
+                export class MyDir {
+                    constructor(other: externalFile.MyOtherClass) {}
+                }
+            `);
+
+            expect(diagnostics.length).toBe(0);
+            expect(code).toContain('const externalFile = require("./other-file");');
+            // This is actual output code
+            // `
+            //     MyDir.ctorParameters = () => [
+            //         { type: undefined }
+            //     ];
+            //     exports.MyDir = MyDir = tslib_1.__decorate([
+            //         (0, core_1.Directive)()
+            //     ], MyDir);
+            // `
+            expect(code).toContain(dedent`
+                MyDir.ctorParameters = () => [
+                    { type: externalFile.MyOtherClass }
+                ];
+                exports.MyDir = MyDir = tslib_1.__decorate([
+                    (0, core_1.Directive)()
+                ], MyDir);
+            `);
+        });
+
+        it.failing('should not capture constructor parameter types when not resolving to a value', () => {
+            // This test doesn't pass because `transpileModule` can't resolve `import *`
+            const { code, diagnostics } = transformCjs(`
+                import {Directive, Inject} from '@angular/core';
+                import * as angular from './external';
+                import {IOverlay, KeyCodes} from './external';
+                import TypeFromDefaultImport from './external';
+
+                @Directive()
+                export class MyDir {
+                    constructor(@Inject('$state') param: angular.IState,
+                                @Inject('$overlay') other: IOverlay,
+                                @Inject('$default') fromDefaultImport: TypeFromDefaultImport,
+                                @Inject('$keyCodes') keyCodes: KeyCodes) {}
+                }
+            `);
+
+            expect(diagnostics.length).toBe(0);
+            // This is actual output code
+            // `
+            //     "\\"use strict\\";
+            //     Object.defineProperty(exports, \\"__esModule\\", { value: true });
+            //     exports.MyDir = void 0;
+            //     const tslib_1 = require(\\"tslib\\");
+            //     const core_1 = require(\\"@angular/core\\");
+            //     const external_1 = require(\\"./external\\");
+            //     const external_2 = tslib_1.__importDefault(require(\\"./external\\"));
+            //     let MyDir = class MyDir {
+            //     constructor(param, other, fromDefaultImport, keyCodes) { }
+            //     };
+            //     exports.MyDir = MyDir;
+            //     MyDir.ctorParameters = () => [
+            //     { type: undefined, decorators: [{ type: core_1.Inject, args: ['$state',] }] },
+            //     { type: external_1.IOverlay, decorators: [{ type: core_1.Inject, args: ['$overlay',] }] },
+            //     { type: external_2.default, decorators: [{ type: core_1.Inject, args: ['$default',] }] },
+            //     { type: external_1.KeyCodes, decorators: [{ type: core_1.Inject, args: ['$keyCodes',] }] }
+            //     ];
+            //     exports.MyDir = MyDir = tslib_1.__decorate([
+            //     (0, core_1.Directive)()
+            //     ], MyDir);
+            //     "
+            // `
+            expect(code).not.toContain('external');
+            expect(code).toContain(dedent`
+                MyDir.ctorParameters = () => [
+                    { type: undefined, decorators: [{ type: core_1.Inject, args: ['$state',] }] },
+                    { type: undefined, decorators: [{ type: core_1.Inject, args: ['$overlay',] }] },
+                    { type: undefined, decorators: [{ type: core_1.Inject, args: ['$default',] }] },
+                    { type: undefined, decorators: [{ type: core_1.Inject, args: ['$keyCodes',] }] }
+                ];
+                exports.MyDir = MyDir = tslib_1.__decorate([
+                    (0, core_1.Directive)()
+                ], MyDir);
+            `);
+        });
+
+        it.failing(
+            'should allow for type-only references to be removed with `emitDecoratorMetadata` from custom decorators',
+            () => {
+                const { code, diagnostics } = transformCjs(
+                    `
+                    import { ExternalInterface } from './external-interface';
+
+                    export function CustomDecorator() {
+                        return <T>(target, propertyKey, descriptor: TypedPropertyDescriptor<T>) => {}
+                    }
+
+                    export class Foo {
+                        @CustomDecorator() static test(): ExternalInterface { return {}; }
+                    }
+                `,
+                    { emitDecoratorMetadata: true },
+                );
+
+                expect(diagnostics.length).toBe(0);
+                // This is actual output code
+                // `
+                //     "\\"use strict\\";
+                //     var _a;
+                //     Object.defineProperty(exports, \\"__esModule\\", { value: true });
+                //     exports.Foo = void 0;
+                //     exports.CustomDecorator = CustomDecorator;
+                //     const tslib_1 = require(\\"tslib\\");
+                //     const external_interface_1 = require(\\"./external-interface\\");
+                //     function CustomDecorator() {
+                //     return (target, propertyKey, descriptor) => { };
+                //     }
+                //     class Foo {
+                //     static test() { return {}; }
+                //     }
+                //     exports.Foo = Foo;
+                //     tslib_1.__decorate([
+                //     CustomDecorator(),
+                //     tslib_1.__metadata(\\"design:type\\", Function),
+                //     tslib_1.__metadata(\\"design:paramtypes\\", []),
+                //     tslib_1.__metadata(\\"design:returntype\\", typeof (_a = typeof external_interface_1.ExternalInterface !== \\"undefined\\" && external_interface_1.ExternalInterface) === \\"function\\" ? _a : Object)
+                //     ], Foo, \\"test\\", null);
+                //     "
+                // `
+                expect(code).not.toContain('ExternalInterface');
+                expect(code).toContain('metadata("design:returntype", Object)');
+            },
+        );
     });
 });
