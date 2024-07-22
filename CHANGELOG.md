@@ -1,3 +1,19 @@
+## [14.2.0](https://github.com/thymikee/jest-preset-angular/compare/v14.1.1...v14.2.0) (2024-07-22)
+
+
+### Features
+
+* feat(serializers): add option to remove comp attributes ([a1be63d](https://github.com/thymikee/jest-preset-angular/commit/a1be63d)), closes [#2578](https://github.com/thymikee/jest-preset-angular/issues/2578) [#2580](https://github.com/thymikee/jest-preset-angular/issues/2580)
+
+
+### Code Refactoring
+
+* refactor(compiler): replace copied codes from ts source with public API ([ad7a297](https://github.com/thymikee/jest-preset-angular/commit/ad7a297))
+* refactor(serializers): improve codes for snapshot serializer ([047f09a](https://github.com/thymikee/jest-preset-angular/commit/047f09a))
+* refactor(serializers): use proper ts types for `ng-snapshot` ([3ce21cd](https://github.com/thymikee/jest-preset-angular/commit/3ce21cd))
+
+
+
 ## [14.1.1](https://github.com/thymikee/jest-preset-angular/compare/v14.1.0...v14.1.1) (2024-06-19)
 
 

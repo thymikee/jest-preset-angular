@@ -27,7 +27,7 @@ moduleNameMapper: {
 ### Exposed configuration
 
 ```js
-const snapshotSerializers = require('../build/serializers');
+const snapshotSerializers = require('jest-preset-angular/build/serializers');
 
 module.exports = {
   globals: {

@@ -3,7 +3,7 @@ id: options
 title: Options
 ---
 
-`jest-preset-angular` uses `ts-jest` options under the hood, which are located under the `globals` of Jest config object
+`jest-preset-angular` uses `ts-jest` options under the hood, which are located under the `transform` of Jest config object
 in the `package.json` file of your project, or through a `jest.config.js`, or `jest.config.ts` file.
 
 More information about `ts-jest` options, see [doc](https://kulshekhar.github.io/ts-jest/docs/getting-started/options)
@@ -85,19 +85,19 @@ export default jestConfig;
 const snapshotSerializers = require('jest-preset-angular/build/serializers');
 
 module.exports = {
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
-  },
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   snapshotSerializers,
   testEnvironment: 'jsdom',
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
 };
 ```
@@ -108,19 +108,19 @@ import type { Config } from 'jest';
 import snapshotSerializers from 'jest-preset-angular/build/serializers';
 
 const jestConfig: Config = {
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
-  },
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   snapshotSerializers,
   testEnvironment: 'jsdom',
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
 };
 
@@ -136,14 +136,11 @@ Jest runs with `jest-preset-angular` neither in browser nor through dev server. 
 
 ### Brief explanation of config
 
-- We're using some `"globals"` to pass information about configuration to use for code compilation with `ts-jest`.
+- We're using `"transform"` to pass information about configuration to use for code compilation with `ts-jest`.
 - `"moduleFileExtensions"` – our modules are TypeScript (`ts`), HTML (`html`), JavaScript (`js`), JSON (`json`) and ESM JavaScript (`mjs`) files.
 - `"moduleNameMapper"` – if you're using absolute imports here's how to tell Jest where to look for them; uses `RegExp`.
 - `"resolver"` - instruct Jest how to resolve entry file based on `package.json` definitions.
-- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. Note: by default angular adds
-  some angular-specific attributes to the code (like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc).
-  This package provides serializer to remove such attributes. This makes snapshots cleaner and more human-readable.
-  To remove such specific attributes use `no-ng-attributes` serializer. You need to add `no-ng-attributes` serializer manually.
+- `"snapshotSerializers"` - array of serializers which will be applied to snapshot the code. See more in [Snapshot testing](../guides/snapshot-testing.md)
 - `"testEnvironment"` – the test environment to run on.
 - `"transformIgnorePatterns"`: instruct Jest to transform any `.mjs` files which come from `node_modules`.
 - `"transform"` – run every `TS`, `JS`, `MJS`, `HTML`, or `SVG` file through so called _Jest transformer_; this lets Jest understand non-JS syntax.
