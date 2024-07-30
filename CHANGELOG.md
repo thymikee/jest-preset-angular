@@ -1,3 +1,12 @@
+## [14.2.1](https://github.com/thymikee/jest-preset-angular/compare/v14.2.0...v14.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* fix: load ts lib files to properly transform constructor for `isolatedModules: true` ([31e78b1](https://github.com/thymikee/jest-preset-angular/commit/31e78b1))
+
+
+
 ## [14.2.0](https://github.com/thymikee/jest-preset-angular/compare/v14.1.1...v14.2.0) (2024-07-22)
 
 
