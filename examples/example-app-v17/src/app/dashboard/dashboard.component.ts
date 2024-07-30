@@ -15,10 +15,7 @@ import { Hero, HeroService } from '../model';
 export class DashboardComponent implements OnInit {
     heroes: Hero[] = [];
 
-    constructor(
-        private readonly router: Router,
-        private readonly heroService: HeroService,
-    ) {}
+    constructor(private readonly router: Router, private readonly heroService: HeroService) {}
 
     ngOnInit() {
         this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));

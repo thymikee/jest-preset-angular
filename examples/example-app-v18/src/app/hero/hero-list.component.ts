@@ -17,10 +17,7 @@ export class HeroListComponent {
     heroes: Observable<Hero[]>;
     selectedHero!: Hero;
 
-    constructor(
-        private readonly router: Router,
-        private readonly heroService: HeroService,
-    ) {
+    constructor(private readonly router: Router, private readonly heroService: HeroService) {
         this.heroes = this.heroService.getHeroes();
     }
 
