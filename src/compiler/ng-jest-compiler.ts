@@ -8,10 +8,7 @@ import { angularJitApplicationTransform } from '../transformers/jit_transform';
 import { replaceResources } from '../transformers/replace-resources';
 
 export class NgJestCompiler extends TsCompiler {
-    constructor(
-        readonly configSet: ConfigSet,
-        readonly jestCacheFS: Map<string, string>,
-    ) {
+    constructor(readonly configSet: ConfigSet, readonly jestCacheFS: Map<string, string>) {
         super(configSet, jestCacheFS);
 
         this._logger.debug('created NgJestCompiler');
