@@ -3,9 +3,6 @@
     "group:babelMonorepo",
     "group:commitlintMonorepo",
     "group:docusaurusMonorepo",
-    "group:angularMonorepo",
-    "group:angular-cliMonorepo",
-    "group:angularmaterialMonorepo",
     ":prHourlyLimit2",
     "workarounds:all"
   ],
@@ -33,6 +30,14 @@
     {
       "matchPaths": ["examples/example-app-v17/package.json"],
       "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "extends": [
+        "group:angularMonorepo",
+        "group:angular-cliMonorepo",
+        "group:angularmaterialMonorepo"
+      ],
+      "groupName": "Angular packages"
     },
     {
       "matchPackagePatterns": ["jest"],
