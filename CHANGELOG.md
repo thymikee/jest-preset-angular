@@ -1,3 +1,12 @@
+## [14.2.2](https://github.com/thymikee/jest-preset-angular/compare/v14.2.1...v14.2.2) (2024-07-31)
+
+
+### Bug Fixes
+
+* fix: publish correct build assets, closes [#2641](https://github.com/thymikee/jest-preset-angular/issues/2641)
+
+
+
 ## [14.2.1](https://github.com/thymikee/jest-preset-angular/compare/v14.2.0...v14.2.1) (2024-07-30)
 
 
