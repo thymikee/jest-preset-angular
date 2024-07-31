@@ -33,11 +33,16 @@
     },
     {
       "extends": [
-        "group:angularMonorepo",
-        "group:angular-cliMonorepo",
-        "group:angularmaterialMonorepo"
+        "monorepo:angular",
+        "monorepo:angular-cli",
+        "monorepo:angularmaterial"
       ],
-      "groupName": "Angular packages"
+      "groupName": "Angular packages",
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor"
+      ]
     },
     {
       "matchPackagePatterns": ["jest"],
