@@ -51,8 +51,11 @@
       "groupName": "Jest packages"
     },
     {
-      "extends": ["packages:eslint"],
-      "excludePackageNames": ["eslint-plugin-prettier", "eslint-config-prettier"],
+      "extends": [
+        "group:typescript-eslintMonorepo",
+        "group:eslintMonorepo",
+        "group:angular-eslintMonorepo"
+      ],
       "groupName": "ESLint packages"
     },
     {
