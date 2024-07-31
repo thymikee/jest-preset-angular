@@ -35,6 +35,7 @@ jobs:
             examples/example-app-monorepo/node_modules
             examples/example-app-v15/node_modules
             examples/example-app-v17/node_modules
+            examples/example-app-v18/node_modules
             examples/example-app-yarn-workspace/node_modules
           key: ${{ inputs.os }}-${{ inputs.node }}-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
@@ -53,4 +54,5 @@ jobs:
           yarn --cwd examples/example-app-monorepo
           yarn --cwd examples/example-app-v15
           yarn --cwd examples/example-app-v17
+          yarn --cwd examples/example-app-v18
           yarn --cwd examples/example-app-yarn-workspace
