@@ -1,3 +1,0 @@
-module.exports = {
-    babelConfig: true,
-};

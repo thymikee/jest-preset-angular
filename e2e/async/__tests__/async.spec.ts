@@ -2,11 +2,12 @@ import type { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 
 @Component({
+    standalone: true,
     selector: 'snd-button-page',
     template: `
         <p>button-page works!</p>
@@ -20,6 +21,7 @@ import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
         </p>
     `,
     styles: [],
+    imports: [MatButton],
 })
 class ButtonPageComponent {
     r = 0;
@@ -36,8 +38,7 @@ describe('ButtonPageComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [MatButtonModule],
-            declarations: [ButtonPageComponent],
+            imports: [ButtonPageComponent],
             providers: [
                 {
                     provide: MATERIAL_SANITY_CHECKS,
@@ -61,6 +62,7 @@ describe('ButtonPageComponent', () => {
     test('should click', async () => {
         const button = await loader.getHarness(MatButtonHarness);
         await button.click();
+
         expect(component.r).toBe(1);
     });
 });
