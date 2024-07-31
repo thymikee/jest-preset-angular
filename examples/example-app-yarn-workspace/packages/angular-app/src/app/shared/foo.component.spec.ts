@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { REQUEST } from '@shared/app.tokens';
 
-import { FooComponent } from './foo.component';
+import { FOO_COMPONENT_DATA_TOKEN, FooComponent } from './foo.component';
 
 describe('FooComponent', () => {
     let fixture: ComponentFixture<FooComponent>;
@@ -12,6 +12,13 @@ describe('FooComponent', () => {
                 {
                     provide: REQUEST,
                     useValue: {},
+                },
+                {
+                    provide: FOO_COMPONENT_DATA_TOKEN,
+                    useValue: {
+                        title: '',
+                        error: new Map(),
+                    },
                 },
             ],
         }).createComponent(FooComponent);
