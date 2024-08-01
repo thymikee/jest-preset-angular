@@ -3,5 +3,6 @@
   "files": [
     ".eslintrc.js"
   ],
-  "include": ["src", "presets", "website", "*.js", "scripts", "examples", "e2e", "*.config.ts"]
+  "include": ["**/*"],
+  "exclude": ["build", ".yarn"]
 }
