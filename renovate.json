@@ -32,17 +32,8 @@
       "matchUpdateTypes": ["patch", "minor"]
     },
     {
-      "extends": [
-        "monorepo:angular",
-        "monorepo:angular-cli",
-        "monorepo:angularmaterial"
-      ],
-      "groupName": "Angular packages",
-      "matchUpdateTypes": [
-        "digest",
-        "patch",
-        "minor"
-      ]
+      "matchPackagePatterns": ["@angular", "angular"],
+      "groupName": "Angular packages"
     },
     {
       "matchPackagePatterns": ["jest"],
