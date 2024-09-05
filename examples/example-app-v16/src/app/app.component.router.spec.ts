@@ -10,11 +10,11 @@ import { jest } from '@jest/globals';
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { appConfig } from './app.config';
+import { asyncData, click } from '../testing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroService, UserService } from './model';
 import { TestHeroService } from './model/testing';
 import { TwainService } from './twain/twain.service';
-import { asyncData, click } from '../testing';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
