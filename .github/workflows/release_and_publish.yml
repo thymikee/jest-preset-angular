@@ -98,6 +98,9 @@ jobs:
         run: |
           yarn --immutable
 
+      - name: Build 🔨
+        run: yarn build
+
       - name: Publish with latest tag 🚀
         if: ${{ needs.setup_variables.outputs.isLatest == 'true' }}
         run: npm publish --access public
