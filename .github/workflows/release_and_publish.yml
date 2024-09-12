@@ -23,8 +23,7 @@ jobs:
       isLatest: ${{ steps.release_type.outputs.latest }}
 
     steps:
-      - id: release_type
-        name: Identify release type
+      - name: Identify release type 🔍
         # For understanding how to set output read:
         # https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-output-parameter
         run: echo "::set-output name=latest::$LATEST"
@@ -32,6 +31,8 @@ jobs:
           LATEST: ${{ contains(github.ref, '-next') != true && contains(github.ref, '-rc') != true }}
 
   create_release:
+    permissions:
+      contents: write # for actions/create-release to create a release
     needs: [setup_variables]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -39,13 +40,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the
     # job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access
-      # it
-      - name: Checkout code
-        # https://github.com/marketplace/actions/checkout
+      - name: Checkout 🛎️
         uses: actions/checkout@v4
-        # Runs a single command using the runners shell
-      - name: Create release for tag
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Create release for tag 🔖
         uses: actions/create-release@latest
         env:
           # this is provided by github, you don't need to do anything here
@@ -56,3 +57,48 @@ jobs:
           body: Please refer to [CHANGELOG.md](https://github.com/thymikee/jest-preset-angular/blob/main/CHANGELOG.md) for details.
           draft: false
           prerelease: ${{ needs.setup_variables.outputs.isLatest != 'true' }}
+
+  publish_to_npm:
+    needs: [setup_variables, create_release]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Restore cached node modules ♻️
+        id: cache-yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+            examples/example-app-monorepo/node_modules
+            examples/example-app-v15/node_modules
+            examples/example-app-v17/node_modules
+            examples/example-app-v18/node_modules
+            examples/example-app-yarn-workspace/node_modules
+          key: ${{ inputs.os }}-${{ inputs.node }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ inputs.os }}-${{ inputs.node }}-build
+
+      - name: Setup Node version ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Publish with latest tag 🚀
+        if: ${{ needs.setup_variables.outputs.isLatest == 'true' }}
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Publish with next tag 🚀
+        if: ${{ needs.setup_variables.outputs.isLatest != 'true' }}
+        run: npm publish --access public --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
