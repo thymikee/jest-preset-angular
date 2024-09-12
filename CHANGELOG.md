@@ -1,3 +1,12 @@
+## [14.2.3](https://github.com/thymikee/jest-preset-angular/compare/v14.2.2...v14.2.3) (2024-09-12)
+
+
+### Bug Fixes
+
+* fix(transformers): handle template literals in styles or styleUrl property ([03cae4c](https://github.com/thymikee/jest-preset-angular/commit/03cae4c)), closes [#2735](https://github.com/thymikee/jest-preset-angular/issues/2735)
+
+
+
 ## [14.2.2](https://github.com/thymikee/jest-preset-angular/compare/v14.2.1...v14.2.2) (2024-07-31)
 
 
