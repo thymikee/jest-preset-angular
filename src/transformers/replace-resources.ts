@@ -236,7 +236,7 @@ function visitComponentMetadata(
             return nodeFactory.updatePropertyAssignment(node, nodeFactory.createIdentifier(TEMPLATE), importName);
 
         case STYLES:
-            if (!ts.isArrayLiteralExpression(node.initializer) && !ts.isStringLiteral(node.initializer)) {
+            if (!ts.isArrayLiteralExpression(node.initializer) && !ts.isStringLiteralLike(node.initializer)) {
                 return node;
             }
 
@@ -250,7 +250,7 @@ function visitComponentMetadata(
             return undefined;
 
         case STYLE_URL:
-            if (!ts.isStringLiteral(node.initializer)) {
+            if (!ts.isStringLiteralLike(node.initializer)) {
                 return node;
             }
 
