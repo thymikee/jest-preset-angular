@@ -23,7 +23,8 @@ jobs:
       isLatest: ${{ steps.release_type.outputs.latest }}
 
     steps:
-      - name: Identify release type 🔍
+      - id: release_type
+        name: Identify release type 🔍
         # For understanding how to set output read:
         # https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-output-parameter
         run: echo "::set-output name=latest::$LATEST"
