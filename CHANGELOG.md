@@ -1,3 +1,12 @@
+## [14.2.4](https://github.com/thymikee/jest-preset-angular/compare/v14.2.3...v14.2.4) (2024-09-12)
+
+
+### Bug Fixes
+
+* build: ensure build step runs before publishing ([3a602db](https://github.com/thymikee/jest-preset-angular/commit/3a602db))
+
+
+
 ## [14.2.3](https://github.com/thymikee/jest-preset-angular/compare/v14.2.2...v14.2.3) (2024-09-12)
 
 
