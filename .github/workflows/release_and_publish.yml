@@ -88,9 +88,15 @@ jobs:
 
       - name: Setup Node version ⚙️
         uses: actions/setup-node@v4
+        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+
+      - name: Install 🔧
+        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
+        run: |
+          yarn --immutable
 
       - name: Publish with latest tag 🚀
         if: ${{ needs.setup_variables.outputs.isLatest == 'true' }}
