@@ -28,6 +28,6 @@ describe('FooComponent', () => {
     it('should have <h1>', () => {
         const h1: HTMLElement = fixture.nativeElement.querySelector('h1');
 
-        expect(h1).toBeDefined();
+        expect(h1.textContent).toBe('Foo world');
     });
 });
