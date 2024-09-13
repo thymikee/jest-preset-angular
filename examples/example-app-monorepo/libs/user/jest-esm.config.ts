@@ -8,7 +8,7 @@ export default {
     displayName: 'user-lib',
     moduleNameMapper: {
         ...esmPreset.moduleNameMapper,
-        rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
+        '^rxjs': '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
     },
     setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
     transform: {

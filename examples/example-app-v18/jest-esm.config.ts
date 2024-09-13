@@ -10,7 +10,7 @@ export default {
     moduleNameMapper: {
         ...esmPreset.moduleNameMapper,
         ...pathsToModuleNameMapper(tsconfig.compilerOptions.paths, { prefix: '<rootDir>' }),
-        rxjs: '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
+        '^rxjs': '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
     },
     setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
     transform: {
