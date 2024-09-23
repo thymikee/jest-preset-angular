@@ -4,7 +4,8 @@
     "outDir": "./build",
     "allowJs": true,
     "removeComments": true,
-    "stripInternal": true
+    "stripInternal": true,
+    "declaration": true
   },
   "include": ["src"],
   "exclude": ["**/*.spec.ts", "src/transformers/jit_transform.js"]

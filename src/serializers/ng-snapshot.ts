@@ -70,4 +70,4 @@ const test: OldPlugin['test'] = (val) => !!val && typeof val === 'object' && 'co
 export = {
     print,
     test,
-} as OldPlugin;
+};
