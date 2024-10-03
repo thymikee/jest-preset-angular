@@ -10,10 +10,13 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "ES2022",
+    "module": "ES2022",
     "strict": true,
-    "lib": ["es2018", "dom"],
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@shared/*": ["src/app/shared/*"]
     }
