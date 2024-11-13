@@ -85,6 +85,39 @@ describe('setup-jest', () => {
 
             expect(globalThis.TextEncoder).toBeDefined();
         });
+
+        it('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed as argument with setupZoneTestEnv()', async () => {
+            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
+
+            setupZoneTestEnv({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+            });
+
+            expect(mockZoneJs).toHaveBeenCalled();
+            expect(mockZoneJsTesting).toHaveBeenCalled();
+            assertOnInitTestEnv();
+            expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+            });
+        });
+
+        it('should always have TextEncoder in globalThis with setupZoneTestEnv()', async () => {
+            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
+
+            setupZoneTestEnv();
+
+            expect(globalThis.TextEncoder).toBeDefined();
+        });
     });
 
     describe('for ESM setup-jest, test environment initialization', () => {
@@ -117,6 +150,39 @@ describe('setup-jest', () => {
 
         test('should always have TextEncoder in globalThis', async () => {
             await import('../../setup-jest.mjs');
+
+            expect(globalThis.TextEncoder).toBeDefined();
+        });
+
+        it('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed as argument with setupZoneTestEnv()', async () => {
+            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.mjs');
+
+            setupZoneTestEnv({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+            });
+
+            expect(mockZoneJs).toHaveBeenCalled();
+            expect(mockZoneJsTesting).toHaveBeenCalled();
+            assertOnInitTestEnv();
+            expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+            });
+        });
+
+        it('should always have TextEncoder in globalThis with setupZoneTestEnv()', async () => {
+            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.mjs');
+
+            setupZoneTestEnv();
 
             expect(globalThis.TextEncoder).toBeDefined();
         });
