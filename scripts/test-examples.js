@@ -43,6 +43,7 @@ const executeTest = (projectPath) => {
         'package.json',
         'setup-jest.js',
         'setup-jest.mjs',
+        'setup-env',
     ].forEach((asset) => {
         const assetToReplace = join(projectPath, 'node_modules', 'jest-preset-angular', asset);
         const assetToCopy = join(rootDir, asset);

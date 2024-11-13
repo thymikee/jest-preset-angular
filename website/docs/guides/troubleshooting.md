@@ -18,7 +18,7 @@ With Angular 8 and higher, a [change to the way the Angular CLI works](https://g
     "emitDecoratorMetadata": true
 ```
 
-In general, this is related to Angular's reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy Angular's current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setup-jest.ts`:
+In general, this is related to `Angular`'s reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy `Angular`'s current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setup-jest.ts`:
 
 ```ts
 // setup-jest.ts

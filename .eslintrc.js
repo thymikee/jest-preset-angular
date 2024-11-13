@@ -9,6 +9,7 @@ const baseJsTsConfig = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: 'tsconfig.eslint.json',
+        sourceType: 'module',
     },
     rules: {
         '@typescript-eslint/no-empty-function': 'error',
@@ -71,7 +72,7 @@ module.exports = {
     overrides: [
         {
             ...baseJsTsConfig,
-            files: ['*.ts', '*.js'],
+            files: ['*.ts', '*.js', '*.mts'],
             extends: [
                 'plugin:@angular-eslint/recommended',
                 'plugin:@angular-eslint/template/process-inline-templates',

@@ -3,32 +3,120 @@ id: test-environment
 title: Test environment
 ---
 
-If you look at [`setup-jest.js`](https://github.com/thymikee/jest-preset-angular/blob/main/setup-jest.js),
-what we're doing here is we're adding globals required by Angular. With the included [Angular zone patch](https://github.com/angular/angular/tree/main/packages/zone.js)
-we also make sure Jest test methods run in Zone context. Then we initialize the Angular testing environment like normal.
+In Jest, a test environment defines the sandbox context in which your tests run.
+For Angular projects, setting up the correct test environment is essential to ensure compatibility with the
+framework-specific features, such as dependency injection and change detection.
 
-While `setup-jest.js` above is for running Jest with **CommonJS** mode, we also provide [`setup-jest.mjs`](https://github.com/thymikee/jest-preset-angular/blob/main/setup-jest.mjs)
-to run with **ESM** mode.
+`jest-preset-angular` provides utility functions to simplify setting up a Jest test environment tailored for Angular projects.
+These functions support both **zone-based** and **zoneless** environments, catering to different testing needs.
 
-### Configure test environment
+## Methods
 
-When creating Angular test environment with `TestBed`, it is possible to specify the `testEnvironmentOptions` via `globalThis` in the Jest setup file.
-For example:
+import TOCInline from '@theme/TOCInline';
 
-```ts
-// setup-test.ts
-globalThis.ngJest = {
-  testEnvironmentOptions: {
-    teardown: {
-      destroyAfterEach: false,
-      rethrowErrors: true,
-    },
-    errorOnUnknownElements: true,
-    errorOnUnknownProperties: true,
-  },
-};
+<TOCInline toc={toc.slice(1)} />
 
-import 'jest-preset-angular/setup-jest';
+---
+
+### `setupZoneTestEnv(options)`
+
+Configures a test environment that uses `zone.js`, which is the mechanism for tracking asynchronous operations.
+It is suitable for most Angular applications that rely on `zone.js` for change detection and other framework features.
+
+You can customize the environment by providing options as function arguments.
+
+#### Parameters
+
+- `options`**(optional)**: An object follows [TestEnvironmentOptions interface](https://github.com/angular/angular/blob/a55341b1ab8d2bc4285a4cce59df7fc0b23c0125/packages/core/testing/src/test_bed_common.ts#L95), which allows fine-tuning the environment.
+
+#### Example:
+
+- Create a Jest setup file:
+
+```ts tab={"label": "TypeScript CJS"}
+// setup-jest.ts
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+
+setupZoneTestEnv({
+  //...options
+});
 ```
 
-`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct [`TestEnvironmentOptions`](https://angular.io/api/core/testing/TestEnvironmentOptions) object to `TestBed`.
+```ts tab={"label": "TypeScript ESM"}
+// setup-jest.ts
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone.mjs';
+
+setupZoneTestEnv({
+  //...options
+});
+```
+
+- Update your Jest configuration:
+
+```ts tab={"label": "TypeScript CJS"}
+// jest.config.ts
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+};
+
+export default jestConfig;
+```
+
+```ts tab={"label": "TypeScript ESM"}
+// jest.config.mts
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+};
+
+export default jestConfig;
+```
+
+### `setupZonelessTestEnv(options)`
+
+Configures a test environment that **DOESN'T** use `zone.js`, as described in [Angular experimental zoneless guide](https://angular.dev/guide/experimental/zoneless).
+It is designed for projects that have disabled `zone.js`, which can lead to improved performance and simplified testing.
+
+:::important
+
+This function is only supported in Jest `ESM` mode in [Jest 29](https://github.com/jestjs/jest/issues/10962). Jest 30+ will support to use for `CommonJS` mode.
+
+:::
+
+You can customize the environment by providing options as function arguments.
+
+#### Parameters
+
+- `options`**(optional)**: An object follows [TestEnvironmentOptions interface](https://github.com/angular/angular/blob/a55341b1ab8d2bc4285a4cce59df7fc0b23c0125/packages/core/testing/src/test_bed_common.ts#L95), which allows fine-tuning the environment.
+
+#### Example:
+
+- Create a Jest setup file:
+
+```ts tab={"label": "TypeScript ESM"}
+// setup-jest.ts
+import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zone.mjs';
+
+setupZonelessTestEnv({
+  //...options
+});
+```
+
+- Update your Jest configuration:
+
+```ts tab={"label": "TypeScript ESM"}
+// jest.config.mts
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+};
+
+export default jestConfig;
+```
