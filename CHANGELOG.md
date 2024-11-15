@@ -1,3 +1,42 @@
+## [14.3.0](https://github.com/thymikee/jest-preset-angular/compare/v14.2.4...v14.3.0) (2024-11-15)
+
+
+### Features
+
+* feat: add new setup test env functions ([21c0238](https://github.com/thymikee/jest-preset-angular/commit/21c0238)), closes [#354](https://github.com/thymikee/jest-preset-angular/issues/354) [#2755](https://github.com/thymikee/jest-preset-angular/issues/2755)
+* feat: build package with type definitions ([a269daa](https://github.com/thymikee/jest-preset-angular/commit/a269daa))
+* feat: deprecate `setup-jest.js` and `setup-jest.mjs` ([a304036](https://github.com/thymikee/jest-preset-angular/commit/a304036))
+
+
+### Code Refactoring
+
+* test: switch example app test config files to ts ([e61f1ff](https://github.com/thymikee/jest-preset-angular/commit/e61f1ff))
+
+
+## DEPRECATIONS
+
+Importing `setup-jest.js`/`setup-jest.mjs` directly is deprecated. The files will be removed in the future.
+
+Please use "setupZoneTestEnv" function instead. Example:
+
+For CJS
+```
+// setup-jest.ts
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env';
+
+setupZoneTestEnv();
+```
+
+For ESM
+```
+// setup-jest.ts
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/index.mjs';
+
+setupZoneTestEnv();
+```
+
+
+
 ## [14.2.4](https://github.com/thymikee/jest-preset-angular/compare/v14.2.3...v14.2.4) (2024-09-12)
 
 
