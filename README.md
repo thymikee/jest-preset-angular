@@ -34,20 +34,26 @@ npm install -D jest jest-preset-angular @types/jest
 In your project root, create `setup-jest.ts` file with following contents:
 
 ```ts
-import 'jest-preset-angular/setup-jest';
+// setup-jest.ts
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+
+setupZoneTestEnv();
 ```
 
 Add the following section:
 
-- to your root `jest.config.js`
+- to your root `jest.config.ts`
 
-```js
-// jest.config.js
-module.exports = {
+```ts
+// jest.config.ts
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  globalSetup: 'jest-preset-angular/global-setup',
 };
+
+export default jestConfig;
 ```
 
 - or to your root `package.json`
@@ -56,8 +62,7 @@ module.exports = {
 {
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"],
-    "globalSetup": "jest-preset-angular/global-setup"
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
   }
 }
 ```
@@ -68,8 +73,7 @@ Adjust your `tsconfig.spec.json` to be:
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "module": "CommonJs",
+    "module": "CommonJS",
     "types": ["jest"]
   },
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
