@@ -12,10 +12,7 @@
 
 > This is a part of the article: [Testing Angular faster with Jest](https://www.xfive.co/blog/testing-angular-faster-jest/).
 
-## Getting Started
-
-These instructions will get you setup to use `jest-preset-angular` in your project. For more detailed documentation,
-please check [online documentation](https://thymikee.github.io/jest-preset-angular).
+## Installation
 
 Install using [`yarn`](https://yarnpkg.com/en/package/jest-preset-angular):
 
@@ -31,54 +28,7 @@ npm install -D jest jest-preset-angular @types/jest
 
 ## Configuration
 
-In your project root, create `setup-jest.ts` file with following contents:
-
-```ts
-// setup-jest.ts
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
-
-setupZoneTestEnv();
-```
-
-Add the following section:
-
-- to your root `jest.config.ts`
-
-```ts
-// jest.config.ts
-import type { Config } from 'jest';
-
-const jestConfig: Config = {
-  preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-};
-
-export default jestConfig;
-```
-
-- or to your root `package.json`
-
-```json
-{
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"]
-  }
-}
-```
-
-Adjust your `tsconfig.spec.json` to be:
-
-```json
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "CommonJS",
-    "types": ["jest"]
-  },
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
-}
-```
+Check out our [Configuration guidance](https://thymikee.github.io/jest-preset-angular/docs/getting-started/installation).
 
 **IMPORTANT**
 
