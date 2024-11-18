@@ -578,7 +578,7 @@ describe('demo (with TestBed):', () => {
 
             try {
                 childDe = fixture.debugElement.children[4].children[0];
-            } catch {} // eslint-disable-line no-empty
+            } catch (err) {} // eslint-disable-line no-empty
 
             childDe = fixture.debugElement.queryAll((de) => de.componentInstance instanceof MyIfChildComponent)[0];
 
@@ -596,21 +596,18 @@ describe('demo (with TestBed):', () => {
 });
 
 @Component({
-    standalone: true,
     selector: 'child-1',
     template: 'Fake Child',
 })
 class FakeChildComponent {}
 
 @Component({
-    standalone: true,
     selector: 'grandchild-1',
     template: 'Fake Grandchild',
 })
 class FakeGrandchildComponent {}
 
 @Component({
-    standalone: true,
     selector: 'child-1',
     imports: [FakeGrandchildComponent],
     template: 'Fake Child(<grandchild-1></grandchild-1>)',
