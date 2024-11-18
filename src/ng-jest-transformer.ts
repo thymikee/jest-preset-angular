@@ -15,7 +15,7 @@ export class NgJestTransformer extends TsJestTransformer {
             context: {
                 [LogContexts.package]: 'jest-preset-angular',
                 [LogContexts.logLevel]: LogLevels.trace,
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
                 version: require('../package.json').version,
             },
             targets: process.env.NG_JEST_LOG ?? undefined,

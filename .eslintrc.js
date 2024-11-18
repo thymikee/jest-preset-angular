@@ -109,6 +109,13 @@ module.exports = {
         },
         {
             ...baseJsTsConfig,
+            files: ['*.js'],
+            rules: {
+                '@typescript-eslint/no-require-imports': 'off',
+            },
+        },
+        {
+            ...baseJsTsConfig,
             files: ['*.spec.ts', 'e2e/**/__tests__/**/*.js'],
             extends: ['plugin:jest/recommended', ...baseJsTsConfig.extends],
         },
