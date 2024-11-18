@@ -22,7 +22,7 @@ Please use "setupZoneTestEnv" function instead. Example:
 For CJS
 ```
 // setup-jest.ts
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env';
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 
 setupZoneTestEnv();
 ```
@@ -30,10 +30,12 @@ setupZoneTestEnv();
 For ESM
 ```
 // setup-jest.ts
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/index.mjs';
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
 
 setupZoneTestEnv();
 ```
+
+See more at https://thymikee.github.io/jest-preset-angular/docs/getting-started/test-environment
 
 
 
