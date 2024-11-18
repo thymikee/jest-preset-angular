@@ -1,3 +1,12 @@
+## [14.3.1](https://github.com/thymikee/jest-preset-angular/compare/v14.3.0...v14.3.1) (2024-11-18)
+
+
+### Documentation
+
+* docs: simplify `README.md` about installation and configuration ([79ea18b](https://github.com/thymikee/jest-preset-angular/commit/79ea18b))
+
+
+
 ## [14.3.0](https://github.com/thymikee/jest-preset-angular/compare/v14.2.4...v14.3.0) (2024-11-15)
 
 
