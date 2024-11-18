@@ -30,7 +30,7 @@ function findAngularCompilerCliVersion(): string {
         ANGULAR_COMPILER_CLI_PKG_NAME.length;
     const ngCompilerCliFolder = packagePath.substring(0, substringLength);
     const ngCompilerCliPackageJson = `${ngCompilerCliFolder}/package.json`;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { version } = require(ngCompilerCliPackageJson);
 
     return version;
