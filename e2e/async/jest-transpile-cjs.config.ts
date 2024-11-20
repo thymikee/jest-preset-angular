@@ -3,7 +3,7 @@ import type { JestConfigWithTsJest } from 'ts-jest';
 const config: JestConfigWithTsJest = {
     displayName: 'e2e-async',
     testEnvironment: 'jsdom',
-    setupFilesAfterEnv: ['<rootDir>/../../setup-jest'],
+    setupFilesAfterEnv: ['<rootDir>/../setup-test-env.ts'],
     transform: {
         '^.+\\.(ts|mjs|js|html)$': [
             '<rootDir>/../../build/index.js',
