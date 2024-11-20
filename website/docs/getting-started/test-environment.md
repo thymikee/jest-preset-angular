@@ -10,7 +10,7 @@ framework-specific features, such as dependency injection and change detection.
 `jest-preset-angular` provides utility functions to simplify setting up a Jest test environment tailored for Angular projects.
 These functions support both **zone-based** and **zoneless** environments, catering to different testing needs.
 
-## Methods
+## Functions
 
 import TOCInline from '@theme/TOCInline';
 
