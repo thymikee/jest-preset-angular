@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
 import { transformSync } from 'esbuild';
@@ -5,6 +7,41 @@ import { type TsJestTransformerOptions, ConfigSet, TsJestTransformer, type TsJes
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
+
+// stores hashes made out of only one argument being a string
+const cache: Record<string, string> = {};
+
+type DataItem = string | Buffer;
+
+const sha1 = (...data: DataItem[]): string => {
+    const canCache = data.length === 1 && typeof data[0] === 'string';
+    // caching
+    let cacheKey!: string;
+    if (canCache) {
+        cacheKey = data[0] as string;
+        if (cacheKey in cache) {
+            return cache[cacheKey];
+        }
+    }
+
+    // we use SHA1 because it's the fastest provided by node
+    // and we are not concerned about security here
+    const hash = createHash('sha1');
+    data.forEach((item) => {
+        if (typeof item === 'string') {
+            hash.update(item, 'utf8');
+        } else {
+            hash.update(item);
+        }
+    });
+    const res = hash.digest('hex').toString();
+
+    if (canCache) {
+        cache[cacheKey] = res;
+    }
+
+    return res;
+};
 
 export class NgJestTransformer extends TsJestTransformer {
     readonly #ngJestLogger: Logger;
@@ -15,8 +52,7 @@ export class NgJestTransformer extends TsJestTransformer {
             context: {
                 [LogContexts.package]: 'jest-preset-angular',
                 [LogContexts.logLevel]: LogLevels.trace,
-                // eslint-disable-next-line @typescript-eslint/no-require-imports
-                version: require('../package.json').version,
+                version: this.version,
             },
             targets: process.env.NG_JEST_LOG ?? undefined,
         });
@@ -28,6 +64,11 @@ export class NgJestTransformer extends TsJestTransformer {
 
     protected _createCompiler(configSet: ConfigSet, cacheFS: Map<string, string>): void {
         this._compiler = new NgJestCompiler(configSet, cacheFS);
+    }
+
+    private get version(): string {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        return require('../package.json').version;
     }
 
     process(fileContent: string, filePath: string, transformOptions: TsJestTransformOptions): TransformedSource {
@@ -54,5 +95,9 @@ export class NgJestTransformer extends TsJestTransformer {
         } else {
             return super.process(fileContent, filePath, transformOptions);
         }
+    }
+
+    getCacheKey(fileContent: string, filePath: string, transformOptions: TsJestTransformOptions): string {
+        return sha1(super.getCacheKey(fileContent, filePath, transformOptions), this.version);
     }
 }

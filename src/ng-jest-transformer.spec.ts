@@ -1,6 +1,7 @@
 import { transformSync } from 'esbuild';
 import { TsJestTransformer } from 'ts-jest';
 
+import packageJson from '../package.json';
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 import { NgJestTransformer } from './ng-jest-transformer';
@@ -49,7 +50,7 @@ describe('NgJestTransformer', () => {
         tr.process(
             `
       const pi = parseFloat(3.124);
-      
+
       export { pi };
     `,
             'foo.js',
@@ -73,7 +74,7 @@ describe('NgJestTransformer', () => {
         tr.process(
             `
       const pi = parseFloat(3.124);
-      
+
       export { pi };
     `,
             'node_modules/tslib.es6.js',
@@ -125,7 +126,7 @@ describe('NgJestTransformer', () => {
         tr.process(
             `
       const pi = parseFloat(3.124);
-      
+
       export { pi };
     `,
             'foo.mjs',
@@ -134,7 +135,7 @@ describe('NgJestTransformer', () => {
         tr.process(
             `
       const pi = parseFloat(3.124);
-      
+
       export { pi };
     `,
             'node_modules/foo.js',
@@ -184,7 +185,7 @@ describe('NgJestTransformer', () => {
         tr.process(
             `
       const pi = parseFloat(3.124);
-      
+
       export { pi };
     `,
             'foo.mjs',
@@ -193,7 +194,7 @@ describe('NgJestTransformer', () => {
         tr.process(
             `
       const pi = parseFloat(3.124);
-      
+
       export { pi };
     `,
             'node_modules/foo.js',
@@ -204,5 +205,26 @@ describe('NgJestTransformer', () => {
         expect(mockedTransformSync.mock.calls[1]).toMatchSnapshot();
 
         mockedTransformSync.mockClear();
+    });
+
+    it('should include version from package.json', async () => {
+        const transformCfg = {
+            config: {
+                cwd: process.cwd(),
+                extensionsToTreatAsEsm: [],
+                testMatch: [],
+                testRegex: [],
+            },
+        } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+        const tr = new NgJestTransformer({
+            isolatedModules: true,
+        });
+
+        packageJson.version = '1.0.0';
+        const cacheKey1 = tr.getCacheKey('export const foo = 1', 'file1.ts', transformCfg);
+        packageJson.version = '2.0.0';
+        const cacheKey2 = tr.getCacheKey('export const foo = 1', 'file1.ts', transformCfg);
+
+        expect(cacheKey1).not.toBe(cacheKey2);
     });
 });
