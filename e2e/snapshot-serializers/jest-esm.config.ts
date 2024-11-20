@@ -8,13 +8,13 @@ const config: JestConfigWithTsJest = {
         '<rootDir>/../../build/serializers/ng-snapshot',
         '<rootDir>/../../build/serializers/no-ng-attributes',
     ],
-    setupFilesAfterEnv: ['<rootDir>/../../setup-jest.mjs'],
+    setupFilesAfterEnv: ['<rootDir>/../setup-test-env.mts'],
     moduleNameMapper: {
         rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
     },
-    extensionsToTreatAsEsm: ['.ts'],
+    extensionsToTreatAsEsm: ['.ts', '.mts'],
     transform: {
-        '^.+\\.(ts|js|mjs|html)$': [
+        '^.+\\.(ts|mts|js|mjs|html)$': [
             '<rootDir>/../../build/index.js',
             {
                 useESM: true,

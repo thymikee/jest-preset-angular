@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
             processWithEsbuild: ['**/node_modules/lodash-es/*.js'],
         },
     },
-    extensionsToTreatAsEsm: ['.ts'],
+    extensionsToTreatAsEsm: ['.ts', '.mts'],
     transform: {
-        '^.+\\.(ts|js|mjs|html)$': [
+        '^.+\\.(ts|mts|js|mjs|html)$': [
             '<rootDir>/../../build/index.js',
             {
                 useESM: true,

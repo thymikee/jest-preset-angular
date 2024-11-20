@@ -1,7 +1,7 @@
 import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
-    globalSetup: './setup-e2e-test.ts',
+    globalSetup: './e2e/global-setup.ts',
     projects: ['e2e/**/jest-cjs.config.ts'],
 };
 

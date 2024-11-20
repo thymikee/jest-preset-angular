@@ -2,9 +2,9 @@ import type { JestConfigWithTsJest } from 'ts-jest';
 
 const config: JestConfigWithTsJest = {
     displayName: 'e2e-babel-support',
-    extensionsToTreatAsEsm: ['.ts'],
+    extensionsToTreatAsEsm: ['.ts', '.mts'],
     transform: {
-        '^.+\\.(ts|mjs|js|html)$': [
+        '^.+\\.(ts|mts|mjs|js|html)$': [
             '<rootDir>/../../build/index.js',
             {
                 babelConfig: true,
