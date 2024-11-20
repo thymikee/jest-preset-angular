@@ -1,3 +1,12 @@
+## [14.3.2](https://github.com/thymikee/jest-preset-angular/compare/v14.3.1...v14.3.2) (2024-11-20)
+
+
+### Bug Fixes
+
+* fix: include `version` from `package.json` into cache key ([de02c79](https://github.com/thymikee/jest-preset-angular/commit/de02c79)), closes [#2844](https://github.com/thymikee/jest-preset-angular/issues/2844)
+
+
+
 ## [14.3.1](https://github.com/thymikee/jest-preset-angular/compare/v14.3.0...v14.3.1) (2024-11-18)
 
 
