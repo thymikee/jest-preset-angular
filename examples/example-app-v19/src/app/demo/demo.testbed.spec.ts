@@ -578,7 +578,7 @@ describe('demo (with TestBed):', () => {
 
             try {
                 childDe = fixture.debugElement.children[4].children[0];
-            } catch (err) {} // eslint-disable-line no-empty
+            } catch {} // eslint-disable-line no-empty
 
             childDe = fixture.debugElement.queryAll((de) => de.componentInstance instanceof MyIfChildComponent)[0];
 
