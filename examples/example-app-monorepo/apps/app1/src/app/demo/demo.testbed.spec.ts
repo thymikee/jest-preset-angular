@@ -392,7 +392,7 @@ describe('demo (with TestBed):', () => {
         });
 
         it("injected provider should not be same as component's provider", () => {
-            @Component({ template: '<my-service-comp></my-service-comp>' })
+            @Component({ standalone: false, template: '<my-service-comp></my-service-comp>' })
             class TestComponent {}
 
             const fixture = TestBed.configureTestingModule({
