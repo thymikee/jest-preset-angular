@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-// eslint-disable-next-line import/default
+import type * as Preset from '@docusaurus/preset-classic';
 import npm2yarn from '@docusaurus/remark-plugin-npm2yarn';
 import type { Config } from '@docusaurus/types';
 import tabBlocks from 'docusaurus-remark-plugin-tab-blocks';
@@ -41,7 +41,7 @@ const config: Config = {
                     {
                         tagName: 'link',
                         rel: 'manifest',
-                        href: `/jest-preset-angular/manifest.json`,
+                        href: '/jest-preset-angular/manifest.json',
                     },
                     {
                         tagName: 'meta',
@@ -97,7 +97,7 @@ const config: Config = {
                 theme: {
                     customCss: path.resolve('./src/css/custom.css'),
                 },
-            },
+            } satisfies Preset.Options,
         ],
     ],
     themeConfig: {

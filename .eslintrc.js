@@ -19,6 +19,7 @@ const baseJsTsConfig = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/prefer-readonly': 'error',
         curly: ['error', 'all'],
+        'import/default': 'off',
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/no-relative-packages': 'off',
