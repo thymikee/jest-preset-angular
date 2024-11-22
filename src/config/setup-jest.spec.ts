@@ -28,6 +28,7 @@ jest.mock('@angular/core/testing', () => {
 
 class BrowserDynamicTestingModuleStub {}
 class PlatformRefStub {}
+class ErrorHandlerStub {}
 const mockPlatformBrowserDynamicTesting = jest.fn(() => new PlatformRefStub());
 jest.mock('@angular/platform-browser-dynamic/testing', () => {
     return {
@@ -35,14 +36,31 @@ jest.mock('@angular/platform-browser-dynamic/testing', () => {
         platformBrowserDynamicTesting: mockPlatformBrowserDynamicTesting,
     };
 });
+const mockProvideExperimentalZonelessChangeDetection = jest.fn();
+jest.mock('@angular/core', () => {
+    return {
+        provideExperimentalZonelessChangeDetection: mockProvideExperimentalZonelessChangeDetection,
+        ErrorHandler: ErrorHandlerStub,
+        NgModule: () => {
+            return jest.fn();
+        },
+    };
+});
 
 describe('setup-jest', () => {
     const assertOnInitTestEnv = (): void => {
         expect(mockGetTestBed).toHaveBeenCalled();
-        expect(mockInitTestEnvironment).toHaveBeenCalled();
-        expect(mockInitTestEnvironment.mock.calls[0][0]).toBeInstanceOf(BrowserDynamicTestingModuleStub);
+        expect(mockInitTestEnvironment.mock.calls[0][0][0]).toBeInstanceOf(BrowserDynamicTestingModuleStub);
         expect(mockPlatformBrowserDynamicTesting).toHaveBeenCalled();
         expect(mockPlatformBrowserDynamicTesting.mock.results[0].value).toBeInstanceOf(PlatformRefStub);
+        expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+            teardown: {
+                destroyAfterEach: false,
+                rethrowErrors: true,
+            },
+            errorOnUnknownElements: true,
+            errorOnUnknownProperties: true,
+        });
     };
 
     beforeEach(() => {
@@ -53,7 +71,7 @@ describe('setup-jest', () => {
     });
 
     describe('for CJS setup-jest, test environment initialization', () => {
-        test('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed to ngJest', async () => {
+        it('should setup test environment with setup-jest file', async () => {
             globalThis.ngJest = {
                 testEnvironmentOptions: {
                     teardown: {
@@ -65,28 +83,15 @@ describe('setup-jest', () => {
                 },
             };
 
-            await import('../../setup-jest');
+            await import('../../setup-jest.js');
 
+            expect(globalThis.TextEncoder).toBeDefined();
             expect(mockZoneJs).toHaveBeenCalled();
             expect(mockZoneJsTesting).toHaveBeenCalled();
             assertOnInitTestEnv();
-            expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
-                teardown: {
-                    destroyAfterEach: false,
-                    rethrowErrors: true,
-                },
-                errorOnUnknownElements: true,
-                errorOnUnknownProperties: true,
-            });
         });
 
-        test('should always have TextEncoder in globalThis', async () => {
-            await import('../../setup-jest');
-
-            expect(globalThis.TextEncoder).toBeDefined();
-        });
-
-        it('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed as argument with setupZoneTestEnv()', async () => {
+        it('should setup test environment with setupZoneTestEnv()', async () => {
             const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
 
             setupZoneTestEnv({
@@ -98,10 +103,16 @@ describe('setup-jest', () => {
                 errorOnUnknownProperties: true,
             });
 
+            expect(globalThis.TextEncoder).toBeDefined();
             expect(mockZoneJs).toHaveBeenCalled();
             expect(mockZoneJsTesting).toHaveBeenCalled();
             assertOnInitTestEnv();
-            expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        });
+
+        it('should setup test environment with setupZonelessTestEnv()', async () => {
+            const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.js');
+
+            setupZonelessTestEnv({
                 teardown: {
                     destroyAfterEach: false,
                     rethrowErrors: true,
@@ -109,19 +120,17 @@ describe('setup-jest', () => {
                 errorOnUnknownElements: true,
                 errorOnUnknownProperties: true,
             });
-        });
-
-        it('should always have TextEncoder in globalThis with setupZoneTestEnv()', async () => {
-            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
-
-            setupZoneTestEnv();
 
             expect(globalThis.TextEncoder).toBeDefined();
+            expect(mockZoneJs).not.toHaveBeenCalled();
+            expect(mockZoneJsTesting).not.toHaveBeenCalled();
+            assertOnInitTestEnv();
+            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
         });
     });
 
     describe('for ESM setup-jest, test environment initialization', () => {
-        test('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed to ngJest', async () => {
+        it('should setup test environment with setup-jest file', async () => {
             globalThis.ngJest = {
                 testEnvironmentOptions: {
                     teardown: {
@@ -135,26 +144,13 @@ describe('setup-jest', () => {
 
             await import('../../setup-jest.mjs');
 
+            expect(globalThis.TextEncoder).toBeDefined();
             expect(mockZoneJs).toHaveBeenCalled();
             expect(mockZoneJsTesting).toHaveBeenCalled();
             assertOnInitTestEnv();
-            expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
-                teardown: {
-                    destroyAfterEach: false,
-                    rethrowErrors: true,
-                },
-                errorOnUnknownElements: true,
-                errorOnUnknownProperties: true,
-            });
         });
 
-        test('should always have TextEncoder in globalThis', async () => {
-            await import('../../setup-jest.mjs');
-
-            expect(globalThis.TextEncoder).toBeDefined();
-        });
-
-        it('should call getTestBed() and initTestEnvironment() with the testEnvironmentOptions passed as argument with setupZoneTestEnv()', async () => {
+        it('should setup test environment with setupZoneTestEnv()', async () => {
             const { setupZoneTestEnv } = await import('../../setup-env/zone/index.mjs');
 
             setupZoneTestEnv({
@@ -166,10 +162,16 @@ describe('setup-jest', () => {
                 errorOnUnknownProperties: true,
             });
 
+            expect(globalThis.TextEncoder).toBeDefined();
             expect(mockZoneJs).toHaveBeenCalled();
             expect(mockZoneJsTesting).toHaveBeenCalled();
             assertOnInitTestEnv();
-            expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
+        });
+
+        it('should setup test environment with setupZonelessTestEnv()', async () => {
+            const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.mjs');
+
+            setupZonelessTestEnv({
                 teardown: {
                     destroyAfterEach: false,
                     rethrowErrors: true,
@@ -177,14 +179,12 @@ describe('setup-jest', () => {
                 errorOnUnknownElements: true,
                 errorOnUnknownProperties: true,
             });
-        });
-
-        it('should always have TextEncoder in globalThis with setupZoneTestEnv()', async () => {
-            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.mjs');
-
-            setupZoneTestEnv();
 
             expect(globalThis.TextEncoder).toBeDefined();
+            expect(mockZoneJs).not.toHaveBeenCalled();
+            expect(mockZoneJsTesting).not.toHaveBeenCalled();
+            assertOnInitTestEnv();
+            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
         });
     });
 });

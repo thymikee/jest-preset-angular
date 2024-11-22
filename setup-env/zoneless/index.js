@@ -1,8 +1,48 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const setupZonelessTestEnv = (_options) => {
+const { provideExperimentalZonelessChangeDetection, NgModule, ErrorHandler } = require('@angular/core');
+const { getTestBed } = require('@angular/core/testing');
+const {
+    BrowserDynamicTestingModule,
+    platformBrowserDynamicTesting,
+} = require('@angular/platform-browser-dynamic/testing');
+
+const { polyfillEncoder, resolveTestEnvOptions } = require('../utils');
+
+const provideZonelessConfig = () => {
+    class TestModule {}
+    NgModule({
+        providers: [
+            provideExperimentalZonelessChangeDetection(),
+            {
+                provide: ErrorHandler,
+                useValue: {
+                    handleError: (e) => {
+                        throw e;
+                    },
+                },
+            },
+        ],
+    })(TestModule);
+
+    return TestModule;
+};
+
+const setupZonelessTestEnv = (options) => {
+    polyfillEncoder();
+    if (typeof provideExperimentalZonelessChangeDetection !== 'undefined') {
+        const testEnvironmentOptions = resolveTestEnvOptions(options);
+
+        getTestBed().initTestEnvironment(
+            [BrowserDynamicTestingModule, provideZonelessConfig()],
+            platformBrowserDynamicTesting(),
+            testEnvironmentOptions,
+        );
+
+        return;
+    }
+
     throw Error(
-        'Zoneless testing environment only works when running Jest in ESM mode with Jest 29. ' +
-            'Jest 30+ will support to work with CommonJS mode.',
+        'Cannot find provideExperimentalZonelessChangeDetection() to setup zoneless testing environment. ' +
+            'Please use setupZoneTestEnv() from jest-preset-angular/setup-env/setup-zone-env.mjs instead.',
     );
 };
 
