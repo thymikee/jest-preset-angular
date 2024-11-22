@@ -1,13 +1,13 @@
-import { TextDecoder, TextEncoder } from 'util';
+const { TextDecoder, TextEncoder } = require('util');
 
-export const polyfillEncoder = () => {
+const polyfillEncoder = () => {
     if (typeof globalThis.TextEncoder === 'undefined') {
         globalThis.TextEncoder = TextEncoder;
         globalThis.TextDecoder = TextDecoder;
     }
 };
 
-export const resolveTestEnvOptions = (options) => {
+const resolveTestEnvOptions = (options) => {
     const globalTestEnvOptions = globalThis.ngJest?.testEnvironmentOptions;
     if (globalTestEnvOptions) {
         console.warn(
@@ -16,4 +16,9 @@ export const resolveTestEnvOptions = (options) => {
     }
 
     return globalTestEnvOptions ?? options;
+};
+
+module.exports = {
+    polyfillEncoder,
+    resolveTestEnvOptions,
 };

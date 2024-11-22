@@ -82,12 +82,6 @@ export default jestConfig;
 Configures a test environment that **DOESN'T** use `zone.js`, as described in [Angular experimental zoneless guide](https://angular.dev/guide/experimental/zoneless).
 It is designed for projects that have disabled `zone.js`, which can lead to improved performance and simplified testing.
 
-:::important
-
-This function is only supported in Jest `ESM` mode in [Jest 29](https://github.com/jestjs/jest/issues/10962). Jest 30+ will support to use for `CommonJS` mode.
-
-:::
-
 You can customize the environment by providing options as function arguments.
 
 #### Parameters
@@ -97,6 +91,15 @@ You can customize the environment by providing options as function arguments.
 #### Example:
 
 - Create a Jest setup file:
+
+```ts tab={"label": "TypeScript CJS"}
+// setup-jest.ts
+import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless';
+
+setupZonelessTestEnv({
+  //...options
+});
+```
 
 ```ts tab={"label": "TypeScript ESM"}
 // setup-jest.ts
@@ -108,6 +111,18 @@ setupZonelessTestEnv({
 ```
 
 - Update your Jest configuration:
+
+```ts tab={"label": "TypeScript CJS"}
+// jest.config.mts
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+};
+
+export default jestConfig;
+```
 
 ```ts tab={"label": "TypeScript ESM"}
 // jest.config.mts
