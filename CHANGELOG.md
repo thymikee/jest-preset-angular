@@ -1,3 +1,13 @@
+## [14.4.0-rc.0](https://github.com/thymikee/jest-preset-angular/compare/v14.3.3...v14.4.0-rc.0) (2024-11-22)
+
+
+### Features
+
+* feat: add support for Angular 19 (#2835) ([4a73245](https://github.com/thymikee/jest-preset-angular/commit/4a73245)), closes [#2835](https://github.com/thymikee/jest-preset-angular/issues/2835)
+* feat: support configuring zoneless test env for CJS ([fe2fbe9](https://github.com/thymikee/jest-preset-angular/commit/fe2fbe9))
+
+
+
 ## [14.3.3](https://github.com/thymikee/jest-preset-angular/compare/v14.3.2...v14.3.3) (2024-11-22)
 
 
