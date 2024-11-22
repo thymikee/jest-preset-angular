@@ -1,3 +1,12 @@
+## [14.3.3](https://github.com/thymikee/jest-preset-angular/compare/v14.3.2...v14.3.3) (2024-11-22)
+
+
+### Features
+
+* feat: support configuring zoneless test env for CJS ([7a270b1](https://github.com/thymikee/jest-preset-angular/commit/7a270b1))
+
+
+
 ## [14.3.2](https://github.com/thymikee/jest-preset-angular/compare/v14.3.1...v14.3.2) (2024-11-20)
 
 
