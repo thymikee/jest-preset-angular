@@ -224,5 +224,5 @@ module.exports = {
 
 ### Inject dependencies with TypeScript interface or exported namespace
 
-Please use Angular [inject](https://angular.io/api/core/inject) instead of [@Inject](https://angular.io/api/core/Inject).
+Please use Angular [inject](https://angular.dev/api/core/inject) instead of [@Inject](https://angular.dev/api/core/Inject).
 This is because `jest-preset-angular` has caveat when working with class constructor and decorator.

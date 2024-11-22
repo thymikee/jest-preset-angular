@@ -51,7 +51,7 @@ with `yarn workspace` or monorepo structure.
 ## Built With
 
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript that scales
-- [Angular](https://angular.io/) - The modern web developer's platform
+- [Angular](https://angular.dev/) - Deliver web apps with confidence 🚀
 - [`ts-jest`](https://kulshekhar.github.io/ts-jest) - Jest transformer for TypeScript
 
 ## Authors/maintainers

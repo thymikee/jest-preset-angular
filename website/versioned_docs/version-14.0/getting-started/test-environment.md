@@ -31,4 +31,4 @@ globalThis.ngJest = {
 import 'jest-preset-angular/setup-jest';
 ```
 
-`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct [`TestEnvironmentOptions`](https://angular.io/api/core/testing/TestEnvironmentOptions) object to `TestBed`.
+`jest-preset-angular` will look at `globalThis.ngJest` and pass the correct [`TestEnvironmentOptions`](https://angular.dev/api/core/testing/TestEnvironmentOptions) object to `TestBed`.
