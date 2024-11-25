@@ -24,15 +24,13 @@ Angular doesn't support native `async/await` in testing with `target` higher tha
 
 In your project root, create a setup file with following contents:
 
-```ts tab={"label":"TypeScript CJS"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label":"TypeScript CJS"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 
 setupZoneTestEnv();
 ```
 
-```ts tab={"label":"TypeScript ESM"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label":"TypeScript ESM"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
 
 setupZoneTestEnv();
@@ -40,8 +38,7 @@ setupZoneTestEnv();
 
 Add the following section to your root Jest config
 
-```ts tab={"label":"TypeScript CJS"}
-// jest.config.ts
+```ts title="jest.config.ts" tab={"label":"TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -52,8 +49,7 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-```ts tab={"label":"TypeScript ESM"}
-// jest.config.mts
+```ts title="jest.config.mts" tab={"label":"TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -66,8 +62,7 @@ export default jestConfig;
 
 Adjust your `tsconfig.spec.json` to be:
 
-```json5 tab={"label": "Tsconfig CJS"}
-// tsconfig.spec.json
+```json5 title="tsconfig.spec.json" tab={"label": "Tsconfig CJS"}
 {
   //...
   extends: './tsconfig.json',
@@ -81,8 +76,7 @@ Adjust your `tsconfig.spec.json` to be:
 }
 ```
 
-```json tab={"label": "Tsconfig ESM"}
-// tsconfig.spec.json
+```json title="tsconfig.spec.json" tab={"label": "Tsconfig ESM"}
 {
   //...
   "extends": "./tsconfig.json",
@@ -98,8 +92,7 @@ Adjust your `tsconfig.spec.json` to be:
 
 Adjust `scripts` part your `package.json` to use `jest` instead of `ng`, e.g.
 
-```json
-// package.json
+```json title="package.json"
 {
   //...
   "scripts": {
@@ -120,16 +113,14 @@ simulate the behaviors of real browsers in `JSDOM`. To add global mocks, you can
 - Create a file `jest-global-mocks.ts` to your root project.
 - Import it in your global setup file:
 
-```ts tab={"label":"TypeScript CJS"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label":"TypeScript CJS"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 import './jest-global-mocks';
 
 setupZoneTestEnv();
 ```
 
-```ts tab={"label":"TypeScript ESM"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label":"TypeScript ESM"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone.mjs';
 import './jest-global-mocks';
 
@@ -140,8 +131,7 @@ setupZoneTestEnv();
 
 An example for `jest-global-mocks.ts`
 
-```ts
-// jest-global-mocks.ts
+```ts title="jest-global-mocks.ts"
 Object.defineProperty(document, 'doctype', {
   value: '<!DOCTYPE html>',
 });

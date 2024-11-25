@@ -33,8 +33,7 @@ You can customize the environment by providing options as function arguments.
 
 - Create a Jest setup file:
 
-```ts tab={"label": "TypeScript CJS"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label": "TypeScript CJS"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 
 setupZoneTestEnv({
@@ -42,8 +41,7 @@ setupZoneTestEnv({
 });
 ```
 
-```ts tab={"label": "TypeScript ESM"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label": "TypeScript ESM"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
 
 setupZoneTestEnv({
@@ -53,8 +51,7 @@ setupZoneTestEnv({
 
 - Update your Jest configuration:
 
-```ts tab={"label": "TypeScript CJS"}
-// jest.config.ts
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -65,8 +62,7 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-```ts tab={"label": "TypeScript ESM"}
-// jest.config.mts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -92,8 +88,7 @@ You can customize the environment by providing options as function arguments.
 
 - Create a Jest setup file:
 
-```ts tab={"label": "TypeScript CJS"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label": "TypeScript CJS"}
 import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless';
 
 setupZonelessTestEnv({
@@ -101,8 +96,7 @@ setupZonelessTestEnv({
 });
 ```
 
-```ts tab={"label": "TypeScript ESM"}
-// setup-jest.ts
+```ts title="setup-jest.ts" tab={"label": "TypeScript ESM"}
 import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless/index.mjs';
 
 setupZonelessTestEnv({
@@ -112,8 +106,7 @@ setupZonelessTestEnv({
 
 - Update your Jest configuration:
 
-```ts tab={"label": "TypeScript CJS"}
-// jest.config.mts
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -124,8 +117,7 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-```ts tab={"label": "TypeScript ESM"}
-// jest.config.mts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {

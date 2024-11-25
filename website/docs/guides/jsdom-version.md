@@ -8,15 +8,17 @@ title: Configure other JSDOM versions
 If you need a different JSDOM version than the one that ships with Jest, you can install a jsdom environment
 package, e.g. `jest-environment-jsdom-sixteen` and edit your Jest config like so:
 
-```js tab
-// jest.config.js
-module.exports = {
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
   testEnvironment: 'jest-environment-jsdom-sixteen',
 };
+
+export default jestConfig;
 ```
 
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {

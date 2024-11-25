@@ -15,10 +15,9 @@ We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main
 
 :::
 
-Besides, there is `setup-jest.mjs` to add to Jest setup file to ensure that Jest can set up test environment properly.
+Besides, there is utility function to ensure that Jest can set up test environment properly.
 
-```ts
-// setup-jest.ts
+```ts title="setup-jest.ts"
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
 
 setupZoneTestEnv();
@@ -28,33 +27,14 @@ setupZoneTestEnv();
 
 #### Manual configuration
 
-```js tab
-// jest.config.js
-module.exports = {
-  //...
-  extensionsToTreatAsEsm: ['.ts'],
-  transform: {
-    '^.+\\.(ts|js|html)$': [
-      'jest-preset-angular',
-      {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        stringifyContentPathRegex: '\\.(html)$',
-        useESM: true,
-      },
-    ],
-  },
-};
-```
-
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts"
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
   //...
   extensionsToTreatAsEsm: ['.ts'],
   transform: {
-    '^.+\\.(ts|js|html|svg)$': [
+    '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
       {
         tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -81,16 +61,7 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 
 :::
 
-```js tab
-// jest.config.js
-module.exports = {
-  //...
-  preset: 'jest-preset-angular/presets/defaults-esm',
-};
-```
-
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts"
 import type { Config } from 'jest';
 
 const jestConfig = {
