@@ -15,18 +15,20 @@ with Ivy compiler.
 
 `jest-preset-angular` also provides a Jest global setup file to help you to run `ngcc` with Jest. Add to the following section:
 
-- to your root `jest.config.js`
+- to your root Jest config
 
-```js tab
-// jest.config.js
-module.exports = {
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
   //...
   globalSetup: 'jest-preset-angular/global-setup',
 };
+
+export default jestConfig;
 ```
 
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -41,21 +43,23 @@ export default jestConfig;
 
 Since **v12.0.0**, `jest-preset-angular` provide a possibility to skip `ngcc` via `globalThis` by doing the following
 
-```js tab
-// jest.config.js
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
 globalThis.ngJest = {
   skipNgcc: true,
   tsconfig: 'tsconfig.spec.json', // this is the project root tsconfig
 };
 
-module.exports = {
+const jestConfig: Config = {
   //...
   globalSetup: 'jest-preset-angular/global-setup',
 };
+
+export default jestConfig;
 ```
 
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 globalThis.ngJest = {

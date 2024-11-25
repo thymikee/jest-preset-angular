@@ -15,30 +15,19 @@ title: Snapshot testing
 
 import TOCInline from '@theme/TOCInline';
 
-<TOCInline toc={toc.slice(2)} />
+<TOCInline toc={toc.slice(1)} />
 
 ---
-
-## Reference
 
 ### Remove html comments (`html-comment`)
 
 Allow removing all the comments in the component HTML in snapshot.
 
-Examples:
+#### Examples:
 
-#### In Jest config
+- In Jest config file
 
-```js tab title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
-  //[...]
-  snapshotSerializers: ['jest-preset-angular/build/serializers/html-comment'],
-  //[...]
-};
-```
-
-```ts tab title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -50,24 +39,31 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-#### Or in setup test environment file
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
 
-```js tab={"span":2} title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
+const jestConfig: Config = {
   //[...]
-  setupFilesAfterEnv: ['./setup-jest.js'],
+  snapshotSerializers: ['jest-preset-angular/build/serializers/html-comment'],
+  //[...]
+};
+
+export default jestConfig;
+```
+
+- Or in setup test environment file
+
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //[...]
+  setupFilesAfterEnv: ['./setup-jest.ts'],
   //[...]
 };
 ```
 
-```js title="setup-jest.js"
-const removeHtmlCommentsSerializer = require('jest-preset-angular/build/serializers/html-comment');
-
-expect.addSnapshotSerializer(removeHtmlCommentsSerializer);
-```
-
-```ts tab={"span":2} title="jest.config.ts"
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -83,19 +79,9 @@ import removeHtmlCommentsSerializer from 'jest-preset-angular/build/serializers/
 expect.addSnapshotSerializer(removeHtmlCommentsSerializer);
 ```
 
-#### Or in individual test files
+- Or in individual test files
 
-```js tab title="foo.component.spec.js"
-const removeHtmlCommentsSerializer = require('jest-preset-angular/build/serializers/html-comment');
-
-expect.addSnapshotSerializer(removeHtmlCommentsSerializer);
-
-it('should work', () => {
-  //[...]
-});
-```
-
-```ts tab title="foo.component.spec.ts"
+```ts title="foo.component.spec.ts"
 import removeHtmlCommentsSerializer from 'jest-preset-angular/build/serializers/html-comment';
 
 expect.addSnapshotSerializer(removeHtmlCommentsSerializer);
@@ -109,7 +95,10 @@ it('should work', () => {
 
 Allow displaying component HTML with data in snapshot.
 
-#### Configuration options
+#### Parameters
+
+- options(**optional**):
+  - omitAllCompAttrs: remove all component DOM attributes
 
 ```ts
 type NgSnapshotOptions = {
@@ -117,22 +106,11 @@ type NgSnapshotOptions = {
 };
 ```
 
-Configure snapshot behavior
+#### Examples:
 
-Examples:
+- In Jest config
 
-#### In Jest config
-
-```js tab title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
-  //[...]
-  snapshotSerializers: ['jest-preset-angular/build/serializers/ng-snapshot'],
-  //[...]
-};
-```
-
-```ts tab title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -144,24 +122,31 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-#### Or in setup test environment file
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
 
-```js tab={"span":2} title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
+const jestConfig: Config = {
   //[...]
-  setupFilesAfterEnv: ['./setup-jest.js'],
+  snapshotSerializers: ['jest-preset-angular/build/serializers/ng-snapshot'],
+  //[...]
+};
+
+export default jestConfig;
+```
+
+- Or in setup test environment file
+
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //[...]
+  setupFilesAfterEnv: ['./setup-jest.ts'],
   //[...]
 };
 ```
 
-```js title="setup-jest.js"
-const componentSnapshotSerializer = require('jest-preset-angular/build/serializers/ng-snapshot');
-
-expect.addSnapshotSerializer(componentSnapshotSerializer);
-```
-
-```ts tab={"span":2} title="jest.config.ts"
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -177,19 +162,9 @@ import componentSnapshotSerializer from 'jest-preset-angular/build/serializers/n
 expect.addSnapshotSerializer(componentSnapshotSerializer);
 ```
 
-#### Or in individual test files
+- Or in individual test files
 
-```js tab title="foo.component.spec.js"
-const componentSnapshotSerializer = require('jest-preset-angular/build/serializers/ng-snapshot');
-
-expect.addSnapshotSerializer(componentSnapshotSerializer);
-
-it('should work', () => {
-  //[...]
-});
-```
-
-```ts tab title="foo.component.spec.ts"
+```ts title="foo.component.spec.ts"
 import componentSnapshotSerializer from 'jest-preset-angular/build/serializers/ng-snapshot';
 
 expect.addSnapshotSerializer(componentSnapshotSerializer);
@@ -214,35 +189,7 @@ of the previous one in the chain.
 
 - In setup files:
 
-```js tab={"span":2} title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
-  //[...]
-  setupFilesAfterEnv: ['./setup-jest.js'],
-  //[...]
-};
-```
-
-```js tab title="setup-jest.js"
-const componentSnapshotSerializer = require('jest-preset-angular/build/serializers/ng-snapshot');
-
-expect.addSnapshotSerializer({
-  print: (val, print, indent, options, colors) =>
-    componentSnapshotSerializer.print(
-      val,
-      print,
-      indent,
-      {
-        ...options,
-        omitAllCompAttrs: true,
-      },
-      colors,
-    ),
-  test: componentSnapshotSerializer.test,
-});
-```
-
-```ts tab={"span":2} title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -250,9 +197,23 @@ const jestConfig: Config = {
   setupFilesAfterEnv: ['./setup-jest.ts'],
   //[...]
 };
+
+export default jestConfig;
 ```
 
-```ts tab title="setup-jest.ts"
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //[...]
+  setupFilesAfterEnv: ['./setup-jest.ts'],
+  //[...]
+};
+
+export default jestConfig;
+```
+
+```ts title="setup-jest.ts"
 import componentSnapshotSerializer from 'jest-preset-angular/build/serializers/ng-snapshot';
 
 expect.addSnapshotSerializer({
@@ -273,30 +234,7 @@ expect.addSnapshotSerializer({
 
 - or in individual test files:
 
-```js tab title="foo.component.spec.js"
-const componentSnapshotSerializer = require('jest-preset-angular/build/serializers/ng-snapshot');
-
-expect.addSnapshotSerializer({
-  print: (val, print, indent, options, colors) =>
-    componentSnapshotSerializer.print(
-      val,
-      print,
-      indent,
-      {
-        ...options,
-        omitAllCompAttrs: true,
-      },
-      colors,
-    ),
-  test: componentSnapshotSerializer.test,
-});
-
-it('should work', () => {
-  //[...]
-});
-```
-
-```ts tab title="foo.component.spec.ts"
+```ts title="foo.component.spec.ts"
 import componentSnapshotSerializer from 'jest-preset-angular/build/serializers/ng-snapshot';
 
 expect.addSnapshotSerializer({
@@ -323,20 +261,11 @@ it('should work', () => {
 
 Allow removing attributes generated by Angular fixture, like `ng-reflect-*`, `ng-version="*"`, `_ngcontent-c*` etc., from component snapshot
 
-Examples:
+#### Examples:
 
-#### In Jest config
+- In Jest config
 
-```js tab title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
-  //[...]
-  snapshotSerializers: ['jest-preset-angular/build/serializers/no-ng-attributes'],
-  //[...]
-};
-```
-
-```ts tab title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -348,24 +277,31 @@ const jestConfig: Config = {
 export default jestConfig;
 ```
 
-#### Or in setup test environment file
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
 
-```js tab={"span":2} title="jest.config.js"
-/** @type {import('jest').Config} */
-module.exports = {
+const jestConfig: Config = {
   //[...]
-  setupFilesAfterEnv: ['./setup-jest.js'],
+  snapshotSerializers: ['jest-preset-angular/build/serializers/no-ng-attributes'],
+  //[...]
+};
+
+export default jestConfig;
+```
+
+- Or in setup test environment file
+
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //[...]
+  setupFilesAfterEnv: ['./setup-jest.ts'],
   //[...]
 };
 ```
 
-```js title="setup-jest.js"
-const removeNgAttributes = require('jest-preset-angular/build/serializers/no-ng-attributes');
-
-expect.addSnapshotSerializer(removeNgAttributes);
-```
-
-```ts tab={"span":2} title="jest.config.ts"
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -381,19 +317,9 @@ import removeNgAttributes from 'jest-preset-angular/build/serializers/no-ng-attr
 expect.addSnapshotSerializer(removeNgAttributes);
 ```
 
-#### Or in individual test files
+- Or in individual test files
 
-```js tab title="foo.component.spec.js"
-const removeNgAttributes = require('jest-preset-angular/build/serializers/no-ng-attributes');
-
-expect.addSnapshotSerializer(removeNgAttributes);
-
-it('should work', () => {
-  //[...]
-});
-```
-
-```ts tab title="foo.component.spec.ts"
+```ts title="foo.component.spec.ts"
 import removeNgAttributes from 'jest-preset-angular/build/serializers/no-ng-attributes';
 
 expect.addSnapshotSerializer(removeNgAttributes);

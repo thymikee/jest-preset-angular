@@ -13,17 +13,19 @@ Problems may arise if you're using custom builds (this preset is tailored for `a
 
 With Angular 8 and higher, a [change to the way the Angular CLI works](https://github.com/thymikee/jest-preset-angular/issues/288) may be causing your metadata to be lost. You can update your `tsconfig.spec.json` to include the `emitDecoratorMetadata` compiler option:
 
-```
+```json title="tsconfig.spec.json"
+{
   "compilerOptions": {
     "emitDecoratorMetadata": true
+  }
+}
 ```
 
 In general, this is related to `Angular`'s reflection and also depends on a reflection library, as e. g. included in `core-js`. We use our own minimal reflection that satisfy `Angular`'s current requirements, but in case these change, you can install `core-js` and import the reflection library in your `setup-jest.ts`:
 
-```ts
-// setup-jest.ts
-require('core-js/es/reflect');
-require('core-js/proposals/reflect-metadata');
+```ts title="setup-jest.ts"
+import 'core-js/es/reflect';
+import 'core-js/proposals/reflect-metadata';
 ```
 
 Note that this might also be related to other issues with the dependency injection and parameter type reflection.
@@ -34,8 +36,7 @@ This issue is not related to Jest, [it's a known Angular bug](https://github.com
 
 To mitigate this, you need to wrap your component under test, into some container component with default change detection strategy (`ChangeDetectionStrategy.Default`) and pass props through it, or overwrite change detection strategy within `TestBed` setup, if it's not critical for the test.
 
-```ts
-// override change detection strategy
+```ts title="some.component.spec.ts"
 beforeEach(async(() => {
   TestBed.configureTestingModule({ declarations: [PizzaItemComponent] })
     .overrideComponent(PizzaItemComponent, {
@@ -49,10 +50,9 @@ beforeEach(async(() => {
 
 The currently used JSDOM version handles this, but older versions used before v7 of this preset was missing transform property. To patch it for Angular Material, use this workaround.
 
-Add this to your `jestGlobalMocks` file
+Add this to your global mock file
 
-```ts
-// jestGlobalMocks.ts
+```ts title="jest-global-mocks.ts"
 Object.defineProperty(document.body.style, 'transform', {
   value: () => {
     return {
@@ -70,7 +70,7 @@ Reference: https://github.com/angular/material2/issues/7101
 This means, that a file is not transformed through `TypeScript` compiler, e.g. because it is a `JS` file with `TS` syntax, or
 it is published to npm as uncompiled source files. Here's what you can do. A typical Jest error is like this:
 
-```
+```shell
 ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import * as i0 from '@angular/core';
                                                                                                                                            ^^^^^^
     SyntaxError: Cannot use import statement outside a module
@@ -78,12 +78,26 @@ it is published to npm as uncompiled source files. Here's what you can do. A typ
 
 To fix the issue, one needs to adjust `transformIgnorePatterns` whitelist:
 
-```js
-// jest.config.js
-module.exports = {
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!@angular|@ngrx)'],
 };
+
+export default jestConfig;
+```
+
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  // ...other options
+  transformIgnorePatterns: ['node_modules/(?!@angular|@ngrx)'],
+};
+
+export default jestConfig;
 ```
 
 By default, Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that
@@ -96,15 +110,13 @@ If the dependency causing the issue is a sub dependency of a `node_modules` pack
 
 The same like normal Jest configuration, you can load jQuery in your Jest setup file. For example your Jest setup file is `setup-jest.ts` you can declare jQuery:
 
-```ts
-// setup-jest.ts
+```ts title="setup-jest.ts"
 window.$ = require('path/to/jquery');
 ```
 
 or
 
-```ts
-// setup-jest.ts
+```ts title="setup-jest.ts"
 import $ from 'jquery';
 global.$ = global.jQuery = $;
 ```
@@ -121,7 +133,7 @@ This issue happens because Jest uses `Babel` behind the screen to create coverag
 - Create a `.babelrc` at the same place where Jest config file locates and define the necessary `Babel` plugins.
   For example
 
-```
+```json title=".babelrc"
 {
   // this plugin will fix issue with class inheritance
   "plugins": ["@babel/plugin-transform-classes"]
@@ -130,16 +142,42 @@ This issue happens because Jest uses `Babel` behind the screen to create coverag
 
 - Define the usage of `Babel` in Jest config via `ts-jest` option, for example
 
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        //...
+        babelConfig: true,
+        //...
+      },
+    ],
+  },
+};
+
+export default jestConfig;
 ```
-// jest.config.js
-module.exports = {
-   globals: {
-      'ts-jest': {
-          //...
-          babelConfig: true
-      }
-   }
-}
+
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        //...
+        babelConfig: true,
+        //...
+      },
+    ],
+  },
+};
+
+export default jestConfig;
 ```
 
 ### Resolver needed for some javascript library or nested dependencies
@@ -152,7 +190,7 @@ When using a javascript SDK/Library in Angular, some javascript methods could fa
 
 A typical error could appear as:
 
-```
+```shell
 TypeError: Cannot read properties of undefined (reading 'FacebookAuthProvider')
     import firebase from 'firebase/compat/app';
 
@@ -165,7 +203,7 @@ Some nested dependency tree could trigger some errors while running the tests be
 
 A typical error could appear as:
 
-```
+```shell
 node_modules\@angular\fire\node_modules\@firebase\firestore\dist\index.esm2017.js:12705
                     function (t, e) {
                     ^^^^^^^^
@@ -179,9 +217,10 @@ In these cases, a `transformIgnorePatterns` whitelisting could not fix the issue
 
 Here is an example of a resolver which would fix `firebase` related packages.
 
-```js
-// jest.resolver.js
-module.exports = (path, options) => {
+```ts title="jest.resolver.ts"
+import type { SyncResolver } from 'jest-resolve';
+
+const myResolver: SyncResolver = (path, options) => {
   // Call the defaultResolver, so we leverage its cache, error handling, etc.
   return options.defaultResolver(path, {
     ...options,
@@ -213,13 +252,32 @@ module.exports = (path, options) => {
     },
   });
 };
+
+export = myResolver;
 ```
 
-```js
-// jest.config.js
-module.exports = {
-  resolver: '<rootDir>/src/jest.resolver.js',
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //...
+  resolver: '<rootDir>/src/jest.resolver.ts',
+  //...
 };
+
+export default jestConfig;
+```
+
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
+  //...
+  resolver: '<rootDir>/src/jest.resolver.js',
+  //...
+};
+
+export default jestConfig;
 ```
 
 ### Inject dependencies with TypeScript interface or exported namespace

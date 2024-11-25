@@ -17,18 +17,20 @@ title: Presets
 In most cases, simply setting the `preset` key to the desired preset name in your Jest config should be enough to start
 using TypeScript with Jest (assuming you added `jest-preset-angular` to your `devDependencies` of course):
 
-```js tab
-// jest.config.js
-module.exports = {
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+
+const jestConfig: Config = {
   // [...]
   // Replace `jest-preset-angular` with the preset you want to use
   // from the above list
   preset: 'jest-preset-angular',
 };
+
+export default jestConfig;
 ```
 
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 const jestConfig: Config = {
@@ -55,27 +57,27 @@ errors.
 
 :::
 
-```js tab
-// jest.config.js
-const { defaultTransformerOptions } = require('jest-preset-angular/presets');
-// const { defaultTransformerOptions } = require('jest-preset-angular/presets')
+```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-module.exports = {
+const jestConfig: Config = {
   // [...]
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
       {
-        ...defaultTransformerOptions,
+        ...presets.defaultTransformerOptions,
         // [...your overriden options]
       },
     ],
   },
 };
+
+export default jestConfig;
 ```
 
-```ts tab
-// jest.config.ts
+```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
