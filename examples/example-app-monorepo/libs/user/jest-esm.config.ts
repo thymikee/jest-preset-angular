@@ -1,11 +1,13 @@
 import ngPreset from 'jest-preset-angular/presets';
 import type { JestConfigWithTsJest } from 'ts-jest';
 
+const esmPreset = ngPreset.createEsmPreset();
+
 export default {
-    ...ngPreset.defaultsESM,
+    ...esmPreset,
     displayName: 'user-lib',
     moduleNameMapper: {
-        tslib: 'tslib/tslib.es6.js',
+        ...esmPreset.moduleNameMapper,
         rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
     },
     setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
