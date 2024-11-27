@@ -21,12 +21,45 @@ exports[`Jest presets should have the correct types which come from \`ts-jest\` 
         snapshotSerializers: string[];
     };
     defaultTransformerOptions: import('ts-jest').TsJestTransformerOptions;
+    createCjsPreset: typeof import('../build/presets').createCjsPreset;
+    createEsmPreset: typeof import('../build/presets').createEsmPreset;
 };
 export default _default;
 "
 `;
 
-exports[`Jest presets should return the correct jest config 1`] = `
+exports[`Jest presets should return jest config with CJS preset creator function with options 1`] = `
+{
+  "moduleFileExtensions": [
+    "ts",
+    "html",
+    "js",
+    "json",
+    "mjs",
+  ],
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes",
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|mjs|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "diagnostics": false,
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
+      },
+    ],
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!.*\\.mjs$)",
+  ],
+}
+`;
+
+exports[`Jest presets should return jest config with CJS preset creator function without options 1`] = `
 {
   "moduleFileExtensions": [
     "ts",
@@ -56,7 +89,112 @@ exports[`Jest presets should return the correct jest config 1`] = `
 }
 `;
 
-exports[`Jest presets should return the correct jest config 2`] = `
+exports[`Jest presets should return jest config with ESM preset creator function with options 1`] = `
+{
+  "extensionsToTreatAsEsm": [
+    ".ts",
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "html",
+    "js",
+    "json",
+    "mjs",
+  ],
+  "moduleNameMapper": {
+    "tslib": "tslib/tslib.es6.js",
+  },
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes",
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "diagnostics": false,
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
+        "useESM": true,
+      },
+    ],
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!tslib)",
+  ],
+}
+`;
+
+exports[`Jest presets should return jest config with ESM preset creator function without options 1`] = `
+{
+  "extensionsToTreatAsEsm": [
+    ".ts",
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "html",
+    "js",
+    "json",
+    "mjs",
+  ],
+  "moduleNameMapper": {
+    "tslib": "tslib/tslib.es6.js",
+  },
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes",
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
+        "useESM": true,
+      },
+    ],
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!tslib)",
+  ],
+}
+`;
+
+exports[`Jest presets should return the correct jest config with legacy preset config 1`] = `
+{
+  "moduleFileExtensions": [
+    "ts",
+    "html",
+    "js",
+    "json",
+    "mjs",
+  ],
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes",
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|mjs|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
+      },
+    ],
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!.*\\.mjs$)",
+  ],
+}
+`;
+
+exports[`Jest presets should return the correct jest config with legacy preset config 2`] = `
 {
   "extensionsToTreatAsEsm": [
     ".ts",
