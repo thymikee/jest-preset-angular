@@ -3,11 +3,13 @@ import { type JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest';
 
 import tsconfig from './tsconfig.json';
 
+const esmPreset = ngPreset.createEsmPreset();
+
 export default {
-    ...ngPreset.defaultsESM,
+    ...esmPreset,
     moduleNameMapper: {
         ...pathsToModuleNameMapper(tsconfig.compilerOptions.paths, { prefix: '<rootDir>' }),
-        tslib: 'tslib/tslib.es6.js',
+        ...esmPreset.moduleNameMapper,
         rxjs: '<rootDir>/../../node_modules/rxjs/dist/bundles/rxjs.umd.js',
     },
     setupFilesAfterEnv: ['<rootDir>/setup-jest-esm.ts'],
