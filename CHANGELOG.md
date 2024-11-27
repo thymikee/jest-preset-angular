@@ -1,3 +1,25 @@
+## [14.4.0](https://github.com/thymikee/jest-preset-angular/compare/v14.3.3...v14.4.0) (2024-11-27)
+
+
+### Features
+
+* feat: add preset creator functions ([552922e](https://github.com/thymikee/jest-preset-angular/commit/552922e))
+* feat: add support for Angular 19 (#2835) ([4a73245](https://github.com/thymikee/jest-preset-angular/commit/4a73245)), closes [#2835](https://github.com/thymikee/jest-preset-angular/issues/2835)
+
+
+### Code Refactoring
+
+* refactor: use `createCjsPreset` function for `jest-preset.js` ([9d18d0f](https://github.com/thymikee/jest-preset-angular/commit/9d18d0f))
+* refactor: deprecate legacy presets ([8da5630](https://github.com/thymikee/jest-preset-angular/commit/8da5630))
+
+
+### DEPRECATIONS
+
+* Using `preset: 'jest-preset-angular'` is deprecated. The recommended approach is https://thymikee.github.io/jest-preset-angular/docs/getting-started/presets#createcjspresetoptions
+* Using `preset: 'jest-preset-angular/presets/defaults-esm'` is deprecated. The recommended approach is https://thymikee.github.io/jest-preset-angular/docs/getting-started/presets#createesmpresetoptions
+
+
+
 ## [14.3.3](https://github.com/thymikee/jest-preset-angular/compare/v14.3.2...v14.3.3) (2024-11-22)
 
 
