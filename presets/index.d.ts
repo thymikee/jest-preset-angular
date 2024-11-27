@@ -18,5 +18,7 @@ declare const _default: {
         snapshotSerializers: string[];
     };
     defaultTransformerOptions: import('ts-jest').TsJestTransformerOptions;
+    createCjsPreset: typeof import('../build/presets').createCjsPreset;
+    createEsmPreset: typeof import('../build/presets').createEsmPreset;
 };
 export default _default;
