@@ -99,6 +99,7 @@ type EsmPresetType = {
   testEnvironment: string;
   moduleFileExtensions: Array<string>;
   snapshotSerializers: Array<string>;
+  extensionsToTreatAsEsm: Array;
   transformIgnorePatterns: Array<string>;
   transform: {
     '^.+\\.(ts|js|html|svg)$': ['jest-preset-angular', EsmPresetTransformerOptions];
