@@ -1,1 +1,3 @@
-module.exports = require('./presets').defaults;
+const { createCjsPreset } = require('./presets');
+
+module.exports = createCjsPreset();
