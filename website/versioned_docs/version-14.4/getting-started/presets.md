@@ -50,7 +50,7 @@ type CjsPresetType = {
   snapshotSerializers: Array<string>;
   transformIgnorePatterns: Array<string>;
   transform: {
-    '^.+.tsx?$': ['^.+\\.(ts|js|mjs|html|svg)$', CjsPresetTransformerOptions];
+    '^.+\\.(ts|js|mjs|html|svg)$': ['jest-preset-angular', CjsPresetTransformerOptions];
   };
 };
 ```
@@ -101,7 +101,7 @@ type EsmPresetType = {
   snapshotSerializers: Array<string>;
   transformIgnorePatterns: Array<string>;
   transform: {
-    '^.+.tsx?$': ['^.+\\.(ts|js|html|svg)$', EsmPresetTransformerOptions];
+    '^.+\\.(ts|js|html|svg)$': ['jest-preset-angular', EsmPresetTransformerOptions];
   };
 };
 ```
