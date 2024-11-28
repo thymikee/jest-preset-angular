@@ -1,10 +1,19 @@
+## [14.4.1](https://github.com/thymikee/jest-preset-angular/compare/v14.4.0...v14.4.1) (2024-11-28)
+
+
+### Bug Fixes
+
+* fix: remove `@angular-devkit/build-angular` from `peerDependencies` ([2f6bc3d](https://github.com/thymikee/jest-preset-angular/commit/2f6bc3d))
+
+
+
 ## [14.4.0](https://github.com/thymikee/jest-preset-angular/compare/v14.3.3...v14.4.0) (2024-11-27)
 
 
 ### Features
 
 * feat: add preset creator functions ([552922e](https://github.com/thymikee/jest-preset-angular/commit/552922e))
-* feat: add support for Angular 19 (#2835) ([4a73245](https://github.com/thymikee/jest-preset-angular/commit/4a73245)), closes [#2835](https://github.com/thymikee/jest-preset-angular/issues/2835)
+* feat: add support for Angular 19 ([4a73245](https://github.com/thymikee/jest-preset-angular/commit/4a73245))
 
 
 ### Code Refactoring
