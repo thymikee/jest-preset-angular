@@ -38,6 +38,7 @@
     "test-cjs": "jest -c=jest-cjs.config.ts --no-cache && jest -c=jest-transpile-cjs.config.ts --no-cache",
     "test-esm": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c=jest-esm.config.ts --no-cache && node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c=jest-transpile-esm.config.ts --no-cache",
     "test-examples": "yarn build && node scripts/test-examples.js",
+    "test-perf": "jest -c=performance/jest.config.ts --no-cache",
     "doc": "cd website && yarn start",
     "doc:build": "cd website && yarn build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",

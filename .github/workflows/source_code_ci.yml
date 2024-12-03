@@ -57,3 +57,10 @@ jobs:
     with:
       os: ubuntu-latest
       node: ${{ matrix.node }}
+
+  test_performance:
+    needs: prepare_cache_ubuntu
+    uses: ./.github/workflows/test_performance.yml
+    with:
+      os: ubuntu-latest
+      node: 20.x

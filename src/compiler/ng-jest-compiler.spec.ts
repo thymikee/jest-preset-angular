@@ -323,9 +323,10 @@ describe('NgJestCompiler', () => {
             `);
 
             expect(diagnostics.length).toBe(0);
+            // The `type: undefined` is ok here which is covered by example apps' tests.
             expect(code).toContain(dedent`
                 MyDir.ctorParameters = () => [
-                    { type: Document, decorators: [{ type: core_1.Inject, args: [core_1.DOCUMENT,] }] }
+                    { type: undefined, decorators: [{ type: core_1.Inject, args: [core_1.DOCUMENT,] }] }
                 ];
                 exports.MyDir = MyDir = tslib_1.__decorate([
                     (0, core_1.Directive)()
