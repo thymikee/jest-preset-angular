@@ -1,3 +1,12 @@
+## [14.4.2](https://github.com/thymikee/jest-preset-angular/compare/v14.4.1...v14.4.2) (2024-12-03)
+
+
+### Bug Fixes
+
+* fix: revert commit ad7a297e to fix perf regression ([b19cd6e](https://github.com/thymikee/jest-preset-angular/commit/b19cd6e)), closes [#2886](https://github.com/thymikee/jest-preset-angular/issues/2886)
+
+
+
 ## [14.4.1](https://github.com/thymikee/jest-preset-angular/compare/v14.4.0...v14.4.1) (2024-11-28)
 
 
