@@ -121,7 +121,7 @@ setupZoneTestEnv();
 ```
 
 ```ts title="setup-jest.ts" tab={"label":"TypeScript ESM"}
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone.mjs';
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
 import './jest-global-mocks';
 
 setupZoneTestEnv();
