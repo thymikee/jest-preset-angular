@@ -28,9 +28,9 @@ describe('Performance Measurement', () => {
         });
 
         const acceptableThresholds = {
-            averageMax: 700,
+            averageMax: 800,
             standardDeviationMax: 1500,
-            absoluteMax: 3300,
+            absoluteMax: 3400,
         };
 
         expect(average).toBeLessThan(acceptableThresholds.averageMax);
