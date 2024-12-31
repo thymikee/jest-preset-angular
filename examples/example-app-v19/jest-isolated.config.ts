@@ -5,13 +5,7 @@ import jestCfg from './jest.config';
 
 export default {
     ...jestCfg,
-    transform: {
-        '^.+\\.(ts|js|mjs|html|svg)$': [
-            'jest-preset-angular',
-            {
-                ...presets.defaultTransformerOptions,
-                isolatedModules: true,
-            },
-        ],
-    },
+    ...presets.createCjsPreset({
+        isolatedModules: true,
+    }),
 } satisfies JestConfigWithTsJest;
