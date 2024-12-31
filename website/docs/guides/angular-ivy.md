@@ -3,9 +3,9 @@ id: angular-ivy
 title: Angular Ivy
 ---
 
-:::important
+:::warning
 
-This step is **OPTIONAL**
+This guide is now **DEPRECATED** and will be removed in the next major release together with the below APIs.
 
 :::
 

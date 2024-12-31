@@ -39,7 +39,18 @@ function findAngularCompilerCliVersion(): string {
 const nodeModuleDirPath = findNodeModulesDirectory();
 
 export const runNgccJestProcessor = (tsconfigPath: string | undefined): void => {
-    if (nodeModuleDirPath) {
+    const ngCompilerCliVersion = findAngularCompilerCliVersion();
+    const [ngMajorVersion] = ngCompilerCliVersion.split('.');
+    if (parseInt(ngMajorVersion, 10) >= 16) {
+        console.warn(`
+            Running 'ngcc' is not required for Angular 16+ projects. This 'ngcc-jest-processor' script will be removed in the next major version of 'jest-preset-angular'.
+            Tip: To avoid this message you can remove 'jest-preset-angular/global-setup' from your jest config
+        `);
+
+        return;
+    }
+
+    if (ngccPath && nodeModuleDirPath) {
         process.stdout.write('\nngcc-jest-processor: running ngcc\n');
 
         const ngccBaseArgs = [
@@ -72,21 +83,13 @@ export const runNgccJestProcessor = (tsconfigPath: string | undefined): void => 
 
             throw new Error(`${errorMessage} NGCC failed ${errorMessage ? ', see above' : ''}.`);
         }
-    } else {
-        const ngCompilerCliVersion = findAngularCompilerCliVersion();
-        const [ngMajorVersion] = ngCompilerCliVersion.split('.');
 
-        if (parseInt(ngMajorVersion, 10) < 16) {
-            console.log(
-                `Warning: Could not locate '@angular/compiler-cli' to run 'ngcc' automatically.` +
-                    `Please make sure you are running 'ngcc-jest-processor.js' from root level of your project.` +
-                    `'ngcc' must be run before running Jest`,
-            );
-        } else {
-            console.log(`@angular/compiler-cli@${ngCompilerCliVersion} detected. Skipping 'ngcc'`);
-            console.log(
-                `Tip: To avoid this message you can remove 'jest-preset-angular/global-setup' from your jest config`,
-            );
-        }
+        return;
     }
+
+    console.warn(
+        `Warning: Could not locate '@angular/compiler-cli' to run 'ngcc' automatically.` +
+            `Please make sure you are running 'ngcc-jest-processor.js' from root level of your project.` +
+            `'ngcc' must be run before running Jest`,
+    );
 };
