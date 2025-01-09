@@ -4,6 +4,7 @@
     "group:commitlintMonorepo",
     "group:docusaurusMonorepo",
     ":prHourlyLimit2",
+    ":semanticCommitTypeAll(deps)",
     "workarounds:all"
   ],
   "dependencyDashboard": false,
@@ -11,8 +12,6 @@
   "rangeStrategy": "bump",
   "separateMajorMinor": true,
   "prConcurrentLimit": 2,
-  "semanticCommits": "enabled",
-  "commitMessagePrefix": "build(deps):",
   "postUpdateOptions": ["yarnDedupeHighest"],
   "ignoreDeps": [
     "@mdx-js/react",
@@ -24,11 +23,7 @@
   ],
   "packageRules": [
     {
-      "matchPaths": ["examples/example-app-v16/package.json"],
-      "matchUpdateTypes": ["patch", "minor"]
-    },
-    {
-      "matchPaths": ["examples/example-app-v17/package.json"],
+      "matchPaths": ["examples/**/package.json"],
       "matchUpdateTypes": ["patch", "minor"]
     },
     {
@@ -70,30 +65,14 @@
       "enabled": false
     },
     {
-      "matchPaths": ["examples/example-app-v17/package.json"],
+      "matchPaths": ["examples/**/package.json"],
       "matchPackagePatterns": ["^angular", "^@angular"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
     {
-      "matchPaths": ["examples/example-app-v18/package.json"],
-      "matchPackagePatterns": ["^angular", "^@angular"],
-      "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
-      "matchPaths": ["examples/example-app-v17/package.json"],
+      "matchPaths": ["examples/**/package.json"],
       "matchDepNames": ["angular-in-memory-web-api", "typescript", "zone.js"],
-      "enabled": false
-    },
-    {
-      "matchPaths": ["examples/example-app-v18/package.json"],
-      "matchDepNames": ["angular-in-memory-web-api", "typescript", "zone.js"],
-      "enabled": false
-    },
-    {
-      "matchPaths": ["examples/example-app-v16/package.json"],
-      "matchPackagePatterns": ["^angular", "^@angular", "typescript", "zone.js"],
       "enabled": false
     }
   ]
