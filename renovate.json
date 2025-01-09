@@ -72,7 +72,12 @@
     },
     {
       "matchPaths": ["examples/**/package.json"],
-      "matchDepNames": ["angular-in-memory-web-api", "typescript", "zone.js"],
+      "matchDepNames": ["angular-in-memory-web-api", "zone.js"],
+      "enabled": false
+    },
+    {
+      "matchPaths": ["examples/**/package.json", "package.json"],
+      "matchUpdateTypes": ["typescript"],
       "enabled": false
     }
   ]
