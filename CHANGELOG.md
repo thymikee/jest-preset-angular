@@ -1,3 +1,23 @@
+## [14.5.0](https://github.com/thymikee/jest-preset-angular/compare/v14.4.2...v14.5.0) (2025-01-10)
+
+
+### Features
+
+* feat: add custom `jsdom` env [#2904](https://github.com/thymikee/jest-preset-angular/issues/2904) ([6045a96](https://github.com/thymikee/jest-preset-angular/commit/6045a96)), closes [#2883](https://github.com/thymikee/jest-preset-angular/issues/2883)
+
+
+### Code Refactoring
+
+* refactor: add type for `serializers/index.ts` ([dd64d78](https://github.com/thymikee/jest-preset-angular/commit/dd64d78))
+
+
+### DEPRECATIONS
+
+* refactor: deprecate `defaultTransformerOptions` in `presets` ([99d3112](https://github.com/thymikee/jest-preset-angular/commit/99d3112))
+* refactor: deprecate `ngcc` util via `globalSetup` ([edeaa3f](https://github.com/thymikee/jest-preset-angular/commit/edeaa3f))
+
+
+
 ## [14.4.2](https://github.com/thymikee/jest-preset-angular/compare/v14.4.1...v14.4.2) (2024-12-03)
 
 
