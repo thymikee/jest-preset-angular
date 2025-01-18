@@ -14,21 +14,7 @@
 
 ## Installation
 
-Install using [`yarn`](https://yarnpkg.com/en/package/jest-preset-angular):
-
-```bash
-yarn add -D jest jest-preset-angular @types/jest
-```
-
-Or [`npm`](https://www.npmjs.com/package/jest-preset-angular):
-
-```bash
-npm install -D jest jest-preset-angular @types/jest
-```
-
-## Configuration
-
-Check out our [Configuration guidance](https://thymikee.github.io/jest-preset-angular/docs/getting-started/installation).
+Check out our [Installation guidance](https://thymikee.github.io/jest-preset-angular/docs/getting-started/installation).
 
 **IMPORTANT**
 
