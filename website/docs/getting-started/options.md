@@ -18,7 +18,7 @@ the old `moduleNameMapper` configuration, you can put this into your Jest config
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
@@ -26,15 +26,13 @@ const jestConfig: Config = {
     '^assets/(.*)$': '<rootDir>/src/assets/$1',
     '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
@@ -42,9 +40,7 @@ const jestConfig: Config = {
     '^assets/(.*)$': '<rootDir>/src/assets/$1',
     '^environments/(.*)$': '<rootDir>/src/environments/$1',
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Processing with esbuild
@@ -52,10 +48,10 @@ export default jestConfig;
 Since **v11.0.0**, `jest-preset-angular` introduced the usage of `esbuild` to process files besides TypeScript API. By default, all `.mjs` files
 will be processed by `esbuild` in `jest-preset-angular`. To configure extra files to process with `esbuild`, one can do the following:
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
@@ -65,15 +61,13 @@ const jestConfig: Config = {
       }
     ]
   }
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
@@ -83,17 +77,15 @@ const jestConfig: Config = {
       }
     ]
   }
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Exposed configuration
 
-```ts title="jest.config.ts"
+```ts
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/html-comment',
@@ -111,9 +103,7 @@ const jestConfig: Config = {
       },
     ],
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 :::important

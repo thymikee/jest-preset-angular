@@ -81,23 +81,19 @@ To fix the issue, one needs to adjust `transformIgnorePatterns` whitelist:
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!@angular|@ngrx)'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!@angular|@ngrx)'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 By default, Jest doesn't transform `node_modules`, because they should be valid JavaScript files. However, it happens that
@@ -145,7 +141,7 @@ This issue happens because Jest uses `Babel` behind the screen to create coverag
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
@@ -156,15 +152,13 @@ const jestConfig: Config = {
       },
     ],
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
@@ -175,9 +169,7 @@ const jestConfig: Config = {
       },
     ],
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Resolver needed for some javascript library or nested dependencies
@@ -259,25 +251,21 @@ export = myResolver;
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   resolver: '<rootDir>/src/jest.resolver.ts',
   //...
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   resolver: '<rootDir>/src/jest.resolver.js',
   //...
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Inject dependencies with TypeScript interface or exported namespace

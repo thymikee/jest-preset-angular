@@ -20,23 +20,19 @@ with Ivy compiler.
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   globalSetup: 'jest-preset-angular/global-setup',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   globalSetup: 'jest-preset-angular/global-setup',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ## Control ngcc processing
@@ -67,10 +63,8 @@ globalThis.ngJest = {
   tsconfig: 'tsconfig.spec.json', // this is the project root tsconfig
 };
 
-const jestConfig: Config = {
+export default {
   //...
   globalSetup: 'jest-preset-angular/global-setup',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```

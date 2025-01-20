@@ -40,24 +40,22 @@ Add the following section to your root Jest config
 
 ```ts title="jest.config.ts" tab={"label":"TypeScript CJS"}
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-const jestConfig: Config = {
-  preset: 'jest-preset-angular',
+export default {
+  ...presets.createCjsPreset(),
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label":"TypeScript ESM"}
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-const jestConfig: Config = {
-  preset: 'jest-preset-angular',
+export default {
+  ...presets.createEsmPreset(),
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 Adjust your `tsconfig.spec.json` to be:

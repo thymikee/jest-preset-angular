@@ -30,27 +30,23 @@ _Note: do not use a `.babelrc` file otherwise the packages that you specify in t
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   transform: {
     '^.+\\.(ts|html)$': 'jest-preset-angular',
     '^.+\\.js$': 'babel-jest',
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   transform: {
     '^.+\\.(ts|html)$': 'jest-preset-angular',
     '^.+\\.js$': 'babel-jest',
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```

@@ -65,11 +65,9 @@ const presetConfig = presets.createCjsPreset({
   //...options
 });
 
-const jestConfig: Config = {
+export default {
   ...presetConfig,
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### `createEsmPreset(options)`
@@ -117,11 +115,9 @@ const presetConfig = presets.createEsmPreset({
   //...options
 });
 
-const jestConfig: Config = {
+export default {
   ...presetConfig,
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Legacy presets
@@ -143,19 +139,15 @@ These legacy presets will be removed in the next major release and users are **H
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   preset: 'jest-preset-angular',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   preset: 'jest-preset-angular/presets/defaults-esm',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```

@@ -17,19 +17,15 @@ npm install -D jsdom@<desired-version>
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   testEnvironment: 'jest-preset-angular/environments/jsdom',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   testEnvironment: 'jest-preset-angular/environments/jsdom',
-};
-
-export default jestConfig;
+} satisfies Config;
 ```

@@ -29,22 +29,20 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-const jestConfig: Config = {
-  preset: 'jest-preset-angular',
-};
-
-export default jestConfig;
+export default {
+  ...presets.createCjsPreset(),
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-const jestConfig: Config = {
-  preset: 'jest-preset-angular',
-};
-
-export default jestConfig;
+export default {
+  ...presets.createEsmPreset(),
+} satisfies Config;
 ```
 
 there are no migration steps required
@@ -55,11 +53,12 @@ ES Modules support is new and may encounter issues. See [example-apps](https://g
 
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
-const jestConfig: Config = {
-  preset: 'jest-preset-angular/presets/defaults-esm',
+export default {
+  ...presets.createEsmPreset(),
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
@@ -76,18 +75,17 @@ const jestConfig: Config = {
     tslib: 'tslib/tslib.es6.js',
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
-const jestConfig: Config = {
-  preset: 'jest-preset-angular/presets/defaults-esm',
+export default {
+  ...presets.createEsmPreset(),
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
@@ -104,9 +102,7 @@ const jestConfig: Config = {
     tslib: 'tslib/tslib.es6.js',
   },
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 Before upgrading to ng13 and switching to ES Modules, your `setup-jest.ts` file most likely uses the preset `setup-jest`, like the following:
@@ -136,23 +132,19 @@ To fix this issue, one needs to add `mjs` to `moduleFileExtensions` as following
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Usage with Angular libraries which are built with Angular CLI 13
@@ -166,23 +158,19 @@ To fix this issue, one should modify `transformIgnorePatterns` to be as followin
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ### Usage with Ionic 6 or 7
@@ -192,21 +180,17 @@ To support Ionic 6 or 7 you will need to modify `transformIgnorePatterns` to be 
 ```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs$))'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 ```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   // ...other options
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs$))'],
-};
-
-export default jestConfig;
+} satisfies Config;
 ```

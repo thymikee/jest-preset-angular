@@ -30,7 +30,7 @@ setupZoneTestEnv();
 ```ts title="jest.config.mts"
 import type { Config } from 'jest';
 
-const jestConfig: Config = {
+export default {
   //...
   extensionsToTreatAsEsm: ['.ts'],
   transform: {
@@ -43,9 +43,7 @@ const jestConfig: Config = {
       },
     ],
   },
-};
-
-export default jestConfig;
+} satisfies Config;
 ```
 
 #### Use ESM presets
@@ -63,11 +61,10 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 
 ```ts title="jest.config.mts"
 import type { Config } from 'jest';
+import presets from 'jest-preset-angular/presets';
 
-const jestConfig = {
+export default {
   //...
-  preset: 'jest-preset-angular/presets/defaults-esm',
-};
-
-export default jestConfig;
+  ...presets.createEsmPreset(),
+} satisfies Config;
 ```
