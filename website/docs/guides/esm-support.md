@@ -33,6 +33,10 @@ import type { Config } from 'jest';
 export default {
   //...
   extensionsToTreatAsEsm: ['.ts'],
+  moduleNameMapper: {
+    tslib: 'tslib/tslib.es6.js',
+    '^rxjs': '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
+  },
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
@@ -66,5 +70,9 @@ import presets from 'jest-preset-angular/presets';
 export default {
   //...
   ...presets.createEsmPreset(),
+  moduleNameMapper: {
+    tslib: 'tslib/tslib.es6.js',
+    '^rxjs': '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
+  },
 } satisfies Config;
 ```
