@@ -392,6 +392,7 @@ describe('demo (with TestBed):', () => {
         });
 
         it("injected provider should not be same as component's provider", () => {
+            // eslint-disable-next-line @angular-eslint/prefer-standalone
             @Component({ standalone: false, template: '<my-service-comp></my-service-comp>' })
             class TestComponent {}
 
