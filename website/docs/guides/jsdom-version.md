@@ -18,7 +18,7 @@ npm install -D jsdom@<desired-version>
 import type { Config } from 'jest';
 
 export default {
-  testEnvironment: 'jest-preset-angular/environments/jsdom',
+  testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
 } satisfies Config;
 ```
 
@@ -26,6 +26,6 @@ export default {
 import type { Config } from 'jest';
 
 export default {
-  testEnvironment: 'jest-preset-angular/environments/jsdom',
+  testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
 } satisfies Config;
 ```
