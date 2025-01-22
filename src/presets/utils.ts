@@ -5,7 +5,7 @@ import snapshotSerializers from '../serializers';
 type BasePresetConfig = Required<Pick<Config, 'testEnvironment' | 'moduleFileExtensions' | 'snapshotSerializers'>>;
 
 export const basePresetConfig: BasePresetConfig = {
-    testEnvironment: 'jsdom',
+    testEnvironment: 'jest-environment-jsdom-twentysix',
     moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
     snapshotSerializers,
 };
