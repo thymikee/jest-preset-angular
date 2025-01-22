@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { InputMask } from 'primeng/inputmask';
 
 @Component({
     selector: 'foo',
@@ -14,7 +15,7 @@ import { Component, input } from '@angular/core';
             }
         `,
     ],
-    imports: [NgIf],
+    imports: [NgIf, InputMask],
 })
 export class FooComponent {
     readonly value1 = input('val1');
