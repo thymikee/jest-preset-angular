@@ -1,20 +1,13 @@
 ---
-id: test-environment
-title: Test environment
+id: testbed-environment
+title: TestBed environment
 ---
 
-:::warning DEPRECATED
+Angular provides a powerful testing utility called [TestBed](https://angular.dev/api/core/testing/TestBed),
+which allows to configure and initialize an environment for unit testing and provides methods for creating components and services in unit tests.
 
-This page is now **DEPRECATED** and will be removed in the next major release. Please visit [TestBed environment configuration](testbed-environment.md)
-
-:::
-
-In Jest, a test environment defines the sandbox context in which your tests run.
-For Angular projects, setting up the correct test environment is essential to ensure compatibility with the
-framework-specific features, such as dependency injection and change detection.
-
-`jest-preset-angular` provides utility functions to simplify setting up a Jest test environment tailored for Angular projects.
-These functions support both **zone-based** and **zoneless** environments, catering to different testing needs.
+`jest-preset-angular` provides utility functions to simplify setting up `TestBed` environment. These below utility functions
+support both **zone-based** and **zoneless** environments, catering to different testing needs.
 
 ## Functions
 
@@ -26,7 +19,7 @@ import TOCInline from '@theme/TOCInline';
 
 ### `setupZoneTestEnv(options)`
 
-Configures a test environment that uses `zone.js`, which is the mechanism for tracking asynchronous operations.
+Configures an environment that uses `zone.js`, which is the mechanism for tracking asynchronous operations.
 It is suitable for most Angular applications that rely on `zone.js` for change detection and other framework features.
 
 You can customize the environment by providing options as function arguments.
@@ -79,7 +72,7 @@ export default {
 
 ### `setupZonelessTestEnv(options)`
 
-Configures a test environment that **DOESN'T** use `zone.js`, as described in [Angular experimental zoneless guide](https://angular.dev/guide/experimental/zoneless).
+Configures an environment that **DOESN'T** use `zone.js`, as described in [Angular experimental zoneless guide](https://angular.dev/guide/experimental/zoneless).
 It is designed for projects that have disabled `zone.js`, which can lead to improved performance and simplified testing.
 
 You can customize the environment by providing options as function arguments.

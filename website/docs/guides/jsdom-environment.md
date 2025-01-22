@@ -1,16 +1,10 @@
 ---
-id: jsdom-version
-title: JSDOM version
+id: jsdom-environment
+title: JSDOM environment
 ---
 
-:::warning DEPRECATED
-
-This page is now **DEPRECATED** and will be removed in the next major release. Please visit [JSDOM environment configuration](jsdom-environment.md)
-
-:::
-
-`jest-preset-angular` provides a way to configure a different version of `JSDOM` than the one ships with `Jest`
-via a custom `JSDOM` environment. One can follow the below steps to configure a different JSDOM version:
+`jest-preset-angular` provides a way to configure a different version of [JSDOM](https://github.com/jsdom/jsdom) than the one ships with `Jest`
+via a custom `JSDOM` environment. One can follow the below steps to configure a different `JSDOM` version:
 
 - Install the desired JSDOM version
 

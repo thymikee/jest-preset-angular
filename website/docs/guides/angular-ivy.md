@@ -3,7 +3,7 @@ id: angular-ivy
 title: Angular Ivy
 ---
 
-:::warning
+:::warning DEPRECATED
 
 This guide is now **DEPRECATED** and will be removed in the next major release together with the below APIs.
 

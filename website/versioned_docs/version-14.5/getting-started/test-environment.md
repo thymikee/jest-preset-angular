@@ -3,6 +3,12 @@ id: test-environment
 title: Test environment
 ---
 
+:::warning DEPRECATED
+
+This page is now **DEPRECATED** and will be removed in the next major release. Please visit [TestBed environment configuration](testbed-environment.md)
+
+:::
+
 In Jest, a test environment defines the sandbox context in which your tests run.
 For Angular projects, setting up the correct test environment is essential to ensure compatibility with the
 framework-specific features, such as dependency injection and change detection.
