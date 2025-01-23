@@ -24,7 +24,7 @@ exports[`Jest presets should have the correct types which come from \`ts-jest\` 
     createCjsPreset: typeof import('../build/presets').createCjsPreset;
     createEsmPreset: typeof import('../build/presets').createEsmPreset;
 };
-export default _default;
+export = _default;
 "
 `;
 
