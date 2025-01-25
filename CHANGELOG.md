@@ -1,3 +1,12 @@
+## [14.5.1](https://github.com/thymikee/jest-preset-angular/compare/v14.5.0...v14.5.1) (2025-01-25)
+
+
+### Bug Fixes
+
+* fix: properly handle types for presets module (#2945) ([e0323bd](https://github.com/thymikee/jest-preset-angular/commit/e0323bd)), closes [#2945](https://github.com/thymikee/jest-preset-angular/issues/2945)
+
+
+
 ## [14.5.0](https://github.com/thymikee/jest-preset-angular/compare/v14.4.2...v14.5.0) (2025-01-10)
 
 
