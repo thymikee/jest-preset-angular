@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig-base.spec.json",
+  "compilerOptions": {
+    "isolatedModules": false,
+    "paths": {
+      "external-lib": ["e2e/automocks/external-lib/index.ts"]
+    }
+  },
+  "include": ["**/*.ts"]
+}
