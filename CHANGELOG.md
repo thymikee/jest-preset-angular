@@ -1,3 +1,12 @@
+## [14.5.2](https://github.com/thymikee/jest-preset-angular/compare/v14.5.1...v14.5.2) (2025-02-21)
+
+
+### Bug Fixes
+
+* fix: transform `js` ESM file from `node_modules` ([b2b3934](https://github.com/thymikee/jest-preset-angular/commit/b2b3934)), closes [#2913](https://github.com/thymikee/jest-preset-angular/issues/2913)
+
+
+
 ## [14.5.1](https://github.com/thymikee/jest-preset-angular/compare/v14.5.0...v14.5.1) (2025-01-25)
 
 
