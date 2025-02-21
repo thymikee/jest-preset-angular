@@ -17,7 +17,7 @@ const config: JestConfigWithTsJest = {
             },
         ],
     },
-    transformIgnorePatterns: ['node_modules/(?!lodash-es)'],
+    transformIgnorePatterns: ['node_modules/(?!lodash-es|set-utilities)'],
 };
 
 export default config;
