@@ -4,6 +4,8 @@ import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
 import { transformSync } from 'esbuild';
 import { type TsJestTransformerOptions, ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
+import { updateOutput } from 'ts-jest/dist/legacy/compiler/compiler-utils';
+import type { TranspileOutput } from 'typescript';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
@@ -93,6 +95,27 @@ export class NgJestTransformer extends TsJestTransformer {
                 map,
             };
         } else {
+            if (filePath.includes('node_modules') && filePath.endsWith('.js')) {
+                /**
+                 * Simply transform the file without applying any extra AST transformers. We might consider to support using AST transformers on `node_modules` files when there are requests.
+                 * Since the files in `node_modules` are prebuilt, we don't need to perform type check on these files which should benefit the performance.
+                 */
+                const result: TranspileOutput = configSet.compilerModule.transpileModule(fileContent, {
+                    compilerOptions: {
+                        ...configSet.parsedTsConfig.options,
+                        module:
+                            transformOptions.supportsStaticESM && configSet.useESM
+                                ? configSet.parsedTsConfig.options.module
+                                : configSet.compilerModule.ModuleKind.CommonJS,
+                    },
+                    fileName: filePath,
+                });
+
+                return {
+                    code: updateOutput(result.outputText, filePath, result.sourceMapText),
+                };
+            }
+
             return super.process(fileContent, filePath, transformOptions);
         }
     }

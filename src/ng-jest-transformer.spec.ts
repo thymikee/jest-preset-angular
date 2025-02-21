@@ -1,5 +1,6 @@
 import { transformSync } from 'esbuild';
 import { TsJestTransformer } from 'ts-jest';
+import { transpileModule } from 'typescript';
 
 import packageJson from '../package.json';
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
@@ -15,11 +16,21 @@ jest.mock('esbuild', () => {
     };
 });
 const mockedTransformSync = jest.mocked(transformSync);
+jest.mock('typescript', () => {
+    return {
+        ...jest.requireActual('typescript'),
+        transpileModule: jest.fn().mockReturnValue({
+            outputText: '',
+        }),
+    };
+});
+const mockTranspileModule = jest.mocked(transpileModule);
 
 describe('NgJestTransformer', () => {
     beforeEach(() => {
         // @ts-expect-error testing purpose
         TsJestTransformer._cachedConfigSets = [];
+        mockTranspileModule.mockClear();
     });
 
     test('should create NgJestCompiler and NgJestConfig instances', () => {
@@ -146,6 +157,30 @@ describe('NgJestTransformer', () => {
         expect(mockedTransformSync.mock.calls[1]).toMatchSnapshot();
 
         mockedTransformSync.mockClear();
+    });
+
+    it('should use "transpileModule" to process `node_modules` js file', () => {
+        const transformCfg = {
+            cacheFS: new Map(),
+            config: {
+                cwd: process.cwd(),
+                extensionsToTreatAsEsm: [],
+                testMatch: [],
+                testRegex: [],
+            },
+        } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+        const tr = new NgJestTransformer({});
+        tr.process(
+            `
+      const pi = parseFloat(3.124);
+
+      export { pi };
+    `,
+            'node_modules/random-package/foo.js',
+            transformCfg,
+        );
+
+        expect(mockTranspileModule.mock.calls[0][1].fileName).toBe('node_modules/random-package/foo.js');
     });
 
     test.each([
