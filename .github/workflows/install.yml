@@ -56,3 +56,8 @@ jobs:
           yarn --cwd examples/example-app-v18
           yarn --cwd examples/example-app-v19
           yarn --cwd examples/example-app-yarn-workspace
+      - name: Verify changes of jit_transform.js
+        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
+        run: |
+          yarn build
+          git diff --exit-code $(git describe --tags --abbrev=0) HEAD -- src/transformers/jit_transform.js || (echo "Error: src/jit_transform.js needs to be UPDATED" && exit 1)
