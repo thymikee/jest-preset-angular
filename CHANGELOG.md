@@ -1,3 +1,12 @@
+## [14.5.3](https://github.com/thymikee/jest-preset-angular/compare/v14.5.2...v14.5.3) (2025-02-24)
+
+
+### Bug Fixes
+
+* build: update bundle `jit_transform.js`, closes [#2979](https://github.com/thymikee/jest-preset-angular/issues/2979)
+
+
+
 ## [14.5.2](https://github.com/thymikee/jest-preset-angular/compare/v14.5.1...v14.5.2) (2025-02-21)
 
 
