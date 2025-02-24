@@ -1,11 +1,14 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router, RouterLink } from '@angular/router';
+import { z } from 'zod';
 
 import { AppComponent } from './app.component';
 import { appConfig } from './app.config';
 import { UserService } from './model';
+import { serializeResponse } from './response.serializer';
 
 @Component({ selector: 'app-banner', template: '' })
 class BannerStubComponent {}
@@ -83,4 +86,14 @@ function tests() {
 
         expect(TestBed.inject(Router).url).toBe('/heroes');
     }));
+
+    it('should serialize response', async () => {
+        const zodSchema = z.object({
+            name: z.string(),
+        });
+
+        const serializedResponse = await serializeResponse(zodSchema, new HttpResponse({ body: { name: 'test' } }));
+
+        expect(serializedResponse.body).toStrictEqual({ name: 'test' });
+    });
 }
