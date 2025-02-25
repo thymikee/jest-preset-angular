@@ -1,3 +1,5 @@
+require('../mock-transformer');
+
 const { provideExperimentalZonelessChangeDetection, NgModule, ErrorHandler } = require('@angular/core');
 const { getTestBed } = require('@angular/core/testing');
 const {

@@ -1,5 +1,6 @@
 require('zone.js');
 require('zone.js/testing');
+require('../mock-transformer');
 
 const { getTestBed } = require('@angular/core/testing');
 const {
