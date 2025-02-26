@@ -27,7 +27,7 @@
       "matchUpdateTypes": ["patch", "minor"]
     },
     {
-      "matchPackagePatterns": ["^angular", "^@angular", "ng-packagr"],
+      "matchPackagePatterns": ["^angular", "^@angular", "^ng-packagr"],
       "groupName": "Angular packages"
     },
     {
@@ -77,7 +77,7 @@
     },
     {
       "matchPaths": ["**/package.json"],
-      "matchUpdateTypes": ["typescript"],
+      "matchUpdateTypes": ["major"],
       "enabled": false
     }
   ]
