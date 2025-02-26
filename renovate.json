@@ -60,7 +60,8 @@
     },
     {
       "matchPackagePatterns": [
-        "esbuild"
+        "esbuild",
+        "typescript"
       ],
       "enabled": false
     },
@@ -73,11 +74,6 @@
     {
       "matchPaths": ["examples/**/package.json"],
       "matchDepNames": ["angular-in-memory-web-api", "zone.js"],
-      "enabled": false
-    },
-    {
-      "matchPaths": ["**/package.json"],
-      "matchUpdateTypes": ["major"],
       "enabled": false
     }
   ]
