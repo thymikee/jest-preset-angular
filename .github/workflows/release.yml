@@ -1,0 +1,111 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - next
+
+jobs:
+  create_release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    outputs:
+      is_latest: ${{ steps.release_type.outputs.is_latest }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - id: version_check
+        name: Verify new version 🔍
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PUBLISHED_VERSION=$(npm view $PKG_NAME version 2>/dev/null || echo "0.0.0")
+          echo "version=$PKG_VERSION" >> $GITHUB_OUTPUT
+          if [ "$PKG_VERSION" = "$PUBLISHED_VERSION" ]; then
+            echo "is_new_version=false" >> $GITHUB_OUTPUT
+          else
+            echo "is_new_version=true" >> $GITHUB_OUTPUT
+          fi
+
+      - id: release_type
+        name: Identify release type 🔍
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
+        run: echo "is_latest=$LATEST" >> $GITHUB_OUTPUT
+        env:
+          # Check on current `version` from the step above to decide whether to publish to `latest`/`next` npm tag
+          LATEST: ${{ contains(steps.version_check.outputs.version, '-next') != true && contains(steps.version_check.outputs.version, '-rc') != true }}
+
+      - id: create_tag
+        name: Create and push tag 🔖
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
+        run: |
+          TAG_NAME="v${{ steps.version_check.outputs.version }}"
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create release 🚢
+        if: ${{ steps.create_tag.outputs.is_new_version == 'true' }}
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          body: Please refer to [CHANGELOG.md](https://github.com/thymikee/jest-preset-angular/blob/${{ steps.create_tag.outputs.tag_name }}/CHANGELOG.md) for details.
+          draft: false
+          prerelease: ${{ steps.release_type.outputs.is_latest != 'true' }}
+
+  publish_to_npm:
+    needs: create_release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - id: cache-yarn
+        name: Restore cached node modules ♻️
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ inputs.os }}-${{ inputs.node }}-release-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ inputs.os }}-${{ inputs.node }}-release
+
+      - name: Setup Node version ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install 🔧
+        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
+        run: yarn --immutable
+
+      - name: Build 🔨
+        run: yarn build
+
+      - name: Publish with latest tag 🚀
+        if: ${{ needs.create_release.outputs.is_latest == 'true' }}
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish with next tag 🚀
+        if: ${{ needs.create_release.outputs.is_latest != 'true' }}
+        run: npm publish --access public --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
