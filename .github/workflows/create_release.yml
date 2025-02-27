@@ -1,0 +1,54 @@
+name: Create release
+
+on:
+  push:
+    branches:
+      - next
+
+jobs:
+  create_release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - id: package_version
+        name: Extract version from package.json 📦
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PUBLISHED_VERSION=$(npm view $PKG_NAME version 2>/dev/null || echo "0.0.0")
+          echo "version=$PKG_VERSION" >> $GITHUB_OUTPUT
+          if [ "$PKG_VERSION" = "$PUBLISHED_VERSION" ]; then
+            echo "is_new_version=false" >> $GITHUB_OUTPUT
+          else
+            echo "is_new_version=true" >> $GITHUB_OUTPUT
+          fi
+
+      - id: create_tag
+        name: Create and push tag 🔖
+        if: ${{ steps.package_version.outputs.is_new_version == 'true' }}
+        run: |
+          TAG_NAME="v${{ steps.package_version.outputs.version }}"
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create release 🚢
+        if: ${{ steps.create_tag.outputs.is_new_version == 'true' }}
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          body: Please refer to [CHANGELOG.md](https://github.com/thymikee/jest-preset-angular/blob/${{ steps.create_tag.outputs.tag_name }}/CHANGELOG.md) for details.
+          draft: false
+          prerelease: ${{ needs.setup_variables.outputs.is_latest != 'true' }}
