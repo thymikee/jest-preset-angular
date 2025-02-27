@@ -18,8 +18,8 @@ jobs:
           fetch-depth: 20
           fetch-tags: false
 
-      - id: package_version
-        name: Extract version from package.json 📦
+      - id: version_check
+        name: Verify to publish new version 📦
         run: |
           PKG_VERSION=$(node -p "require('./package.json').version")
           PKG_NAME=$(node -p "require('./package.json').name")
@@ -33,9 +33,9 @@ jobs:
 
       - id: create_tag
         name: Create and push tag 🔖
-        if: ${{ steps.package_version.outputs.is_new_version == 'true' }}
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         run: |
-          TAG_NAME="v${{ steps.package_version.outputs.version }}"
+          TAG_NAME="v${{ steps.version_check.outputs.version }}"
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           git tag $TAG_NAME
           git push origin $TAG_NAME
