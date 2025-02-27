@@ -6,13 +6,10 @@ on:
       - next
 
 jobs:
-  create_release:
+  release_to_npm:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    outputs:
-      is_latest: ${{ steps.release_type.outputs.is_latest }}
-      is_new_version: ${{ steps.version_check.outputs.is_new_version }}
 
     steps:
       - name: Checkout 🛎️
@@ -20,6 +17,23 @@ jobs:
         with:
           fetch-depth: 20
           fetch-tags: false
+
+      - name: Setup Node version ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - id: cache-yarn
+        name: Restore cached node modules ♻️
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ inputs.os }}-${{ inputs.node }}-release-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ inputs.os }}-${{ inputs.node }}-release
 
       - id: version_check
         name: Verify new version 🔍
@@ -64,50 +78,22 @@ jobs:
           draft: false
           prerelease: ${{ steps.release_type.outputs.is_latest != 'true' }}
 
-  publish_to_npm:
-    needs: create_release
-    if: ${{ needs.create_release.outputs.is_new_version == 'true' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 20
-          fetch-tags: false
-
-      - id: cache-yarn
-        name: Restore cached node modules ♻️
-        uses: actions/cache@v4
-        with:
-          path: |
-            .yarn/cache
-            node_modules
-          key: ${{ inputs.os }}-${{ inputs.node }}-release-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ inputs.os }}-${{ inputs.node }}-release
-
-      - name: Setup Node version ⚙️
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-
       - name: Install 🔧
-        if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         run: yarn --immutable
 
       - name: Build 🔨
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         run: yarn build
 
       - name: Publish with latest tag 🚀
-        if: ${{ needs.create_release.outputs.is_latest == 'true' }}
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' && steps.release_type.outputs.is_latest == 'true' }}
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish with next tag 🚀
-        if: ${{ needs.create_release.outputs.is_latest != 'true' }}
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' && steps.release_type.outputs.is_latest != 'true' }}
         run: npm publish --access public --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
