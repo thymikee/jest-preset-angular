@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       is_latest: ${{ steps.release_type.outputs.is_latest }}
+      is_new_version: ${{ steps.version_check.outputs.is_new_version }}
 
     steps:
       - name: Checkout 🛎️
@@ -53,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release 🚢
-        if: ${{ steps.create_tag.outputs.is_new_version == 'true' }}
+        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,6 +66,7 @@ jobs:
 
   publish_to_npm:
     needs: create_release
+    if: ${{ needs.create_release.outputs.is_new_version == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
