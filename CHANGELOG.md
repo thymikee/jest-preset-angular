@@ -16,6 +16,40 @@
 
 
 
+# [15.0.0-next.0](https://github.com/thymikee/jest-preset-angular/compare/v14.5.4...v15.0.0-next.0) (2025-02-28)
+
+
+### Bug Fixes
+
+* fix(serializers): generated `id="root{n}"` should be removed ([a6b908f](https://github.com/thymikee/jest-preset-angular/commit/a6b908f))
+
+
+### Code Refactoring
+
+* refactor: drop support for `jsdom` <22 ([da9cb15](https://github.com/thymikee/jest-preset-angular/commit/da9cb15))
+* refactor: drop support for `typescript` <5.4 ([873ab73](https://github.com/thymikee/jest-preset-angular/commit/873ab73))
+* refactor: drop support for Angular <17 ([3a60492](https://github.com/thymikee/jest-preset-angular/commit/3a60492))
+* refactor: drop support for Node.js <18 ([aeef774](https://github.com/thymikee/jest-preset-angular/commit/aeef774))
+* refactor: remove `defaults` and `defaults-esm` presets ([94dd3b1](https://github.com/thymikee/jest-preset-angular/commit/94dd3b1))
+* refactor: remove `setup-jest` files ([6bf89a4](https://github.com/thymikee/jest-preset-angular/commit/6bf89a4))
+* refactor: remove global setup script with `ngcc` ([35819c9](https://github.com/thymikee/jest-preset-angular/commit/35819c9))
+
+
+### BREAKING CHANGES
+
+* Snapshot generation is affected by ([a6b908f](https://github.com/thymikee/jest-preset-angular/commit/a6b908f)). One should update component snapshots via `-u` Jest CLI option. Since this change only removes the root `id`, it shouldn't affect the quality of snapshots in general.
+* The supported `NodeJs` versions are `^18.19.1 || ^20.11.1 || >=22.0.0`.
+* The minimum supported version for Angular is **18** following Angular support policy https://angular.dev/reference/releases#actively-supported-versions
+* The minimum supported version for `jsdom` is **22**
+* The minimum supported version of `TypeScript` is **5.5** following the support version from Angular **18**
+* Running `ngcc` is not required for Angular **16**+ project
+* Use `createCjsPreset` as a replacement for `defaults` preset
+* Use `createEsmPreset` as a replacement for `defaults-esm` preset
+* Use `setupZoneTestEnv` as a replacement for zone test environment setup
+* Use `setupZonelessTestEnv` as a replacement for zoneless test environment setup
+
+
+
 ## [14.5.4](https://github.com/thymikee/jest-preset-angular/compare/v14.5.3...v14.5.4) (2025-03-31)
 
 
