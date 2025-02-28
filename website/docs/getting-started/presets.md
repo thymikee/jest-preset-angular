@@ -119,35 +119,3 @@ export default {
   ...presetConfig,
 } satisfies Config;
 ```
-
-### Legacy presets
-
-:::warning
-
-`jest-preset-angular` **DON'T RECOMMEND** to use legacy presets because this approach is not flexible to configure Jest configuration.
-These legacy presets will be removed in the next major release and users are **HIGHLY RECOMMENDED** to migrate to use the above utility functions.
-
-:::
-
-| Preset name                                                        | Description                                                                                                                       |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| `jest-preset-angular/presets/default`<br/>or `jest-preset-angular` | TypeScript, JavaScript and HTML files (`js`, `.ts`, `.html`) will be transformed by `jest-preset-angular` to **CommonJS** syntax. |
-| `jest-preset-angular/presets/defaults-esm`<br/>                    | TypeScript, JavaScript and HTML files (`js`, `.ts`, `.html`) will be transformed by `jest-preset-angular` to **ESM** syntax.      |
-
-#### Example
-
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
-import type { Config } from 'jest';
-
-export default {
-  preset: 'jest-preset-angular',
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
-import type { Config } from 'jest';
-
-export default {
-  preset: 'jest-preset-angular/presets/defaults-esm',
-} satisfies Config;
-```
