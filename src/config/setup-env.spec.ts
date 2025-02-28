@@ -47,7 +47,7 @@ jest.mock('@angular/core', () => {
     };
 });
 
-describe('setup-jest', () => {
+describe('Setup env utilities', () => {
     const assertOnInitTestEnv = (): void => {
         expect(mockGetTestBed).toHaveBeenCalled();
         expect(mockInitTestEnvironment.mock.calls[0][0][0]).toBeInstanceOf(BrowserDynamicTestingModuleStub);
@@ -64,33 +64,12 @@ describe('setup-jest', () => {
     };
 
     beforeEach(() => {
-        delete globalThis.ngJest;
         delete globalThis.TextEncoder;
         jest.clearAllMocks();
         jest.resetModules();
     });
 
-    describe('for CJS setup-jest, test environment initialization', () => {
-        it('should setup test environment with setup-jest file', async () => {
-            globalThis.ngJest = {
-                testEnvironmentOptions: {
-                    teardown: {
-                        destroyAfterEach: false,
-                        rethrowErrors: true,
-                    },
-                    errorOnUnknownElements: true,
-                    errorOnUnknownProperties: true,
-                },
-            };
-
-            await import('../../setup-jest.js');
-
-            expect(globalThis.TextEncoder).toBeDefined();
-            expect(mockZoneJs).toHaveBeenCalled();
-            expect(mockZoneJsTesting).toHaveBeenCalled();
-            assertOnInitTestEnv();
-        });
-
+    describe('for CJS, test environment initialization', () => {
         it('should setup test environment with setupZoneTestEnv()', async () => {
             const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
 
@@ -129,27 +108,7 @@ describe('setup-jest', () => {
         });
     });
 
-    describe('for ESM setup-jest, test environment initialization', () => {
-        it('should setup test environment with setup-jest file', async () => {
-            globalThis.ngJest = {
-                testEnvironmentOptions: {
-                    teardown: {
-                        destroyAfterEach: false,
-                        rethrowErrors: true,
-                    },
-                    errorOnUnknownElements: true,
-                    errorOnUnknownProperties: true,
-                },
-            };
-
-            await import('../../setup-jest.mjs');
-
-            expect(globalThis.TextEncoder).toBeDefined();
-            expect(mockZoneJs).toHaveBeenCalled();
-            expect(mockZoneJsTesting).toHaveBeenCalled();
-            assertOnInitTestEnv();
-        });
-
+    describe('for ESM, test environment initialization', () => {
         it('should setup test environment with setupZoneTestEnv()', async () => {
             const { setupZoneTestEnv } = await import('../../setup-env/zone/index.mjs');
 
