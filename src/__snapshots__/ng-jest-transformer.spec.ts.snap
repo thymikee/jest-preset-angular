@@ -14,7 +14,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "foo.mjs",
     "sourcemap": false,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -33,7 +33,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "node_modules/foo.js",
     "sourcemap": false,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -90,7 +90,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "foo.mjs",
     "sourcemap": true,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -109,7 +109,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "node_modules/foo.js",
     "sourcemap": true,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -128,7 +128,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "foo.mjs",
     "sourcemap": false,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -147,7 +147,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "node_modules/foo.js",
     "sourcemap": false,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -204,7 +204,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "foo.mjs",
     "sourcemap": true,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;
@@ -223,7 +223,7 @@ exports[`NgJestTransformer should use esbuild to process mjs or \`node_modules\`
     "sourcefile": "node_modules/foo.js",
     "sourcemap": true,
     "sourcesContent": true,
-    "target": "es2015",
+    "target": "es2016",
   },
 ]
 `;

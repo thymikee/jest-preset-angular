@@ -13,6 +13,6 @@ describe('NgJestConfig', () => {
         expect(compilerOptions.annotationsAs).toBe('decorators');
         expect(compilerOptions.enableResourceInlining).toBe(false);
         expect(compilerOptions.allowJs).toBe(true);
-        expect(compilerOptions.target).toBe(ScriptTarget.ES2015);
+        expect(compilerOptions.target).toBe(ScriptTarget.ES2022);
     });
 });
