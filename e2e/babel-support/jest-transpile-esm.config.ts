@@ -9,8 +9,7 @@ const config: JestConfigWithTsJest = {
             {
                 babelConfig: true,
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-                isolatedModules: true,
+                tsconfig: '<rootDir>/tsconfig-transpile-esm.spec.json',
             },
         ],
     },

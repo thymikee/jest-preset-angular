@@ -18,9 +18,8 @@ const config: JestConfigWithTsJest = {
             '<rootDir>/../../build/index.js',
             {
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+                tsconfig: '<rootDir>/tsconfig-transpile-esm.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
-                isolatedModules: true,
             },
         ],
     },

@@ -1,5 +1,5 @@
 import type { Config } from '@jest/types';
-import type { RawCompilerOptions } from 'ts-jest';
+import type { TsConfigJson } from 'type-fest';
 
 import { NgJestCompiler } from './ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
@@ -19,7 +19,7 @@ function omitLeadingWhitespace(text: string): string {
     return text.replace(/^\s+/gm, '');
 }
 
-function transformCjs(contents: string, compilerOptions: RawCompilerOptions = {}) {
+function transformCjs(contents: string, compilerOptions: TsConfigJson.CompilerOptions = {}) {
     const ngJestConfig = new NgJestConfig({
         cwd: process.cwd(),
         extensionsToTreatAsEsm: [],
@@ -27,8 +27,8 @@ function transformCjs(contents: string, compilerOptions: RawCompilerOptions = {}
         testRegex: [],
         globals: {
             'ts-jest': {
-                isolatedModules: true,
                 tsconfig: {
+                    isolatedModules: true,
                     sourceMap: false,
                     module: 'CommonJS',
                     target: 'ES2017',
