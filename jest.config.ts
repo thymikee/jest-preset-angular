@@ -9,7 +9,6 @@ const config: JestConfigWithTsJest = {
             '<rootDir>/build/index.js',
             {
                 tsconfig: 'tsconfig-base.spec.json',
-                isolatedModules: true,
             },
         ],
     },

@@ -13,8 +13,7 @@ const config: JestConfigWithTsJest = {
             '<rootDir>/../../build/index.js',
             {
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-                isolatedModules: true,
+                tsconfig: '<rootDir>/tsconfig-transpile-esm.spec.json',
             },
         ],
     },

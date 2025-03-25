@@ -34,9 +34,7 @@ describe('NgJestTransformer', () => {
     });
 
     test('should create NgJestCompiler and NgJestConfig instances', () => {
-        const tr = new NgJestTransformer({
-            isolatedModules: true,
-        });
+        const tr = new NgJestTransformer();
 
         // @ts-expect-error testing purpose
         const cs = tr._createConfigSet({
@@ -55,9 +53,7 @@ describe('NgJestTransformer', () => {
     });
 
     test('should not use esbuild to process js files which are not from `node_modules`', () => {
-        const tr = new NgJestTransformer({
-            isolatedModules: true,
-        });
+        const tr = new NgJestTransformer();
         tr.process(
             `
       const pi = parseFloat(3.124);
@@ -79,9 +75,7 @@ describe('NgJestTransformer', () => {
     });
 
     test('should not use esbuild to process tslib file', () => {
-        const tr = new NgJestTransformer({
-            isolatedModules: true,
-        });
+        const tr = new NgJestTransformer();
         tr.process(
             `
       const pi = parseFloat(3.124);
@@ -251,9 +245,7 @@ describe('NgJestTransformer', () => {
                 testRegex: [],
             },
         } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
-        const tr = new NgJestTransformer({
-            isolatedModules: true,
-        });
+        const tr = new NgJestTransformer();
 
         packageJson.version = '1.0.0';
         const cacheKey1 = tr.getCacheKey('export const foo = 1', 'file1.ts', transformCfg);

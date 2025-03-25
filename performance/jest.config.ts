@@ -1,14 +1,9 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+import type { Config } from 'jest';
 
-const config: JestConfigWithTsJest = {
+const config: Config = {
     testEnvironment: 'jsdom',
     transform: {
-        '^.+\\.(ts|mjs|js|html)$': [
-            '<rootDir>/../build/index.js',
-            {
-                isolatedModules: true,
-            },
-        ],
+        '^.+\\.(ts|mjs|js|html)$': '<rootDir>/../build/index.js',
     },
     transformIgnorePatterns: ['node_modules/(?!lodash-es)'],
 };

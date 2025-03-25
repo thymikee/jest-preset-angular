@@ -6,6 +6,6 @@ import jestCfg from './jest.config';
 export default {
     ...jestCfg,
     ...presets.createCjsPreset({
-        isolatedModules: true,
+        tsconfig: '<rootDir>/tsconfig-isolated.spec.json',
     }),
 } satisfies Config;

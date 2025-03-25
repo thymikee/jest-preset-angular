@@ -8,9 +8,8 @@ const config: JestConfigWithTsJest = {
             '<rootDir>/../../build/index.js',
             {
                 babelConfig: true,
-                tsconfig: '<rootDir>/tsconfig-cjs.spec.json',
+                tsconfig: '<rootDir>/tsconfig-transpile-cjs.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
-                isolatedModules: true,
             },
         ],
     },

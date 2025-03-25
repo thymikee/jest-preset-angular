@@ -11,9 +11,8 @@ const config: JestConfigWithTsJest = {
         '^.+\\.(ts|js|mjs|html)$': [
             '<rootDir>/../../build/index.js',
             {
-                tsconfig: '<rootDir>/tsconfig-cjs.spec.json',
+                tsconfig: '<rootDir>/tsconfig-transpile-cjs.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
-                isolatedModules: true,
             },
         ],
     },
