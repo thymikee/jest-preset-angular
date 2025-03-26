@@ -2,7 +2,7 @@ import os from 'node:os';
 import path from 'node:path';
 
 import { type TsJestAstTransformer, TsCompiler, type ConfigSet } from 'ts-jest';
-import type ts from 'typescript';
+import ts from 'typescript';
 
 import { angularJitApplicationTransform } from '../transformers/jit_transform';
 import { replaceResources } from '../transformers/replace-resources';
@@ -24,11 +24,11 @@ export class NgJestCompiler extends TsCompiler {
         const compilerOptions = { ...this._compilerOptions };
         const options: ts.CompilerOptions = compilerOptions
             ? // @ts-expect-error internal TypeScript API
-              this._ts.fixupCompilerOptions(compilerOptions, diagnostics)
+              ts.fixupCompilerOptions(compilerOptions, diagnostics)
             : {};
 
         // mix in default options
-        const defaultOptions = this._ts.getDefaultCompilerOptions();
+        const defaultOptions = ts.getDefaultCompilerOptions();
         for (const key in defaultOptions) {
             if (Object.prototype.hasOwnProperty.call(defaultOptions, key) && options[key] === undefined) {
                 options[key] = defaultOptions[key];
@@ -36,8 +36,15 @@ export class NgJestCompiler extends TsCompiler {
         }
 
         // @ts-expect-error internal TypeScript API
-        for (const option of this._ts.transpileOptionValueCompilerOptions) {
+        for (const option of ts.transpileOptionValueCompilerOptions) {
             options[option.name] = option.transpileOptionValue;
+        }
+
+        if (options.isolatedModules && options.emitDecoratorMetadata) {
+            this._logger.warn(`
+                TypeScript compiler option 'isolatedModules' may prevent the 'emitDecoratorMetadata' option from emitting all metadata.
+                The 'emitDecoratorMetadata' option is not required by Angular and can be removed if not explicitly required by the project.'
+            `);
         }
 
         /**
@@ -49,11 +56,7 @@ export class NgJestCompiler extends TsCompiler {
         // Filename can be non-ts file.
         options.allowNonTsExtensions = true;
 
-        const sourceFile = this._ts.createSourceFile(
-            filePath,
-            fileContent,
-            options.target ?? this._ts.ScriptTarget.Latest,
-        );
+        const sourceFile = ts.createSourceFile(filePath, fileContent, options.target ?? ts.ScriptTarget.Latest);
 
         let outputText: string | undefined;
         let sourceMapText: string | undefined;
@@ -82,7 +85,7 @@ export class NgJestCompiler extends TsCompiler {
             getDirectories: () => [],
         };
 
-        this.program = this._ts.createProgram([filePath], options, compilerHost);
+        this.program = ts.createProgram([filePath], options, compilerHost);
         this.program.emit(
             undefined,
             undefined,
@@ -97,17 +100,16 @@ export class NgJestCompiler extends TsCompiler {
     protected _makeTransformers(customTransformers: TsJestAstTransformer): ts.CustomTransformers {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const program = this.program!;
+        const transformerFactories = super._makeTransformers(customTransformers);
 
         return {
-            ...super._makeTransformers(customTransformers).after,
-            ...super._makeTransformers(customTransformers).afterDeclarations,
+            ...transformerFactories.after,
+            ...transformerFactories.afterDeclarations,
             before: [
-                ...customTransformers.before.map((beforeTransformer) =>
-                    beforeTransformer.factory(this, beforeTransformer.options),
-                ),
+                ...(transformerFactories.before ?? []),
                 replaceResources(program),
                 angularJitApplicationTransform(program),
-            ] as Array<ts.TransformerFactory<ts.SourceFile> | ts.CustomTransformerFactory>,
+            ],
         };
     }
 }
