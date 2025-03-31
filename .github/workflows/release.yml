@@ -27,6 +27,7 @@ jobs:
         run: |
           VERSION=$(node -p "require('./package.json').version")
           TAG="v$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           if [[ "$VERSION" == *rc* ]] || [[ "$VERSION" == *next* ]] || [[ "$VERSION" == *alpha* ]] || [[ "$VERSION" == *beta* ]]; then
             echo "is_prerelease=true" >> $GITHUB_OUTPUT
