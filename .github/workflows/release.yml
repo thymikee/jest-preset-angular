@@ -3,10 +3,51 @@ name: Release
 on:
   push:
     branches:
+      - main
       - next
 
 jobs:
+  verify_release:
+    name: Verify release 🔍
+    if: startsWith(github.event.head_commit.message, 'chore(release)')
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check_tag.outputs.version }}
+      is_prerelease: ${{ steps.check_tag.outputs.is_prerelease }}
+      tag_exists: ${{ steps.check_tag.outputs.tag_exists }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check tag details 🔍
+        id: check_tag
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v$VERSION"
+
+          if [[ "$VERSION" == *rc* ]] || [[ "$VERSION" == *next* ]] || [[ "$VERSION" == *alpha* ]] || [[ "$VERSION" == *beta* ]]; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+            echo "This is a prerelease version"
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+            echo "This is a stable release version"
+          fi
+
+          if [ $(git tag -l "$TAG") ]; then
+            echo "Tag $TAG already exists"
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG does not exist"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+          fi
+
   release_to_npm:
+    name: Release to NPM 🚀
+    needs: verify_release
+    if: needs.verify_release.outputs.tag_exists != 'true'
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -35,32 +76,10 @@ jobs:
           restore-keys: |
             ${{ inputs.os }}-${{ inputs.node }}-release
 
-      - id: version_check
-        name: Identify new version 🔍
+      - name: Create and push tag 🔖
+        id: create_tag
         run: |
-          PKG_VERSION=$(node -p "require('./package.json').version")
-          PKG_NAME=$(node -p "require('./package.json').name")
-          PUBLISHED_VERSION=$(npm view $PKG_NAME@next version 2>/dev/null || npm view $PKG_NAME version 2>/dev/null || echo "0.0.0")
-          echo "version=$PKG_VERSION" >> $GITHUB_OUTPUT
-          if [ "$PKG_VERSION" = "$PUBLISHED_VERSION" ]; then
-            echo "is_new_version=false" >> $GITHUB_OUTPUT
-          else
-            echo "is_new_version=true" >> $GITHUB_OUTPUT
-          fi
-
-      - id: release_type
-        name: Identify release type 🔍
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
-        run: echo "is_latest=$LATEST" >> $GITHUB_OUTPUT
-        env:
-          # Check on current `version` from the step above to decide whether to publish to `latest`/`next` npm tag
-          LATEST: ${{ contains(steps.version_check.outputs.version, '-next') != true && contains(steps.version_check.outputs.version, '-rc') != true }}
-
-      - id: create_tag
-        name: Create and push tag 🔖
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
-        run: |
-          TAG_NAME="v${{ steps.version_check.outputs.version }}"
+          TAG_NAME="v${{ needs.verify_release.outputs.version }}"
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           git tag $TAG_NAME
           git push origin $TAG_NAME
@@ -68,7 +87,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release 🚢
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -76,24 +94,22 @@ jobs:
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
           body: Please refer to [CHANGELOG.md](https://github.com/thymikee/jest-preset-angular/blob/${{ steps.create_tag.outputs.tag_name }}/CHANGELOG.md) for details.
           draft: false
-          prerelease: ${{ steps.release_type.outputs.is_latest != 'true' }}
+          prerelease: ${{ needs.verify_release.outputs.is_prerelease == 'true' }}
 
       - name: Install 🔧
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         run: yarn --immutable
 
       - name: Build 🔨
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' }}
         run: yarn build
 
       - name: Publish with latest tag 🚀
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' && steps.release_type.outputs.is_latest == 'true' }}
+        if: needs.verify-release.outputs.is_prerelease != 'true'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish with next tag 🚀
-        if: ${{ steps.version_check.outputs.is_new_version == 'true' && steps.release_type.outputs.is_latest != 'true' }}
+        if: needs.verify_release.outputs.is_prerelease == 'true'
         run: npm publish --access public --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
