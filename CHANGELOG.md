@@ -1,3 +1,13 @@
+## [14.5.4](https://github.com/thymikee/jest-preset-angular/compare/v14.5.3...v14.5.4) (2025-03-31)
+
+
+### Bug Fixes
+
+* fix: warn when using both `isolatedModules` and `emitDecoratorMetadata` (#3029) ([51db8f4](https://github.com/thymikee/jest-preset-angular/commit/51db8f4)), closes [#3029](https://github.com/thymikee/jest-preset-angular/issues/3029)
+* update dependency ts-jest to v29.3.0 ([1d8415d](https://github.com/thymikee/jest-preset-angular/commit/1d8415d))
+
+
+
 ## [14.5.3](https://github.com/thymikee/jest-preset-angular/compare/v14.5.2...v14.5.3) (2025-02-24)
 
 
