@@ -70,7 +70,7 @@ Reference: https://github.com/angular/material2/issues/7101
 This means, that a file is not transformed through `TypeScript` compiler, e.g. because it is a `JS` file with `TS` syntax, or
 it is published to npm as uncompiled source files. Here's what you can do. A typical Jest error is like this:
 
-```shell
+```bash
 ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import * as i0 from '@angular/core';
                                                                                                                                            ^^^^^^
     SyntaxError: Cannot use import statement outside a module
@@ -78,16 +78,7 @@ it is published to npm as uncompiled source files. Here's what you can do. A typ
 
 To fix the issue, one needs to adjust `transformIgnorePatterns` whitelist:
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
-import type { Config } from 'jest';
-
-export default {
-  // ...other options
-  transformIgnorePatterns: ['node_modules/(?!@angular|@ngrx)'],
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {
@@ -138,24 +129,7 @@ This issue happens because Jest uses `Babel` behind the screen to create coverag
 
 - Define the usage of `Babel` in Jest config via `ts-jest` option, for example
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
-import type { Config } from 'jest';
-
-export default {
-  transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': [
-      'jest-preset-angular',
-      {
-        //...
-        babelConfig: true,
-        //...
-      },
-    ],
-  },
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {
@@ -182,7 +156,7 @@ When using a javascript SDK/Library in Angular, some javascript methods could fa
 
 A typical error could appear as:
 
-```shell
+```bash
 TypeError: Cannot read properties of undefined (reading 'FacebookAuthProvider')
     import firebase from 'firebase/compat/app';
 
@@ -195,7 +169,7 @@ Some nested dependency tree could trigger some errors while running the tests be
 
 A typical error could appear as:
 
-```shell
+```bash
 node_modules\@angular\fire\node_modules\@firebase\firestore\dist\index.esm2017.js:12705
                     function (t, e) {
                     ^^^^^^^^
@@ -248,22 +222,12 @@ const myResolver: SyncResolver = (path, options) => {
 export = myResolver;
 ```
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {
   //...
   resolver: '<rootDir>/src/jest.resolver.ts',
-  //...
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
-import type { Config } from 'jest';
-
-export default {
-  //...
-  resolver: '<rootDir>/src/jest.resolver.js',
   //...
 } satisfies Config;
 ```

@@ -14,15 +14,7 @@ npm install -D jsdom@<desired-version>
 
 - In Jest config, set the `testEnvironment` like following
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
-import type { Config } from 'jest';
-
-export default {
-  testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {

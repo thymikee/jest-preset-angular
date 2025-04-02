@@ -15,21 +15,7 @@ the old `moduleNameMapper` configuration, you can put this into your Jest config
 
 :::
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
-import type { Config } from 'jest';
-
-export default {
-  //...
-  moduleNameMapper: {
-    '^src/(.*)$': '<rootDir>/src/$1',
-    '^app/(.*)$': '<rootDir>/src/app/$1',
-    '^assets/(.*)$': '<rootDir>/src/assets/$1',
-    '^environments/(.*)$': '<rootDir>/src/environments/$1',
-  },
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {
@@ -49,22 +35,6 @@ Since **v11.0.0**, `jest-preset-angular` introduced the usage of `esbuild` to pr
 will be processed by `esbuild` in `jest-preset-angular`. To configure extra files to process with `esbuild`, one can do the following:
 
 ```ts title="jest.config.ts"
-import type { Config } from 'jest';
-
-export default {
-  //...
-  transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': [
-      'jest-preset-angular',
-      {
-        processWithEsbuild: [<glob_to_files>]
-      }
-    ]
-  }
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
 import type { Config } from 'jest';
 
 export default {
