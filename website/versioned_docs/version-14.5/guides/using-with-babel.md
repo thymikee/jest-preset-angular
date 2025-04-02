@@ -27,19 +27,7 @@ _Note: do not use a `.babelrc` file otherwise the packages that you specify in t
 
 3. Update Jest configuration (by default TypeScript process untranspiled JS files which is source of the problem):
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
-import type { Config } from 'jest';
-
-export default {
-  //...
-  transform: {
-    '^.+\\.(ts|html)$': 'jest-preset-angular',
-    '^.+\\.js$': 'babel-jest',
-  },
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {

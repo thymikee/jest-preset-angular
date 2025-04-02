@@ -107,7 +107,7 @@ type EsmPresetType = {
 
 #### Example:
 
-```ts title="jest.config.mts"
+```ts title="jest.config.ts"
 import presets from 'jest-preset-angular/presets';
 import type { Config } from 'jest';
 
@@ -136,18 +136,10 @@ These legacy presets will be removed in the next major release and users are **H
 
 #### Example
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 
 export default {
   preset: 'jest-preset-angular',
-} satisfies Config;
-```
-
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
-import type { Config } from 'jest';
-
-export default {
-  preset: 'jest-preset-angular/presets/defaults-esm',
 } satisfies Config;
 ```

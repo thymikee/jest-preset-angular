@@ -32,7 +32,7 @@ You can customize the environment by providing options as function arguments.
 
 - Create a Jest setup file:
 
-```ts title="setup-jest.ts" tab={"label": "TypeScript CJS"}
+```ts title="setup-jest.ts" tab={"label": "Setup file CJS"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
 
 setupZoneTestEnv({
@@ -40,7 +40,7 @@ setupZoneTestEnv({
 });
 ```
 
-```ts title="setup-jest.ts" tab={"label": "TypeScript ESM"}
+```ts title="setup-jest.ts" tab={"label": "Setup file ESM"}
 import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
 
 setupZoneTestEnv({
@@ -50,7 +50,7 @@ setupZoneTestEnv({
 
 - Update your Jest configuration:
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+```ts title="jest.config.ts" tab={"label": "Jest config CJS"}
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
@@ -60,7 +60,7 @@ export default {
 } satisfies Config;
 ```
 
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts" tab={"label": "Jest config ESM"}
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
@@ -85,7 +85,7 @@ You can customize the environment by providing options as function arguments.
 
 - Create a Jest setup file:
 
-```ts title="setup-jest.ts" tab={"label": "TypeScript CJS"}
+```ts title="setup-jest.ts" tab={"label": "Setup file CJS"}
 import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless';
 
 setupZonelessTestEnv({
@@ -93,7 +93,7 @@ setupZonelessTestEnv({
 });
 ```
 
-```ts title="setup-jest.ts" tab={"label": "TypeScript ESM"}
+```ts title="setup-jest.ts" tab={"label": "Setup file ESM"}
 import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless/index.mjs';
 
 setupZonelessTestEnv({
@@ -103,7 +103,7 @@ setupZonelessTestEnv({
 
 - Update your Jest configuration:
 
-```ts title="jest.config.ts" tab={"label": "TypeScript CJS"}
+```ts title="jest.config.ts" tab={"label": "Jest config CJS"}
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
@@ -113,7 +113,7 @@ export default {
 } satisfies Config;
 ```
 
-```ts title="jest.config.mts" tab={"label": "TypeScript ESM"}
+```ts title="jest.config.ts" tab={"label": "Jest config ESM"}
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 

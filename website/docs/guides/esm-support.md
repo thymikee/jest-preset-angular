@@ -3,54 +3,125 @@ id: esm-support
 title: ESM Support
 ---
 
-To use `jest-preset-angular` with ESM support, you'll first need to check [ESM Jest documentation](https://jestjs.io/docs/en/ecmascript-modules).
+:::important
 
-`jest-preset-angular` supports ESM via a `ts-jest` config option [useESM](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/useESM) in combination with jest config option [extensionsToTreatAsEsm](https://jestjs.io/docs/en/configuration#extensionstotreatasesm-arraystring).
+Jest will take into account of the following things when working with ESM:
 
-There is also a [preset](../getting-started/presets.md) to work with ESM.
-
-:::tip
-
-We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main/examples) which contains base ESM setup to work with Jest and Angular.
+- [ESM runtime](https://jestjs.io/docs/en/ecmascript-modules)
+- The value of `module` option in tsconfig file is either:
+  - `Node16/Node18/NodeNext`: this **MUST** go together with `type: "module"` in `package.json`.
+  - Otherwise, the value **MUST BE** one of the ES values, e.g. `ES2015`, `ES2020` etc...
 
 :::
 
-Besides, there is utility function to ensure that Jest can set up test environment properly.
+One can configure `jest-preset-angular` to work with Jest in ESM mode by following the steps below.
 
-```ts title="setup-jest.ts"
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
+:::tip
 
-setupZoneTestEnv();
+We have [**EXAMPLE APPS**](https://github.com/thymikee/jest-preset-angular/tree/main/examples) which contains base ESM setup to work with Jest and Angular.
+
+:::
+
+import TOCInline from '@theme/TOCInline';
+
+<TOCInline toc={toc.slice(0)} />
+
+---
+
+## Configure Jest runtime
+
+:::warning
+
+Jest runtime currently has a few issues related to support ESM:
+
+- Not taking into account of `type: "module"` field in `package.json` yet to run as ESM mode.
+- Mocking ES modules are not supported yet, track progress here https://github.com/jestjs/jest/pull/10976
+
+Overall progress and discussion can be found at https://github.com/jestjs/jest/issues/9430
+
+:::
+
+:::info
+
+If one is using Jest config in TypeScript, one should install `ts-node` as a dev dependency.
+
+```bash npm2yarn
+
+npm install -D ts-node
+
 ```
 
-### Examples
+:::
 
-#### Manual configuration
+Execute Jest with with `--experimental-vm-modules` flag for `NodeJs`
 
-```ts title="jest.config.mts"
-import type { Config } from 'jest';
+```bash
 
-export default {
-  //...
-  extensionsToTreatAsEsm: ['.ts'],
-  moduleNameMapper: {
-    tslib: 'tslib/tslib.es6.js',
-    '^rxjs': '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
-  },
-  transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': [
-      'jest-preset-angular',
-      {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        stringifyContentPathRegex: '\\.(html|svg)$',
-        useESM: true,
-      },
-    ],
-  },
-} satisfies Config;
+node --experimental-vm-modules node_modules/jest/bin/jest.js
+
 ```
 
-#### Use ESM presets
+:::tip
+
+Alternative way for `Yarn` users:
+
+```bash
+
+yarn node --experimental-vm-modules $(yarn bin jest)
+
+```
+
+This command will also work if you use `Yarn Plug'n'Play.`
+
+:::
+
+## Configure `tsconfig`
+
+One can choose **EITHER ONE** of the following options for `tsconfig`:
+
+### Using ES module values
+
+```json title="tsconfig.spec.json"
+{
+  "compilerOptions": {
+    "module": "ESNext", // or any values starting with "es" or "ES"
+    "target": "ESNext",
+    "esModuleInterop": true
+  }
+}
+```
+
+### Using hybrid module values
+
+:::info
+
+Hybrid module values requires `type` field in `package.json` to be set explicitly to:
+
+- `commonjs` for `CommonJS` code
+- `module` for `ESM` code
+
+See official TypeScript documentation at https://www.typescriptlang.org/docs/handbook/modules/reference.html#node16-node18-nodenext
+
+:::
+
+:::important
+
+Currently, the code transpiler which is used by `jest-preset-angular` **ONLY** supports hybrid values with `isolatedModules: true`
+
+:::
+
+```json title="tsconfig.spec.json"
+{
+  "compilerOptions": {
+    "module": "Node16", // or Node18/NodeNext
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "isolatedModules": true
+  }
+}
+```
+
+## Configure Jest config
 
 :::tip
 
@@ -63,7 +134,7 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 
 :::
 
-```ts title="jest.config.mts"
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
@@ -76,3 +147,13 @@ export default {
   },
 } satisfies Config;
 ```
+
+## Resolve `.mjs/.mts` extensions
+
+:::info
+
+This step is optional and only needed if you are using `.mjs` or `.mts` extensions in your code.
+
+:::
+
+See an example one from [ts-jest](https://kulshekhar.github.io/ts-jest/docs/guides/esm-support)
