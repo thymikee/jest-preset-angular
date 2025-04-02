@@ -10,9 +10,6 @@ on:
     paths:
       - 'website/**'
       - '.github/**'
-      - '.yarn/**'
-      - .yarnrc.yml
-      - .npmignore
       - .gitignore
 
 concurrency:
@@ -20,7 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  checks:
+  check:
+    name: Check documentation 🔍
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +48,8 @@ jobs:
         run: yarn build
         working-directory: website
 
-  build-and-deploy:
+  deploy:
+    name: Deploy documentation 🚀
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
