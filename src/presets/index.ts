@@ -1,5 +1,7 @@
 import type { JestConfigWithTsJest, TsJestTransformerOptions } from 'ts-jest';
 
+import { createCjsPreset } from './create-cjs-preset';
+import { createEsmPreset } from './create-esm-preset';
 import snapshotSerializers from '../serializers';
 
 const baseConfig: Pick<JestConfigWithTsJest, 'testEnvironment' | 'moduleFileExtensions' | 'snapshotSerializers'> = {
@@ -39,6 +41,33 @@ const defaultEsmPreset = {
     transformIgnorePatterns: ['node_modules/(?!tslib)'],
 };
 
-export { defaultPreset, defaultEsmPreset, defaultTransformerOptions };
-export { createCjsPreset } from './create-cjs-preset';
-export { createEsmPreset } from './create-esm-preset';
+const presetEntries = {
+    get defaults() {
+        console.warn(`
+            This preset is DEPRECATED and will be removed in the next major release.
+            Please use "createCjsPreset" function instead. See documentation at https://thymikee.github.io/jest-preset-angular/docs/getting-started/presets#createcjspresetoptions
+        `);
+
+        return defaultPreset;
+    },
+    get defaultsESM() {
+        console.warn(`
+            This preset is DEPRECATED and will be removed in the next major release.
+            Please use "createEsmPreset" function instead. See documentation at https://thymikee.github.io/jest-preset-angular/docs/getting-started/presets#createesmpresetoptions
+        `);
+
+        return defaultEsmPreset;
+    },
+    get defaultTransformerOptions() {
+        console.warn(`
+            These options are DEPRECATED and will be removed in the next major release.
+            Please use "createCjsPreset" or "createEsmPreset" function instead. See documentation at https://thymikee.github.io/jest-preset-angular/docs/getting-started/presets
+        `);
+
+        return defaultTransformerOptions;
+    },
+    createCjsPreset,
+    createEsmPreset,
+};
+
+export = presetEntries;

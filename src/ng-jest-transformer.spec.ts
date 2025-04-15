@@ -1,5 +1,6 @@
 import { transformSync } from 'esbuild';
 import { TsJestTransformer } from 'ts-jest';
+import type { TsConfigJson } from 'type-fest';
 import { transpileModule } from 'typescript';
 
 import packageJson from '../package.json';
@@ -98,19 +99,13 @@ describe('NgJestTransformer', () => {
 
     test.each([
         {
-            tsconfig: {
-                sourceMap: false,
-            },
+            sourceMap: false,
         },
         {
-            tsconfig: {
-                target: 'es2016',
-            },
+            target: 'es2016',
         },
-        {
-            tsconfig: {},
-        },
-    ])('should use esbuild to process mjs or `node_modules` js files to CJS codes', ({ tsconfig }) => {
+        {},
+    ])('should use esbuild to process mjs or `node_modules` js files to CJS codes', (tsconfig) => {
         const transformCfg = {
             cacheFS: new Map(),
             config: {
@@ -126,7 +121,7 @@ describe('NgJestTransformer', () => {
             },
         } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         const tr = new NgJestTransformer({
-            tsconfig,
+            tsconfig: tsconfig as TsConfigJson,
         });
         tr.process(
             `
@@ -179,19 +174,13 @@ describe('NgJestTransformer', () => {
 
     test.each([
         {
-            tsconfig: {
-                sourceMap: false,
-            },
+            sourceMap: false,
         },
         {
-            tsconfig: {
-                target: 'es2016',
-            },
+            target: 'es2016',
         },
-        {
-            tsconfig: {},
-        },
-    ])('should use esbuild to process mjs or `node_modules` js files to ESM codes', ({ tsconfig }) => {
+        {},
+    ])('should use esbuild to process mjs or `node_modules` js files to ESM codes', (tsconfig) => {
         const transformCfg = {
             cacheFS: new Map(),
             config: {
@@ -208,7 +197,7 @@ describe('NgJestTransformer', () => {
             supportsStaticESM: true,
         } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         const tr = new NgJestTransformer({
-            tsconfig,
+            tsconfig: tsconfig as TsConfigJson,
             useESM: true,
         });
         tr.process(

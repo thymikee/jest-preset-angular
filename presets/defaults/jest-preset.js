@@ -1,1 +1,1 @@
-module.exports = require('..').defaults;
+module.exports = require('../../build/presets').defaultPreset;

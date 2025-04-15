@@ -46,10 +46,10 @@ Update `setupFilesAfterEnv` in your Jest config as following:
 
 ```ts title="jest.config.ts"
 import type { Config } from 'jest';
-import presets from 'jest-preset-angular/presets';
+import { createCjsPreset } from 'jest-preset-angular/presets';
 
 export default {
-  ...presets.createCjsPreset(),
+  ...createCjsPreset(),
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 } satisfies Config;
 ```

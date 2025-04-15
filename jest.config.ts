@@ -1,6 +1,6 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+import type { Config } from 'jest';
 
-const config: JestConfigWithTsJest = {
+const config: Config = {
     modulePathIgnorePatterns: ['examples/.*', 'website/.*'],
     testMatch: ['<rootDir>/src/**/*.spec.ts'],
     testEnvironment: 'jsdom',

@@ -1,1 +1,1 @@
-module.exports = require('../index').defaultsESM;
+module.exports = require('../../build/presets').defaultsESM;

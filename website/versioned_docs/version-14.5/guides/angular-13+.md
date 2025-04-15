@@ -29,10 +29,10 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 ```ts title="jest.config.ts"
 import type { Config } from 'jest';
-import presets from 'jest-preset-angular/presets';
+import { createCjsPreset } from 'jest-preset-angular/presets';
 
 export default {
-  ...presets.createCjsPreset(),
+  ...createCjsPreset(),
 } satisfies Config;
 ```
 
@@ -44,12 +44,12 @@ ES Modules support is new and may encounter issues. See [example-apps](https://g
 
 ```ts title="jest.config.ts"
 import type { Config } from 'jest';
-import presets from 'jest-preset-angular/presets';
+import { createEsmPreset } from 'jest-preset-angular/presets';
 import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
 export default {
-  ...presets.createEsmPreset(),
+  ...createEsmPreset(),
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
