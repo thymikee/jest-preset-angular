@@ -65,6 +65,7 @@ describe('setup-jest', () => {
 
     beforeEach(() => {
         delete globalThis.ngJest;
+        // @ts-expect-error testing purpose
         delete globalThis.TextEncoder;
         jest.clearAllMocks();
         jest.resetModules();

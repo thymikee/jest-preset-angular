@@ -136,11 +136,11 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 
 ```ts title="jest.config.ts"
 import type { Config } from 'jest';
-import presets from 'jest-preset-angular/presets';
+import { createEsmPreset } from 'jest-preset-angular/presets';
 
 export default {
   //...
-  ...presets.createEsmPreset(),
+  ...createEsmPreset(),
   moduleNameMapper: {
     tslib: 'tslib/tslib.es6.js',
     '^rxjs': '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',

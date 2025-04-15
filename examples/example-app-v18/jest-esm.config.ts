@@ -1,9 +1,10 @@
-import ngPreset from 'jest-preset-angular/presets';
-import { type JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest';
+import type { Config } from 'jest';
+import { createEsmPreset } from 'jest-preset-angular/presets';
+import { pathsToModuleNameMapper } from 'ts-jest';
 
 import tsconfig from './tsconfig.json';
 
-const esmPreset = ngPreset.createEsmPreset();
+const esmPreset = createEsmPreset();
 
 export default {
     ...esmPreset,
@@ -23,4 +24,4 @@ export default {
             },
         ],
     },
-} satisfies JestConfigWithTsJest;
+} satisfies Config;

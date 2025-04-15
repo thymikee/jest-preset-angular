@@ -58,10 +58,10 @@ type CjsPresetType = {
 #### Example:
 
 ```ts title="jest.config.ts"
-import presets from 'jest-preset-angular/presets';
+import { createCjsPreset } from 'jest-preset-angular/presets';
 import type { Config } from 'jest';
 
-const presetConfig = presets.createCjsPreset({
+const presetConfig = createCjsPreset({
   //...options
 });
 
@@ -108,10 +108,10 @@ type EsmPresetType = {
 #### Example:
 
 ```ts title="jest.config.ts"
-import presets from 'jest-preset-angular/presets';
+import { createEsmPreset } from 'jest-preset-angular/presets';
 import type { Config } from 'jest';
 
-const presetConfig = presets.createEsmPreset({
+const presetConfig = createEsmPreset({
   //...options
 });
 

@@ -1,7 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-
-import { defaultPreset, defaultEsmPreset, createCjsPreset, createEsmPreset } from './';
+import presets, {
+    defaults as defaultPreset,
+    defaultsESM as defaultEsmPreset,
+    createCjsPreset,
+    createEsmPreset,
+    defaultTransformerOptions,
+} from '../../presets';
 
 describe('Jest presets', () => {
     test.each([defaultPreset, defaultEsmPreset])(
@@ -35,7 +38,13 @@ describe('Jest presets', () => {
         ).toMatchSnapshot();
     });
 
-    test('should have the correct types which come from `ts-jest`', () => {
-        expect(fs.readFileSync(path.join(__dirname, '..', '..', 'presets/index.d.ts'), 'utf-8')).toMatchSnapshot();
+    it('should allow default export', () => {
+        expect(presets).toEqual({
+            defaults: defaultPreset,
+            defaultsESM: defaultEsmPreset,
+            defaultTransformerOptions,
+            createCjsPreset,
+            createEsmPreset,
+        });
     });
 });
