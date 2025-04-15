@@ -5,13 +5,15 @@
     "group:docusaurusMonorepo",
     ":prHourlyLimit2",
     ":semanticCommitTypeAll(build)",
+    "helpers:pinGitHubActionDigests",
     "workarounds:all"
   ],
-  "dependencyDashboard": false,
   "timezone": "UTC",
   "rangeStrategy": "bump",
   "separateMajorMinor": true,
   "prConcurrentLimit": 2,
+  "commitMessagePrefix": "build(deps):",
+  "dependencyDashboard": false,
   "postUpdateOptions": ["yarnDedupeHighest"],
   "ignoreDeps": [
     "@mdx-js/react",
