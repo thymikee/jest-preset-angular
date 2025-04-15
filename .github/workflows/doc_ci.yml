@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4 # If you're using actions/checkout@v3 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4 # If you're using actions/checkout@v3 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
           fetch-depth: 20
@@ -31,7 +31,7 @@ jobs:
 
       - name: Restore cached node modules ♻️
         id: cache-yarn
-        uses: actions/cache@v4
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
         with:
           path: |
             website/node_modules
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4 # If you're using actions/checkout@v3 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4 # If you're using actions/checkout@v3 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
           fetch-depth: 20
@@ -62,7 +62,7 @@ jobs:
 
       - name: Restore cached node modules ♻️
         id: cache-yarn
-        uses: actions/cache@v4
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
         with:
           path: |
             website/node_modules
@@ -80,7 +80,7 @@ jobs:
         working-directory: website
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.7.3
+        uses: JamesIves/github-pages-deploy-action@6c2d9db40f9296374acc17b90404b6e8864128c8 # v4.7.3
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: website/build # The folder the action should deploy.
