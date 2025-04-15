@@ -57,22 +57,12 @@ setupZoneTestEnv({
 
 - Update your Jest configuration:
 
-```ts title="jest.config.ts" tab={"label": "Jest config CJS"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
 export default {
   ...presets.createCjsPreset(),
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-} satisfies Config;
-```
-
-```ts title="jest.config.ts" tab={"label": "Jest config ESM"}
-import type { Config } from 'jest';
-import presets from 'jest-preset-angular/presets';
-
-export default {
-  ...presets.createEsmPreset(),
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 } satisfies Config;
 ```

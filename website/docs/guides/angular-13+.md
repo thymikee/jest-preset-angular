@@ -27,21 +27,12 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 - If one is using the default preset as following:
 
-```ts title="jest.config.ts" tab={"label": "Jest config CJS"}
+```ts title="jest.config.ts"
 import type { Config } from 'jest';
 import presets from 'jest-preset-angular/presets';
 
 export default {
   ...presets.createCjsPreset(),
-} satisfies Config;
-```
-
-```ts title="jest.config.ts" tab={"label": "Jest config ESM"}
-import type { Config } from 'jest';
-import presets from 'jest-preset-angular/presets';
-
-export default {
-  ...presets.createEsmPreset(),
 } satisfies Config;
 ```
 
