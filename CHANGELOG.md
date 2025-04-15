@@ -1,3 +1,12 @@
+## [14.5.5](https://github.com/thymikee/jest-preset-angular/compare/v14.5.4...v14.5.5) (2025-04-15)
+
+
+### Bug Fixes
+
+* fix: allow name exports for `presets` subpath ([9100baf](https://github.com/thymikee/jest-preset-angular/commit/9100baf))
+
+
+
 ## [14.5.4](https://github.com/thymikee/jest-preset-angular/compare/v14.5.3...v14.5.4) (2025-03-31)
 
 
