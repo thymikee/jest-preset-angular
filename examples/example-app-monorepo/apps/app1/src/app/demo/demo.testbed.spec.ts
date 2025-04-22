@@ -4,6 +4,8 @@ import { FormsModule, NgControl, NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { jest } from '@jest/globals';
 
+import { click } from '../../testing';
+
 import {
     BankAccountComponent,
     BankAccountParentComponent,
@@ -27,7 +29,6 @@ import {
     TestViewProvidersComponent,
     ValueService,
 } from './demo';
-import { click } from '../../testing';
 
 // eslint-disable-next-line jest/no-export
 export class NotProvided extends ValueService {

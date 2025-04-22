@@ -20,7 +20,7 @@ const executeTest = (projectPath) => {
     }
 
     logger.log();
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     logger.log('='.repeat(20), `${projectPkg.name}@${projectPkg.version}`, 'in', projectPath, '='.repeat(20));
     logger.log();
 

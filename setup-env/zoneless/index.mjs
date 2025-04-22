@@ -39,10 +39,8 @@ const setupZonelessTestEnv = (options) => {
 
     throw Error(
         'Cannot find provideExperimentalZonelessChangeDetection() to setup zoneless testing environment. ' +
-        'Please use setupZoneTestEnv() from jest-preset-angular/setup-env/setup-zone-env.mjs instead.',
+            'Please use setupZoneTestEnv() from jest-preset-angular/setup-env/setup-zone-env.mjs instead.',
     );
 };
 
-export {
-  setupZonelessTestEnv
-}
+export { setupZonelessTestEnv };

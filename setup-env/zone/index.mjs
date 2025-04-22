@@ -17,6 +17,4 @@ const setupZoneTestEnv = (options) => {
     );
 };
 
-export {
-  	setupZoneTestEnv,
-}
+export { setupZoneTestEnv };

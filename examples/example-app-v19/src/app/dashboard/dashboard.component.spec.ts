@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { jest } from '@jest/globals';
 import { of } from 'rxjs';
 
-import { DashboardHeroComponent } from './dashboard-hero.component';
-import { DashboardComponent } from './dashboard.component';
 import { click } from '../../testing';
 import { HeroService } from '../model';
 import { getTestHeroes } from '../model/testing/test-heroes';
+
+import { DashboardHeroComponent } from './dashboard-hero.component';
+import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent (deep)', () => {
     let fixture: ComponentFixture<DashboardComponent>;

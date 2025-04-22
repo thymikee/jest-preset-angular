@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getTestHeroes } from './test-heroes';
 import { asyncData } from '../../../testing';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+
+import { getTestHeroes } from './test-heroes';
 
 @Injectable()
 export class TestHeroService extends HeroService {

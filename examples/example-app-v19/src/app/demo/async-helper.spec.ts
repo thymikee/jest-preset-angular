@@ -60,7 +60,6 @@ describe('Angular async helper', () => {
             p.catch(() => {
                 actuallyDone = true;
 
-                // eslint-disable-next-line jest/no-conditional-expect
                 expect(actuallyDone).toBeTruthy();
             });
         }));

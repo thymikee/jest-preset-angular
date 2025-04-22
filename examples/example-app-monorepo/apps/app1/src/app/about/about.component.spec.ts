@@ -3,8 +3,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserService } from 'libs/user/src/lib/user.service';
 
-import { AboutComponent } from './about.component';
 import { TwainService } from '../twain/twain.service';
+
+import { AboutComponent } from './about.component';
 
 let fixture: ComponentFixture<AboutComponent>;
 

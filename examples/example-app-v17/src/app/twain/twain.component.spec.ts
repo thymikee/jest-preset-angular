@@ -3,9 +3,10 @@ import { jest } from '@jest/globals';
 import { firstValueFrom, of, throwError } from 'rxjs';
 import { last, tap } from 'rxjs/operators';
 
+import { asyncData } from '../../testing';
+
 import { TwainComponent } from './twain.component';
 import { TwainService } from './twain.service';
-import { asyncData } from '../../testing';
 
 describe('TwainComponent', () => {
     let fixture: ComponentFixture<TwainComponent>;

@@ -8,7 +8,7 @@ import BaseEnv from './jest-env-jsdom-abstract';
 export default class JestJSDOMEnvironment extends BaseEnv {
     constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
         super(config, context, JSDOM);
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
+
         rootLogger.debug('JSDOM version: ', require('jsdom/package.json').version);
     }
 }

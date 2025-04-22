@@ -137,7 +137,7 @@ export default abstract class BaseJSDOMEnvironment implements JestEnvironment<nu
         });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+     
     async setup(): Promise<void> {}
 
     async teardown(): Promise<void> {

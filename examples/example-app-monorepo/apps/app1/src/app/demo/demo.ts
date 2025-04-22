@@ -104,12 +104,7 @@ export class BankAccountParentComponent {
 @Component({
     standalone: true,
     selector: 'lightswitch-comp',
-    template: ` <button
-            type="button"
-            (click)="clicked()"
-        >
-            Click me!
-        </button>
+    template: ` <button type="button" (click)="clicked()">Click me!</button>
         <span>{{ message }}</span>`,
 })
 export class LightswitchComponent {
@@ -208,12 +203,7 @@ export class IoComponent {
     template: `
         <p *ngIf="!selectedHero"><i>Click to select a hero</i></p>
         <p *ngIf="selectedHero">The selected hero is {{ selectedHero.name }}</p>
-        <io-comp
-            *ngFor="let hero of heroes"
-            [hero]="hero"
-            (selected)="onSelect($event)"
-        >
-        </io-comp>
+        <io-comp *ngFor="let hero of heroes" [hero]="hero" (selected)="onSelect($event)"> </io-comp>
     `,
     imports: [IoComponent, sharedImports],
 })
@@ -295,10 +285,7 @@ export class NeedsContentComponent {
         <div>
             <label for="child-value"
                 >Child value:
-                <input
-                    id="child-value"
-                    [(ngModel)]="childValue"
-                />
+                <input id="child-value" [(ngModel)]="childValue" />
             </label>
         </div>
         <p><i>Change log:</i></p>
@@ -354,21 +341,10 @@ export class MyIfChildComponent implements OnInit, OnChanges, OnDestroy {
         <h3>MyIfParentComp</h3>
         <label for="parent"
             >Parent value:
-            <input
-                id="parent"
-                [(ngModel)]="parentValue"
-            />
+            <input id="parent" [(ngModel)]="parentValue" />
         </label>
-        <button
-            type="button"
-            (click)="clicked()"
-        >
-            {{ toggleLabel }} Child</button
-        ><br />
-        <div
-            *ngIf="showChild"
-            style="margin: 4px; padding: 4px; background-color: aliceblue;"
-        >
+        <button type="button" (click)="clicked()">{{ toggleLabel }} Child</button><br />
+        <div *ngIf="showChild" style="margin: 4px; padding: 4px; background-color: aliceblue;">
             <my-if-child-1 [(value)]="parentValue"></my-if-child-1>
         </div>
     `,
@@ -438,19 +414,10 @@ export class ShellComponent {}
         <hr />
         <h3>Needs Content</h3>
         <needs-content #nc>
-            <child-1
-                #content
-                text="My"
-            ></child-1>
-            <child-2
-                #content
-                text="dog"
-            ></child-2>
+            <child-1 #content text="My"></child-1>
+            <child-2 #content text="dog"></child-2>
             <child-2 text="has"></child-2>
-            <child-3
-                #content
-                text="fleas"
-            ></child-3>
+            <child-3 #content text="fleas"></child-3>
             <div #content>!</div>
         </needs-content>
     `,

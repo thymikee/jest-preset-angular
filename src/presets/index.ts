@@ -1,8 +1,9 @@
 import type { JestConfigWithTsJest, TsJestTransformerOptions } from 'ts-jest';
 
+import snapshotSerializers from '../serializers';
+
 import { createCjsPreset } from './create-cjs-preset';
 import { createEsmPreset } from './create-esm-preset';
-import snapshotSerializers from '../serializers';
 
 const baseConfig: Pick<JestConfigWithTsJest, 'testEnvironment' | 'moduleFileExtensions' | 'snapshotSerializers'> = {
     testEnvironment: 'jsdom',

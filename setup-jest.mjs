@@ -22,4 +22,8 @@ if (typeof globalThis.TextEncoder === 'undefined') {
 
 const testEnvironmentOptions = globalThis.ngJest?.testEnvironmentOptions ?? Object.create(null);
 
-getTestBed().initTestEnvironment([BrowserDynamicTestingModule], platformBrowserDynamicTesting(), testEnvironmentOptions);
+getTestBed().initTestEnvironment(
+    [BrowserDynamicTestingModule],
+    platformBrowserDynamicTesting(),
+    testEnvironmentOptions,
+);
