@@ -1,8 +1,9 @@
 import type { Config } from '@jest/types';
 import type { TsConfigJson } from 'type-fest';
 
-import { NgJestCompiler } from './ng-jest-compiler';
 import { NgJestConfig } from '../config/ng-jest-config';
+
+import { NgJestCompiler } from './ng-jest-compiler';
 
 function dedent(strings: TemplateStringsArray, ...values: unknown[]) {
     let joinedString = '';

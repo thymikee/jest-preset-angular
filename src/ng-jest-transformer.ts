@@ -69,7 +69,6 @@ export class NgJestTransformer extends TsJestTransformer {
     }
 
     private get version(): string {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         return require('../package.json').version;
     }
 

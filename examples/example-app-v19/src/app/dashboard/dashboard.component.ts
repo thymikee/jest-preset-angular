@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { sharedImports } from '@shared/shared';
 
-import { DashboardHeroComponent } from './dashboard-hero.component';
 import { Hero, HeroService } from '../model';
+
+import { DashboardHeroComponent } from './dashboard-hero.component';
 
 @Component({
     selector: 'app-dashboard',

@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { jest } from '@jest/globals';
 import { HighlightDirective } from '@shared/highlight.directive';
 
-import { HeroListComponent } from './hero-list.component';
 import { appConfig } from '../app.config';
 import { HeroService } from '../model';
 import { TestHeroService } from '../model/testing';
 import { getTestHeroes } from '../model/testing/test-heroes';
+
+import { HeroListComponent } from './hero-list.component';
 
 const HEROES = getTestHeroes();
 

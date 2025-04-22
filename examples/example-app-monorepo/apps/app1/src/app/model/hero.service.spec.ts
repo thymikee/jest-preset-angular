@@ -3,9 +3,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { jest } from '@jest/globals';
 
+import { asyncData, asyncError } from '../../testing';
+
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
-import { asyncData, asyncError } from '../../testing';
 
 describe('HeroesService (with spies)', () => {
     const httpClient = new HttpClient({

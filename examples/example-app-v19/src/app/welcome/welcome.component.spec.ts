@@ -1,7 +1,8 @@
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
-import { WelcomeComponent } from './welcome.component';
 import { UserService } from '../model';
+
+import { WelcomeComponent } from './welcome.component';
 
 class MockUserService {
     isLoggedIn = true;

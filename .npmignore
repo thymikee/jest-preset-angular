@@ -28,15 +28,15 @@ node_modules
 # CI
 .github
 
-# Eslint
-.eslintignore
-.eslintrc.js
-commitlint.config.ts
+# Generic config
+*.config.mjs
+*.config.js
+*.config.cjs
+*.config.ts
+*.config.cts
+*.config.mts
 .prettierignore
-.prettierrc
-
-# Internal jest config
-jest*.config.ts
+.prettierrc.json
 
 # Tsconfig
 tsconfig*.json

@@ -9,13 +9,14 @@ import { sharedImports } from '@shared/shared';
 import { TitleCasePipe } from '@shared/title-case.pipe';
 import { of } from 'rxjs';
 
-import { HeroDetailComponent } from './hero-detail.component';
-import { HeroDetailService } from './hero-detail.service';
-import { HeroListComponent } from './hero-list.component';
 import { click } from '../../testing';
 import { appConfig } from '../app.config';
 import { Hero } from '../model';
 import { getTestHeroes } from '../model/testing/test-heroes';
+
+import { HeroDetailComponent } from './hero-detail.component';
+import { HeroDetailService } from './hero-detail.service';
+import { HeroListComponent } from './hero-list.component';
 
 let component: HeroDetailComponent;
 let page: Page;

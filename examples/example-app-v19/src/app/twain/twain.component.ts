@@ -11,16 +11,8 @@ import { TwainService } from './twain.service';
     template: ` <p class="twain">
             <i>{{ quote | async }}</i>
         </p>
-        <button
-            type="button"
-            (click)="getQuote()"
-        >
-            Next quote
-        </button>
-        <p
-            class="error"
-            *ngIf="errorMessage"
-        >
+        <button type="button" (click)="getQuote()">Next quote</button>
+        <p class="error" *ngIf="errorMessage">
             {{ errorMessage }}
         </p>`,
     styles: ['.twain { font-style: italic; } .error { color: red; }'],

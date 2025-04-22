@@ -4,6 +4,7 @@ import type { TsConfigJson } from 'type-fest';
 import { transpileModule } from 'typescript';
 
 import packageJson from '../package.json';
+
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import { NgJestConfig } from './config/ng-jest-config';
 import { NgJestTransformer } from './ng-jest-transformer';

@@ -2,9 +2,10 @@ import { waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { jest } from '@jest/globals';
 
-import { DashboardComponent } from './dashboard.component';
 import { Hero } from '../model';
 import { TestHeroService } from '../model/testing';
+
+import { DashboardComponent } from './dashboard.component';
 
 class FakeRouter {
     navigateByUrl(url: string) {

@@ -7,11 +7,7 @@ import { Hero } from '../model';
     standalone: true,
     selector: 'dashboard-hero',
     template: `
-        <button
-            type="button"
-            (click)="click()"
-            class="hero"
-        >
+        <button type="button" (click)="click()" class="hero">
             {{ hero().name | uppercase }}
         </button>
     `,

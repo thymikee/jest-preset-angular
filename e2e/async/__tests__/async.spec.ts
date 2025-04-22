@@ -12,12 +12,7 @@ import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
     template: `
         <p>button-page works!</p>
         <p>
-            <button
-                mat-button
-                (click)="click()"
-            >
-                Click
-            </button>
+            <button mat-button (click)="click()">Click</button>
         </p>
     `,
     styles: [],

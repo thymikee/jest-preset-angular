@@ -2,10 +2,11 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DashboardHeroComponent } from './dashboard-hero.component';
 import { click } from '../../testing';
 import { appProviders } from '../app.config';
 import { Hero } from '../model';
+
+import { DashboardHeroComponent } from './dashboard-hero.component';
 
 describe('DashboardHeroComponent when tested directly', () => {
     let comp: DashboardHeroComponent;
@@ -92,11 +93,7 @@ describe('DashboardHeroComponent when inside a test host', () => {
 
 @Component({
     imports: [DashboardHeroComponent],
-    template: ` <dashboard-hero
-        [hero]="hero"
-        (selected)="onSelected($event)"
-    >
-    </dashboard-hero>`,
+    template: ` <dashboard-hero [hero]="hero" (selected)="onSelected($event)"> </dashboard-hero>`,
 })
 class TestHostComponent {
     hero: Hero = { id: 42, name: 'Test Name' };

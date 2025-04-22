@@ -7,10 +7,11 @@ import { By } from '@angular/platform-browser';
 import { provideRouter, Router, RouterLink } from '@angular/router';
 import { jest } from '@jest/globals';
 
+import { asyncData, click } from '../testing';
+
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { appConfig } from './app.config';
-import { asyncData, click } from '../testing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroService, UserService } from './model';
 import { TestHeroService } from './model/testing';
