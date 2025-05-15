@@ -5729,7 +5729,7 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-preset-angular: "npm:^14.5.5"
     rxjs: "npm:^7.8.2"
-    ts-jest: "npm:^29.3.2"
+    ts-jest: "npm:^29.3.3"
     ts-node: "npm:^10.9.2"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.7.3"
@@ -9660,7 +9660,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.7.1, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.1":
+"semver@npm:7.7.1":
   version: 7.7.1
   resolution: "semver@npm:7.7.1"
   bin:
@@ -9684,6 +9684,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10/1ef3a85bd02a760c6ef76a45b8c1ce18226de40831e02a00bad78485390b98b6ccaa31046245fc63bba4a47a6a592b6c7eedc65cc47126e60489f9cc1ce3ed7e
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2":
+  version: 7.7.2
+  resolution: "semver@npm:7.7.2"
+  bin:
+    semver: bin/semver.js
+  checksum: 10/7a24cffcaa13f53c09ce55e05efe25cd41328730b2308678624f8b9f5fc3093fc4d189f47950f0b811ff8f3c3039c24a2c36717ba7961615c682045bf03e1dda
   languageName: node
   linkType: hard
 
@@ -10401,9 +10410,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.3.0, ts-jest@npm:^29.3.2":
-  version: 29.3.2
-  resolution: "ts-jest@npm:29.3.2"
+"ts-jest@npm:^29.3.0, ts-jest@npm:^29.3.3":
+  version: 29.3.3
+  resolution: "ts-jest@npm:29.3.3"
   dependencies:
     bs-logger: "npm:^0.2.6"
     ejs: "npm:^3.1.10"
@@ -10412,8 +10421,8 @@ __metadata:
     json5: "npm:^2.2.3"
     lodash.memoize: "npm:^4.1.2"
     make-error: "npm:^1.3.6"
-    semver: "npm:^7.7.1"
-    type-fest: "npm:^4.39.1"
+    semver: "npm:^7.7.2"
+    type-fest: "npm:^4.41.0"
     yargs-parser: "npm:^21.1.1"
   peerDependencies:
     "@babel/core": ">=7.0.0-beta.0 <8"
@@ -10435,7 +10444,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10/62fb226a4df408174a3f28919c89440b2f5df4dec404bb49696591e61d75536b1c3be8ae726d187958a467654d82294d81d2dd70d9ec370542a30907183aaf61
+  checksum: 10/b3de49404bc3eafb66f95795c718c321a25a0e934324b79ce500641cd8ecc84f2d691cba97699d2e45bad3655b1595c3e52cbd38ae1910a603162aff68b35d9c
   languageName: node
   linkType: hard
 
@@ -10509,10 +10518,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.39.1":
-  version: 4.39.1
-  resolution: "type-fest@npm:4.39.1"
-  checksum: 10/8f3fc947cb072effd9ba240425397b4d3c08901b344409bc12a0aabf43fd309f87fa214d7ee0b600f6e2335b435f40992cd22c0ce4bc7ab8dc5a987200f83bcc
+"type-fest@npm:^4.41.0":
+  version: 4.41.0
+  resolution: "type-fest@npm:4.41.0"
+  checksum: 10/617ace794ac0893c2986912d28b3065ad1afb484cad59297835a0807dc63286c39e8675d65f7de08fafa339afcb8fe06a36e9a188b9857756ae1e92ee8bda212
   languageName: node
   linkType: hard
 
