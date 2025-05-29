@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "isolatedModules": false,
+    "module": "ES2022"
+  },
+  "include": ["src/**/*.ts"]
+}

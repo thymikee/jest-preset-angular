@@ -1,14 +1,21 @@
-import { ErrorHandler, NgModule, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import * as angularCore from '@angular/core';
+import { ErrorHandler, NgModule, VERSION } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
 import { polyfillEncoder, resolveTestEnvOptions } from '../utils';
 
+const provideZonelessChangeDetectionFn =
+    'provideExperimentalZonelessChangeDetection' in angularCore
+        ? // eslint-disable-next-line import/namespace
+          angularCore.provideExperimentalZonelessChangeDetection
+        : angularCore.provideZonelessChangeDetection;
+
 const provideZonelessConfig = () => {
     class TestModule {}
     NgModule({
         providers: [
-            provideExperimentalZonelessChangeDetection(),
+            provideZonelessChangeDetectionFn(),
             {
                 provide: ErrorHandler,
                 useValue: {
@@ -25,7 +32,7 @@ const provideZonelessConfig = () => {
 
 const setupZonelessTestEnv = (options) => {
     polyfillEncoder();
-    if (typeof provideExperimentalZonelessChangeDetection !== 'undefined') {
+    if (typeof provideZonelessChangeDetectionFn !== 'undefined') {
         const testEnvironmentOptions = resolveTestEnvOptions(options);
 
         getTestBed().initTestEnvironment(
@@ -38,7 +45,9 @@ const setupZonelessTestEnv = (options) => {
     }
 
     throw Error(
-        'Cannot find provideExperimentalZonelessChangeDetection() to setup zoneless testing environment. ' +
+        `Cannot find ${
+            +VERSION.major >= 20 ? 'provideZonelessChangeDetection()' : 'provideExperimentalZonelessChangeDetection()'
+        } to setup zoneless testing environment. ` +
             'Please use setupZoneTestEnv() from jest-preset-angular/setup-env/setup-zone-env.mjs instead.',
     );
 };
