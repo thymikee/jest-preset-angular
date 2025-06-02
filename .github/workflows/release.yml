@@ -87,16 +87,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release 🚢
-        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.create_tag.outputs.tag_name }}
-          body: Please refer to [CHANGELOG.md](https://github.com/thymikee/jest-preset-angular/blob/${{ steps.create_tag.outputs.tag_name }}/CHANGELOG.md) for details.
-          draft: false
-          prerelease: ${{ needs.verify_release.outputs.is_prerelease == 'true' }}
-
       - name: Install 🔧
         run: yarn --immutable
 
@@ -114,3 +104,13 @@ jobs:
         run: npm publish --access public --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create release 🚢
+        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          body: Please refer to [CHANGELOG.md](https://github.com/thymikee/jest-preset-angular/blob/${{ steps.create_tag.outputs.tag_name }}/CHANGELOG.md) for details.
+          draft: false
+          prerelease: ${{ needs.verify_release.outputs.is_prerelease == 'true' }}
