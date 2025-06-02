@@ -39,10 +39,10 @@
     },
     {
       "extends": [
-        "group:typescript-eslintMonorepo",
-        "group:eslintMonorepo",
+        "packages:eslint",
         "group:angular-eslintMonorepo"
       ],
+      "excludePackageNames": ["eslint-plugin-prettier"],
       "groupName": "ESLint packages"
     },
     {
