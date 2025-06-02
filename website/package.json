@@ -9,7 +9,8 @@
     "swizzle": "docusaurus swizzle",
     "deploy": "GIT_USER=thymikee USE_SSH=true docusaurus deploy",
     "serve": "docusaurus serve",
-    "clear": "docusaurus clear"
+    "clear": "docusaurus clear",
+    "bump-version": "docusaurus docs:version"
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",
