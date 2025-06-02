@@ -1,3 +1,12 @@
+## [14.6.0](https://github.com/thymikee/jest-preset-angular/compare/v14.5.5...v14.6.0) (2025-06-02)
+
+
+### Features
+
+* feat: add support for angular 20 ([e041857](https://github.com/thymikee/jest-preset-angular/commit/e041857))
+
+
+
 ## [14.5.5](https://github.com/thymikee/jest-preset-angular/compare/v14.5.4...v14.5.5) (2025-04-15)
 
 
