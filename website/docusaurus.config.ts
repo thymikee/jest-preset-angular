@@ -19,10 +19,7 @@ const config: Config = {
     projectName: 'jest-preset-angular',
     future: {
         experimental_faster: true,
-        v4: {
-            removeLegacyPostBuildHeadAttribute: true,
-            useCssCascadeLayers: false,
-        },
+        v4: true,
     },
     plugins: [
         [
