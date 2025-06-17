@@ -15,11 +15,9 @@ import { HeroDetailService } from './hero-detail.service';
     imports: [sharedImports],
 })
 export class HeroDetailComponent implements OnInit {
-
-  private readonly heroDetailService = inject(HeroDetailService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-
+    private readonly heroDetailService = inject(HeroDetailService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
 
     hero!: Hero;
 

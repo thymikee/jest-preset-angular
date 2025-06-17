@@ -6,7 +6,7 @@ import { Hero, HeroService } from '../model';
 
 @Injectable({ providedIn: 'root' })
 export class HeroDetailService {
-    constructor(private readonly heroService: HeroService) {}
+    private readonly heroService = inject(HeroService);
 
     // Returns a clone which caller may modify safely
     getHero(id: number | string): Observable<Hero | null> {
