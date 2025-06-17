@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of, throwError, Observer } from 'rxjs';
 import { concatMap, map, retryWhen, switchMap, take } from 'rxjs/operators';
 
@@ -7,9 +7,8 @@ import { Quote } from './quote';
 
 @Injectable()
 export class TwainService {
-    constructor(private readonly http: HttpClient) {}
-
     private nextId = 1;
+    private readonly http = inject(HttpClient);
 
     getQuote(): Observable<string> {
         return new Observable((observer: Observer<number>) => observer.next(this.nextId++)).pipe(
