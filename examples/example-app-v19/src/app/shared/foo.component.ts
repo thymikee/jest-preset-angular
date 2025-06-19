@@ -1,4 +1,4 @@
-import { Component, Inject, inject, InjectionToken } from '@angular/core';
+import { Component, inject, InjectionToken } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Services } from '@shared/shared';
 import { of } from 'rxjs';
@@ -17,6 +17,5 @@ export const FOO_COMPONENT_DATA_TOKEN = new InjectionToken<ServerError>('FooComp
 export class FooComponent {
     private readonly appService = inject(Services.AppService);
     protected readonly fooText = toSignal(of('world'));
-
-    constructor(@Inject(FOO_COMPONENT_DATA_TOKEN) public data: ServerError) {}
+    private readonly data = inject(FOO_COMPONENT_DATA_TOKEN);
 }

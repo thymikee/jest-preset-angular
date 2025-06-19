@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from 'libs/user/src/lib/user.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { UserService } from 'libs/user/src/lib/user.service';
 })
 export class WelcomeComponent implements OnInit {
     welcome = '';
-    constructor(private readonly userService: UserService) {}
+    private readonly userService = inject(UserService);
 
     ngOnInit(): void {
         this.welcome = this.userService.isLoggedIn ? 'Welcome, ' + this.userService.user.name : 'Please log in.';

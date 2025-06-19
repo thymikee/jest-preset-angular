@@ -5,12 +5,12 @@ import {
     EventEmitter,
     HostBinding,
     HostListener,
+    inject,
     Injectable,
     Input,
     OnChanges,
     OnDestroy,
     OnInit,
-    Optional,
     Output,
     Pipe,
     PipeTransform,
@@ -51,7 +51,7 @@ export class ValueService {
 
 @Injectable()
 export class MasterService {
-    constructor(private readonly valueService: ValueService) {}
+    private readonly valueService = inject(ValueService);
     getValue() {
         return this.valueService.getValue();
     }
@@ -232,7 +232,7 @@ export class MyIfComponent {
     providers: [ValueService],
 })
 export class TestProvidersComponent {
-    constructor(public valueService: ValueService) {}
+    public valueService = inject(ValueService);
 }
 
 @Component({
@@ -242,7 +242,7 @@ export class TestProvidersComponent {
     viewProviders: [ValueService],
 })
 export class TestViewProvidersComponent {
-    constructor(public valueService: ValueService) {}
+    public valueService = inject(ValueService);
 }
 
 @Component({
@@ -253,7 +253,7 @@ export class TestViewProvidersComponent {
 export class ExternalTemplateComponent implements OnInit {
     serviceValue = '';
 
-    constructor(@Optional() private readonly service?: ValueService) {}
+    private readonly service = inject(ValueService, { optional: true });
 
     ngOnInit() {
         if (this.service) {

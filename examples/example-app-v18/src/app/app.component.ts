@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { BannerComponent } from './banner/banner.component';
@@ -11,8 +11,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
     templateUrl: './app.component.html',
     imports: [BannerComponent, WelcomeComponent, RouterOutlet, RouterLink],
 })
-export class AppComponent {
-    constructor(@Inject(DOCUMENT) injectedDoc: Document) {
-        injectedDoc.title = 'Example App';
+export class AppComponent implements OnInit {
+    private readonly injectedDoc = inject(DOCUMENT);
+
+    ngOnInit() {
+        this.injectedDoc.title = 'Example App';
     }
 }

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { BannerComponent } from './banner/banner.component';
@@ -12,7 +12,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     imports: [BannerComponent, WelcomeComponent, RouterOutlet, RouterLink],
 })
 export class AppComponent {
-    constructor(@Inject(DOCUMENT) injectedDoc: Document) {
-        injectedDoc.title = 'Example App';
+    injectDoc = inject(DOCUMENT);
+    constructor() {
+        this.injectDoc.title = 'Example App';
     }
 }
