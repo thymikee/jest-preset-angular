@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Hero, HeroService } from '../model';
 
 @Component({
+    standalone: true,
     selector: 'app-heroes',
     templateUrl: './hero-list.component.html',
     styleUrls: ['./hero-list.component.css'],
@@ -18,6 +19,10 @@ export class HeroListComponent {
 
     private readonly router = inject(Router);
     private readonly heroService = inject(HeroService);
+
+    constructor() {
+        this.heroes = this.heroService.getHeroes();
+    }
 
     onSelect(hero: Hero) {
         this.selectedHero = hero;
