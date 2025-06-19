@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -27,6 +29,8 @@ describe('HeroListComponent', () => {
         TestBed.configureTestingModule({
             ...appConfig,
             providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
                 { provide: HeroService, useClass: TestHeroService },
                 { provide: Router, useValue: routerSpy },
             ],
