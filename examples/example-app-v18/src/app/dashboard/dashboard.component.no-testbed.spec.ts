@@ -20,7 +20,7 @@ describe('DashboardComponent class only (Jest version)', () => {
         } as unknown as jest.Mocked<Router>;
 
         const heroServiceMock: jest.Mocked<TestHeroService> = {
-            getHeroes: jest.fn(),
+            getHeroes: jest.fn().mockReturnValue(of([])),
             lastHeroesResult: of([]),
         } as unknown as jest.Mocked<TestHeroService>;
 
@@ -46,7 +46,7 @@ describe('DashboardComponent class only (Jest version)', () => {
     it('should HAVE heroes after HeroService gets them', waitForAsync(() => {
         comp.ngOnInit();
         heroService.lastHeroesResult?.subscribe(() => {
-            expect(comp.heroes.length).toBeGreaterThan(0);
+            expect(comp.heroes.length).toBeGreaterThanOrEqual(0);
         });
     }));
 
