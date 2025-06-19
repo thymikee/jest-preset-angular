@@ -1,5 +1,8 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { jest } from '@jest/globals';
 import { of } from 'rxjs';
 
 import { Hero } from '../model';
@@ -27,6 +30,8 @@ describe('DashboardComponent class only (Jest version)', () => {
         await TestBed.configureTestingModule({
             imports: [DashboardComponent],
             providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
                 { provide: Router, useValue: routerMock },
                 { provide: HeroService, useValue: heroServiceMock },
             ],

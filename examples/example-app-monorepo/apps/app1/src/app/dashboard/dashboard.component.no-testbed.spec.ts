@@ -1,14 +1,17 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { jest } from '@jest/globals';
 import { of } from 'rxjs';
 
-import { Hero, HeroService } from '../model';
+import { Hero } from '../model';
+import { HeroService } from '../model/hero.service';
 import { TestHeroService } from '../model/testing';
 
 import { DashboardComponent } from './dashboard.component';
 
-describe('DashboardComponent class only', () => {
+describe('DashboardComponent class only (Jest version)', () => {
     let fixture: ComponentFixture<DashboardComponent>;
     let comp: DashboardComponent;
     let heroService: jest.Mocked<TestHeroService>;
@@ -27,6 +30,8 @@ describe('DashboardComponent class only', () => {
         await TestBed.configureTestingModule({
             imports: [DashboardComponent],
             providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
                 { provide: Router, useValue: routerMock },
                 { provide: HeroService, useValue: heroServiceMock },
             ],
@@ -38,8 +43,9 @@ describe('DashboardComponent class only', () => {
         router = TestBed.inject(Router) as jest.Mocked<Router>;
         heroService = TestBed.inject(HeroService) as jest.Mocked<TestHeroService>;
     });
+
     it('should NOT have heroes before calling OnInit', () => {
-        expect(comp.heroes.length).toEqual(0);
+        expect(comp.heroes.length).toBe(0);
     });
 
     it('should HAVE heroes after HeroService gets them', waitForAsync(() => {
@@ -56,7 +62,6 @@ describe('DashboardComponent class only', () => {
         comp.gotoDetail(hero);
 
         const navArgs = spy.mock.calls[0][0];
-
         expect(navArgs).toBe('/heroes/42');
     });
 });
