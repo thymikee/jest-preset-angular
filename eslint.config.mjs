@@ -85,13 +85,7 @@ export default tseslint.config(
             ],
             'no-unused-vars': 'off',
             'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: 'return' }],
-            'prettier/prettier': [
-                'error',
-                {
-                    ...prettierConfig,
-                    tabWidth: 4,
-                },
-            ],
+            'prettier/prettier': ['error', prettierConfig],
         },
     },
     {
