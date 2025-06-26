@@ -17,8 +17,8 @@ test('templateUrl/styleUrls/styles should work', () => {
 
     const elementToFind = fixture.debugElement.nativeElement.querySelector('p');
     expect(elementToFind).toBeDefined();
-    expect(window.getComputedStyle(elementToFind).color).toEqual('');
-    expect(window.getComputedStyle(elementToFind).fontSize).toEqual('');
+    expect(window.getComputedStyle(elementToFind).color).toBe('canvastext');
+    expect(window.getComputedStyle(elementToFind).fontSize).toBe('');
 });
 
 test('styleUrl/styles string should work', () => {
@@ -36,6 +36,6 @@ test('styleUrl/styles string should work', () => {
 
     const elementToFind = fixture.debugElement.nativeElement.querySelector('p');
     expect(elementToFind).toBeDefined();
-    expect(window.getComputedStyle(elementToFind).color).toEqual('');
-    expect(window.getComputedStyle(elementToFind).fontSize).toEqual('');
+    expect(window.getComputedStyle(elementToFind).color).toBe('canvastext');
+    expect(window.getComputedStyle(elementToFind).fontSize).toBe('');
 });

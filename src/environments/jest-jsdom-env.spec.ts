@@ -10,7 +10,7 @@ jest.mock('jsdom/package.json', () => {
         version: '1.0.0',
     };
 });
-jest.mock('./jest-env-jsdom-abstract', () => {
+jest.mock('@jest/environment-jsdom-abstract', () => {
     return class BaseEnv {};
 });
 
