@@ -13,7 +13,7 @@ const config: JestConfigWithTsJest = {
             },
         ],
     },
-    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
 };
 
 export default config;
