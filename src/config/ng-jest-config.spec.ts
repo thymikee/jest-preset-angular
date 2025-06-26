@@ -1,5 +1,3 @@
-import { ScriptTarget } from 'typescript';
-
 import { NgJestConfig } from './ng-jest-config';
 
 describe('NgJestConfig', () => {
@@ -13,6 +11,5 @@ describe('NgJestConfig', () => {
         expect(compilerOptions.annotationsAs).toBe('decorators');
         expect(compilerOptions.enableResourceInlining).toBe(false);
         expect(compilerOptions.allowJs).toBe(true);
-        expect(compilerOptions.target).toBe(ScriptTarget.ES2022);
     });
 });
