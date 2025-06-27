@@ -1,21 +1,4 @@
-import {
-    Component,
-    ContentChildren,
-    Directive,
-    EventEmitter,
-    HostBinding,
-    HostListener,
-    Injectable,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Optional,
-    Output,
-    Pipe,
-    PipeTransform,
-    SimpleChanges,
-} from '@angular/core';
+import { Component, ContentChildren, Directive, EventEmitter, HostBinding, HostListener, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, Pipe, PipeTransform, SimpleChanges, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { sharedImports } from '@shared/shared';
 import { of } from 'rxjs';
@@ -51,7 +34,12 @@ export class ValueService {
 
 @Injectable()
 export class MasterService {
-    constructor(private readonly valueService: ValueService) {}
+    private readonly valueService = inject(ValueService);
+
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
     getValue() {
         return this.valueService.getValue();
     }
@@ -219,7 +207,12 @@ export class MyIfComponent {
     providers: [ValueService],
 })
 export class TestProvidersComponent {
-    constructor(public valueService: ValueService) {}
+    valueService = inject(ValueService);
+
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
 }
 
 @Component({
@@ -228,7 +221,12 @@ export class TestProvidersComponent {
     viewProviders: [ValueService],
 })
 export class TestViewProvidersComponent {
-    constructor(public valueService: ValueService) {}
+    valueService = inject(ValueService);
+
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
 }
 
 @Component({
@@ -236,9 +234,14 @@ export class TestViewProvidersComponent {
     templateUrl: './demo-external-template.html',
 })
 export class ExternalTemplateComponent implements OnInit {
+    private readonly service = inject(ValueService, { optional: true });
+
     serviceValue = '';
 
-    constructor(@Optional() private readonly service?: ValueService) {}
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
 
     ngOnInit() {
         if (this.service) {

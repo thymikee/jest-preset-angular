@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { sharedImports } from '@shared/shared';
 import { Observable, of } from 'rxjs';
 import { catchError, startWith } from 'rxjs/operators';
@@ -19,10 +19,15 @@ import { TwainService } from './twain.service';
     imports: [AsyncPipe, sharedImports],
 })
 export class TwainComponent implements OnInit {
+    private readonly twainService = inject(TwainService);
+
     errorMessage!: string;
     quote!: Observable<string>;
 
-    constructor(private readonly twainService: TwainService) {}
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
 
     ngOnInit(): void {
         this.getQuote();

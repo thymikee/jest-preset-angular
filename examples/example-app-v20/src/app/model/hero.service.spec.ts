@@ -18,7 +18,10 @@ describe('HeroesService (with spies)', () => {
     let heroService: HeroService;
 
     beforeEach(() => {
-        heroService = new HeroService(httpClient);
+        TestBed.configureTestingModule({
+            providers: [HeroService, { provide: HttpClient, useValue: httpClientSpy }],
+        });
+        heroService = TestBed.inject(HeroService);
     });
 
     it('should return expected heroes (HttpClient called once)', waitForAsync(() => {

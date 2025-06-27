@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of, throwError, Observer } from 'rxjs';
 import { concatMap, map, retryWhen, switchMap, take } from 'rxjs/operators';
 
@@ -7,7 +7,12 @@ import { Quote } from './quote';
 
 @Injectable()
 export class TwainService {
-    constructor(private readonly http: HttpClient) {}
+    private readonly http = inject(HttpClient);
+
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
 
     private nextId = 1;
 

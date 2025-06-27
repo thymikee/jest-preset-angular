@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -6,7 +6,12 @@ import { Hero, HeroService } from '../model';
 
 @Injectable({ providedIn: 'root' })
 export class HeroDetailService {
-    constructor(private readonly heroService: HeroService) {}
+    private readonly heroService = inject(HeroService);
+
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
+
+    constructor() {}
 
     // Returns a clone which caller may modify safely
     getHero(id: number | string): Observable<Hero | null> {
