@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { sharedImports } from '@shared/shared';
 
@@ -15,7 +15,8 @@ import { DashboardHeroComponent } from './dashboard-hero.component';
 export class DashboardComponent implements OnInit {
     heroes: Hero[] = [];
 
-    constructor(private readonly router: Router, private readonly heroService: HeroService) {}
+    private readonly router = inject(Router);
+    private readonly heroService = inject(HeroService);
 
     ngOnInit() {
         this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sharedImports } from '@shared/shared';
 
 import { Hero } from '../model';
@@ -12,14 +12,12 @@ import { HeroDetailService } from './hero-detail.service';
     templateUrl: './hero-detail.component.html',
     styleUrls: ['./hero-detail.component.css'],
     providers: [HeroDetailService],
-    imports: [sharedImports, RouterLink],
+    imports: [sharedImports],
 })
 export class HeroDetailComponent implements OnInit {
-    constructor(
-        private readonly heroDetailService: HeroDetailService,
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-    ) {}
+    private readonly heroDetailService = inject(HeroDetailService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
 
     hero!: Hero;
 

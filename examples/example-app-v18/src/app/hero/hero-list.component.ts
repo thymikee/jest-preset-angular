@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { sharedImports } from '@shared/shared';
 import { Observable } from 'rxjs';
@@ -17,7 +17,10 @@ export class HeroListComponent {
     heroes: Observable<Hero[]>;
     selectedHero!: Hero;
 
-    constructor(private readonly router: Router, private readonly heroService: HeroService) {
+    private readonly router = inject(Router);
+    private readonly heroService = inject(HeroService);
+
+    constructor() {
         this.heroes = this.heroService.getHeroes();
     }
 

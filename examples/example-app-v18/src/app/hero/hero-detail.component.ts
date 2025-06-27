@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { sharedImports } from '@shared/shared';
 
@@ -15,11 +15,9 @@ import { HeroDetailService } from './hero-detail.service';
     imports: [sharedImports, RouterLink],
 })
 export class HeroDetailComponent implements OnInit {
-    constructor(
-        private readonly heroDetailService: HeroDetailService,
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-    ) {}
+    private readonly heroDetailService = inject(HeroDetailService);
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
 
     hero!: Hero;
 
