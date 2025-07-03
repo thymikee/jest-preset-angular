@@ -1,6 +1,6 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+import type { Config } from 'jest';
 
-const config: JestConfigWithTsJest = {
+const config: Config = {
     displayName: 'e2e-ng-deep-import',
     testEnvironment: 'jsdom',
     setupFilesAfterEnv: ['<rootDir>/../setup-test-env.ts'],
@@ -13,7 +13,7 @@ const config: JestConfigWithTsJest = {
             },
         ],
     },
-    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
 };
 
 export default config;

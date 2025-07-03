@@ -10,7 +10,7 @@ type CjsPresetOptionsType = Omit<TsJestTransformerOptions, 'useESM' | 'stringify
 export const createCjsPreset = (options: CjsPresetOptionsType = {}): CjsPresetType => {
     return {
         ...basePresetConfig,
-        transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+        transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
         transform: {
             '^.+\\.(ts|js|mjs|html|svg)$': [
                 'jest-preset-angular',

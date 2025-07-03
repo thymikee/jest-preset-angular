@@ -18,7 +18,7 @@ const defaultTransformerOptions: TsJestTransformerOptions = {
 
 const defaultPreset = {
     ...baseConfig,
-    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
     transform: {
         '^.+\\.(ts|js|mjs|html|svg)$': ['jest-preset-angular', defaultTransformerOptions],
     },

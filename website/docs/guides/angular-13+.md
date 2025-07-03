@@ -115,7 +115,7 @@ import type { Config } from 'jest';
 
 export default {
   // ...other options
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
 } satisfies Config;
 ```
 
@@ -128,6 +128,8 @@ import type { Config } from 'jest';
 
 export default {
   // ...other options
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs$))'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!(@ionic/core|@ionic/angular|@stencil/core|.*\\.mjs|@angular/common/locales/.*\\.js$))',
+  ],
 } satisfies Config;
 ```

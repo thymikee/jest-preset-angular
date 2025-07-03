@@ -26,7 +26,7 @@ exports[`Jest presets should return jest config with CJS preset creator function
     ],
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!.*\\.mjs$)",
+    "node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))",
   ],
 }
 `;
@@ -56,7 +56,7 @@ exports[`Jest presets should return jest config with CJS preset creator function
     ],
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!.*\\.mjs$)",
+    "node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))",
   ],
 }
 `;
@@ -161,7 +161,7 @@ exports[`Jest presets should return the correct jest config with legacy preset c
     ],
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!.*\\.mjs$)",
+    "node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))",
   ],
 }
 `;
