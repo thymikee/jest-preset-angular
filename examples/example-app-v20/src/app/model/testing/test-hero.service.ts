@@ -10,10 +10,6 @@ import { getTestHeroes } from './test-heroes';
 
 @Injectable()
 export class TestHeroService extends HeroService {
-    constructor() {
-        super(null!);
-    }
-
     heroes = getTestHeroes();
     lastHeroResult?: Observable<Hero | undefined>;
     lastHeroesResult?: Observable<Hero[]>;
