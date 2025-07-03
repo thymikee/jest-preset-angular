@@ -12,6 +12,8 @@ const config: Config = {
             },
         ],
     },
+    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+    setupFilesAfterEnv: ['<rootDir>/setup-test-env.ts'],
 };
 
 export default config;
