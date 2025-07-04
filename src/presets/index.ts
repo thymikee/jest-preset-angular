@@ -1,3 +1,4 @@
+import { Config } from 'jest';
 import type { JestConfigWithTsJest, TsJestTransformerOptions } from 'ts-jest';
 
 import snapshotSerializers from '../serializers';
@@ -16,7 +17,7 @@ const defaultTransformerOptions: TsJestTransformerOptions = {
     stringifyContentPathRegex: '\\.(html|svg)$',
 };
 
-const defaultPreset = {
+const defaultPreset: Config = {
     ...baseConfig,
     transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
     transform: {
@@ -24,7 +25,7 @@ const defaultPreset = {
     },
 };
 
-const defaultEsmPreset = {
+const defaultEsmPreset: Config = {
     ...baseConfig,
     extensionsToTreatAsEsm: ['.ts'],
     moduleNameMapper: {
@@ -42,7 +43,13 @@ const defaultEsmPreset = {
     transformIgnorePatterns: ['node_modules/(?!tslib)'],
 };
 
-const presetEntries = {
+const presetEntries: {
+    defaults: import('jest').Config;
+    defaultsESM: import('jest').Config;
+    defaultTransformerOptions: import('ts-jest').TsJestTransformerOptions;
+    createCjsPreset: typeof import('./create-cjs-preset').createCjsPreset;
+    createEsmPreset: typeof import('./create-esm-preset').createEsmPreset;
+} = {
     get defaults() {
         console.warn(`
             This preset is DEPRECATED and will be removed in the next major release.
