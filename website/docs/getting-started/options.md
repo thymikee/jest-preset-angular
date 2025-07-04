@@ -63,7 +63,7 @@ export default {
     'jest-preset-angular/build/serializers/no-ng-attributes',
   ],
   testEnvironment: 'jsdom',
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
