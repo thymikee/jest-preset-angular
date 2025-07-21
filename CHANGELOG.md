@@ -1,3 +1,12 @@
+## [14.6.1](https://github.com/thymikee/jest-preset-angular/compare/v14.6.0...v14.6.1) (2025-07-21)
+
+
+### Bug Fixes
+
+* fix: add `@angular/common/locales` to CJS preset (#3190) ([4234520](https://github.com/thymikee/jest-preset-angular/commit/4234520)), closes [#3190](https://github.com/thymikee/jest-preset-angular/issues/3190) [#3182](https://github.com/thymikee/jest-preset-angular/issues/3182)
+
+
+
 ## [14.6.0](https://github.com/thymikee/jest-preset-angular/compare/v14.5.5...v14.6.0) (2025-06-02)
 
 
