@@ -9169,7 +9169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-environment-jsdom@npm:^30.0.0":
+"jest-environment-jsdom@npm:^30.0.4":
   version: 30.0.5
   resolution: "jest-environment-jsdom@npm:30.0.5"
   dependencies:
@@ -9336,7 +9336,7 @@ __metadata:
     globals: "npm:^16.3.0"
     husky: "npm:^9.1.7"
     jest: "npm:^30.0.5"
-    jest-environment-jsdom: "npm:^30.0.0"
+    jest-environment-jsdom: "npm:^30.0.4"
     jest-util: "npm:^30.0.0"
     jsdom: "npm:^26.1.0"
     pinst: "npm:^3.0.0"
@@ -9355,17 +9355,12 @@ __metadata:
     "@angular/compiler-cli": ">=18.0.0 <21.0.0"
     "@angular/core": ">=18.0.0 <21.0.0"
     "@angular/platform-browser-dynamic": ">=18.0.0 <21.0.0"
-    "@jest/environment-jsdom-abstract": ^30.0.0
     jest: ^30.0.0
+    jest-environment-jsdom: ^30.0.0
     jsdom: ">=26.0.0"
     typescript: ">=5.5"
   dependenciesMeta:
     esbuild:
-      optional: true
-  peerDependenciesMeta:
-    "@jest/environment-jsdom-abstract":
-      optional: true
-    jsdom:
       optional: true
   languageName: unknown
   linkType: soft
