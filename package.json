@@ -48,9 +48,9 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@jest/environment-jsdom-abstract": "^30.0.0",
     "bs-logger": "^0.2.6",
     "esbuild-wasm": ">=0.23.0",
-    "jest-environment-jsdom": "^30.0.0",
     "jest-util": "^30.0.0",
     "pretty-format": "^30.0.0",
     "ts-jest": "^29.4.0"
@@ -62,18 +62,10 @@
     "@angular/compiler-cli": ">=18.0.0 <21.0.0",
     "@angular/core": ">=18.0.0 <21.0.0",
     "@angular/platform-browser-dynamic": ">=18.0.0 <21.0.0",
-    "@jest/environment-jsdom-abstract": "^30.0.0",
     "jest": "^30.0.0",
+    "jest-environment-jsdom": "^30.0.0",
     "jsdom": ">=26.0.0",
     "typescript": ">=5.5"
-  },
-  "peerDependenciesMeta": {
-    "@jest/environment-jsdom-abstract": {
-      "optional": true
-    },
-    "jsdom": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.1.1",
@@ -119,6 +111,7 @@
     "globals": "^16.3.0",
     "husky": "^9.1.7",
     "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.4",
     "jsdom": "^26.1.0",
     "pinst": "^3.0.0",
     "prettier": "^2.8.8",
