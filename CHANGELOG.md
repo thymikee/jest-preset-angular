@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* fix: add `@angular/common/locales` to CJS preset (#3190) ([4234520](https://github.com/thymikee/jest-preset-angular/commit/4234520)), closes [#3190](https://github.com/thymikee/jest-preset-angular/issues/3190) [#3182](https://github.com/thymikee/jest-preset-angular/issues/3182)
+* fix: add `@angular/common/locales` to CJS preset [#3190](https://github.com/thymikee/jest-preset-angular/issues/3190) ([4234520](https://github.com/thymikee/jest-preset-angular/commit/4234520)), closes [#3182](https://github.com/thymikee/jest-preset-angular/issues/3182)
 
 
 
@@ -30,7 +30,7 @@
 
 ### Bug Fixes
 
-* fix: warn when using both `isolatedModules` and `emitDecoratorMetadata` (#3029) ([51db8f4](https://github.com/thymikee/jest-preset-angular/commit/51db8f4)), closes [#3029](https://github.com/thymikee/jest-preset-angular/issues/3029)
+* fix: warn when using both `isolatedModules` and `emitDecoratorMetadata` [#3029](https://github.com/thymikee/jest-preset-angular/issues/3029) ([51db8f4](https://github.com/thymikee/jest-preset-angular/commit/51db8f4))
 * update dependency ts-jest to v29.3.0 ([1d8415d](https://github.com/thymikee/jest-preset-angular/commit/1d8415d))
 
 
@@ -58,7 +58,7 @@
 
 ### Bug Fixes
 
-* fix: properly handle types for presets module (#2945) ([e0323bd](https://github.com/thymikee/jest-preset-angular/commit/e0323bd)), closes [#2945](https://github.com/thymikee/jest-preset-angular/issues/2945)
+* fix: properly handle types for presets module [#2945](https://github.com/thymikee/jest-preset-angular/issues/2945) ([e0323bd](https://github.com/thymikee/jest-preset-angular/commit/e0323bd))
 
 
 
