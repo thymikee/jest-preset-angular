@@ -33,26 +33,32 @@ Create a configuration to process JavaScript/TypeScript/HTML/SVG files (`ts|js|m
   - `isolatedModules`: see more at [isolatedModules options page](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/isolatedModules)
   - `astTransformers`: see more at [astTransformers options page](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/astTransformers)
   - `diagnostics`: see more at [diagnostics options page](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/diagnostics)
+  - `testEnvironment`: either `jsdom` or `jest-preset-angular/environments/jest-jsdom-env`. Defaults to `jsdom`.
 
-#### Returns
+#### Default returned value
 
 An object contains Jest config:
 
-```ts
-type CjsPresetTransformerOptions = {
-  tsconfig: string;
-  stringifyContentPathRegex: string;
-};
-
-type CjsPresetType = {
-  testEnvironment: string;
-  moduleFileExtensions: Array<string>;
-  snapshotSerializers: Array<string>;
-  transformIgnorePatterns: Array<string>;
-  transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': ['jest-preset-angular', CjsPresetTransformerOptions];
-  };
-};
+```json
+{
+  "moduleFileExtensions": ["ts", "html", "js", "json", "mjs"],
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes"
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|mjs|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json"
+      }
+    ]
+  },
+  "transformIgnorePatterns": ["node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))"]
+}
 ```
 
 #### Example:
@@ -81,28 +87,37 @@ Create a configuration to process JavaScript/TypeScript/HTML/SVG files (`ts|js|h
   - `isolatedModules`: see more at [isolatedModules options page](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/isolatedModules)
   - `astTransformers`: see more at [astTransformers options page](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/astTransformers)
   - `diagnostics`: see more at [diagnostics options page](https://kulshekhar.github.io/ts-jest/docs/getting-started/options/diagnostics)
+  - `testEnvironment`: either `jsdom` or `jest-preset-angular/environments/jest-jsdom-env`. Defaults to `jsdom`.
 
-#### Returns
+#### Default returned value
 
 An object contains Jest config:
 
-```ts
-type EsmPresetTransformerOptions = {
-  tsconfig: string;
-  stringifyContentPathRegex: string;
-  useEsm: true;
-};
-
-type EsmPresetType = {
-  testEnvironment: string;
-  moduleFileExtensions: Array<string>;
-  snapshotSerializers: Array<string>;
-  extensionsToTreatAsEsm: Array<string>;
-  transformIgnorePatterns: Array<string>;
-  transform: {
-    '^.+\\.(ts|js|html|svg)$': ['jest-preset-angular', EsmPresetTransformerOptions];
-  };
-};
+```json
+{
+  "extensionsToTreatAsEsm": [".ts"],
+  "moduleFileExtensions": ["ts", "html", "js", "json", "mjs"],
+  "moduleNameMapper": {
+    "tslib": "tslib/tslib.es6.js"
+  },
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes"
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
+        "useESM": true
+      }
+    ]
+  },
+  "transformIgnorePatterns": ["node_modules/(?!tslib)"]
+}
 ```
 
 #### Example:

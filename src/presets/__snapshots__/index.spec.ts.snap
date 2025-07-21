@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Jest presets should return jest config with CJS preset creator function with options 1`] = `
+exports[`Jest presets should return jest config with preset creator functions with options: for createCjsPreset 1`] = `
 {
   "moduleFileExtensions": [
     "ts",
@@ -31,37 +31,7 @@ exports[`Jest presets should return jest config with CJS preset creator function
 }
 `;
 
-exports[`Jest presets should return jest config with CJS preset creator function without options 1`] = `
-{
-  "moduleFileExtensions": [
-    "ts",
-    "html",
-    "js",
-    "json",
-    "mjs",
-  ],
-  "snapshotSerializers": [
-    "jest-preset-angular/build/serializers/html-comment",
-    "jest-preset-angular/build/serializers/ng-snapshot",
-    "jest-preset-angular/build/serializers/no-ng-attributes",
-  ],
-  "testEnvironment": "jsdom",
-  "transform": {
-    "^.+\\.(ts|js|mjs|html|svg)$": [
-      "jest-preset-angular",
-      {
-        "stringifyContentPathRegex": "\\.(html|svg)$",
-        "tsconfig": "<rootDir>/tsconfig.spec.json",
-      },
-    ],
-  },
-  "transformIgnorePatterns": [
-    "node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))",
-  ],
-}
-`;
-
-exports[`Jest presets should return jest config with ESM preset creator function with options 1`] = `
+exports[`Jest presets should return jest config with preset creator functions with options: for createEsmPreset 1`] = `
 {
   "extensionsToTreatAsEsm": [
     ".ts",
@@ -99,7 +69,37 @@ exports[`Jest presets should return jest config with ESM preset creator function
 }
 `;
 
-exports[`Jest presets should return jest config with ESM preset creator function without options 1`] = `
+exports[`Jest presets should return jest config with preset creator functions: for createCjsPreset 1`] = `
+{
+  "moduleFileExtensions": [
+    "ts",
+    "html",
+    "js",
+    "json",
+    "mjs",
+  ],
+  "snapshotSerializers": [
+    "jest-preset-angular/build/serializers/html-comment",
+    "jest-preset-angular/build/serializers/ng-snapshot",
+    "jest-preset-angular/build/serializers/no-ng-attributes",
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.(ts|js|mjs|html|svg)$": [
+      "jest-preset-angular",
+      {
+        "stringifyContentPathRegex": "\\.(html|svg)$",
+        "tsconfig": "<rootDir>/tsconfig.spec.json",
+      },
+    ],
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))",
+  ],
+}
+`;
+
+exports[`Jest presets should return jest config with preset creator functions: for createEsmPreset 1`] = `
 {
   "extensionsToTreatAsEsm": [
     ".ts",
