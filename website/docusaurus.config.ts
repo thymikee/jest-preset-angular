@@ -10,7 +10,7 @@ const config: Config = {
     title: 'jest-preset-angular',
     tagline: 'Jest preset configuration for Angular projects.',
     url: 'https://thymikee.github.io',
-    baseUrl: '/jest-preset-angular/',
+    baseUrl: process.env.BASE_URL || '/jest-preset-angular/',
     baseUrlIssueBanner: true,
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
