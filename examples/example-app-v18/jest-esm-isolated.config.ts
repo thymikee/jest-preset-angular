@@ -1,17 +1,16 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+import type { Config } from 'jest';
+import { createEsmPreset } from 'jest-preset-angular/presets';
 
-import jestCfg from './jest-esm.config';
+import jestEsmCfg from './jest-esm.config';
+
+const esmPreset = createEsmPreset({
+    tsconfig: '<rootDir>/tsconfig-isolated-esm.spec.json',
+    testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
+});
 
 export default {
-    ...jestCfg,
+    ...jestEsmCfg,
     transform: {
-        '^.+\\.(ts|js|html|svg)$': [
-            'jest-preset-angular',
-            {
-                tsconfig: '<rootDir>/tsconfig-isolated-esm.spec.json',
-                stringifyContentPathRegex: '\\.(html|svg)$',
-                useESM: true,
-            },
-        ],
+        ...esmPreset.transform,
     },
-} satisfies JestConfigWithTsJest;
+} satisfies Config;

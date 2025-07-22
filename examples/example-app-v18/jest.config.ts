@@ -5,7 +5,9 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
 export default {
-    ...createCjsPreset(),
+    ...createCjsPreset({
+        testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
+    }),
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
     setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 } satisfies Config;
