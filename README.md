@@ -24,10 +24,6 @@ Angular doesn't support native `async/await` in testing with `target` higher tha
 
 Check out our [Migration from Angular < 13 guidance](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-13+)
 
-## Angular Ivy
-
-Check out our [Angular Ivy guidance](https://thymikee.github.io/jest-preset-angular/docs/guides/angular-ivy)
-
 ## Example projects with base Jest configuration
 
 We have [example apps](https://github.com/thymikee/jest-preset-angular/tree/main/examples) to provide a basic setup to use Jest in an Angular project.
