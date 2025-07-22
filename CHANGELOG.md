@@ -1,3 +1,28 @@
+## [15.0.0-rc.0](https://github.com/thymikee/jest-preset-angular/compare/v15.0.0-next.1...v15.0.0-rc.0) (2025-07-22)
+
+
+### Features
+
+* feat: allow to customize `testEnvironment` via preset creator functions ([80c95e8](https://github.com/thymikee/jest-preset-angular/commit/80c95e8))
+* feat: upgrade jest to 30 ([51df6ec](https://github.com/thymikee/jest-preset-angular/commit/51df6ec))
+
+
+### Code Refactoring
+
+* refactor: mark `jest-environment-jsdom` as peer dependency ([f9e2b70](https://github.com/thymikee/jest-preset-angular/commit/f9e2b70))
+
+
+### BREAKING CHANGES
+
+- Jest **30** is required
+- Minimum supported version for `JSDOM` is **26**
+- `ng-jest-resolver` is no longer needed for Jest 30 therefore it was removed
+- `jsdom` dep is now **MANDATORY** peer dependency. Users are required to install `jsdom` explicitly
+- `jest-environment-jsdom` is now **MANDATORY** dependency. Users are required to install `jest-environment-jsdom` explicitly
+- Various legacy documentation pages were removed.
+
+
+
 ## [14.6.1](https://github.com/thymikee/jest-preset-angular/compare/v14.6.0...v14.6.1) (2025-07-21)
 
 
