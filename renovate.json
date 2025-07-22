@@ -76,6 +76,11 @@
       "matchPaths": ["examples/**/package.json"],
       "matchDepNames": ["angular-in-memory-web-api", "zone.js"],
       "enabled": false
+    },
+    {
+      "matchPaths": ["examples/example-app-v18/package.json"],
+      "matchDepNames": ["jsdom"],
+      "enabled": false
     }
   ]
 }
