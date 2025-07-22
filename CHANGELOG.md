@@ -1,3 +1,12 @@
+## [14.6.2](https://github.com/thymikee/jest-preset-angular/compare/v14.6.1...v14.6.2) (2025-07-22)
+
+
+### Bug Fixes
+
+- Fix wrong release for `rc` version on the wrong `npm` tag.
+
+
+
 ## [14.6.1](https://github.com/thymikee/jest-preset-angular/compare/v14.6.0...v14.6.1) (2025-07-21)
 
 
