@@ -15,10 +15,6 @@ const features = [
         description: <>Jest presets to let you start quickly with testing.</>,
     },
     {
-        title: 'View Engine/Ivy',
-        description: <>Support both Angular View Engine and Angular Ivy.</>,
-    },
-    {
         title: 'Babel support',
         description: <>Support working in combination with Babel</>,
     },
@@ -76,9 +72,6 @@ function Home() {
                     </div>
                 </div>
                 <div className={clsx(styles.announcement, styles.announcementDark)}>
-                    <div className={styles.announcementInner}>
-                        Angular Ivy? Check out our <Link to="/docs/guides/angular-ivy">Angular Ivy guidance</Link>.
-                    </div>
                     <div className={styles.announcementInner}>
                         Migrate to Angular {'>'}=13? Check out our{' '}
                         <Link to="/docs/guides/angular-13+">Angular {'>'}=13 guidance</Link>.

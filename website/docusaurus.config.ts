@@ -178,10 +178,6 @@ const config: Config = {
                             label: 'Installation',
                             to: 'docs/getting-started/installation',
                         },
-                        {
-                            label: 'Angular Ivy',
-                            to: 'docs/guides/angular-ivy',
-                        },
                     ],
                 },
                 {
