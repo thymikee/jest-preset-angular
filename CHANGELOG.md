@@ -1,4 +1,4 @@
-## [15.0.0](https://github.com/thymikee/jest-preset-angular/compare/v14.6.1...v15.0.0) (2025-07-22)
+# [15.0.0](https://github.com/thymikee/jest-preset-angular/compare/v14.6.1...v15.0.0) (2025-07-22)
 
 
 ### Bug Fixes
