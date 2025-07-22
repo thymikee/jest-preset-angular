@@ -1,4 +1,4 @@
-name: Release
+name: Release 🚀
 
 on:
   push:
@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.check_tag.outputs.version }}
-      is_prerelease: ${{ steps.check_tag.outputs.is_prerelease }}
+      is_prerelease: ${{ steps.check_tag.outputs.is_prerelease_version == 'true' && github.ref_name == 'next' }}
+      is_stable_release: ${{ steps.check_tag.outputs.is_stable_version == 'true' && github.ref_name == 'main' }}
       tag_exists: ${{ steps.check_tag.outputs.tag_exists }}
 
     steps:
@@ -30,10 +31,10 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           if [[ "$VERSION" == *rc* ]] || [[ "$VERSION" == *next* ]] || [[ "$VERSION" == *alpha* ]] || [[ "$VERSION" == *beta* ]]; then
-            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+            echo "is_prerelease_version=true" >> $GITHUB_OUTPUT
             echo "This is a prerelease version"
           else
-            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+            echo "is_stable_version=true" >> $GITHUB_OUTPUT
             echo "This is a stable release version"
           fi
 
@@ -48,7 +49,7 @@ jobs:
   release_to_npm:
     name: Release to NPM 🚀
     needs: verify_release
-    if: needs.verify_release.outputs.tag_exists != 'true'
+    if: needs.verify_release.outputs.tag_exists != 'true' && (needs.verify_release.outputs.is_prerelease == 'true' || needs.verify_release.outputs.is_stable_release == 'true')
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -65,17 +66,6 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-
-      - id: cache-yarn
-        name: Restore cached node modules ♻️
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
-        with:
-          path: |
-            .yarn/cache
-            node_modules
-          key: ${{ inputs.os }}-${{ inputs.node }}-release-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ inputs.os }}-${{ inputs.node }}-release
 
       - name: Create and push tag 🔖
         id: create_tag
@@ -94,7 +84,7 @@ jobs:
         run: yarn build
 
       - name: Publish with latest tag 🚀
-        if: needs.verify-release.outputs.is_prerelease != 'true'
+        if: needs.verify_release.outputs.is_stable_release == 'true'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
