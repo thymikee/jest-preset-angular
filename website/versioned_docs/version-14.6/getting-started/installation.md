@@ -56,16 +56,16 @@ export default {
 
 Adjust your `tsconfig.spec.json` to be:
 
-```json5 title="tsconfig.spec.json" tab={"label": "Tsconfig CJS"}
+```json title="tsconfig.spec.json" tab={"label": "Tsconfig CJS"}
 {
   //...
-  extends: './tsconfig.json',
-  compilerOptions: {
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
     //...
-    module: 'CommonJS',
-    types: ['jest'],
+    "module": "CommonJS",
+    "types": ["jest"]
   },
-  include: ['src/**/*.spec.ts', 'src/**/*.d.ts'],
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
   //...
 }
 ```
