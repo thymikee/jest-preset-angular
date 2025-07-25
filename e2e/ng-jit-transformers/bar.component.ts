@@ -32,10 +32,10 @@ export class BarComponent {
     styleUrl: `./bar.component.scss`,
     // we have to setup styles this way, since simple styles/styleUrs properties will be removed (jest does not unit test styles)
     styles: `
-            p {
-                color: red;
-            }
-        `,
+        p {
+            color: red;
+        }
+    `,
 })
 export class StringStylesBarComponent {
     constructor(@Inject(DATA_TOKEN) public data: ServerError) {}

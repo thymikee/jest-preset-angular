@@ -1,25 +1,15 @@
 import { createRequire } from 'node:module';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import angularEslint from 'angular-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
 import jestPlugin from 'eslint-plugin-jest';
 import jsdocPlugin from 'eslint-plugin-jsdoc';
+import eslintPrettier from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: eslint.configs.recommended,
-    allConfig: eslint.configs.all,
-});
-const eslintPluginPrettier = compat.extends('plugin:prettier/recommended');
 const createRequireESM = createRequire(import.meta.url);
 const prettierConfig = createRequireESM('./.prettierrc.json');
 
@@ -40,7 +30,7 @@ export default tseslint.config(
     importPlugin.flatConfigs.recommended,
     jestPlugin.configs['flat/recommended'],
     eslintConfigPrettier,
-    eslintPluginPrettier,
+    eslintPrettier,
     {
         files: ['**/*.{js,cjs,mjs}'],
         languageOptions: {
