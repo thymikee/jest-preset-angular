@@ -3,6 +3,9 @@
     "group:babelMonorepo",
     "group:commitlintMonorepo",
     "group:docusaurusMonorepo",
+    "packages:jsUnitTest",
+    "packages:linters",
+    "group:angular-eslintMonorepo",
     ":prHourlyLimit2",
     "helpers:pinGitHubActionDigests",
     "workarounds:all"
@@ -30,24 +33,6 @@
     {
       "matchPackagePatterns": ["^angular", "^@angular", "^ng-packagr"],
       "groupName": "Angular packages"
-    },
-    {
-      "matchPackagePatterns": ["jest"],
-      "excludePackageNames": ["eslint-plugin-jest"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "groupName": "Jest packages"
-    },
-    {
-      "extends": [
-        "packages:eslint",
-        "group:angular-eslintMonorepo"
-      ],
-      "groupName": "ESLint packages"
-    },
-    {
-      "matchPackagePatterns": ["prettier"],
-      "groupName": "Prettier packages",
-      "enabled": true
     },
     {
       "matchFiles": ["**/package.json"],
