@@ -42,13 +42,12 @@
         "packages:eslint",
         "group:angular-eslintMonorepo"
       ],
-      "excludePackageNames": ["eslint-plugin-prettier"],
       "groupName": "ESLint packages"
     },
     {
       "matchPackagePatterns": ["prettier"],
       "groupName": "Prettier packages",
-      "enabled": false
+      "enabled": true
     },
     {
       "matchFiles": ["**/package.json"],
