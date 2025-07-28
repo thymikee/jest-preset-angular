@@ -5,21 +5,21 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@primeuix/styled@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@primeuix/styled@npm:0.7.0"
+"@primeuix/styled@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "@primeuix/styled@npm:0.7.1"
   dependencies:
     "@primeuix/utils": "npm:^0.6.0"
-  checksum: 10/13e0f922e1bd99ba87593a1201dcacfcf94451d5a820aeb37f72768c5f0cbf2f77239c429b2c490ae95ac790d3f2189ea62319611b793a30f635a01fb6ec14a9
+  checksum: 10/72e8c37f145cc668a9f2b3e728be68e7cac9172db4b86463629cf1a85cb6daf41fb864ba8e4a9bcd4eedb09a4107a0919d0411a17d8f8656639f79f865a666fe
   languageName: node
   linkType: hard
 
-"@primeuix/styles@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@primeuix/styles@npm:1.2.1"
+"@primeuix/styles@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@primeuix/styles@npm:1.2.2"
   dependencies:
-    "@primeuix/styled": "npm:^0.7.0"
-  checksum: 10/52791b7e66d0b57b572f2fdcebfaf5ad26d6fc7339d379d1ec3264b130ca34f30956c011f3beff4dc4e15d8c3743d0fb1e4c5118be11634f0e6e7cd723b9961b
+    "@primeuix/styled": "npm:^0.7.1"
+  checksum: 10/a70f641ae35a2337f289a53cfd1d914806436182c22a55c28f64069dbde5694a8c36be332644f8c3c8aab263e7f213255fa24bf1e3c3ea163cf4e1c7c0527850
   languageName: node
   linkType: hard
 
@@ -35,7 +35,7 @@ __metadata:
   resolution: "custom-jsdom-env@workspace:."
   dependencies:
     primeicons: "npm:^7.0.0"
-    primeng: "npm:^20.0.0"
+    primeng: "npm:^20.0.1"
   languageName: unknown
   linkType: soft
 
@@ -46,12 +46,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"primeng@npm:^20.0.0":
-  version: 20.0.0
-  resolution: "primeng@npm:20.0.0"
+"primeng@npm:^20.0.1":
+  version: 20.0.1
+  resolution: "primeng@npm:20.0.1"
   dependencies:
-    "@primeuix/styled": "npm:^0.7.0"
-    "@primeuix/styles": "npm:^1.2.1"
+    "@primeuix/styled": "npm:^0.7.1"
+    "@primeuix/styles": "npm:^1.2.2"
     "@primeuix/utils": "npm:^0.6.0"
     tslib: "npm:^2.3.0"
   peerDependencies:
@@ -63,7 +63,7 @@ __metadata:
     "@angular/platform-browser": ^20.0.4
     "@angular/router": ^20.0.4
     rxjs: ^6.0.0 || ^7.8.1
-  checksum: 10/10f38f36432141a2066cb6c6d0d670822ac0978cd86b9444af3aa1d2426a489aaa8fce56833e7dca1ecc0b5814cd1cfa2b734aac157576cec856a77d8516f72b
+  checksum: 10/6a45a3ba87e540937d72cd1fe4e06571f266cb1238aab3ca13e4e8fe8d42ca68acc66327dff0606427b258a63072b04259e8e84c4b3d340c28a7102b4253f8bf
   languageName: node
   linkType: hard
 
