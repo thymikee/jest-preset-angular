@@ -1,7 +1,7 @@
 name: Setup documentation workspace ⚙️
 
 inputs:
-  baseURL:
+  base-url:
     required: false
     type: string
     default: '/jest-preset-angular/'
@@ -25,5 +25,5 @@ runs:
       run: yarn build
       shell: bash
       env:
-        BASE_URL: ${{ inputs.baseURL }}
+        BASE_URL: ${{ inputs.base-url }}
       working-directory: website
