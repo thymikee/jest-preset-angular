@@ -1,0 +1,36 @@
+name: Setup code workspace ⚙️
+
+inputs:
+  node-version:
+    required: false
+    type: string
+    default: '22'
+  os:
+    required: true
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node version ⚙️
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      with:
+        cache: yarn
+        cache-dependency-path: 'yarn.lock'
+        node-version: ${{ inputs.node-version }}
+
+    - name: Restore cached node modules ♻️
+      id: cache-yarn
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+      with:
+        path: |
+          .yarn/cache
+          node_modules
+        key: ${{ inputs.os }}-${{ inputs.node-version }}-build-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ inputs.os }}-${{ inputs.node-version }}-build
+
+    - name: Install dependencies 🔧
+      if: ${{ steps.cache-yarn.outputs.cache-hit != 'true' }}
+      run: yarn install --frozen-lockfile
+      shell: bash
