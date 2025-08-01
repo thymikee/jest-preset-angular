@@ -61,11 +61,14 @@ jobs:
           fetch-depth: 20
           fetch-tags: false
 
-      - name: Setup Node version ⚙️
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - name: Setup codespace ⚙️
+        uses: ./.github/actions/setup-codespace
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
+          node-version: 22
+          os: ubuntu-latest
+
+      - name: Build 🔨
+        run: yarn build
 
       - name: Create and push tag 🔖
         id: create_tag
@@ -76,12 +79,6 @@ jobs:
           git push origin $TAG_NAME
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install 🔧
-        run: yarn --immutable
-
-      - name: Build 🔨
-        run: yarn build
 
       - name: Publish with latest tag 🚀
         if: needs.verify_release.outputs.is_stable_release == 'true'

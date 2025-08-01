@@ -1,0 +1,115 @@
+name: PR codes check 🔍
+
+on:
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - '**/*'
+      - '!website/**/*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-cache:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [18.x, 20.x, 22.x]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Setup codespace for ${{ matrix.os }} on Node v${{ matrix.node-version }} ⚙️
+        uses: ./.github/actions/setup-codespace
+        with:
+          node-version: ${{ matrix.node-version }}
+          os: ${{ matrix.os }}
+
+  test-code-quality:
+    needs: prepare-cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Setup codespace ⚙️
+        uses: ./.github/actions/setup-codespace
+        with:
+          node-version: ${{ matrix.node-version }}
+          os: ${{ matrix.os }}
+
+      - name: Run ESLint check 🔍️
+        run: yarn lint
+
+      - name: Run Prettier check 🔍️
+        run: yarn lint-prettier-ci
+
+  test:
+    needs: prepare-cache
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [18.x, 20.x, 22.x]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Setup codespace ⚙️
+        uses: ./.github/actions/setup-codespace
+        with:
+          node-version: ${{ matrix.node-version }}
+          os: ${{ matrix.os }}
+
+      - name: Run tests in CommonJS mode 🧪
+        run: yarn test
+
+      - name: Run tests in ESM mode 🧪
+        run: yarn test-esm
+
+      - name: Run tests in example projects 🧪
+        run: yarn test-examples
+
+  test-performance:
+    needs: prepare-cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Setup codespace ⚙️️
+        uses: ./.github/actions/setup-codespace
+        with:
+          os: ${{ runner.os }}
+
+      - name: Build 🏗️
+        run: yarn build
+
+      - name: Install dependencies 📦
+        run: yarn --cwd performance
+
+      - name: Run Performance Tests 🧪
+        run: yarn test-perf

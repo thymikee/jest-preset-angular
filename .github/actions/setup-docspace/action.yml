@@ -10,11 +10,13 @@ runs:
   using: composite
   steps:
     - name: Setup Node version ⚙️
-      uses: ./.github/actions/setup-node
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
       with:
+        cache: yarn
         cache-dependency-path: 'website/yarn.lock'
+        node-version: 22
 
-    - name: Install 🔧
+    - name: Install dependencies 🔧
       run: yarn install --frozen-lockfile
       shell: bash
       working-directory: website
