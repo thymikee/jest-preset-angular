@@ -13,7 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write # Required to push commits
+  pages: write # Required to deploy to Pages
 
 jobs:
   deploy:

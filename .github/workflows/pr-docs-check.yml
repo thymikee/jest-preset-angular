@@ -17,6 +17,7 @@ concurrency:
 
 permissions:
   contents: write # Required to push commits
+  pages: write # Required to deploy to Pages
   pull-requests: write # If creating/updating PRs
 
 jobs:
