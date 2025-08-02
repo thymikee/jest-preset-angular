@@ -9,6 +9,8 @@ on:
 jobs:
   verify_release:
     name: Verify release 🔍
+    permissions:
+      contents: read
     if: startsWith(github.event.head_commit.message, 'chore(release)')
     runs-on: ubuntu-latest
     outputs:
