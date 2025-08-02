@@ -29,17 +29,9 @@ node_modules
 .github
 
 # Generic config
-*.config.mjs
-*.config.js
-*.config.cjs
-*.config.ts
-*.config.cts
-*.config.mts
+*.config.*
 .prettierignore
-.prettierrc.json
-
-# Tsconfig
-tsconfig*.json
+*.json
 
 # Others
 *.tgz
@@ -49,4 +41,4 @@ tsconfig*.json
 .husky
 .yarn/*
 .yarnrc.yml
-renovate.json
+*.properties
