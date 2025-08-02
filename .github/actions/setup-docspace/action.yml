@@ -16,6 +16,16 @@ runs:
         cache-dependency-path: 'website/yarn.lock'
         node-version: 22
 
+    - name: Restore cached node modules ♻️
+      id: cache-yarn
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+      with:
+        path: |
+          website/.yarn/cache
+          website/node_modules
+        key: node-22-website-build-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: node-22-website-build
+
     - name: Install dependencies 🔧
       run: yarn install --frozen-lockfile
       shell: bash
