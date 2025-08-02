@@ -15,6 +15,10 @@ concurrency:
   group: preview-doc-pr-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+permissions:
+  contents: write # Required to push commits
+  pull-requests: write # If creating/updating PRs
+
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
