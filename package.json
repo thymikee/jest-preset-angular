@@ -8,6 +8,18 @@
   },
   "main": "build/index.js",
   "typings": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "require": "./build/index.js",
+      "import": "./build/index.js"
+    },
+    "./presets": {
+      "types": "./presets/index.d.ts",
+      "require": "./presets/index.js",
+      "import": "./presets/index.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thymikee/jest-preset-angular.git"
