@@ -4,6 +4,24 @@ Jest Preset Angular is a comprehensive preset configuration for testing Angular 
 
 Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
 
+## Development Best Practices and Resources
+
+When working in this Angular Jest preset codebase, follow these established best practices:
+
+### Angular AI Development
+- **Model Context Protocol (MCP)**: Leverage [Angular's MCP guidance](https://angular.dev/ai/mcp) for AI-assisted development workflows
+- **Angular AI Best Practices**: Follow [Angular's AI development guidelines](https://angular.dev/ai/develop-with-ai#custom-prompts-and-system-instructions) for custom prompts and system instructions when working with Angular-specific code
+
+### TypeScript Best Practices
+- **TypeScript Guidelines**: Adhere to [comprehensive TypeScript best practices](https://github.com/andredesousa/typescript-best-practices) when working with transformers, presets, and configuration code
+- **Type Safety**: Maintain strict type safety across all transformer and preset implementations
+- **Code Quality**: Use proper TypeScript patterns for maintainable and scalable code
+
+### Jest Preset Angular Specific Practices
+- **Transformer Design**: When modifying transformers, ensure compatibility with both CommonJS and ESM module formats
+- **Angular Integration**: Maintain seamless integration with Angular's compilation pipeline and testing framework
+- **Performance Considerations**: Consider transformer execution time and memory usage when making changes
+
 ## Working Effectively
 
 ### Bootstrap, build, and test the repository:
