@@ -28,11 +28,19 @@ This repository uses modular GitHub Copilot instructions organized by topic. Ref
 
 ### Validation Before Committing
 
-Always run the full validation suite:
+- Always run code format fix:
 
 ```bash
-yarn test && yarn test-esm && yarn lint && yarn lint-prettier-ci
+yarn lint-fix && yarn lint-prettier
 ```
+
+- Always run the full validation suite:
+
+```bash
+yarn test && yarn test-esm && yarn lint && yarn lint-prettier-ci && yarn test-examples
+```
+
+- Always run `husky` pre-commit hooks which is under `.husky` directory.
 
 ### Key Principles
 
