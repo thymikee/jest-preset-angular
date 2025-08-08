@@ -26,10 +26,18 @@ jest.mock('@angular/core/testing', () => {
     };
 });
 
+class BrowserTestingModuleStub {}
 class BrowserDynamicTestingModuleStub {}
 class PlatformRefStub {}
 class ErrorHandlerStub {}
+const mockPlatformBrowserTesting = jest.fn(() => new PlatformRefStub());
 const mockPlatformBrowserDynamicTesting = jest.fn(() => new PlatformRefStub());
+jest.mock('@angular/platform-browser/testing', () => {
+    return {
+        BrowserTestingModule: new BrowserTestingModuleStub(),
+        platformBrowserTesting: mockPlatformBrowserTesting,
+    };
+});
 jest.mock('@angular/platform-browser-dynamic/testing', () => {
     return {
         BrowserDynamicTestingModule: new BrowserDynamicTestingModuleStub(),
@@ -44,15 +52,18 @@ jest.mock('@angular/core', () => {
         NgModule: () => {
             return jest.fn();
         },
+        VERSION: {
+            major: '20',
+        },
     };
 });
 
 describe('Setup env utilities', () => {
     const assertOnInitTestEnv = (): void => {
         expect(mockGetTestBed).toHaveBeenCalled();
-        expect(mockInitTestEnvironment.mock.calls[0][0][0]).toBeInstanceOf(BrowserDynamicTestingModuleStub);
-        expect(mockPlatformBrowserDynamicTesting).toHaveBeenCalled();
-        expect(mockPlatformBrowserDynamicTesting.mock.results[0].value).toBeInstanceOf(PlatformRefStub);
+        expect(mockInitTestEnvironment.mock.calls[0][0][0]).toBeInstanceOf(BrowserTestingModuleStub);
+        expect(mockPlatformBrowserTesting).toHaveBeenCalled();
+        expect(mockPlatformBrowserTesting.mock.results[0].value).toBeInstanceOf(PlatformRefStub);
         expect(mockInitTestEnvironment.mock.calls[0][2]).toEqual({
             teardown: {
                 destroyAfterEach: false,

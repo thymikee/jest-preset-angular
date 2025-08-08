@@ -1,7 +1,8 @@
 import * as angularCore from '@angular/core';
-import { ErrorHandler, NgModule, VERSION } from '@angular/core';
+import { ErrorHandler, NgModule, VERSION, COMPILER_OPTIONS } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
+import { platformBrowserDynamicTesting, BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { polyfillEncoder, resolveTestEnvOptions } from '../utils';
 
@@ -31,15 +32,28 @@ const provideZonelessConfig = () => {
 };
 
 const setupZonelessTestEnv = (options) => {
-    polyfillEncoder();
     if (typeof provideZonelessChangeDetectionFn !== 'undefined') {
+        polyfillEncoder();
         const testEnvironmentOptions = resolveTestEnvOptions(options);
-
-        getTestBed().initTestEnvironment(
-            [BrowserDynamicTestingModule, provideZonelessConfig()],
-            platformBrowserDynamicTesting(),
-            testEnvironmentOptions,
-        );
+        if (+VERSION.major >= 20) {
+            getTestBed().initTestEnvironment(
+                [BrowserTestingModule, provideZonelessConfig()],
+                platformBrowserTesting([
+                    {
+                        provide: COMPILER_OPTIONS,
+                        useValue: {},
+                        multi: true,
+                    },
+                ]),
+                testEnvironmentOptions,
+            );
+        } else {
+            getTestBed().initTestEnvironment(
+                [BrowserDynamicTestingModule, provideZonelessConfig()],
+                platformBrowserDynamicTesting(),
+                testEnvironmentOptions,
+            );
+        }
 
         return;
     }
