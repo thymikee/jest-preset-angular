@@ -10,10 +10,10 @@ This repository uses modular GitHub Copilot instructions organized by topic. Ref
 
 ### Core Development Guidelines
 
-- **[Angular AI Development](.github/instructions/angular-ai-development.md)** - Angular AI development with Model Context Protocol (MCP), custom prompts, system instructions, and AI-assisted code patterns
-- **[TypeScript Best Practices](.github/instructions/typescript-best-practices.md)** - All 50 comprehensive TypeScript best practices with detailed explanations and jest-preset-angular specific applications
-- **[Development Workflows](.github/instructions/development-workflows.md)** - Validated commands, build processes, testing procedures, and troubleshooting guides
-- **[Repository Structure](.github/instructions/repository-structure.md)** - Key files, directory organization, configuration patterns, and development environment setup
+- **[Angular AI Development](instructions/angular-ai-development.md)** - Angular AI development with Model Context Protocol (MCP), custom prompts, system instructions, and AI-assisted code patterns
+- **[TypeScript Best Practices](instructions/typescript-best-practices.md)** - All 50 comprehensive TypeScript best practices with detailed explanations and jest-preset-angular specific applications
+- **[Development Workflows](instructions/development-workflows.md)** - Validated commands, build processes, testing procedures, and troubleshooting guides
+- **[Repository Structure](instructions/repository-structure.md)** - Key files, directory organization, configuration patterns, and development environment setup
 
 ## Quick Start
 
@@ -22,6 +22,7 @@ This repository uses modular GitHub Copilot instructions organized by topic. Ref
 - **Install**: `yarn install --frozen-lockfile` (3 minutes, timeout: 5+ minutes)
 - **Build**: `yarn build` (4 seconds, timeout: 30 seconds)
 - **Test**: `yarn test` (26 seconds, timeout: 60+ minutes)
+- **Test Example Apps**: `yarn test-examples` (26 seconds, timeout: 60+ minutes)
 - **Lint**: `yarn lint && yarn lint-prettier-ci` (25 seconds total)
 
 ### Validation Before Committing
