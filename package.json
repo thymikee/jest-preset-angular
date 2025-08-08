@@ -24,6 +24,11 @@
       "require": "./environments/jest-jsdom-env.js",
       "import": "./environments/jest-jsdom-env.js"
     },
+    "./environments/jest-jsdom-env": {
+      "types": "./environments/jest-jsdom-env.d.ts",
+      "require": "./environments/jest-jsdom-env.js",
+      "import": "./environments/jest-jsdom-env.js"
+    },
     "./setup-env": {
       "require": "./setup-env/utils.js",
       "import": "./setup-env/utils.js"
@@ -32,17 +37,20 @@
       "require": "./setup-env/utils.mjs",
       "import": "./setup-env/utils.mjs"
     },
+    "./setup-env/*/index.mjs": {
+      "types": "./setup-env/*/index.d.ts",
+      "require": "./setup-env/*/index.mjs",
+      "import": "./setup-env/*/index.mjs"
+    },
     "./setup-env/*": {
       "types": "./setup-env/*/index.d.ts",
       "require": "./setup-env/*/index.js",
       "import": "./setup-env/*/index.js"
     },
-    "./setup-env/*/index.mjs": {
-      "types": "./setup-env/*/index.d.ts",
-      "require": "./setup-env/*/index.js",
-      "import": "./setup-env/*/index.js"
-    },
-    "./build/*": "./build/*"
+    "./build/*": "./build/*",
+    "./build/serializers/html-comment": "./build/serializers/html-comment.js",
+    "./build/serializers/ng-snapshot": "./build/serializers/ng-snapshot.js", 
+    "./build/serializers/no-ng-attributes": "./build/serializers/no-ng-attributes.js"
   },
   "repository": {
     "type": "git",
