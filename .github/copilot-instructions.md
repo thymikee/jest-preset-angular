@@ -19,11 +19,12 @@ This repository uses modular GitHub Copilot instructions organized by topic. Ref
 
 ### Essential Commands
 
-- **Install**: `yarn install --frozen-lockfile` (3 minutes, timeout: 5+ minutes)
-- **Build**: `yarn build` (4 seconds, timeout: 30 seconds)
-- **Test**: `yarn test` (26 seconds, timeout: 60+ minutes)
-- **Test Example Apps**: `yarn test-examples` (26 seconds, timeout: 60+ minutes)
-- **Lint**: `yarn lint && yarn lint-prettier-ci` (25 seconds total)
+- **Install**: `yarn install --frozen-lockfile`
+- **Build**: `yarn build`
+- **Test**: `yarn test`
+- **Test Example Apps**: `yarn test-examples`
+- **Lint**: `yarn lint && yarn lint-prettier-ci`
+- **Fix code format**: `yarn lint-fix && yarn lint-prettier`
 
 ### Validation Before Committing
 
