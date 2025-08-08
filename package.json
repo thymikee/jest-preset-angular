@@ -18,7 +18,31 @@
       "types": "./presets/index.d.ts",
       "require": "./presets/index.js",
       "import": "./presets/index.js"
-    }
+    },
+    "./environments": {
+      "types": "./environments/jest-jsdom-env.d.ts",
+      "require": "./environments/jest-jsdom-env.js",
+      "import": "./environments/jest-jsdom-env.js"
+    },
+    "./setup-env": {
+      "require": "./setup-env/utils.js",
+      "import": "./setup-env/utils.js"
+    },
+    "./setup-env/utils.mjs": {
+      "require": "./setup-env/utils.mjs",
+      "import": "./setup-env/utils.mjs"
+    },
+    "./setup-env/*": {
+      "types": "./setup-env/*/index.d.ts",
+      "require": "./setup-env/*/index.js",
+      "import": "./setup-env/*/index.js"
+    },
+    "./setup-env/*/index.mjs": {
+      "types": "./setup-env/*/index.d.ts",
+      "require": "./setup-env/*/index.js",
+      "import": "./setup-env/*/index.js"
+    },
+    "./build/*": "./build/*"
   },
   "repository": {
     "type": "git",

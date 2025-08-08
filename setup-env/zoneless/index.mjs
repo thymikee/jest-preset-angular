@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule, VERSION } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
-import { polyfillEncoder, resolveTestEnvOptions } from '../utils';
+import { polyfillEncoder, resolveTestEnvOptions } from '../utils.mjs';
 
 const provideZonelessChangeDetectionFn =
     'provideExperimentalZonelessChangeDetection' in angularCore
