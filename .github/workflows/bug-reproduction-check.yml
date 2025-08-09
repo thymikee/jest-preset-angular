@@ -1,123 +1,65 @@
-name: Bug Reproduction Check 🐛
+name: Bug Report Reproduction Check
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened]
 
 permissions:
-  issues: write
   contents: read
+  issues: write
   models: read
 
 jobs:
-  check-bug-reproduction:
-    if: contains(github.event.issue.labels.*.name, 'Bug Report')
+  reproduction-steps-check:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Analyze Issue For Reproduction
-        id: analyze
-        uses: actions/ai-inference@v1
-        with:
-          prompt: |
-            Analyze this bug report for jest-preset-angular and determine if it contains sufficient information for reproduction and debugging.
-
-            **Issue Title:** ${{ github.event.issue.title }}
-            
-            **Issue Body:**
-            ${{ github.event.issue.body }}
-
-            **Analysis Requirements:**
-            1. Check if the title starts with "[Bug]:" and is descriptive
-            2. Verify if a specific version of jest-preset-angular is mentioned
-            3. Look for a minimal reproduction (GitHub repo link, code samples, or clear steps)
-            4. Check for expected vs actual behavior descriptions (not just placeholders)
-            5. Verify environment information is provided (Node.js, npm/yarn versions, OS, etc.)
-            6. Assess overall completeness and actionability
-
-            **Response Format:**
-            Return a JSON object with:
-            - "sufficient": boolean indicating if the bug report has enough information
-            - "missing_items": array of strings describing what's missing
-            - "suggestions": array of helpful suggestions to improve the report
-
-            **Quality Standards:**
-            - Bug reports must have a minimal reproduction or very clear steps
-            - Version information should be specific (not just "latest")
-            - Expected/actual behavior should be meaningful (not template placeholders)
-            - Environment details help with debugging platform-specific issues
-
-      - name: Process Analysis Results
+      - name: Fetch Issue
+        id: issue
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const analysis = JSON.parse(`${{ steps.analyze.outputs.result }}`);
+            const issue_number = context.issue.number
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number
+            })
+            core.setOutput('title', issue.data.title)
+            core.setOutput('body', issue.data.body)
+
+      - name: Analyze Issue For Reproduction
+        if: contains(join(github.event.issue.labels.*.name, ','), 'Bug Report')
+        id: analyze-issue
+        uses: actions/ai-inference@v1
+        with:
+          model: mistral-ai/ministral-3b
+          system-prompt: |
+            Given a bug report title and text for jest-preset-angular (a Jest preset for Angular projects), return 'pass' if there is enough information to reliably reproduce the issue. The report should clearly describe:
             
-            console.log('AI Analysis Result:', analysis);
+            1. **Version**: Specific version of jest-preset-angular (not just "latest")
+            2. **Reproduction Steps**: Clear steps to reproduce with either:
+               - A link to a minimal reproduction repository
+               - Detailed code examples and configuration
+               - Specific commands that demonstrate the issue
+            3. **Expected vs Actual Behavior**: Clear description of what should happen vs what actually happens
+            4. **Environment Information**: Output from `npx envinfo --preset jest` showing Node.js, npm/yarn versions, OS, and Jest-related packages
             
-            if (!analysis.sufficient) {
-              const missingItemsList = analysis.missing_items.map(item => `- **${item}**`).join('\n');
-              const suggestionsList = analysis.suggestions.map(item => `- ${item}`).join('\n');
-              
-              const comment = [
-                '## 🐛 Bug Report Information Needed',
-                '',
-                'Thanks for filing a bug report! Our automated analysis indicates that some information is needed to help us investigate and fix the issue quickly:',
-                '',
-                '### Missing Information:',
-                missingItemsList,
-                '',
-                '### 💡 Suggestions:',
-                suggestionsList,
-                '',
-                '### 📋 Checklist for a High-Quality Bug Report',
-                '',
-                '- [ ] **Title**: Starts with `[Bug]:` and clearly describes the issue',
-                '- [ ] **Version**: Exact version of `jest-preset-angular` (e.g., `14.2.0`)',
-                '- [ ] **Minimal Reproduction**: GitHub repository link or clear code example',
-                '- [ ] **Steps**: Detailed steps to reproduce the issue',
-                '- [ ] **Expected Behavior**: What you expected to happen',
-                '- [ ] **Actual Behavior**: What actually happened (with error messages if applicable)',
-                '- [ ] **Environment**: Run `npx envinfo --preset jest` and paste the output',
-                '',
-                '### 🚨 Important Note',
-                '',
-                'Bug reports without sufficient information for reproduction may be closed to help us focus on actionable issues.',
-                '',
-                '**Need help?** Check our [documentation](https://thymikee.github.io/jest-preset-angular) or ask on [Discord](https://discord.gg/j6FKKQQrW9) or [StackOverflow](https://stackoverflow.com/questions/ask).',
-                '',
-                'Please update your issue with the missing information. Thank you! 🙏'
-              ].join('\n');
+            If any of these critical elements are missing, unclear, or contain placeholder text (like "A bug happened!" or "I expect to see X or Y"), return a friendly response explaining what specific information is needed for jest-preset-angular maintainers to investigate the issue effectively.
+          prompt: |
+            Title: ${{ steps.issue.outputs.title }}
+            Body: ${{ steps.issue.outputs.body }}
 
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: comment
-              });
-
-              // Add label to indicate more information is needed
-              await github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['needs reproduction']
-              });
-            } else {
-              console.log('Bug report quality looks good according to AI analysis!');
-
-              // Remove the label if it exists and the issue now has sufficient information
-              try {
-                await github.rest.issues.removeLabel({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  name: 'needs reproduction'
-                });
-                console.log('Removed "needs reproduction" label');
-              } catch (error) {
-                // Label might not exist, which is fine
-                console.log('Label "needs reproduction" not found or already removed');
-              }
-            }
+      - name: Comment On Issue
+        if: contains(join(github.event.issue.labels.*.name, ','), 'Bug Report') && steps.analyze-issue.outputs.response != 'pass'
+        uses: actions/github-script@v7
+        env:
+          AI_RESPONSE: ${{ steps.analyze-issue.outputs.response }}
+        with:
+          script: |
+            const issue_number = context.issue.number
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              body: process.env.AI_RESPONSE
+            })
