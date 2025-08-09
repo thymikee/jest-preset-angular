@@ -8,6 +8,46 @@
   },
   "main": "build/index.js",
   "typings": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "require": "./build/index.js",
+      "import": "./build/index.js"
+    },
+    "./presets": {
+      "types": "./presets/index.d.ts",
+      "require": "./presets/index.js",
+      "import": "./presets/index.js"
+    },
+    "./environments": {
+      "types": "./environments/jest-jsdom-env.d.ts",
+      "require": "./environments/jest-jsdom-env.js",
+      "import": "./environments/jest-jsdom-env.js"
+    },
+    "./environments/jest-jsdom-env": {
+      "types": "./environments/jest-jsdom-env.d.ts",
+      "require": "./environments/jest-jsdom-env.js",
+      "import": "./environments/jest-jsdom-env.js"
+    },
+    "./setup-env": {
+      "require": "./setup-env/utils.js",
+      "import": "./setup-env/utils.js"
+    },
+    "./setup-env/*/index.mjs": {
+      "types": "./setup-env/*/index.d.ts",
+      "require": "./setup-env/*/index.mjs",
+      "import": "./setup-env/*/index.mjs"
+    },
+    "./setup-env/*": {
+      "types": "./setup-env/*/index.d.ts",
+      "require": "./setup-env/*/index.js",
+      "import": "./setup-env/*/index.js"
+    },
+    "./build/*": "./build/*",
+    "./build/serializers/html-comment": "./build/serializers/html-comment.js",
+    "./build/serializers/ng-snapshot": "./build/serializers/ng-snapshot.js",
+    "./build/serializers/no-ng-attributes": "./build/serializers/no-ng-attributes.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thymikee/jest-preset-angular.git"
