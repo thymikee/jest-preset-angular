@@ -1,5 +1,5 @@
 import type { Config } from 'jest';
-import { createEsmPreset } from 'jest-preset-angular/presets';
+import { createEsmPreset } from 'jest-preset-angular/presets/index';
 
 import jestEsmCfg from './jest-esm.config';
 
