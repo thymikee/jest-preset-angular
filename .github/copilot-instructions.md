@@ -10,10 +10,10 @@ This repository uses modular GitHub Copilot instructions organized by topic. Ref
 
 ### Core Development Guidelines
 
-- **[Angular AI Development](instructions/angular-ai-development.md)** - Angular AI development with Model Context Protocol (MCP), custom prompts, system instructions, and AI-assisted code patterns
-- **[TypeScript Best Practices](instructions/typescript-best-practices.md)** - All 50 comprehensive TypeScript best practices with detailed explanations and jest-preset-angular specific applications
-- **[Development Workflows](instructions/development-workflows.md)** - Validated commands, build processes, testing procedures, and troubleshooting guides
-- **[Repository Structure](instructions/repository-structure.md)** - Key files, directory organization, configuration patterns, and development environment setup
+- **[Angular AI Development](instructions/angular-ai-development.instructions.md)** - Angular AI development with Model Context Protocol (MCP), custom prompts, system instructions, and AI-assisted code patterns
+- **[TypeScript Best Practices](instructions/typescript-best-practices.instructions.md)** - All 50 comprehensive TypeScript best practices with detailed explanations and jest-preset-angular specific applications
+- **[Development Workflows](instructions/development-workflows.instructions.md)** - Validated commands, build processes, testing procedures, and troubleshooting guides
+- **[Repository Structure](instructions/repository-structure.instructions.md)** - Key files, directory organization, configuration patterns, and development environment setup
 
 ## Quick Start
 
