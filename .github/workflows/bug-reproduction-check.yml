@@ -1,0 +1,123 @@
+name: Bug Reproduction Check 🐛
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+  contents: read
+  models: read
+
+jobs:
+  check-bug-reproduction:
+    if: contains(github.event.issue.labels.*.name, 'Bug Report')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Bug Report Quality
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueBody = context.payload.issue.body || '';
+            const issueTitle = context.payload.issue.title || '';
+
+            // Check for required sections based on bug.yml template
+            const checks = {
+              hasVersion: /Version[^]*?(\d+\.\d+\.\d+|v?\d+\.\d+|\d+\.x)/i.test(issueBody),
+              hasReproduction: /Steps to reproduce[^]*?(?:https?:\/\/github\.com\/[\w\-\.]+\/[\w\-\.]+|Clone.*repo|git clone)/i.test(issueBody),
+              hasExpectedBehavior: /Expected behavior[^]*?(?!placeholder:|I expect to see X or Y)[^]*?\w{20,}/i.test(issueBody),
+              hasActualBehavior: /Actual behavior[^]*?(?!placeholder:|A bug happened!)[^]*?\w{15,}/i.test(issueBody),
+              hasEnvironment: /Environment[^]*?(?:System:|Node:|npm:|yarn:|OS:|CPU:)/i.test(issueBody),
+              hasProperTitle: issueTitle.includes('[Bug]') && issueTitle.length > 10
+            };
+
+            const passedChecks = Object.values(checks).filter(Boolean).length;
+            const totalChecks = Object.keys(checks).length;
+
+            console.log('Bug report quality check results:', checks);
+            console.log(`Passed ${passedChecks}/${totalChecks} checks`);
+
+            // If most checks fail, request more information
+            if (passedChecks < 4) {
+              const missingItems = [];
+
+              if (!checks.hasVersion) {
+                missingItems.push('- **Version**: Please specify the exact version of `jest-preset-angular` you are using');
+              }
+
+              if (!checks.hasReproduction) {
+                missingItems.push('- **Reproduction**: Please provide a link to a GitHub repository with a minimal reproduction and clear steps to reproduce the issue');
+              }
+
+              if (!checks.hasExpectedBehavior) {
+                missingItems.push('- **Expected Behavior**: Please describe what you expected to happen');
+              }
+
+              if (!checks.hasActualBehavior) {
+                missingItems.push('- **Actual Behavior**: Please describe what actually happened');
+              }
+
+              if (!checks.hasEnvironment) {
+                missingItems.push('- **Environment**: Please run `npx envinfo --preset jest` and paste the output');
+              }
+
+              if (!checks.hasProperTitle) {
+                missingItems.push('- **Title**: Please ensure your title starts with `[Bug]:` and is descriptive');
+              }
+
+              const comment = [
+                '## 🐛 Bug Report Information Needed',
+                '',
+                'Thanks for filing a bug report! To help us investigate and fix the issue quickly, we need some additional information:',
+                '',
+                missingItems.join('\n'),
+                '',
+                '### 📋 Checklist for a High-Quality Bug Report',
+                '',
+                '- [ ] **Minimal Reproduction**: A link to a GitHub repository that demonstrates the issue',
+                '- [ ] **Version**: The exact version of `jest-preset-angular` you\'re using',
+                '- [ ] **Steps**: Clear, step-by-step instructions to reproduce the issue',
+                '- [ ] **Expected vs Actual**: What you expected to happen vs what actually happened',
+                '- [ ] **Environment**: Output from `npx envinfo --preset jest`',
+                '',
+                '### 🚨 Important Note',
+                '',
+                'Bug reports without a minimal reproduction will be closed. This helps us focus on issues we can verify and fix efficiently.',
+                '',
+                '**Need help creating a minimal reproduction?** Check out our [documentation](https://thymikee.github.io/jest-preset-angular) or ask for help on [Discord](https://discord.gg/j6FKKQQrW9) or [StackOverflow](https://stackoverflow.com/questions/ask).',
+                '',
+                'Please update your issue with the missing information. Thank you! 🙏'
+              ].join('\n');
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+
+              // Add label to indicate more information is needed
+              await github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['needs reproduction']
+              });
+            } else {
+              console.log('Bug report quality looks good!');
+
+              // Remove the label if it exists and the issue now has sufficient information
+              try {
+                await github.rest.issues.removeLabel({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: 'needs reproduction'
+                });
+              } catch (error) {
+                // Label might not exist, which is fine
+                console.log('Label "needs reproduction" not found or already removed');
+              }
+            }
