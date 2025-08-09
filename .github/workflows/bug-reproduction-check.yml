@@ -32,7 +32,6 @@ jobs:
         id: analyze-issue
         uses: actions/ai-inference@b81b2afb8390ee6839b494a404766bef6493c7d9 # v1
         with:
-          model: openai/gpt-4o
           system-prompt: |
             Given a bug report title and text for jest-preset-angular (a Jest preset for Angular projects), return 'pass' if there is enough information to reliably reproduce the issue. The report should clearly describe:
 
