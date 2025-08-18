@@ -1,12 +1,12 @@
-const { join } = require('path');
+import { join } from 'node:path';
 
-const execa = require('execa');
-const { copySync } = require('fs-extra');
+import execa from 'execa';
+import { copySync } from 'fs-extra';
 
-const logger = require('./logger');
-const { exampleAppsToRun, rootDir } = require('./paths');
+import logger from './logger';
+import { exampleAppsToRun, rootDir } from './paths';
 
-const executeTest = (projectPath) => {
+const executeTest = (projectPath: string) => {
     // we change current directory
     process.chdir(projectPath);
 
@@ -49,7 +49,7 @@ const executeTest = (projectPath) => {
     logger.log('starting the CommonJS tests with isolatedModules: false using:', ...cmdLine);
     logger.log();
 
-    execa.sync(cmdLine.shift(), cmdLine, {
+    execa.sync(cmdLine.shift() ?? 'yarn', cmdLine, {
         cwd: projectPath,
         stdio: 'inherit',
         env: process.env,
@@ -59,7 +59,7 @@ const executeTest = (projectPath) => {
     logger.log('starting the CommonJS tests with isolatedModules: true using:', ...cmdIsolatedLine);
     logger.log();
 
-    execa.sync(cmdIsolatedLine.shift(), cmdIsolatedLine, {
+    execa.sync(cmdIsolatedLine.shift() ?? 'yarn', cmdIsolatedLine, {
         cwd: projectPath,
         stdio: 'inherit',
         env: process.env,
@@ -69,7 +69,7 @@ const executeTest = (projectPath) => {
     logger.log('starting the ESM tests with isolatedModules: false using:', ...cmdESMLine);
     logger.log();
 
-    execa.sync(cmdESMLine.shift(), cmdESMLine, {
+    execa.sync(cmdESMLine.shift() ?? 'yarn', cmdESMLine, {
         cwd: projectPath,
         stdio: 'inherit',
         env: process.env,
@@ -79,7 +79,7 @@ const executeTest = (projectPath) => {
     logger.log('starting the ESM tests with isolatedModules: true using:', ...cmdESMIsolatedLine);
     logger.log();
 
-    execa.sync(cmdESMIsolatedLine.shift(), cmdESMIsolatedLine, {
+    execa.sync(cmdESMIsolatedLine.shift() ?? 'yarn', cmdESMIsolatedLine, {
         cwd: projectPath,
         stdio: 'inherit',
         env: process.env,

@@ -1,12 +1,10 @@
-const { lstatSync, existsSync } = require('fs');
-const path = require('path');
+import { existsSync, lstatSync } from 'node:fs';
+import path from 'node:path';
 
-const glob = require('glob');
+import { sync as globSync } from 'glob';
 
 const rootDir = path.resolve(__dirname, '..');
-const distDir = path.join(rootDir, 'build');
-const exampleAppsToRun = glob
-    .sync('examples/*')
+const exampleAppsToRun = globSync('examples/*')
     .map((examplePath) => path.join(process.cwd(), examplePath))
     .filter((examplePath) => lstatSync(examplePath).isDirectory() && existsSync(path.join(examplePath, 'package.json')))
     .sort((a, b) => {
@@ -16,8 +14,4 @@ const exampleAppsToRun = glob
         return ngVersion1 > ngVersion2 ? 1 : -1;
     });
 
-module.exports = {
-    rootDir,
-    distDir,
-    exampleAppsToRun,
-};
+export { rootDir, exampleAppsToRun };
