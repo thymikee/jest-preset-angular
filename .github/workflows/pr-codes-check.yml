@@ -113,3 +113,28 @@ jobs:
 
       - name: Run Performance Tests 🧪
         run: yarn test-perf
+
+  publish-preview:
+    needs: prepare-cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          fetch-depth: 20
+          fetch-tags: false
+
+      - name: Setup codespace ⚙️️
+        uses: ./.github/actions/setup-codespace
+        with:
+          os: ${{ runner.os }}
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Build
+        run: yarn build
+
+      - name: Publish
+        run: yarn dlx pkg-pr-new publish
