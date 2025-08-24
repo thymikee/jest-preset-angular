@@ -10,12 +10,8 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "target": "ES2022",
-    "module": "ES2022",
-    "moduleResolution": "node",
+    "module": "preserve",
     "paths": {
       "@shared/*": ["./src/app/shared/*"]
     }
@@ -27,7 +23,9 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": [],
+  "files": [
+    "jest.*.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.app.json"

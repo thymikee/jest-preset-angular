@@ -1,3 +1,5 @@
+/** @jest-config-loader esbuild-register */
+
 import type { Config } from 'jest';
 import { createEsmPreset } from 'jest-preset-angular/presets';
 import { pathsToModuleNameMapper } from 'ts-jest';
@@ -6,7 +8,6 @@ import tsconfig from './tsconfig.json';
 
 const esmPreset = createEsmPreset({
     tsconfig: '<rootDir>/tsconfig-esm.spec.json',
-    testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
 });
 
 export default {

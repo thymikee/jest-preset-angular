@@ -8,7 +8,11 @@
     "test": "jest --no-cache",
     "test-isolated": "jest -c jest-isolated.config.ts --no-cache",
     "test-esm": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c jest-esm.config.ts --no-cache",
-    "test-esm-isolated": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c jest-esm-isolated.config.ts --no-cache"
+    "test-esm-isolated": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js -c jest-esm-isolated.config.ts --no-cache",
+    "test-22": "node --no-experimental-strip-types node_modules/jest/bin/jest.js --no-cache",
+    "test-isolated-22": "node --no-experimental-strip-types node_modules/jest/bin/jest.js -c jest-isolated.config.ts --no-cache",
+    "test-esm-22": "node --experimental-vm-modules --no-warnings --no-experimental-strip-types node_modules/jest/bin/jest.js -c jest-esm.config.ts --no-cache",
+    "test-esm-isolated-22": "node --experimental-vm-modules --no-warnings --no-experimental-strip-types node_modules/jest/bin/jest.js -c jest-esm-isolated.config.ts --no-cache"
   },
   "dependencies": {
     "@angular/animations": "^19.2.3",
@@ -30,12 +34,12 @@
     "@angular/compiler-cli": "^19.2.14",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.17.1",
+    "esbuild-register": "^3.6.0",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "jest-preset-angular": "^15.0.0",
     "jsdom": "^26.1.0",
     "ts-jest": "^29.4.1",
-    "ts-node": "^10.9.2",
     "typescript": "~5.7.3"
   }
 }

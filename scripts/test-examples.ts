@@ -6,6 +6,8 @@ import { copySync } from 'fs-extra';
 import logger from './logger';
 import { exampleAppsToRun, rootDir } from './paths';
 
+const majorNodeVersion = parseInt(process.version.slice(1).split('.')[0], 10);
+
 const executeTest = (projectPath: string) => {
     // we change current directory
     process.chdir(projectPath);
@@ -41,10 +43,10 @@ const executeTest = (projectPath: string) => {
     });
 
     // then we can run the tests
-    const cmdLine = ['yarn', 'test'];
-    const cmdIsolatedLine = ['yarn', 'test-isolated'];
-    const cmdESMLine = ['yarn', 'test-esm'];
-    const cmdESMIsolatedLine = ['yarn', 'test-esm-isolated'];
+    const cmdLine = ['yarn', majorNodeVersion === 22 ? 'test-22' : 'test'];
+    const cmdIsolatedLine = ['yarn', majorNodeVersion === 22 ? 'test-isolated-22' : 'test-isolated'];
+    const cmdESMLine = ['yarn', majorNodeVersion === 22 ? 'test-esm-22' : 'test-esm'];
+    const cmdESMIsolatedLine = ['yarn', majorNodeVersion === 22 ? 'test-esm-isolated-22' : 'test-esm-isolated'];
 
     logger.log('starting the CommonJS tests with isolatedModules: false using:', ...cmdLine);
     logger.log();
