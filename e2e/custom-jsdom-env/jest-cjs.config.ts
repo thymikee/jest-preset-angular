@@ -1,6 +1,8 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+/** @jest-config-loader esbuild-register */
 
-const config: JestConfigWithTsJest = {
+import type { Config } from 'jest';
+
+const config: Config = {
     displayName: 'e2e-custom-jsdom-env',
     testEnvironment: '<rootDir>/../../environments/jest-jsdom-env.js',
     setupFilesAfterEnv: ['<rootDir>/../setup-test-env.ts'],

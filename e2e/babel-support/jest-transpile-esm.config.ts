@@ -1,6 +1,8 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+/** @jest-config-loader esbuild-register */
 
-const config: JestConfigWithTsJest = {
+import type { Config } from 'jest';
+
+const config: Config = {
     displayName: 'e2e-babel-support',
     extensionsToTreatAsEsm: ['.ts', '.mts'],
     transform: {
