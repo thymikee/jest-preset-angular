@@ -1,3 +1,5 @@
+/** @jest-config-loader esbuild-register */
+
 import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
