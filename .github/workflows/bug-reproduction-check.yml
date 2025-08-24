@@ -32,21 +32,7 @@ jobs:
         id: analyze-issue
         uses: actions/ai-inference@b81b2afb8390ee6839b494a404766bef6493c7d9 # v1
         with:
-          system-prompt: |
-            Given a bug report title and text for jest-preset-angular (a Jest preset for Angular projects), return 'pass' if there is enough information to reliably reproduce the issue. The report should clearly describe:
-
-            1. **Version**: Specific version of jest-preset-angular (not just "latest")
-            2. **Reproduction Steps**: Clear steps to reproduce with either:
-               - A link to a minimal reproduction repository
-               - Detailed code examples and configuration
-               - Specific commands that demonstrate the issue
-            3. **Expected vs Actual Behavior**: Clear description of what should happen vs what actually happens
-            4. **Environment Information**: Output from `npx envinfo --preset jest` showing Node.js, npm/yarn versions, OS, and Jest-related packages
-
-            If any of these critical elements are missing, unclear, or contain placeholder text (like "A bug happened!" or "I expect to see X or Y"), return a friendly response explaining what specific information is needed for jest-preset-angular maintainers to investigate the issue effectively.
-          prompt: |
-            Title: ${{ steps.issue.outputs.title }}
-            Body: ${{ steps.issue.outputs.body }}
+          prompt-file: './.github/prompts/bug-report-support-prompt.md'
 
       - name: Comment on issue 💬
         if: contains(join(github.event.issue.labels.*.name, ','), 'Bug Report') && steps.analyze-issue.outputs.response != 'pass'
