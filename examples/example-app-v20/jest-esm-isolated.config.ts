@@ -1,4 +1,6 @@
-import type { JestConfigWithTsJest } from 'ts-jest';
+/** @jest-config-loader esbuild-register */
+
+import type { Config } from 'jest';
 
 import jestCfg from './jest-esm.config';
 
@@ -14,4 +16,4 @@ export default {
             },
         ],
     },
-} satisfies JestConfigWithTsJest;
+} satisfies Config;

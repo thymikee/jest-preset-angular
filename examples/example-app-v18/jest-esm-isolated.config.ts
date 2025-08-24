@@ -1,16 +1,19 @@
+/** @jest-config-loader esbuild-register */
+
 import type { Config } from 'jest';
-import { createEsmPreset } from 'jest-preset-angular/presets';
 
-import jestEsmCfg from './jest-esm.config';
-
-const esmPreset = createEsmPreset({
-    tsconfig: '<rootDir>/tsconfig-isolated-esm.spec.json',
-    testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
-});
+import jestCfg from './jest-esm.config';
 
 export default {
-    ...jestEsmCfg,
+    ...jestCfg,
     transform: {
-        ...esmPreset.transform,
+        '^.+\\.(ts|js|html|svg)$': [
+            'jest-preset-angular',
+            {
+                tsconfig: '<rootDir>/tsconfig-isolated-esm.spec.json',
+                stringifyContentPathRegex: '\\.(html|svg)$',
+                useESM: true,
+            },
+        ],
     },
 } satisfies Config;
