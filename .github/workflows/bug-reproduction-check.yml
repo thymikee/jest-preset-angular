@@ -30,7 +30,7 @@ jobs:
       - name: Analyze issue for reproduction 🔍
         if: contains(join(github.event.issue.labels.*.name, ','), 'Bug Report')
         id: analyze-issue
-        uses: actions/ai-inference@b81b2afb8390ee6839b494a404766bef6493c7d9 # v1
+        uses: actions/ai-inference@a1c11829223a786afe3b5663db904a3aa1eac3a2 # v2
         with:
           prompt-file: './.github/prompts/bug-report-support-prompt.md'
 
