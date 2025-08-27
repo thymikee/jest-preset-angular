@@ -2,7 +2,7 @@ name: Bug Report Reproduction Check 🐛
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
         id: analyze-issue
         uses: actions/ai-inference@a1c11829223a786afe3b5663db904a3aa1eac3a2 # v2
         with:
-          system-prompt-file: '.github/prompts/bug-report-support-prompt.md'
+          system-prompt-file: 'prompts/bug-report-support-prompt.md'
           prompt: |
             Please analyze this bug report and determine if it meets all reproduction criteria.
 
