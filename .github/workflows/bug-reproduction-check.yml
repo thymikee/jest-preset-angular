@@ -38,7 +38,7 @@ jobs:
         id: analyze-issue
         uses: actions/ai-inference@a1c11829223a786afe3b5663db904a3aa1eac3a2 # v2
         with:
-          model: openapi/gpt-5
+          model: openai/gpt-5
           system-prompt-file: '.github/prompts/bug-report-support-prompt.md'
           prompt: |
             Please analyze this bug report and determine if it meets all reproduction criteria.
