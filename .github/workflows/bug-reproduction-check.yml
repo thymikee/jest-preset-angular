@@ -32,7 +32,7 @@ jobs:
         id: analyze-issue
         uses: actions/ai-inference@a1c11829223a786afe3b5663db904a3aa1eac3a2 # v2
         with:
-          prompt-file: './.github/prompts/bug-report-support-prompt.md'
+          system-prompt-file: '.github/prompts/bug-report-support-prompt.md'
 
       - name: Comment on issue 💬
         if: contains(join(github.event.issue.labels.*.name, ','), 'Bug Report') && steps.analyze-issue.outputs.response != 'pass'
