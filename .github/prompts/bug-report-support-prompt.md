@@ -37,7 +37,7 @@ The report must clearly provide:
 We’d love to investigate, but we need a bit more info to help you faster:
 
 **1. Version 📦**
-Please tell us the exact `jest-preset-angular` version (e.g., `13.1.2`).
+Please tell us the exact `jest-preset-angular` version (e.g., `15.0.0`).
 
 **2. Reproduction Steps 🔍**
 A minimal GitHub repo or detailed code/config steps would be perfect.
