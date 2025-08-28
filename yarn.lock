@@ -2897,7 +2897,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/transform@npm:^30.1.1":
+"@jest/transform@npm:30.1.1, @jest/transform@npm:^30.1.1":
   version: 30.1.1
   resolution: "@jest/transform@npm:30.1.1"
   dependencies:
@@ -5110,7 +5110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-jest@npm:30.0.5, babel-jest@npm:^30.0.5":
+"babel-jest@npm:30.0.5":
   version: 30.0.5
   resolution: "babel-jest@npm:30.0.5"
   dependencies:
@@ -5124,6 +5124,23 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.11.0
   checksum: 10/39a36b86484e8d545ff0f83c81fccd4952e6fc68b98015fd72a03ba2a5650edde20412fdf92328200a5cbdd0aed6f1c2982269f590fb0e5f131e0a2533436c81
+  languageName: node
+  linkType: hard
+
+"babel-jest@npm:^30.1.1":
+  version: 30.1.1
+  resolution: "babel-jest@npm:30.1.1"
+  dependencies:
+    "@jest/transform": "npm:30.1.1"
+    "@types/babel__core": "npm:^7.20.5"
+    babel-plugin-istanbul: "npm:^7.0.0"
+    babel-preset-jest: "npm:30.0.1"
+    chalk: "npm:^4.1.2"
+    graceful-fs: "npm:^4.2.11"
+    slash: "npm:^3.0.0"
+  peerDependencies:
+    "@babel/core": ^7.11.0
+  checksum: 10/1358a53a42d42174841670fe5e796f63b76930e39c188c54d5a2db1ddf9db429ce7d04b323ff301b4f67c44935f591307d3e07f000c400eae2a91d2a1a18b10b
   languageName: node
   linkType: hard
 
@@ -8975,7 +8992,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.31.0"
     "@typescript-eslint/parser": "npm:^8.31.0"
     angular-eslint: "npm:^20.2.0"
-    babel-jest: "npm:^30.0.5"
+    babel-jest: "npm:^30.1.1"
     bs-logger: "npm:^0.2.6"
     chalk: "npm:^4.1.2"
     conventional-changelog-angular: "npm:^8.0.0"
