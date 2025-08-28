@@ -2640,28 +2640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/environment-jsdom-abstract@npm:30.0.5":
-  version: 30.0.5
-  resolution: "@jest/environment-jsdom-abstract@npm:30.0.5"
-  dependencies:
-    "@jest/environment": "npm:30.0.5"
-    "@jest/fake-timers": "npm:30.0.5"
-    "@jest/types": "npm:30.0.5"
-    "@types/jsdom": "npm:^21.1.7"
-    "@types/node": "npm:*"
-    jest-mock: "npm:30.0.5"
-    jest-util: "npm:30.0.5"
-  peerDependencies:
-    canvas: ^3.0.0
-    jsdom: "*"
-  peerDependenciesMeta:
-    canvas:
-      optional: true
-  checksum: 10/c7adeeeb013192b189035284e31ee37bd3d5e343945b0cbf068788261def44b138c4bd89c45370e659e663da484ec339a3f45f6e834792c801a94e1d4af55339
-  languageName: node
-  linkType: hard
-
-"@jest/environment-jsdom-abstract@npm:^30.1.1":
+"@jest/environment-jsdom-abstract@npm:30.1.1, @jest/environment-jsdom-abstract@npm:^30.1.1":
   version: 30.1.1
   resolution: "@jest/environment-jsdom-abstract@npm:30.1.1"
   dependencies:
@@ -8788,12 +8767,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-environment-jsdom@npm:^30.0.5":
-  version: 30.0.5
-  resolution: "jest-environment-jsdom@npm:30.0.5"
+"jest-environment-jsdom@npm:^30.1.1":
+  version: 30.1.1
+  resolution: "jest-environment-jsdom@npm:30.1.1"
   dependencies:
-    "@jest/environment": "npm:30.0.5"
-    "@jest/environment-jsdom-abstract": "npm:30.0.5"
+    "@jest/environment": "npm:30.1.1"
+    "@jest/environment-jsdom-abstract": "npm:30.1.1"
     "@types/jsdom": "npm:^21.1.7"
     "@types/node": "npm:*"
     jsdom: "npm:^26.1.0"
@@ -8802,7 +8781,7 @@ __metadata:
   peerDependenciesMeta:
     canvas:
       optional: true
-  checksum: 10/672b67d02bc237700c846eee0bae8ed67f0f6ce0d2713829f25c896c84c366cd01941642d503dc963c0061fc10b63743376df9cdec4444a757763843ec6dd38e
+  checksum: 10/9dcd7fb1c4d0ca3a66ca07945f5475c2690777f2ecda92ba6d2cad4e0229fb5e5406ec1c9b37d74c48faf9a6829f82cce76ab518da7cf581f98538c0c316b4a9
   languageName: node
   linkType: hard
 
@@ -8997,7 +8976,7 @@ __metadata:
     globals: "npm:^16.3.0"
     husky: "npm:^9.1.7"
     jest: "npm:^30.0.5"
-    jest-environment-jsdom: "npm:^30.0.5"
+    jest-environment-jsdom: "npm:^30.1.1"
     jest-util: "npm:^30.0.0"
     jsdom: "npm:^26.1.0"
     pinst: "npm:^3.0.0"
