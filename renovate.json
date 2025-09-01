@@ -8,13 +8,13 @@
     "group:angular-eslintMonorepo",
     ":prHourlyLimit2",
     "helpers:pinGitHubActionDigests",
+    ":semanticCommitTypeAll(build)",
     "workarounds:all"
   ],
   "timezone": "UTC",
   "rangeStrategy": "bump",
   "separateMajorMinor": true,
   "prConcurrentLimit": 2,
-  "commitMessagePrefix": "build(deps):",
   "dependencyDashboard": false,
   "postUpdateOptions": ["yarnDedupeHighest"],
   "ignoreDeps": [
