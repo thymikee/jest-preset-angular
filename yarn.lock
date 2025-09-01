@@ -2640,7 +2640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/environment-jsdom-abstract@npm:30.1.1, @jest/environment-jsdom-abstract@npm:^30.1.1":
+"@jest/environment-jsdom-abstract@npm:30.1.1":
   version: 30.1.1
   resolution: "@jest/environment-jsdom-abstract@npm:30.1.1"
   dependencies:
@@ -2658,6 +2658,27 @@ __metadata:
     canvas:
       optional: true
   checksum: 10/9309e890fd04b7053e5a3e147b4f288bd6e836f65012f8c74822508ed1efab2cb1e626b15e7cccc2838874f91a6604a6022773b3a0bf6f97607a037e5296d506
+  languageName: node
+  linkType: hard
+
+"@jest/environment-jsdom-abstract@npm:^30.1.2":
+  version: 30.1.2
+  resolution: "@jest/environment-jsdom-abstract@npm:30.1.2"
+  dependencies:
+    "@jest/environment": "npm:30.1.2"
+    "@jest/fake-timers": "npm:30.1.2"
+    "@jest/types": "npm:30.0.5"
+    "@types/jsdom": "npm:^21.1.7"
+    "@types/node": "npm:*"
+    jest-mock: "npm:30.0.5"
+    jest-util: "npm:30.0.5"
+  peerDependencies:
+    canvas: ^3.0.0
+    jsdom: "*"
+  peerDependenciesMeta:
+    canvas:
+      optional: true
+  checksum: 10/f9d0f32daaca80ed750218457d319eee0c743a3f8e30ab1b72ab9fad1c51bd297b45af65000e19feac3f0a8cb5c941043389f68194a1cc2b08b148b392f10c75
   languageName: node
   linkType: hard
 
@@ -8882,7 +8903,7 @@ __metadata:
     "@commitlint/config-angular": "npm:^19.8.1"
     "@eslint/eslintrc": "npm:^3.3.1"
     "@eslint/js": "npm:^9.34.0"
-    "@jest/environment-jsdom-abstract": "npm:^30.1.1"
+    "@jest/environment-jsdom-abstract": "npm:^30.1.2"
     "@jest/transform": "npm:^30.1.2"
     "@jest/types": "npm:^30.0.5"
     "@types/fs-extra": "npm:^11.0.4"
