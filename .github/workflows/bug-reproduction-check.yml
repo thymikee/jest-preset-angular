@@ -21,7 +21,7 @@ jobs:
 
       - name: Fetch issue 📥
         id: issue
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const issue_number = context.issue.number
@@ -50,7 +50,7 @@ jobs:
 
       - name: Comment on issue 💬
         if: contains(join(github.event.issue.labels.*.name, ','), 'Bug Report') && steps.analyze-issue.outputs.response != 'pass'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           AI_RESPONSE: ${{ steps.analyze-issue.outputs.response }}
         with:
