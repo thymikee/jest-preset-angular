@@ -8932,7 +8932,7 @@ __metadata:
     ts-jest: "npm:^29.4.0"
     tslib: "npm:^2.8.1"
     tsx: "npm:^4.20.5"
-    type-fest: "npm:^4.41.0"
+    type-fest: "npm:^5.0.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:^8.31.0"
     zone.js: "npm:~0.15.1"
@@ -12322,6 +12322,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tagged-tag@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tagged-tag@npm:1.0.0"
+  checksum: 10/e37653df3e495daa7ea7790cb161b810b00075bba2e4d6c93fb06a709e747e3ae9da11a120d0489833203926511b39e038a2affbd9d279cfb7a2f3fcccd30b5d
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
   version: 2.2.2
   resolution: "tapable@npm:2.2.2"
@@ -12658,6 +12665,15 @@ __metadata:
   version: 4.41.0
   resolution: "type-fest@npm:4.41.0"
   checksum: 10/617ace794ac0893c2986912d28b3065ad1afb484cad59297835a0807dc63286c39e8675d65f7de08fafa339afcb8fe06a36e9a188b9857756ae1e92ee8bda212
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "type-fest@npm:5.0.0"
+  dependencies:
+    tagged-tag: "npm:^1.0.0"
+  checksum: 10/b655f61d701aec143f5c9f812899a7cb6d041aa3d90cce8e5d83d47c68a2de63fe4781853ec7fc0b74a04c896b99516b329fb36f9fcc2430c87249004811bceb
   languageName: node
   linkType: hard
 
