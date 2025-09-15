@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 You can install `jest-preset-angular` and dependencies all at once with one of the following commands.
 
 ```bash npm2yarn
-npm install -D jest jest-preset-angular @types/jest
+npm install -D jest jest-preset-angular @types/jest jest-environment-jsdom jsdom
 ```
 
 ### Configuration
