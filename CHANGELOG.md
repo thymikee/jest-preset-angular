@@ -1,3 +1,12 @@
+## [15.0.1](https://github.com/thymikee/jest-preset-angular/compare/v15.0.0...v15.0.1) (2025-09-15)
+
+
+### Bug Fixes
+
+* remove peer dep `jest-environment-jsdom` ([#3333](https://github.com/thymikee/jest-preset-angular/issues/3333)) ([d3e899b](https://github.com/thymikee/jest-preset-angular/commit/d3e899be908bfc983a55473a1ac08abad856dacf)), closes [#3331](https://github.com/thymikee/jest-preset-angular/issues/3331)
+
+
+
 # [15.0.0](https://github.com/thymikee/jest-preset-angular/compare/v14.6.1...v15.0.0) (2025-07-22)
 
 
