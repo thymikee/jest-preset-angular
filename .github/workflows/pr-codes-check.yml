@@ -53,6 +53,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
 
+      - name: Run check commit convention 🔍️
+        run: yarn commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
       - name: Run ESLint check 🔍️
         run: yarn lint
 
