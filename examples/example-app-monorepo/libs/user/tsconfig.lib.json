@@ -1,6 +1,5 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
     "declaration": true,
@@ -8,8 +7,10 @@
     "inlineSources": true,
     "types": []
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
-    "src/test.ts",
     "**/*.spec.ts"
   ]
 }
