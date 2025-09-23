@@ -1,7 +1,7 @@
 /** @jest-config-loader esbuild-register */
 
 import type { Config } from 'jest';
-import { createEsmPreset } from 'jest-preset-angular/presets';
+import { createEsmPreset } from 'jest-preset-angular/presets/index.js';
 
 const esmPreset = createEsmPreset();
 

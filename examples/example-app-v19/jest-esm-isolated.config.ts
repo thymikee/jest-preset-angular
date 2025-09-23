@@ -2,7 +2,7 @@
 
 import type { Config } from 'jest';
 
-import jestCfg from './jest-esm.config';
+import jestCfg from './jest-esm.config.ts';
 
 export default {
     ...jestCfg,

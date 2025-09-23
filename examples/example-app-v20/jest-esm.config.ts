@@ -1,10 +1,10 @@
 /** @jest-config-loader esbuild-register */
 
 import type { Config } from 'jest';
-import { createEsmPreset } from 'jest-preset-angular/presets';
+import { createEsmPreset } from 'jest-preset-angular/presets/index.js';
 import { pathsToModuleNameMapper } from 'ts-jest';
 
-import tsconfig from './tsconfig.json';
+import tsconfig from './tsconfig.json' with { type: 'json' };
 
 const esmPreset = createEsmPreset();
 
