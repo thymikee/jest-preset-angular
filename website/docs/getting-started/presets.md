@@ -63,9 +63,22 @@ An object contains Jest config:
 
 #### Example:
 
-```ts title="jest.config.ts"
-import { createCjsPreset } from 'jest-preset-angular/presets';
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
+import { createCjsPreset } from 'jest-preset-angular/presets';
+
+const presetConfig = createCjsPreset({
+  //...options
+});
+
+export default {
+  ...presetConfig,
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createCjsPreset } from 'jest-preset-angular/presets/index.js';
 
 const presetConfig = createCjsPreset({
   //...options
@@ -122,9 +135,22 @@ An object contains Jest config:
 
 #### Example:
 
-```ts title="jest.config.ts"
-import { createEsmPreset } from 'jest-preset-angular/presets';
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
+import { createEsmPreset } from 'jest-preset-angular/presets';
+
+const presetConfig = createEsmPreset({
+  //...options
+});
+
+export default {
+  ...presetConfig,
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createEsmPreset } from 'jest-preset-angular/presets/index.js';
 
 const presetConfig = createEsmPreset({
   //...options

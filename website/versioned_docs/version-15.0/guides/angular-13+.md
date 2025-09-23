@@ -27,9 +27,18 @@ Starting from **v11.0.0**, `jest-preset-angular` introduces a few extra changes 
 
 - If one is using the default preset as following:
 
-```ts title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
 import { createCjsPreset } from 'jest-preset-angular/presets';
+
+export default {
+  ...createCjsPreset(),
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createCjsPreset } from 'jest-preset-angular/presets/index.js';
 
 export default {
   ...createCjsPreset(),
@@ -42,11 +51,38 @@ there are no migration steps required
 
 ES Modules support is new and may encounter issues. See [example-apps](https://github.com/thymikee/jest-preset-angular/tree/main/examples) for the tests that run using ESM mode.
 
-```ts title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
 import { createEsmPreset } from 'jest-preset-angular/presets';
 import { pathsToModuleNameMapper } from 'ts-jest';
-import { compilerOptions } from './tsconfig.json';
+import { compilerOptions } from './tsconfig.json' with { type: 'json' };
+
+export default {
+  ...createEsmPreset(),
+  transform: {
+    '^.+\\.(ts|js|mjs|html|svg)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+        isolatedModules: true,
+        useESM: true,
+      },
+    ],
+  },
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
+    tslib: 'tslib/tslib.es6.js',
+  },
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createEsmPreset } from 'jest-preset-angular/presets/index.js';
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { compilerOptions } from './tsconfig.json' with { type: 'json' };
 
 export default {
   ...createEsmPreset(),
