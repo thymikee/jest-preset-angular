@@ -12,6 +12,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
+    "allowImportingTsExtensions": true,
     "paths": {
       "@shared/*": ["./src/app/shared/*"]
     }
@@ -23,9 +24,6 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": [
-    "jest.*.ts"
-  ],
   "references": [
     {
       "path": "./tsconfig.app.json"

@@ -1,10 +1,10 @@
 /** @jest-config-loader esbuild-register */
 
 import type { Config } from 'jest';
-import { createCjsPreset } from 'jest-preset-angular/presets';
+import { createCjsPreset } from 'jest-preset-angular/presets/index.js';
 import { pathsToModuleNameMapper } from 'ts-jest';
 
-import { compilerOptions } from './tsconfig.json';
+import { compilerOptions } from './tsconfig.json' with { type: 'json' };
 
 export default {
     displayName: 'app1',
