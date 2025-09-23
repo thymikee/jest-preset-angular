@@ -3,26 +3,26 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "target": "ES2022",
-    "module": "NodeNext",
-    "useDefineForClassFields": false,
     "allowImportingTsExtensions": true,
-    "lib": ["ES2022", "dom"],
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "Preserve",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
     "paths": {
       "@shared/*": ["src/app/shared/*"]
     }

@@ -1,9 +1,9 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "CommonJS",
+    "outDir": "./out-tsc/spec",
     "isolatedModules": false,
+    "module": "CommonJS",
     "types": [
       "jest"
     ]
