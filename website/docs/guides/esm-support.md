@@ -134,9 +134,23 @@ custom Jest [resolver](https://jestjs.io/docs/configuration#resolver-string).
 
 :::
 
-```ts title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
 import { createEsmPreset } from 'jest-preset-angular/presets';
+
+export default {
+  //...
+  ...createEsmPreset(),
+  moduleNameMapper: {
+    tslib: 'tslib/tslib.es6.js',
+    '^rxjs': '<rootDir>/node_modules/rxjs/dist/bundles/rxjs.umd.js',
+  },
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createEsmPreset } from 'jest-preset-angular/presets/index.js';
 
 export default {
   //...

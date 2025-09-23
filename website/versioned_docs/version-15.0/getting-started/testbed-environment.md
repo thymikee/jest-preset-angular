@@ -50,9 +50,19 @@ setupZoneTestEnv({
 
 - Update your Jest configuration:
 
-```ts title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
 import { createCjsPreset } from 'jest-preset-angular/presets';
+
+export default {
+  ...createCjsPreset(),
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createCjsPreset } from 'jest-preset-angular/presets/index.js';
 
 export default {
   ...createCjsPreset(),
@@ -93,9 +103,19 @@ setupZonelessTestEnv({
 
 - Update your Jest configuration:
 
-```ts title="jest.config.ts"
+```ts title="jest.config.ts" tab={"label":"Node <22.18"}
 import type { Config } from 'jest';
 import { createCjsPreset } from 'jest-preset-angular/presets';
+
+export default {
+  ...createCjsPreset(),
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+} satisfies Config;
+```
+
+```ts title="jest.config.ts" tab={"label":"Node 22.18+"}
+import type { Config } from 'jest';
+import { createCjsPreset } from 'jest-preset-angular/presets/index.js';
 
 export default {
   ...createCjsPreset(),
