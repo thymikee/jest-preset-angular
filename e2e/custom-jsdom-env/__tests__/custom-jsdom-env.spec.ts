@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
+import { onNodeVersions } from '../../utils';
 import { FooComponent } from '../foo.component';
 
-describe('FooComponent', () => {
+onNodeVersions('>=20', () => {
     it('should trigger change detection without fixture.detectChanges', () => {
         TestBed.configureTestingModule({
             imports: [FooComponent],
