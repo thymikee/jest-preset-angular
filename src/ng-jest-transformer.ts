@@ -83,7 +83,7 @@ export class NgJestTransformer extends TsJestTransformer {
             const { code, map } = transformSync(fileContent, {
                 loader: 'js',
                 format: useESM ? 'esm' : 'cjs',
-                supported: useESM ? { 'dynamic-import': true } : undefined,
+                supported: useESM ? undefined : { 'dynamic-import': false },
                 target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
                 sourcemap: compilerOpts.sourceMap,
                 sourcefile: filePath,
