@@ -1,3 +1,12 @@
+## [15.0.2](https://github.com/thymikee/jest-preset-angular/compare/v15.0.1...v15.0.2) (2025-10-01)
+
+
+### Bug Fixes
+
+* add `dynamic-import` support flag into esbuild invocation ([#3369](https://github.com/thymikee/jest-preset-angular/issues/3369)) ([fa25060](https://github.com/thymikee/jest-preset-angular/commit/fa25060229bbdaa06d95662fd8e652a9ffc9e40c)), closes [#3368](https://github.com/thymikee/jest-preset-angular/issues/3368)
+
+
+
 ## [15.0.1](https://github.com/thymikee/jest-preset-angular/compare/v15.0.0...v15.0.1) (2025-09-15)
 
 
