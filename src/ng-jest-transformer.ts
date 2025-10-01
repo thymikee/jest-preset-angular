@@ -79,11 +79,11 @@ export class NgJestTransformer extends TsJestTransformer {
             this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
             const compilerOpts = configSet.parsedTsConfig.options;
-            const useESM = Boolean(transformOptions.supportsStaticESM && configSet.useESM);
+            const useESM = transformOptions.supportsStaticESM && configSet.useESM;
             const { code, map } = transformSync(fileContent, {
                 loader: 'js',
                 format: useESM ? 'esm' : 'cjs',
-                supported: { 'dynamic-import': useESM },
+                supported: useESM ? { 'dynamic-import': true } : undefined,
                 target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
                 sourcemap: compilerOpts.sourceMap,
                 sourcefile: filePath,
