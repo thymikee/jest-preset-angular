@@ -83,11 +83,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
 
-      - name: Run tests in CommonJS mode 🧪
+      - name: Run unit tests 🧪
         run: yarn test
 
-      - name: Run tests in ESM mode 🧪
-        run: yarn test-esm
+      - name: Run e2e tests 🧪
+        run: yarn test-e2e
 
       - name: Run tests in example projects 🧪
         run: yarn test-examples
