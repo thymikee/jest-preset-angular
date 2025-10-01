@@ -66,7 +66,6 @@ jobs:
       - name: Setup codespace ⚙️
         uses: ./.github/actions/setup-codespace
         with:
-          node-version: 22
           os: ubuntu-latest
 
       - name: Build 🔨
@@ -81,18 +80,6 @@ jobs:
           git push origin $TAG_NAME
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish with latest tag 🚀
-        if: needs.verify_release.outputs.is_stable_release == 'true'
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish with next tag 🚀
-        if: needs.verify_release.outputs.is_prerelease == 'true'
-        run: npm publish --access public --tag next
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create release 🚢
         uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2
