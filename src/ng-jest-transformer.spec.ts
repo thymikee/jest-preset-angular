@@ -98,6 +98,32 @@ describe('NgJestTransformer', () => {
         expect(mockedTransformSync).not.toHaveBeenCalled();
     });
 
+    test('should use esbuild to process files defined via "processWithEsbuild" transform option', () => {
+        const tr = new NgJestTransformer({
+            processWithEsbuild: ['foo.js'],
+        });
+        tr.process(
+            `
+      const pi = parseFloat(3.124);
+
+      export { pi };
+    `,
+            'foo.js',
+            {
+                config: {
+                    cwd: process.cwd(),
+                    extensionsToTreatAsEsm: [],
+                    testMatch: [],
+                    testRegex: [],
+                },
+            } as any, // eslint-disable-line @typescript-eslint/no-explicit-any,
+        );
+
+        expect(mockedTransformSync).toHaveBeenCalled();
+
+        mockedTransformSync.mockClear();
+    });
+
     test.each([
         {
             sourceMap: false,

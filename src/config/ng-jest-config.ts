@@ -14,6 +14,11 @@ export class NgJestConfig extends ConfigSet {
     constructor(jestConfig: TsJestTransformOptions['config'] | undefined, parentLogger?: Logger | undefined) {
         super(jestConfig, parentLogger);
         const jestGlobalsConfig = jestConfig?.globals?.ngJest ?? Object.create(null);
+        if (jestGlobalsConfig.processWithEsbuild) {
+            this.logger.warn(
+                'Specifying `processWithEsbuild` in `ngJest` config is deprecated and will be removed in the next major version. Please follow this documentation https://thymikee.github.io/jest-preset-angular/docs/getting-started/options#processing-with-esbuild instead.',
+            );
+        }
         this.processWithEsbuild = globsToMatcher([
             ...(jestGlobalsConfig.processWithEsbuild ?? []),
             ...defaultProcessWithEsbuildPatterns,
