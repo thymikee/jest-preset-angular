@@ -5,8 +5,9 @@ import type { ParsedCommandLine } from 'typescript';
 
 /**
  * Some NPM packages like `tslib` is distributed in such a way that `esbuild` cannot process it, so we fall back to use TypeScript API
+ * @internal
  */
-const defaultProcessWithEsbuildPatterns = ['**/*.mjs'];
+export const defaultProcessWithEsbuildPatterns = ['**/*.mjs'];
 
 export class NgJestConfig extends ConfigSet {
     readonly processWithEsbuild: ReturnType<typeof globsToMatcher>;
