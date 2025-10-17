@@ -140,15 +140,11 @@ describe('NgJestTransformer', () => {
                 extensionsToTreatAsEsm: [],
                 testMatch: [],
                 testRegex: [],
-                globals: {
-                    ngJest: {
-                        processWithEsbuild: ['node_modules/foo.js'],
-                    },
-                },
             },
         } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         const tr = new NgJestTransformer({
             tsconfig: tsconfig as TsConfigJson,
+            processWithEsbuild: ['node_modules/foo.js'],
         });
         tr.process(
             `
@@ -215,17 +211,13 @@ describe('NgJestTransformer', () => {
                 extensionsToTreatAsEsm: [],
                 testMatch: [],
                 testRegex: [],
-                globals: {
-                    ngJest: {
-                        processWithEsbuild: ['node_modules/foo.js'],
-                    },
-                },
             },
             supportsStaticESM: true,
         } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
         const tr = new NgJestTransformer({
             tsconfig: tsconfig as TsConfigJson,
             useESM: true,
+            processWithEsbuild: ['node_modules/foo.js'],
         });
         tr.process(
             `

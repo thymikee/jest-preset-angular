@@ -10,7 +10,7 @@ import type { TranspileOutput } from 'typescript';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import type { NgJestTransformerOptions } from './config/config';
-import { NgJestConfig } from './config/ng-jest-config';
+import { defaultProcessWithEsbuildPatterns, NgJestConfig } from './config/ng-jest-config';
 
 // stores hashes made out of only one argument being a string
 const cache: Record<string, string> = {};
@@ -62,7 +62,10 @@ export class NgJestTransformer extends TsJestTransformer {
             },
             targets: process.env.NG_JEST_LOG ?? undefined,
         });
-        this.#processWithEsbuild = globsToMatcher(processWithEsbuild ?? []);
+        this.#processWithEsbuild = globsToMatcher([
+            ...(processWithEsbuild ?? []),
+            ...defaultProcessWithEsbuildPatterns,
+        ]);
     }
 
     protected _createConfigSet(config: TsJestTransformOptions['config'] | undefined): ConfigSet {
