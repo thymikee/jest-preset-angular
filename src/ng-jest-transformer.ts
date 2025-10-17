@@ -3,11 +3,13 @@ import { createHash } from 'node:crypto';
 import type { TransformedSource } from '@jest/transform';
 import { LogContexts, LogLevels, type Logger, createLogger } from 'bs-logger';
 import { transformSync } from 'esbuild';
-import { type TsJestTransformerOptions, ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
+import { globsToMatcher } from 'jest-util';
+import { ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
 import { updateOutput } from 'ts-jest/dist/legacy/compiler/compiler-utils';
 import type { TranspileOutput } from 'typescript';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
+import type { NgJestTransformerOptions } from './config/config';
 import { NgJestConfig } from './config/ng-jest-config';
 
 // stores hashes made out of only one argument being a string
@@ -47,8 +49,10 @@ const sha1 = (...data: DataItem[]): string => {
 
 export class NgJestTransformer extends TsJestTransformer {
     readonly #ngJestLogger: Logger;
+    readonly #processWithEsbuild: ReturnType<typeof globsToMatcher>;
 
-    constructor(tsJestConfig?: TsJestTransformerOptions) {
+    constructor(transformerConfig?: NgJestTransformerOptions) {
+        const { processWithEsbuild, ...tsJestConfig } = transformerConfig ?? {};
         super(tsJestConfig);
         this.#ngJestLogger = createLogger({
             context: {
@@ -58,6 +62,7 @@ export class NgJestTransformer extends TsJestTransformer {
             },
             targets: process.env.NG_JEST_LOG ?? undefined,
         });
+        this.#processWithEsbuild = globsToMatcher(processWithEsbuild ?? []);
     }
 
     protected _createConfigSet(config: TsJestTransformOptions['config'] | undefined): ConfigSet {
@@ -75,7 +80,7 @@ export class NgJestTransformer extends TsJestTransformer {
     process(fileContent: string, filePath: string, transformOptions: TsJestTransformOptions): TransformedSource {
         // @ts-expect-error we are accessing the private cache to avoid creating new objects all the time
         const configSet = super._configsFor(transformOptions);
-        if (configSet.processWithEsbuild(filePath)) {
+        if (configSet.processWithEsbuild(filePath) || this.#processWithEsbuild(filePath)) {
             this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
             const compilerOpts = configSet.parsedTsConfig.options;
