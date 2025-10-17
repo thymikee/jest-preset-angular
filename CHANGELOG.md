@@ -63,6 +63,15 @@
 
 
 
+## [14.6.2](https://github.com/thymikee/jest-preset-angular/compare/v14.6.1...v14.6.2) (2025-10-17)
+
+
+### Bug Fixes
+
+* handle `processWithEsbuild` transform option ([6779107](https://github.com/thymikee/jest-preset-angular/commit/67791077ea20b3a7f3dcf237ecbe35f2f9decd3f))
+
+
+
 ## [14.6.1](https://github.com/thymikee/jest-preset-angular/compare/v14.6.0...v14.6.1) (2025-07-21)
 
 
