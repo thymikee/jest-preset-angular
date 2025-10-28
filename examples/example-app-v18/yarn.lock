@@ -3733,7 +3733,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^22.1.0, @types/node@npm:^22.18.12":
+"@types/node@npm:*, @types/node@npm:^24.9.1":
+  version: 24.9.1
+  resolution: "@types/node@npm:24.9.1"
+  dependencies:
+    undici-types: "npm:~7.16.0"
+  checksum: 10/eacbd06621616825042428dd6105d0c2f86d67b5f05f99db9fa89fe1cc173d5e65e604a9a61f1ce52ad915d09f2119e7468816ca1a22bb7a3cf5f3c131413c86
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^22.1.0":
   version: 22.18.12
   resolution: "@types/node@npm:22.18.12"
   dependencies:
@@ -6028,7 +6037,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^18.2.13"
     "@angular/router": "npm:^18.2.13"
     "@types/jest": "npm:^30.0.0"
-    "@types/node": "npm:^22.18.12"
+    "@types/node": "npm:^24.9.1"
     angular-in-memory-web-api: "npm:^0.18.0"
     esbuild-register: "npm:^3.6.0"
     jest: "npm:^30.2.0"
@@ -10785,6 +10794,13 @@ __metadata:
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~7.16.0":
+  version: 7.16.0
+  resolution: "undici-types@npm:7.16.0"
+  checksum: 10/db43439f69c2d94cc29f75cbfe9de86df87061d6b0c577ebe9bb3255f49b22c50162a7d7eb413b0458b6510b8ca299ac7cff38c3a29fbd31af9f504bcf7fbc0d
   languageName: node
   linkType: hard
 
