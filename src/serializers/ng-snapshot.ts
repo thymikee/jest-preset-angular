@@ -1,5 +1,5 @@
-import type { ɵComponentType, ɵDirectiveDef } from '@angular/core';
-import type { ComponentFixture } from '@angular/core/testing';
+import type { ɵComponentType, ɵDirectiveDef } from '@angular/core' with { 'resolution-mode': 'import' };
+import type { ComponentFixture } from '@angular/core/testing' with { 'resolution-mode': 'import' };
 import type { OldPlugin } from 'pretty-format';
 
 const attributesToRemovePatterns = ['__ngContext__'];

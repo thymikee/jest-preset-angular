@@ -1,5 +1,5 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router, RouterLink } from '@angular/router';
 import { UserService } from 'libs/user/src/lib/user.service';
@@ -73,14 +73,14 @@ function tests() {
         expect(routerLinks[2].href).toContain('/about');
     });
 
-    it('can click Heroes link in template', fakeAsync(() => {
+    it('can click Heroes link in template', async () => {
         const heroesLinkDe = linkDes[1];
         TestBed.inject(Router).resetConfig([{ path: '**', children: [] }]);
 
         heroesLinkDe.triggerEventHandler('click', { button: 0 });
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
 
         expect(TestBed.inject(Router).url).toBe('/heroes');
-    }));
+    });
 }

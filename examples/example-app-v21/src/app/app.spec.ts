@@ -1,0 +1,86 @@
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { provideRouter, Router, RouterLink } from '@angular/router';
+
+import { App } from './app';
+import { appConfig } from './app.config';
+import { UserService } from './model';
+
+@Component({ selector: 'app-banner', template: '' })
+class BannerStubComponent {}
+
+@Component({ selector: 'router-outlet', template: '' })
+class RouterOutletStubComponent {}
+
+@Component({ selector: 'app-welcome', template: '' })
+class WelcomeStubComponent {}
+
+let comp: App;
+let fixture: ComponentFixture<App>;
+
+describe('App & TestModule', () => {
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            ...appConfig,
+            imports: [App, BannerStubComponent, RouterLink, RouterOutletStubComponent, WelcomeStubComponent],
+            providers: [provideRouter([]), UserService],
+        })
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(App);
+                comp = fixture.componentInstance;
+            });
+    }));
+    tests();
+});
+
+describe('App & NO_ERRORS_SCHEMA', () => {
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            ...appConfig,
+            imports: [App, BannerStubComponent, RouterLink],
+            providers: [provideRouter([]), UserService],
+            schemas: [NO_ERRORS_SCHEMA],
+        })
+            .compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(App);
+                comp = fixture.componentInstance;
+            });
+    }));
+    tests();
+});
+
+function tests() {
+    let routerLinks: RouterLink[];
+    let linkDes: DebugElement[];
+
+    beforeEach(() => {
+        fixture.detectChanges();
+        linkDes = fixture.debugElement.queryAll(By.directive(RouterLink));
+        routerLinks = linkDes.map((de) => de.injector.get(RouterLink));
+    });
+
+    it('can instantiate the component', () => {
+        expect(comp).not.toBeNull();
+    });
+
+    it('can get RouterLinks from template', () => {
+        expect(routerLinks.length).toEqual(3);
+        expect(routerLinks[0].href).toContain('/dashboard');
+        expect(routerLinks[1].href).toContain('/heroes');
+        expect(routerLinks[2].href).toContain('/about');
+    });
+
+    it('can click Heroes link in template', async () => {
+        const heroesLinkDe = linkDes[1];
+        TestBed.inject(Router).resetConfig([{ path: '**', children: [] }]);
+
+        heroesLinkDe.triggerEventHandler('click', { button: 0 });
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        expect(TestBed.inject(Router).url).toBe('/heroes');
+    });
+}
