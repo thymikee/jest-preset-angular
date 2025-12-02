@@ -16,7 +16,7 @@ const provideZonelessConfig = () => {
     class TestModule {}
     NgModule({
         providers: [
-            VERSION.major <= 21 ? provideZonelessChangeDetectionFn() : null,
+            VERSION.major < 21 ? provideZonelessChangeDetectionFn() : null,
             {
                 provide: ErrorHandler,
                 useValue: {
