@@ -51,22 +51,20 @@ describe('HeroListComponent', () => {
         expect(actualHero).toContain(expectedHero.name);
     });
 
-    it('should select hero on click', async () => {
+    it('should select hero on click', () => {
         const expectedHero = HEROES[1];
         const btn = page.heroRows[1].querySelector('button');
 
         btn!.dispatchEvent(new Event('click'));
-        await fixture.whenStable();
 
         expect(comp.selectedHero).toEqual(expectedHero);
     });
 
-    it('should navigate to selected hero detail on click', async () => {
+    it('should navigate to selected hero detail on click', () => {
         const expectedHero = HEROES[1];
         const btn = page.heroRows[1].querySelector('button');
 
         btn!.dispatchEvent(new Event('click'));
-        await fixture.whenStable();
 
         expect(page.navSpy).toHaveBeenCalled();
 

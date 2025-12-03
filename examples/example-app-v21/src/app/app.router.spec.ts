@@ -78,7 +78,6 @@ describe('App & router testing', () => {
 });
 
 async function advance(): Promise<void> {
-    await fixture.whenStable();
     fixture.detectChanges();
     await fixture.whenStable();
 }

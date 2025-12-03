@@ -79,7 +79,6 @@ function tests() {
 
         heroesLinkDe.triggerEventHandler('click', { button: 0 });
         await fixture.whenStable();
-        fixture.detectChanges();
 
         expect(TestBed.inject(Router).url).toBe('/heroes');
     });
