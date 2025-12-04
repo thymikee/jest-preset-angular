@@ -1,3 +1,17 @@
+# [16.0.0](https://github.com/thymikee/jest-preset-angular/compare/v15.0.3...v16.0.0) (2025-12-04)
+
+
+### Features
+
+* add support for Angular 21 ([8d4d11f](https://github.com/thymikee/jest-preset-angular/commit/8d4d11f3a44775f8b48192770787d846034c9d35))
+
+
+### BREAKING CHANGES
+
+* Drop support for Angular 18
+
+
+
 ## [15.0.3](https://github.com/thymikee/jest-preset-angular/compare/v15.0.2...v15.0.3) (2025-10-17)
 
 
