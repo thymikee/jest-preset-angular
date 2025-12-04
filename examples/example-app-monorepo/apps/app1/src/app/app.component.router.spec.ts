@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import { provideLocationMocks, SpyLocation } from '@angular/common/testing';
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router, RouterLink } from '@angular/router';
 import { jest } from '@jest/globals';
@@ -43,49 +43,47 @@ describe('AppComponent & router testing', () => {
         }).compileComponents();
     }));
 
-    it('should navigate to "Dashboard" immediately', fakeAsync(() => {
-        createComponent();
-        tick();
+    it('should navigate to "Dashboard" immediately', async () => {
+        await createComponent();
 
         expect(location.path()).toEqual('/dashboard');
 
         const el = fixture.debugElement.query(By.directive(DashboardComponent));
 
         expect(el).toBeTruthy();
-    }));
+    });
 
-    it('should navigate to "About" on click', fakeAsync(() => {
-        createComponent();
+    it('should navigate to "About" on click', async () => {
+        await createComponent();
         click(page.aboutLinkDe);
-        advance();
+        await advance();
 
         expect(location.path()).toEqual('/about');
 
         const el = fixture.debugElement.query(By.directive(AboutComponent));
 
         expect(el).toBeTruthy();
-    }));
+    });
 
-    it('should navigate to "About" w/ browser location URL change', fakeAsync(() => {
-        createComponent();
-        location.simulateHashChange('/about');
-        advance();
+    it('should navigate to "About" w/ browser location URL change', async () => {
+        await createComponent();
+        await router.navigateByUrl('/about');
+        await advance();
 
         expect(location.path()).toEqual('/about');
 
         const el = fixture.debugElement.query(By.directive(AboutComponent));
 
         expect(el).toBeTruthy();
-    }));
+    });
 });
 
-function advance(): void {
-    tick();
+async function advance(): Promise<void> {
     fixture.detectChanges();
-    tick();
+    await fixture.whenStable();
 }
 
-function createComponent() {
+async function createComponent(): Promise<void> {
     fixture = TestBed.createComponent(AppComponent);
     comp = fixture.componentInstance;
 
@@ -94,7 +92,7 @@ function createComponent() {
     router = injector.get(Router);
     router.initialNavigation();
     jest.spyOn(injector.get(TwainService), 'getQuote').mockReturnValue(asyncData('Test Quote'));
-    advance();
+    await advance();
 
     page = new Page();
 }
