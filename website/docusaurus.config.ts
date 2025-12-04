@@ -13,7 +13,11 @@ const config: Config = {
     baseUrl: process.env.BASE_URL || '/jest-preset-angular/',
     baseUrlIssueBanner: true,
     onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'warn',
+    markdown: {
+        hooks: {
+            onBrokenMarkdownLinks: 'warn',
+        },
+    },
     favicon: 'img/logo.svg',
     organizationName: 'thymikee',
     projectName: 'jest-preset-angular',
