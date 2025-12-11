@@ -182,97 +182,100 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-eslint/builder@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/builder@npm:21.0.1"
+"@angular-eslint/builder@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/builder@npm:21.1.0"
   dependencies:
     "@angular-devkit/architect": "npm:>= 0.2100.0 < 0.2200.0"
     "@angular-devkit/core": "npm:>= 21.0.0 < 22.0.0"
   peerDependencies:
+    "@angular/cli": ">= 21.0.0 < 22.0.0"
     eslint: ^8.57.0 || ^9.0.0
     typescript: "*"
-  checksum: 10/a89bf25d87d921b318a3204310c31059f916125489e296c22090a587a70b5a2eb3e753737278712bcc4a2f6f13f98222b8c73568c304000afbb227795ead6b94
+  checksum: 10/76757d154d67da3f54294ae271badf0c99d84b16c8c283126530a327cc1e7404e491b6f0de7f7b55cff999b6f022b4af26a4d22c0787fb3bd90101ff8847e86d
   languageName: node
   linkType: hard
 
-"@angular-eslint/bundled-angular-compiler@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/bundled-angular-compiler@npm:21.0.1"
-  checksum: 10/5bfa8a4e04fd0ddb78b210175717d4fb0f10d9893bcb43006355129ec15fd30920ee44b4c7b57776a896a83a8ca8ba3e620f250dafc0deb9583f4461968113e1
+"@angular-eslint/bundled-angular-compiler@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/bundled-angular-compiler@npm:21.1.0"
+  checksum: 10/203ed3511f88d805d0d8def6e4bc43a609b9ad1d42f742d31f73e9e1b619c041df5267aa210fd506905c8d45976a28faad2717abba75093d421b3a1005e12c12
   languageName: node
   linkType: hard
 
-"@angular-eslint/eslint-plugin-template@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/eslint-plugin-template@npm:21.0.1"
+"@angular-eslint/eslint-plugin-template@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/eslint-plugin-template@npm:21.1.0"
   dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:21.0.1"
-    "@angular-eslint/utils": "npm:21.0.1"
+    "@angular-eslint/bundled-angular-compiler": "npm:21.1.0"
+    "@angular-eslint/utils": "npm:21.1.0"
     aria-query: "npm:5.3.2"
     axobject-query: "npm:4.1.0"
   peerDependencies:
-    "@angular-eslint/template-parser": 21.0.1
+    "@angular-eslint/template-parser": 21.1.0
     "@typescript-eslint/types": ^7.11.0 || ^8.0.0
     "@typescript-eslint/utils": ^7.11.0 || ^8.0.0
     eslint: ^8.57.0 || ^9.0.0
     typescript: "*"
-  checksum: 10/9372ec473b7a399396d89b0386d1c5d635a0ea1524735eba0e210c600f710023859e908a8e1282664d780d2357e4aa807de320a5f3ea9da3b83d63f2b06db074
+  checksum: 10/d564235905e4c5216d608a560d0f5d1bc27065492fd5f5450640f67ee81a87e0ec8249877b2683547d2fda13241d80c9f0820470373389307b5226c8fc773d19
   languageName: node
   linkType: hard
 
-"@angular-eslint/eslint-plugin@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/eslint-plugin@npm:21.0.1"
+"@angular-eslint/eslint-plugin@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/eslint-plugin@npm:21.1.0"
   dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:21.0.1"
-    "@angular-eslint/utils": "npm:21.0.1"
+    "@angular-eslint/bundled-angular-compiler": "npm:21.1.0"
+    "@angular-eslint/utils": "npm:21.1.0"
     ts-api-utils: "npm:^2.1.0"
   peerDependencies:
     "@typescript-eslint/utils": ^7.11.0 || ^8.0.0
     eslint: ^8.57.0 || ^9.0.0
     typescript: "*"
-  checksum: 10/03e45bf3e48d04cb32964bcf00eecc7b07adc0e0c81248ca1845ca6235447462d055b4f8d82c9b52b460f5bfe9af0bd1f2244ac707c49bee94548e4e4f9b0fbc
+  checksum: 10/2a76d436d2f8c0fd4dba0b068260d4706b3760dfa0216408b3c4dbd0c13d9363c003ae3c889f83ee839e0f5848918f7936aaced418e363db128accdc930b5c6b
   languageName: node
   linkType: hard
 
-"@angular-eslint/schematics@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/schematics@npm:21.0.1"
+"@angular-eslint/schematics@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/schematics@npm:21.1.0"
   dependencies:
     "@angular-devkit/core": "npm:>= 21.0.0 < 22.0.0"
     "@angular-devkit/schematics": "npm:>= 21.0.0 < 22.0.0"
-    "@angular-eslint/eslint-plugin": "npm:21.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:21.0.1"
+    "@angular-eslint/eslint-plugin": "npm:21.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:21.1.0"
     ignore: "npm:7.0.5"
     semver: "npm:7.7.3"
     strip-json-comments: "npm:3.1.1"
-  checksum: 10/c89de515e81cbd88c94980b66e86a8d2e35d43468465b0e487daa911a8e6680cd9f54d0e9bf6b17b520cd25bb639157067ea2b71232d4ac7dbc0d0ca64ceaacd
+  peerDependencies:
+    "@angular/cli": ">= 21.0.0 < 22.0.0"
+  checksum: 10/e045f4d7057d86c9a8333604e98be4cd8220d660b1feece1c283aa3557e5bb0539c7410d305a5332ea0f5250ae29c20f1a74aafb8bf62f35252f7376d797077b
   languageName: node
   linkType: hard
 
-"@angular-eslint/template-parser@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/template-parser@npm:21.0.1"
+"@angular-eslint/template-parser@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/template-parser@npm:21.1.0"
   dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:21.0.1"
+    "@angular-eslint/bundled-angular-compiler": "npm:21.1.0"
     eslint-scope: "npm:^9.0.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
     typescript: "*"
-  checksum: 10/316ae4c7669fa1a60afe68a4499fac0c12f0d2e7eb4fa2c4e7cb305873724f1c6af2c7c3cc8466ec73b55491bc755f994907304f44b155f566f2d58d25f28f12
+  checksum: 10/42f4d7f18e0d88309d309e1d08191fc729ae90bc675d0b746d593c3648f32c40cc72c283d88c4515d05ce1069b4d7914017ff837f60b5335a43977c05b23255f
   languageName: node
   linkType: hard
 
-"@angular-eslint/utils@npm:21.0.1":
-  version: 21.0.1
-  resolution: "@angular-eslint/utils@npm:21.0.1"
+"@angular-eslint/utils@npm:21.1.0":
+  version: 21.1.0
+  resolution: "@angular-eslint/utils@npm:21.1.0"
   dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:21.0.1"
+    "@angular-eslint/bundled-angular-compiler": "npm:21.1.0"
   peerDependencies:
     "@typescript-eslint/utils": ^7.11.0 || ^8.0.0
     eslint: ^8.57.0 || ^9.0.0
     typescript: "*"
-  checksum: 10/3b844fe8d193b736f17eb99fef44064845a68c2bfffc42b57c61c57b725af43054eb661290b8b55ff64bdb6928158f1839d29702b5f9fcbe46f44b772dd179b7
+  checksum: 10/d5a17b8d2160921011f24695e200faaaa7db01758dfa7d8ac3c5fdf21263ae0e6e90ce65933a470eb76c0f85d483df6f68fbdf1eec0625e88599c1db82a8ba1e
   languageName: node
   linkType: hard
 
@@ -5349,24 +5352,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-eslint@npm:^21.0.1":
-  version: 21.0.1
-  resolution: "angular-eslint@npm:21.0.1"
+"angular-eslint@npm:^21.1.0":
+  version: 21.1.0
+  resolution: "angular-eslint@npm:21.1.0"
   dependencies:
     "@angular-devkit/core": "npm:>= 21.0.0 < 22.0.0"
     "@angular-devkit/schematics": "npm:>= 21.0.0 < 22.0.0"
-    "@angular-eslint/builder": "npm:21.0.1"
-    "@angular-eslint/eslint-plugin": "npm:21.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:21.0.1"
-    "@angular-eslint/schematics": "npm:21.0.1"
-    "@angular-eslint/template-parser": "npm:21.0.1"
+    "@angular-eslint/builder": "npm:21.1.0"
+    "@angular-eslint/eslint-plugin": "npm:21.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:21.1.0"
+    "@angular-eslint/schematics": "npm:21.1.0"
+    "@angular-eslint/template-parser": "npm:21.1.0"
     "@typescript-eslint/types": "npm:^8.0.0"
     "@typescript-eslint/utils": "npm:^8.0.0"
   peerDependencies:
+    "@angular/cli": ">= 21.0.0 < 22.0.0"
     eslint: ^8.57.0 || ^9.0.0
     typescript: "*"
     typescript-eslint: ^8.0.0
-  checksum: 10/818d965254658190682dddaf2b0c6b03bc5e10915053bee77becfc45b15326cf1504d9593c5fbdadbf0efe2e28b8cda39775eda390267d665e196a8d5dca0e9a
+  checksum: 10/aa7245d234aa7b47939b5798dcc53119e3663d46ef059442652042da04d906fdb399138903cd36618930fde52bbb7e47d2037525d89821123f713292988bf9ee
   languageName: node
   linkType: hard
 
@@ -9659,7 +9663,7 @@ __metadata:
     "@types/semver": "npm:^7.7.1"
     "@typescript-eslint/eslint-plugin": "npm:^8.48.0"
     "@typescript-eslint/parser": "npm:^8.48.0"
-    angular-eslint: "npm:^21.0.1"
+    angular-eslint: "npm:^21.1.0"
     babel-jest: "npm:^30.2.0"
     bs-logger: "npm:^0.2.6"
     chalk: "npm:^4.1.2"
