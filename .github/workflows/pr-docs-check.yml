@@ -36,6 +36,6 @@ jobs:
           base-url: '/jest-preset-angular/pr-preview/pr-${{ github.event.pull_request.number }}/'
 
       - name: Deploy preview 🚀
-        uses: rossjrw/pr-preview-action@c739ba41f5bf6b9574a46807e1dc74b109a1f1d0 # v1
+        uses: rossjrw/pr-preview-action@5fd5f8e2f88e735fc3d1151302b32242037e3962 # v1
         with:
           source-dir: ./website/build
