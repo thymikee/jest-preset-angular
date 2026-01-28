@@ -52,9 +52,20 @@ describe('ng-snapshot snapshot serializer', () => {
                 myForm: proxyFunction,
             });
 
+            let result = '';
+
             expect(() => {
-                ngSnapshot.print(fixture as unknown as MockFixture, mockPrinter, mockIndent, mockOpts, mockColors);
+                result = ngSnapshot.print(
+                    fixture as unknown as MockFixture,
+                    mockPrinter,
+                    mockIndent,
+                    mockOpts,
+                    mockColors,
+                );
             }).not.toThrow();
+
+            // Verify the proxy was serialized (either as a function or fallback object)
+            expect(result).toMatch(/myForm=(\{[^}]+\}|"[^"]+")/);
         });
 
         test('should handle regular functions', () => {
@@ -109,6 +120,37 @@ describe('ng-snapshot snapshot serializer', () => {
             expect(result).toContain('"test"');
             expect(result).toContain('"42"');
             expect(result).toContain('"true"');
+        });
+
+        test('should handle anonymous functions', () => {
+            const fixture = createMockFixture({
+                anonymousFunc: () => {},
+            });
+
+            const result = ngSnapshot.print(
+                fixture as unknown as MockFixture,
+                mockPrinter,
+                mockIndent,
+                mockOpts,
+                mockColors,
+            );
+            // In object literal context, arrow functions take the property name as their function name
+            expect(result).toContain('{[Function anonymousFunc]}');
+        });
+
+        test('should handle truly anonymous functions with fallback name', () => {
+            const fixture = createMockFixture({
+                trulyAnonymous: new Function('return 42'),
+            });
+
+            const result = ngSnapshot.print(
+                fixture as unknown as MockFixture,
+                mockPrinter,
+                mockIndent,
+                mockOpts,
+                mockColors,
+            );
+            expect(result).toContain('{[Function anonymous]}');
         });
 
         test('should handle null and undefined', () => {

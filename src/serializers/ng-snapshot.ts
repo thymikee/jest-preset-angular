@@ -30,10 +30,14 @@ const serializeAttributeValue = (value: unknown): string => {
         }
 
         // Handle functions and objects with constructors
-        if (typeof value === 'function' || (typeof value === 'object' && value.constructor)) {
-            const constructorName = typeof value === 'function' ? value.name : value.constructor.name;
+        if (typeof value === 'function') {
+            const functionName = value.name || 'anonymous';
 
-            return `{[Function ${constructorName}]}`;
+            return `{[Function ${functionName}]}`;
+        }
+
+        if (typeof value === 'object' && value.constructor && value.constructor.name) {
+            return `{[Function ${value.constructor.name}]}`;
         }
 
         // Handle primitive values safely
