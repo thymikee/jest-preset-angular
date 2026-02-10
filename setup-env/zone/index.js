@@ -13,7 +13,8 @@ const { polyfillEncoder, resolveTestEnvOptions } = require('../utils');
 
 const setupZoneTestEnv = (options) => {
     polyfillEncoder();
-    const testEnvironmentOptions = resolveTestEnvOptions(options);
+    const resolvedOptions = resolveTestEnvOptions(options) ?? {};
+    const { extraProviders = [], ...testEnvironmentOptions } = resolvedOptions;
     if (+VERSION.major >= 21) {
         class TestModule {}
         NgModule({
@@ -28,6 +29,7 @@ const setupZoneTestEnv = (options) => {
                     useValue: {},
                     multi: true,
                 },
+                ...extraProviders,
             ]),
             testEnvironmentOptions,
         );
@@ -40,13 +42,14 @@ const setupZoneTestEnv = (options) => {
                     useValue: {},
                     multi: true,
                 },
+                ...extraProviders,
             ]),
             testEnvironmentOptions,
         );
     } else {
         getTestBed().initTestEnvironment(
             [BrowserDynamicTestingModule],
-            platformBrowserDynamicTesting(),
+            platformBrowserDynamicTesting(extraProviders),
             testEnvironmentOptions,
         );
     }

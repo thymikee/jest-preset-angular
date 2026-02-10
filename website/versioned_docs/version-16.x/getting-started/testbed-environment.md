@@ -26,7 +26,8 @@ You can customize the environment by providing options as function arguments.
 
 #### Parameters
 
-- `options`**(optional)**: An object follows [TestEnvironmentOptions interface](https://github.com/angular/angular/blob/a55341b1ab8d2bc4285a4cce59df7fc0b23c0125/packages/core/testing/src/test_bed_common.ts#L95), which allows fine-tuning the environment.
+- `options`**(optional)**: An object that extends [TestEnvironmentOptions interface](https://github.com/angular/angular/blob/a55341b1ab8d2bc4285a4cce59df7fc0b23c0125/packages/core/testing/src/test_bed_common.ts#L95) with the following additional properties:
+  - `extraProviders`**(optional)**: An array of [StaticProvider](https://angular.dev/api/core/StaticProvider) to be injected at the platform level. This is useful for mocking platform services that cannot be configured via `TestBed.configureTestingModule`.
 
 #### Example:
 
@@ -79,7 +80,8 @@ You can customize the environment by providing options as function arguments.
 
 #### Parameters
 
-- `options`**(optional)**: An object follows [TestEnvironmentOptions interface](https://github.com/angular/angular/blob/a55341b1ab8d2bc4285a4cce59df7fc0b23c0125/packages/core/testing/src/test_bed_common.ts#L95), which allows fine-tuning the environment.
+- `options`**(optional)**: An object that extends [TestEnvironmentOptions interface](https://github.com/angular/angular/blob/a55341b1ab8d2bc4285a4cce59df7fc0b23c0125/packages/core/testing/src/test_bed_common.ts#L95) with the following additional properties:
+  - `extraProviders`**(optional)**: An array of [StaticProvider](https://angular.dev/api/core/StaticProvider) to be injected at the platform level. This is useful for mocking platform services that cannot be configured via `TestBed.configureTestingModule`.
 
 #### Example:
 

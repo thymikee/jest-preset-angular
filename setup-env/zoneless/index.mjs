@@ -34,7 +34,8 @@ const provideZonelessConfig = () => {
 const setupZonelessTestEnv = (options) => {
     if (typeof provideZonelessChangeDetectionFn !== 'undefined') {
         polyfillEncoder();
-        const testEnvironmentOptions = resolveTestEnvOptions(options);
+        const resolvedOptions = resolveTestEnvOptions(options) ?? {};
+        const { extraProviders = [], ...testEnvironmentOptions } = resolvedOptions;
         if (+VERSION.major >= 20) {
             getTestBed().initTestEnvironment(
                 [BrowserTestingModule, provideZonelessConfig()],
@@ -44,13 +45,14 @@ const setupZonelessTestEnv = (options) => {
                         useValue: {},
                         multi: true,
                     },
+                    ...extraProviders,
                 ]),
                 testEnvironmentOptions,
             );
         } else {
             getTestBed().initTestEnvironment(
                 [BrowserDynamicTestingModule, provideZonelessConfig()],
-                platformBrowserDynamicTesting(),
+                platformBrowserDynamicTesting(extraProviders),
                 testEnvironmentOptions,
             );
         }
