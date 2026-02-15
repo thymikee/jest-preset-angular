@@ -45,6 +45,7 @@ jest.mock('@angular/platform-browser-dynamic/testing', () => {
     };
 });
 const mockProvideExperimentalZonelessChangeDetection = jest.fn();
+const mockCompilerOptions = 'COMPILER_OPTIONS';
 jest.mock('@angular/core', () => {
     return {
         provideExperimentalZonelessChangeDetection: mockProvideExperimentalZonelessChangeDetection,
@@ -55,6 +56,7 @@ jest.mock('@angular/core', () => {
         VERSION: {
             major: '20',
         },
+        COMPILER_OPTIONS: mockCompilerOptions,
     };
 });
 
@@ -100,6 +102,38 @@ describe('Setup env utilities', () => {
             assertOnInitTestEnv();
         });
 
+        it('should setup test environment with setupZoneTestEnv() and extraProviders', async () => {
+            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
+
+            const mockProvider = { provide: 'TEST_TOKEN', useValue: 'test-value' };
+
+            setupZoneTestEnv({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+                extraProviders: [mockProvider],
+            });
+
+            expect(globalThis.TextEncoder).toBeDefined();
+            expect(mockZoneJs).toHaveBeenCalled();
+            expect(mockZoneJsTesting).toHaveBeenCalled();
+            expect(mockGetTestBed).toHaveBeenCalled();
+            expect(mockPlatformBrowserTesting).toHaveBeenCalled();
+            // Verify that extraProviders were passed to platformBrowserTesting
+            const platformProviders = mockPlatformBrowserTesting.mock.calls[0][0];
+            expect(platformProviders).toEqual([
+                {
+                    provide: mockCompilerOptions,
+                    useValue: {},
+                    multi: true,
+                },
+                mockProvider,
+            ]);
+        });
+
         it('should setup test environment with setupZonelessTestEnv()', async () => {
             const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.js');
 
@@ -116,6 +150,39 @@ describe('Setup env utilities', () => {
             expect(mockZoneJs).not.toHaveBeenCalled();
             expect(mockZoneJsTesting).not.toHaveBeenCalled();
             assertOnInitTestEnv();
+            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
+        });
+
+        it('should setup test environment with setupZonelessTestEnv() and extraProviders', async () => {
+            const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.js');
+
+            const mockProvider = { provide: 'TEST_TOKEN', useValue: 'test-value' };
+
+            setupZonelessTestEnv({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+                extraProviders: [mockProvider],
+            });
+
+            expect(globalThis.TextEncoder).toBeDefined();
+            expect(mockZoneJs).not.toHaveBeenCalled();
+            expect(mockZoneJsTesting).not.toHaveBeenCalled();
+            expect(mockGetTestBed).toHaveBeenCalled();
+            expect(mockPlatformBrowserTesting).toHaveBeenCalled();
+            // Verify that extraProviders were passed to platformBrowserTesting
+            const platformProviders = mockPlatformBrowserTesting.mock.calls[0][0];
+            expect(platformProviders).toEqual([
+                {
+                    provide: mockCompilerOptions,
+                    useValue: {},
+                    multi: true,
+                },
+                mockProvider,
+            ]);
             expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
         });
     });
@@ -139,6 +206,38 @@ describe('Setup env utilities', () => {
             assertOnInitTestEnv();
         });
 
+        it('should setup test environment with setupZoneTestEnv() and extraProviders', async () => {
+            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.mjs');
+
+            const mockProvider = { provide: 'TEST_TOKEN', useValue: 'test-value' };
+
+            setupZoneTestEnv({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+                extraProviders: [mockProvider],
+            });
+
+            expect(globalThis.TextEncoder).toBeDefined();
+            expect(mockZoneJs).toHaveBeenCalled();
+            expect(mockZoneJsTesting).toHaveBeenCalled();
+            expect(mockGetTestBed).toHaveBeenCalled();
+            expect(mockPlatformBrowserTesting).toHaveBeenCalled();
+            // Verify that extraProviders were passed to platformBrowserTesting
+            const platformProviders = mockPlatformBrowserTesting.mock.calls[0][0];
+            expect(platformProviders).toEqual([
+                {
+                    provide: mockCompilerOptions,
+                    useValue: {},
+                    multi: true,
+                },
+                mockProvider,
+            ]);
+        });
+
         it('should setup test environment with setupZonelessTestEnv()', async () => {
             const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.mjs');
 
@@ -155,6 +254,39 @@ describe('Setup env utilities', () => {
             expect(mockZoneJs).not.toHaveBeenCalled();
             expect(mockZoneJsTesting).not.toHaveBeenCalled();
             assertOnInitTestEnv();
+            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
+        });
+
+        it('should setup test environment with setupZonelessTestEnv() and extraProviders', async () => {
+            const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.mjs');
+
+            const mockProvider = { provide: 'TEST_TOKEN', useValue: 'test-value' };
+
+            setupZonelessTestEnv({
+                teardown: {
+                    destroyAfterEach: false,
+                    rethrowErrors: true,
+                },
+                errorOnUnknownElements: true,
+                errorOnUnknownProperties: true,
+                extraProviders: [mockProvider],
+            });
+
+            expect(globalThis.TextEncoder).toBeDefined();
+            expect(mockZoneJs).not.toHaveBeenCalled();
+            expect(mockZoneJsTesting).not.toHaveBeenCalled();
+            expect(mockGetTestBed).toHaveBeenCalled();
+            expect(mockPlatformBrowserTesting).toHaveBeenCalled();
+            // Verify that extraProviders were passed to platformBrowserTesting
+            const platformProviders = mockPlatformBrowserTesting.mock.calls[0][0];
+            expect(platformProviders).toEqual([
+                {
+                    provide: mockCompilerOptions,
+                    useValue: {},
+                    multi: true,
+                },
+                mockProvider,
+            ]);
             expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
         });
     });
