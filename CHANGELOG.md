@@ -1,3 +1,12 @@
+# [16.1.0](https://github.com/thymikee/jest-preset-angular/compare/v16.0.0...v16.1.0) (2026-02-27)
+
+
+### Features
+
+* allow configuring platform providers for `TestBed` from setup env ([d11d79d](https://github.com/thymikee/jest-preset-angular/commit/d11d79d891433c82c67c52083e455084454cc1ea)), closes [#3590](https://github.com/thymikee/jest-preset-angular/issues/3590)
+
+
+
 # [16.0.0](https://github.com/thymikee/jest-preset-angular/compare/v15.0.3...v16.0.0) (2025-12-04)
 
 
