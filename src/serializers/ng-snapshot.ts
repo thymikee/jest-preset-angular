@@ -22,6 +22,18 @@ const removeTrailingWhiteSpaces = (serializedComponent: string): string => {
     return serializedComponent.replace(/\n^\s*\n/gm, '\n');
 };
 
+const serializeAttributeValue = (value: unknown): string => {
+    try {
+        if (value && value?.constructor) {
+            return `{[Function ${value.constructor.name}]}`;
+        }
+
+        return `"${value}"`;
+    } catch {
+        return '{[Function Function]}';
+    }
+};
+
 const print: PluginPrintFn = (fixture, printer, indent, opts, colors) => {
     const { componentRef, componentInstance } = fixture as ComponentFixture<Record<string, unknown>>;
     const componentDef = (componentRef.componentType as ɵComponentType<unknown>).ɵcmp as ɵDirectiveDef<unknown>;
@@ -41,9 +53,7 @@ const print: PluginPrintFn = (fixture, printer, indent, opts, colors) => {
                     opts.spacing +
                     indent(`${colors.prop.open}${attribute}${colors.prop.close}=`) +
                     colors.value.open +
-                    (compAttrVal && compAttrVal.constructor
-                        ? `{[Function ${compAttrVal.constructor.name}]}`
-                        : `"${compAttrVal}"`) +
+                    serializeAttributeValue(compAttrVal) +
                     colors.value.close
                 );
             })

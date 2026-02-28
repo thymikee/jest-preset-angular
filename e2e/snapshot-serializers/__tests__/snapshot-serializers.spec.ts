@@ -42,4 +42,16 @@ describe('FooComponent', () => {
         expect(fixture).toMatchSnapshot();
         expect(fixture.debugElement.nativeElement).toMatchSnapshot();
     });
+
+    test('should not crash when serializing signal form proxy values', () => {
+        expect.addSnapshotSerializer(serializer);
+        TestBed.configureTestingModule({
+            imports: [FooComponent],
+        });
+        const fixture = TestBed.createComponent(FooComponent);
+
+        fixture.detectChanges();
+
+        expect(fixture).toMatchSnapshot();
+    });
 });
