@@ -1,3 +1,12 @@
+## [16.1.1](https://github.com/thymikee/jest-preset-angular/compare/v16.1.0...v16.1.1) (2026-02-28)
+
+
+### Bug Fixes
+
+* make snapshot serializer compatible with Signal Forms ([#3572](https://github.com/thymikee/jest-preset-angular/issues/3572)) ([7010730](https://github.com/thymikee/jest-preset-angular/commit/70107300b9644cb45af90199064cf34f803fd60f)), closes [#3560](https://github.com/thymikee/jest-preset-angular/issues/3560)
+
+
+
 # [16.1.0](https://github.com/thymikee/jest-preset-angular/compare/v16.0.0...v16.1.0) (2026-02-27)
 
 
