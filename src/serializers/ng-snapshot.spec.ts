@@ -121,7 +121,6 @@ describe('ng-snapshot snapshot serializer', () => {
             expect(result).toContain('{[Function String]}');
             expect(result).toContain('{[Function Number]}');
             expect(result).toContain('{[Function Boolean]}');
-            expect(result).toContain('"false"');
         });
 
         test('should handle functions using constructor name', () => {

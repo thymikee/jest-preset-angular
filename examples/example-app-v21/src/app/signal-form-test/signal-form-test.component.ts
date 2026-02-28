@@ -16,10 +16,10 @@ type MyFormModel = {
     `,
 })
 export class SignalFormTestComponent {
-    private readonly myFormModel = signal<MyFormModel>({
+    readonly #myFormModel = signal<MyFormModel>({
         myProperty: '',
     });
 
     // Use the actual Signal Forms API from Angular
-    protected readonly myForm = form(this.myFormModel);
+    protected readonly myForm = form(this.#myFormModel);
 }
