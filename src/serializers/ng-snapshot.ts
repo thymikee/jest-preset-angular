@@ -24,7 +24,7 @@ const removeTrailingWhiteSpaces = (serializedComponent: string): string => {
 
 const serializeAttributeValue = (value: unknown): string => {
     try {
-        if (value?.constructor) {
+        if (value && value?.constructor) {
             return `{[Function ${value.constructor.name}]}`;
         }
 

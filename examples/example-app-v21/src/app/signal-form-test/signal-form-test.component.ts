@@ -7,7 +7,6 @@ type MyFormModel = {
 
 @Component({
     selector: 'app-signal-form-test',
-    standalone: true,
     template: `
         <div>
             <h2>Signal Form Test Component</h2>

@@ -3,7 +3,8 @@
 exports[`FooComponent should allow generating snapshot 1`] = `
 <foo
   condition1={[Function Boolean]}
-  condition2={[Function Boolean]}
+  condition2="false"
+  myForm={[Function Function]}
   value1={[Function Function]}
   value2={[Function Function]}
 >
@@ -67,11 +68,11 @@ exports[`FooComponent should allow generating snapshot with removed component at
 </div>
 `;
 
-exports[`FooComponent should not crash when serializing proxy values that fail primitive conversion 1`] = `
+exports[`FooComponent should not crash when serializing signal form proxy values 1`] = `
 <foo
   condition1={[Function Boolean]}
-  condition2={[Function Boolean]}
-  signalFormProxy={[Function Function]}
+  condition2="false"
+  myForm={[Function Function]}
   value1={[Function Function]}
   value2={[Function Function]}
 >

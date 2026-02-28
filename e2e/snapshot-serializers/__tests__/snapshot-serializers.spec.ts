@@ -43,32 +43,13 @@ describe('FooComponent', () => {
         expect(fixture.debugElement.nativeElement).toMatchSnapshot();
     });
 
-    test('should not crash when serializing proxy values that fail primitive conversion', () => {
+    test('should not crash when serializing signal form proxy values', () => {
         expect.addSnapshotSerializer(serializer);
         TestBed.configureTestingModule({
             imports: [FooComponent],
         });
         const fixture = TestBed.createComponent(FooComponent);
-        const proxyValue = new Proxy(() => undefined, {
-            get(target, prop, receiver) {
-                if (prop === 'constructor') {
-                    return undefined;
-                }
 
-                if (prop === Symbol.toPrimitive) {
-                    return () => {
-                        throw new TypeError('Cannot convert object to primitive value');
-                    };
-                }
-
-                return Reflect.get(target, prop, receiver);
-            },
-        });
-
-        Object.defineProperty(fixture.componentInstance, 'signalFormProxy', {
-            value: proxyValue,
-            enumerable: true,
-        });
         fixture.detectChanges();
 
         expect(fixture).toMatchSnapshot();
