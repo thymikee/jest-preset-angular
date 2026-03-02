@@ -1,7 +1,7 @@
 import type { Logger } from 'bs-logger';
 import { globsToMatcher } from 'jest-util';
 import { type RawCompilerOptions, ConfigSet, type TsJestTransformOptions } from 'ts-jest';
-import type { ParsedCommandLine } from 'typescript';
+import ts, { type ParsedCommandLine } from 'typescript';
 
 /**
  * Some NPM packages like `tslib` is distributed in such a way that `esbuild` cannot process it, so we fall back to use TypeScript API
@@ -39,6 +39,14 @@ export class NgJestConfig extends ConfigSet {
         result.options.enableResourceInlining = false;
         // Since we define preset default also transform `js` so we need to set `allowJs` true
         result.options.allowJs = true;
+        // Angular v17+ exposes subpath exports (e.g. `@angular/core/testing`) via the `exports`
+        // field in package.json. TypeScript only resolves `exports` when `moduleResolution` is
+        // `Node16`, `NodeNext`, or `Bundler`. Without this, TypeScript defaults to Node10 (for
+        // `module: CommonJS`) or Classic, which don't support the `exports` field, causing
+        // TS2307 "Cannot find module" errors for Angular subpath imports.
+        if (result.options.moduleResolution == null) {
+            result.options.moduleResolution = ts.ModuleResolutionKind.Node16;
+        }
 
         return result;
     }

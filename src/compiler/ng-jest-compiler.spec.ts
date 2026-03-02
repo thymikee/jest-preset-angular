@@ -478,4 +478,19 @@ describe('NgJestCompiler', () => {
             `);
         });
     });
+
+    describe('module resolution', () => {
+        it('should resolve Angular subpath exports like @angular/core/testing without TS2307 errors', () => {
+            // Regression test: with moduleResolution=Node10 (the default for module=CommonJS),
+            // TypeScript cannot resolve Angular v17+ subpath exports via the package.json
+            // `exports` field, causing TS2307 "Cannot find module" errors.
+            const { diagnostics } = transformCjs(
+                `import { TestBed } from '@angular/core/testing';
+                 console.log(TestBed);`,
+                { isolatedModules: false },
+            );
+
+            expect(diagnostics.length).toBe(0);
+        });
+    });
 });
