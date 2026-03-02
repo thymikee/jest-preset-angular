@@ -236,3 +236,42 @@ export default {
 
 Please use Angular [inject](https://angular.dev/api/core/inject) instead of [@Inject](https://angular.dev/api/core/Inject).
 This is because `jest-preset-angular` has caveat when working with class constructor and decorator.
+
+### Cannot find module '@angular/core/testing' or Angular subpath imports
+
+If you see TypeScript errors like:
+
+```bash
+error TS2307: Cannot find module '@angular/core/testing' or its corresponding type declarations.
+error TS2307: Cannot find module '@angular/platform-browser/animations' or its corresponding type declarations.
+```
+
+This happens because Angular v17+ exposes subpath exports (e.g. `/testing`, `/animations`) via the `exports` field in
+`package.json`. TypeScript only resolves `exports` when `moduleResolution` is set to `"node16"`, `"nodenext"`, or
+`"bundler"`. The legacy `"node"` moduleResolution does not support this.
+
+Make sure your `tsconfig.spec.json` explicitly sets a compatible `moduleResolution`. For a CJS setup:
+
+```json title="tsconfig.spec.json"
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "node16",
+    "types": ["jest"]
+  }
+}
+```
+
+For an ESM setup:
+
+```json title="tsconfig.spec.json"
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "types": ["jest"]
+  }
+}
+```

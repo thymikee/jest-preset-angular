@@ -73,6 +73,7 @@ Adjust your `tsconfig.spec.json` to be:
   "compilerOptions": {
     //...
     "module": "CommonJS",
+    "moduleResolution": "node16",
     "types": ["jest"]
   },
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
@@ -87,6 +88,7 @@ Adjust your `tsconfig.spec.json` to be:
   "compilerOptions": {
     //...
     "module": "ES2022",
+    "moduleResolution": "bundler",
     "types": ["jest"]
   },
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
