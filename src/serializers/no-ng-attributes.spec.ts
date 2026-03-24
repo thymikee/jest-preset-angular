@@ -14,7 +14,7 @@ describe('no-ng-attributes snapshot serializer', () => {
 
     test('should return true when matching the condition with attributes to clean', () => {
         const validElement = document.createElement('SECTION');
-        ['class', 'id', 'for', 'aria-owns', 'aria-labelledby', 'aria-controls'].forEach((attrToClean) => {
+        ['class', 'id', 'for', 'name', 'aria-owns', 'aria-labelledby', 'aria-controls'].forEach((attrToClean) => {
             validElement.setAttribute(attrToClean, 'foo');
         });
 
