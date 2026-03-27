@@ -7,7 +7,7 @@ const attributesToClean: Record<string, RegExp[]> = {
     class: [/^(?:mat|cdk|ng).*-\w*\d+-\d+$/, /^ng-star-inserted$/], // e.g. "ng-tns-c25-1" or "ng-star-inserted", literally
     id: [/^(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$/], // e.g. "mat-input-4", "cdk-step-content-0-0"
     for: [/^(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$/], // e.g. "mat-form-field-label-9"
-    name: [/^(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$/], // e.g. "mat-button-toggle-group-a0"
+    name: [/^(?:(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$|a\.form\d+\.value)/], // e.g. "mat-button-toggle-group-a0" and "a.form94.value"
     'aria-owns': [/^(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$/], // e.g. "mat-input-4"
     'aria-labelledby': [/^(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$/], // e.g. "mat-input-4", "cdk-step-label-0-0"
     'aria-controls': [/^(?:mat|cdk|ng).*-\w*\d+(?:-\w+)*$/], // e.g. "cdk-step-content-2-0"

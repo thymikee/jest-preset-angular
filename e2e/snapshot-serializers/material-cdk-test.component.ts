@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
         </div>
         <label for="mat-form-field-label-9">Field label</label>
         <input id="mat-input-4" name="mat-button-toggle-group-a0" aria-owns="mat-input-4" />
+        <input name="a.form94.value" />
         <span class="ng-tns-c25-1 ng-star-inserted custom-class">Styled text</span>
     `,
 })
