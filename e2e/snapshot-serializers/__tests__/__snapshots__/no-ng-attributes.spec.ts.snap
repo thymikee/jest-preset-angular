@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`MaterialCDKTestComponent should clean CDK and Material dynamic attributes from snapshot 1`] = `
+<material-cdk-test>
+  <div>
+     Step content 
+  </div><label>
+    Field label
+  </label><input /><input /><span
+    class="custom-class"
+  >
+    Styled text
+  </span>
+</material-cdk-test>
+`;
+
+exports[`MaterialCDKTestComponent should clean CDK and Material dynamic attributes from snapshot 2`] = `
+<div>
+  <div>
+     Step content 
+  </div>
+  <label>
+    Field label
+  </label>
+  <input />
+  <input />
+  <span
+    class="custom-class"
+  >
+    Styled text
+  </span>
+</div>
+`;
