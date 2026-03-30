@@ -1,5 +1,6 @@
 import type { Config } from '@jest/types';
 import type { TsConfigJson } from 'type-fest';
+import ts from 'typescript';
 
 import { NgJestConfig } from '../config/ng-jest-config';
 
@@ -55,7 +56,128 @@ function transformCjs(contents: string, compilerOptions: TsConfigJson.CompilerOp
     };
 }
 
+function transformCjsNonIsolated(contents: string, compilerOptions: TsConfigJson.CompilerOptions = {}) {
+    const ngJestConfig = new NgJestConfig({
+        cwd: process.cwd(),
+        extensionsToTreatAsEsm: [],
+        testMatch: [],
+        testRegex: [],
+        globals: {
+            'ts-jest': {
+                tsconfig: {
+                    isolatedModules: false,
+                    sourceMap: false,
+                    module: 'CommonJS',
+                    target: 'ES2017',
+                    lib: ['dom', 'es2015'],
+                    importHelpers: true,
+                    experimentalDecorators: true,
+                    emitDecoratorMetadata: false,
+                    diagnostics: false,
+                    ...compilerOptions,
+                },
+            },
+        },
+    } as unknown as Config.ProjectConfig);
+    const compiler = new NgJestCompiler(ngJestConfig, new Map());
+    const { code, diagnostics = [] } = compiler.getCompiledOutput(contents, __filename, {
+        watchMode: false,
+        depGraphs: new Map(),
+        supportsStaticESM: false,
+    });
+
+    return {
+        code: omitLeadingWhitespace(code),
+        diagnostics,
+        compiler,
+    };
+}
+
 describe('NgJestCompiler', () => {
+    describe('constructor', () => {
+        afterEach(() => {
+            jest.restoreAllMocks();
+        });
+
+        test('should not patch moduleResolution when Angular root index is resolvable in Node10 mode', () => {
+            jest.spyOn(
+                NgJestCompiler.prototype as unknown as { _isAngularExportsOnly: () => boolean },
+                '_isAngularExportsOnly',
+            ).mockReturnValue(false);
+            const patchSpy = jest
+                .spyOn(
+                    NgJestCompiler.prototype as unknown as { _patchModuleResolution: () => void },
+                    '_patchModuleResolution',
+                )
+                .mockImplementation(() => undefined);
+
+            transformCjsNonIsolated('export {};');
+
+            expect(patchSpy).not.toHaveBeenCalled();
+        });
+
+        test('should patch moduleResolution when Angular requires exports-aware resolution', () => {
+            jest.spyOn(
+                NgJestCompiler.prototype as unknown as { _isAngularExportsOnly: () => boolean },
+                '_isAngularExportsOnly',
+            ).mockReturnValue(true);
+            const patchSpy = jest
+                .spyOn(
+                    NgJestCompiler.prototype as unknown as { _patchModuleResolution: () => void },
+                    '_patchModuleResolution',
+                )
+                .mockImplementation(() => undefined);
+
+            transformCjsNonIsolated('export {};');
+
+            expect(patchSpy).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('_patchModuleResolution', () => {
+        beforeEach(() => {
+            jest.spyOn(
+                NgJestCompiler.prototype as unknown as {
+                    _isAngularExportsOnly: () => boolean;
+                },
+                '_isAngularExportsOnly',
+            ).mockReturnValue(true);
+        });
+
+        afterEach(() => {
+            jest.restoreAllMocks();
+        });
+
+        test('should upgrade legacy moduleResolution (Node10) to Bundler', () => {
+            const { compiler } = transformCjsNonIsolated('export {};', { moduleResolution: 'node10' });
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            expect((compiler as any)._compilerOptions.moduleResolution).toBe(ts.ModuleResolutionKind.Bundler);
+        });
+
+        test('should preserve modern moduleResolution (Node16) when explicitly set', () => {
+            const { compiler } = transformCjsNonIsolated('export {};', { moduleResolution: 'node16' });
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            expect((compiler as any)._compilerOptions.moduleResolution).toBe(ts.ModuleResolutionKind.Node16);
+        });
+
+        test('should not throw TS2307 when resolving @angular/core in non-isolated mode', () => {
+            expect(() =>
+                transformCjsNonIsolated(dedent`
+                    import { Component } from '@angular/core';
+
+                    @Component({
+                        standalone: true,
+                        selector: 'test-cmp',
+                        template: '<p>hello</p>',
+                    })
+                    class TestComponent {}
+                `),
+            ).not.toThrow();
+        });
+    });
+
     describe('_transpileOutput', () => {
         it('should downlevel decorators for @Injectable decorated class', () => {
             const { code, diagnostics = [] } = transformCjs(`

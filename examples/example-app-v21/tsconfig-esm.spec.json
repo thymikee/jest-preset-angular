@@ -5,12 +5,8 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "esModuleInterop": true,
-    "types": [
-      "jest"
-    ]
+    "moduleResolution": "Bundler",
+    "types": ["jest"]
   },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
-  ]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
