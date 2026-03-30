@@ -1,3 +1,13 @@
+## [16.1.2](https://github.com/thymikee/jest-preset-angular/compare/v16.1.1...v16.1.2) (2026-03-30)
+
+
+### Bug Fixes
+
+* **compiler:** allow using `moduleResolution: bundler` with Angular 21 ([#3721](https://github.com/thymikee/jest-preset-angular/issues/3721)) ([56072cf](https://github.com/thymikee/jest-preset-angular/commit/56072cf29df24d5fccbd3a1144f369d54d9653b8)), closes [#3529](https://github.com/thymikee/jest-preset-angular/issues/3529)
+* **serializer:** adapt regex for changes in angular/cdk ([798f4c9](https://github.com/thymikee/jest-preset-angular/commit/798f4c9e260e1822529a62fe943fdac13b71c2b3)), closes [#3703](https://github.com/thymikee/jest-preset-angular/issues/3703)
+
+
+
 ## [16.1.1](https://github.com/thymikee/jest-preset-angular/compare/v16.1.0...v16.1.1) (2026-02-28)
 
 
