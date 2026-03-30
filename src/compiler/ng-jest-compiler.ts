@@ -14,7 +14,71 @@ export class NgJestCompiler extends TsCompiler {
     ) {
         super(configSet, jestCacheFS);
 
+        if (!configSet.isolatedModules && this._isAngularExportsOnly()) {
+            this._patchModuleResolution();
+        }
+
         this._logger.debug('created NgJestCompiler');
+    }
+
+    /**
+     * Patches `fixupCompilerOptionsForModuleKind` on this instance so that the
+     * LanguageService always uses an Angular-compatible moduleResolution.
+     *
+     * ts-jest's `fixupCompilerOptionsForModuleKind` always overwrites moduleResolution
+     * to NodeJs (2), which prevents resolving Angular 21+ packages via `exports` fields.
+     * Since the LanguageService host reads `this._compilerOptions` on every emit call,
+     * patching this method before any compilation ensures the correct value is used.
+     */
+    private _patchModuleResolution(): void {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const self = this as any;
+
+        if (typeof self.fixupCompilerOptionsForModuleKind !== 'function') {
+            this._logger.warn(
+                'fixupCompilerOptionsForModuleKind not found on TsCompiler - moduleResolution patch skipped. ' +
+                    'This may cause module resolution errors with Angular 21+ packages. ' +
+                    'See https://github.com/thymikee/jest-preset-angular/issues/3529',
+            );
+
+            return;
+        }
+
+        const original = self.fixupCompilerOptionsForModuleKind.bind(self) as (
+            opts: ts.CompilerOptions,
+            isEsm: boolean,
+        ) => ts.CompilerOptions;
+        const ngModuleResolution = this._computeNgModuleResolution();
+
+        self.fixupCompilerOptionsForModuleKind = (opts: ts.CompilerOptions, isEsm: boolean): ts.CompilerOptions => ({
+            ...original(opts, isEsm),
+            moduleResolution: ngModuleResolution,
+        });
+    }
+
+    /**
+     * Returns the moduleResolution kind to use for Angular.
+     * Upgrades legacy (Classic=1, NodeJs/Node10=2) to Bundler;
+     * preserves modern values (Node16=3, NodeNext=99, Bundler=100).
+     */
+    private _computeNgModuleResolution(): ts.ModuleResolutionKind {
+        const userModuleResolution = this._initialCompilerOptions.moduleResolution;
+        const legacyThreshold = this._ts.ModuleResolutionKind.Node10;
+
+        return !userModuleResolution || userModuleResolution <= legacyThreshold
+            ? this._ts.ModuleResolutionKind.Bundler
+            : userModuleResolution;
+    }
+
+    private _isAngularExportsOnly(): boolean {
+        const { resolvedModule } = this._ts.resolveModuleName(
+            '@angular/core',
+            path.join(this.configSet.cwd, 'index.ts'),
+            { moduleResolution: this._ts.ModuleResolutionKind.Node10 },
+            this._ts.sys,
+        );
+
+        return !resolvedModule;
     }
 
     /**
