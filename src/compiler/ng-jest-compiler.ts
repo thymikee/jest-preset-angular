@@ -14,7 +14,7 @@ export class NgJestCompiler extends TsCompiler {
     ) {
         super(configSet, jestCacheFS);
 
-        if (!configSet.isolatedModules && this._isAngularExportsOnly()) {
+        if (!configSet.isolatedModules && this._isAnguar21ExportOnly()) {
             this._patchModuleResolution();
         }
 
@@ -70,7 +70,7 @@ export class NgJestCompiler extends TsCompiler {
             : userModuleResolution;
     }
 
-    private _isAngularExportsOnly(): boolean {
+    private _isAnguar21ExportOnly(): boolean {
         const { resolvedModule } = this._ts.resolveModuleName(
             '@angular/core',
             path.join(this.configSet.cwd, 'index.ts'),
@@ -78,7 +78,7 @@ export class NgJestCompiler extends TsCompiler {
             this._ts.sys,
         );
 
-        return !resolvedModule;
+        return !!resolvedModule;
     }
 
     /**

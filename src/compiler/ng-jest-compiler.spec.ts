@@ -101,8 +101,8 @@ describe('NgJestCompiler', () => {
 
         test('should not patch moduleResolution when Angular root index is resolvable in Node10 mode', () => {
             jest.spyOn(
-                NgJestCompiler.prototype as unknown as { _isAngularExportsOnly: () => boolean },
-                '_isAngularExportsOnly',
+                NgJestCompiler.prototype as unknown as { _isAnguar21ExportOnly: () => boolean },
+                '_isAnguar21ExportOnly',
             ).mockReturnValue(false);
             const patchSpy = jest
                 .spyOn(
@@ -118,8 +118,8 @@ describe('NgJestCompiler', () => {
 
         test('should patch moduleResolution when Angular requires exports-aware resolution', () => {
             jest.spyOn(
-                NgJestCompiler.prototype as unknown as { _isAngularExportsOnly: () => boolean },
-                '_isAngularExportsOnly',
+                NgJestCompiler.prototype as unknown as { _isAnguar21ExportOnly: () => boolean },
+                '_isAnguar21ExportOnly',
             ).mockReturnValue(true);
             const patchSpy = jest
                 .spyOn(
@@ -138,9 +138,9 @@ describe('NgJestCompiler', () => {
         beforeEach(() => {
             jest.spyOn(
                 NgJestCompiler.prototype as unknown as {
-                    _isAngularExportsOnly: () => boolean;
+                    _isAnguar21ExportOnly: () => boolean;
                 },
-                '_isAngularExportsOnly',
+                '_isAnguar21ExportOnly',
             ).mockReturnValue(true);
         });
 
