@@ -55,9 +55,10 @@ jobs:
             echo "Tag $TAG does not exist on origin"
           fi
 
+      # This will tell npm to publish your scoped package with public access
       - name: Publish package 🚀
         if: steps.tag_check.outputs.tag_exists == 'true'
-        run: npm publish
+        run: npm publish --provenance --access public
 
       - name: Skip publish (tag missing) ℹ️
         if: steps.tag_check.outputs.tag_exists != 'true'
