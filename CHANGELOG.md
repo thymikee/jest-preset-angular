@@ -1,3 +1,12 @@
+## [16.1.3](https://github.com/thymikee/jest-preset-angular/compare/v16.1.2...v16.1.3) (2026-04-09)
+
+
+### Bug Fixes
+
+* correct the condition to detect ng 21 when patching module resolution ([#3741](https://github.com/thymikee/jest-preset-angular/issues/3741)) ([681a8c1](https://github.com/thymikee/jest-preset-angular/commit/681a8c193f1d964ebe8dee571a221b02afb48d42))
+
+
+
 ## [16.1.2](https://github.com/thymikee/jest-preset-angular/compare/v16.1.1...v16.1.2) (2026-03-30)
 
 
