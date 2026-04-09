@@ -1,9 +1,14 @@
-name: Publish Package
+name: Publish Package 🚀
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_run:
+    workflows:
+      - Tag release 🏷️
+    branches:
+      - main
+      - next
+    types:
+      - completed
 
 permissions:
   id-token: write # Required for OIDC
@@ -11,11 +16,13 @@ permissions:
 
 jobs:
   publish:
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
+          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 20
           fetch-tags: false
 
@@ -30,5 +37,26 @@ jobs:
       - name: Build 🔨
         run: yarn build
 
-      - name: Create release 🚀
+      - name: Check release tag 🔖
+        id: tag_check
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v$VERSION"
+          echo "tag_name=$TAG" >> "$GITHUB_OUTPUT"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" > /dev/null 2>&1; then
+            echo "tag_exists=true" >> "$GITHUB_OUTPUT"
+            echo "Tag $TAG exists on origin"
+          else
+            echo "tag_exists=false" >> "$GITHUB_OUTPUT"
+            echo "Tag $TAG does not exist on origin"
+          fi
+
+      - name: Publish package 🚀
+        if: steps.tag_check.outputs.tag_exists == 'true'
         run: npm publish
+
+      - name: Skip publish (tag missing) ℹ️
+        if: steps.tag_check.outputs.tag_exists != 'true'
+        run: echo "Skipping publish because tag ${{ steps.tag_check.outputs.tag_name }} was not found on origin."
+
