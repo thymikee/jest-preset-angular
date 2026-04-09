@@ -1,12 +1,3 @@
-## [16.1.4](https://github.com/thymikee/jest-preset-angular/compare/v16.1.3...v16.1.4) (2026-04-09)
-
-
-### Chore & Maintenance
-
-* Test OIDC publish workflow
-
-
-
 ## [16.1.3](https://github.com/thymikee/jest-preset-angular/compare/v16.1.2...v16.1.3) (2026-04-09)
 
 
