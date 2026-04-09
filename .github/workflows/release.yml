@@ -31,12 +31,8 @@ jobs:
         with:
           cache: yarn
           cache-dependency-path: 'yarn.lock'
-          node-version: '22'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-
-      # Upgrade npm to the required version for Trusted Publishing
-      - name: Upgrade npm
-        run: npm install -g npm@latest
 
       - name: Install dependencies 🔧
         run: yarn install --frozen-lockfile
