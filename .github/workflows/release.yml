@@ -24,7 +24,7 @@ jobs:
         with:
           cache: yarn
           cache-dependency-path: 'yarn.lock'
-          node-version: '22'
+          node-version: '22.22.2'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Build 🔨
