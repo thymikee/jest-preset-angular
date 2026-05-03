@@ -23,7 +23,7 @@ const config: Config = {
     projectName: 'jest-preset-angular',
     trailingSlash: false,
     future: {
-        experimental_faster: true,
+        faster: true,
         v4: true,
     },
     plugins: [
