@@ -5,7 +5,4 @@ export interface SetupOptions extends TestEnvironmentOptions {
     extraProviders?: StaticProvider[];
 }
 
-declare const _default: {
-    setupZoneTestEnv: (options?: SetupOptions) => void;
-};
-export = _default;
+export declare const setupZoneTestEnv: (options?: SetupOptions) => void;
