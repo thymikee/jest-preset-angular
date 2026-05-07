@@ -1,3 +1,12 @@
+## [16.1.5](https://github.com/thymikee/jest-preset-angular/compare/v16.1.4...v16.1.5) (2026-05-07)
+
+
+### Bug Fixes
+
+* use named exports in setup-env .d.ts files ([bff8581](https://github.com/thymikee/jest-preset-angular/commit/bff8581d219bb651abb51a5f211060661b1ffb91))
+
+
+
 ## [16.1.4](https://github.com/thymikee/jest-preset-angular/compare/v16.1.3...v16.1.4) (2026-04-09)
 
 
