@@ -15,25 +15,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1902.26":
-  version: 0.1902.26
-  resolution: "@angular-devkit/architect@npm:0.1902.26"
+"@angular-devkit/architect@npm:0.1902.27":
+  version: 0.1902.27
+  resolution: "@angular-devkit/architect@npm:0.1902.27"
   dependencies:
-    "@angular-devkit/core": "npm:19.2.26"
+    "@angular-devkit/core": "npm:19.2.27"
     rxjs: "npm:7.8.1"
-  checksum: 10/428f76c6a10f634c1c947fb994c7351ebcbd4bd46af0c7c4bd99267a7155cff14a963dd4d770fa9bf073dcfe13caceb3d0d2218d1367297d187151119f2eedcc
+  checksum: 10/e51bb3e9508bfe06e1bf28b72a09ad74ea2236b3775a3903eb94c4964f09a22013ecb42b9042db509a4acf816c7c04af3813ad4e5dd7591850d24a2904bc193b
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-angular@npm:^19.2.26":
-  version: 19.2.26
-  resolution: "@angular-devkit/build-angular@npm:19.2.26"
+"@angular-devkit/build-angular@npm:^19.2.27":
+  version: 19.2.27
+  resolution: "@angular-devkit/build-angular@npm:19.2.27"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.1902.26"
-    "@angular-devkit/build-webpack": "npm:0.1902.26"
-    "@angular-devkit/core": "npm:19.2.26"
-    "@angular/build": "npm:19.2.26"
+    "@angular-devkit/architect": "npm:0.1902.27"
+    "@angular-devkit/build-webpack": "npm:0.1902.27"
+    "@angular-devkit/core": "npm:19.2.27"
+    "@angular/build": "npm:19.2.27"
     "@babel/core": "npm:7.26.10"
     "@babel/generator": "npm:7.26.10"
     "@babel/helper-annotate-as-pure": "npm:7.25.9"
@@ -44,7 +44,7 @@ __metadata:
     "@babel/preset-env": "npm:7.26.9"
     "@babel/runtime": "npm:7.26.10"
     "@discoveryjs/json-ext": "npm:0.6.3"
-    "@ngtools/webpack": "npm:19.2.26"
+    "@ngtools/webpack": "npm:19.2.27"
     "@vitejs/plugin-basic-ssl": "npm:1.2.0"
     ansi-colors: "npm:4.1.3"
     autoprefixer: "npm:10.4.20"
@@ -90,7 +90,7 @@ __metadata:
     "@angular/localize": ^19.0.0 || ^19.2.0-next.0
     "@angular/platform-server": ^19.0.0 || ^19.2.0-next.0
     "@angular/service-worker": ^19.0.0 || ^19.2.0-next.0
-    "@angular/ssr": ^19.2.26
+    "@angular/ssr": ^19.2.27
     "@web/test-runner": ^0.20.0
     browser-sync: ^3.0.2
     jest: ^29.5.0
@@ -128,26 +128,26 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 10/15ed746899653b11913ad644f929b4f194f68b5cd6472d367a0e250beb32e38f1f9203cb319ca2478977b29b328d57c10576fc64b857de51fcb4b36382699749
+  checksum: 10/75c2088cb68d2d62dba5c6038d2d598c78ef94362ba0f6860d7f44285f7c95ea8bffef4c1c64fa0fbd20e07daed75f11ddef09c6e6caa437b5503ec9c89936e2
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-webpack@npm:0.1902.26":
-  version: 0.1902.26
-  resolution: "@angular-devkit/build-webpack@npm:0.1902.26"
+"@angular-devkit/build-webpack@npm:0.1902.27":
+  version: 0.1902.27
+  resolution: "@angular-devkit/build-webpack@npm:0.1902.27"
   dependencies:
-    "@angular-devkit/architect": "npm:0.1902.26"
+    "@angular-devkit/architect": "npm:0.1902.27"
     rxjs: "npm:7.8.1"
   peerDependencies:
     webpack: ^5.30.0
     webpack-dev-server: ^5.0.2
-  checksum: 10/c581a0bc7549ed5ba51d8568bc190613d341db48ad787dc07b2c14827234bf92cde3a92ffb453d28bd5bed3d6bac9da670bde84c7743f93fc21ceb70fc79242d
+  checksum: 10/c1a83669e05479ae0654f2fe94cb46ee1b7071bcafa439f38c464d879ee218c9b8c6445b19eb96815597070517ce79fb14f77ba974f696f0eef9fa8517e4741d
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:19.2.26":
-  version: 19.2.26
-  resolution: "@angular-devkit/core@npm:19.2.26"
+"@angular-devkit/core@npm:19.2.27":
+  version: 19.2.27
+  resolution: "@angular-devkit/core@npm:19.2.27"
   dependencies:
     ajv: "npm:8.18.0"
     ajv-formats: "npm:3.0.1"
@@ -160,41 +160,41 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 10/5865089c751c2149da0913c6a4de8920a4f8dbd39691293922796a74fba054663271bb082fa41273ced6fbb0c8a9d07240eb520ddbbcd269cdef3093e4fd53a7
+  checksum: 10/d9b8715511693c62191ec1595f6bf6f4e08a6fd16c2b082b9cc910199f829c72dca61931036dc3bc7f013ccc1c67c054c9056d4df5009a6cc61d34e5be301d1e
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:19.2.26":
-  version: 19.2.26
-  resolution: "@angular-devkit/schematics@npm:19.2.26"
+"@angular-devkit/schematics@npm:19.2.27":
+  version: 19.2.27
+  resolution: "@angular-devkit/schematics@npm:19.2.27"
   dependencies:
-    "@angular-devkit/core": "npm:19.2.26"
+    "@angular-devkit/core": "npm:19.2.27"
     jsonc-parser: "npm:3.3.1"
     magic-string: "npm:0.30.17"
     ora: "npm:5.4.1"
     rxjs: "npm:7.8.1"
-  checksum: 10/55f0559f2ea62974e31ab5461120b5671fdbcf5eea726fa6154eb7d29d5a4465bebf7cd8a5b73d34739f78cd011571b8edf6306f384b22e8c2bfe81ce0690def
+  checksum: 10/f4a5456f753355053795af17300eb40b82d085f7e847429126975ce3b34d039d3029e20576cccd2e93f7569beacb9622b261aa77d225655851bcf8c7735e378e
   languageName: node
   linkType: hard
 
 "@angular/animations@npm:^19.2.3":
-  version: 19.2.22
-  resolution: "@angular/animations@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/animations@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 19.2.22
-    "@angular/core": 19.2.22
-  checksum: 10/864a717921604efe70944467e817b382f3763b75f1253f027a9d2a32ef59c8cb99249c06187bb3872090e8f15531c57782487b354474aea068685ecd9bf3363a
+    "@angular/common": 19.2.25
+    "@angular/core": 19.2.25
+  checksum: 10/14fcd1e41487f09b8c8854daf850a1ca8741672605408c26d3b9b6a3a3a49c9cb2a7b2d1f6071a2c4ff67aaa0812c1815f9d2ffdaf4c1d6c1873d12d7aacabce
   languageName: node
   linkType: hard
 
-"@angular/build@npm:19.2.26":
-  version: 19.2.26
-  resolution: "@angular/build@npm:19.2.26"
+"@angular/build@npm:19.2.27":
+  version: 19.2.27
+  resolution: "@angular/build@npm:19.2.27"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.1902.26"
+    "@angular-devkit/architect": "npm:0.1902.27"
     "@babel/core": "npm:7.26.10"
     "@babel/helper-annotate-as-pure": "npm:7.25.9"
     "@babel/helper-split-export-declaration": "npm:7.24.7"
@@ -226,7 +226,7 @@ __metadata:
     "@angular/localize": ^19.0.0 || ^19.2.0-next.0
     "@angular/platform-server": ^19.0.0 || ^19.2.0-next.0
     "@angular/service-worker": ^19.0.0 || ^19.2.0-next.0
-    "@angular/ssr": ^19.2.26
+    "@angular/ssr": ^19.2.27
     karma: ^6.4.0
     less: ^4.2.0
     ng-packagr: ^19.0.0 || ^19.2.0-next.0
@@ -255,20 +255,20 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 10/4679ce6308180cc1d76d6db914edd64e3f293bc8dc867c32133bd441c5e3e5a2b52ddf341af1f1725a84cc66efb220a4f818d6756b3f3bf4e3d83bd41a579b46
+  checksum: 10/5b7cfd402361689d3d04df8ecc8e9a74d9008df84372c75988bc2dc797b77f65eddf3566a4486332da13a490dbe751a4e1df32934c26bbdba5f81d0d76237648
   languageName: node
   linkType: hard
 
-"@angular/cli@npm:^19.2.26":
-  version: 19.2.26
-  resolution: "@angular/cli@npm:19.2.26"
+"@angular/cli@npm:^19.2.27":
+  version: 19.2.27
+  resolution: "@angular/cli@npm:19.2.27"
   dependencies:
-    "@angular-devkit/architect": "npm:0.1902.26"
-    "@angular-devkit/core": "npm:19.2.26"
-    "@angular-devkit/schematics": "npm:19.2.26"
+    "@angular-devkit/architect": "npm:0.1902.27"
+    "@angular-devkit/core": "npm:19.2.27"
+    "@angular-devkit/schematics": "npm:19.2.27"
     "@inquirer/prompts": "npm:7.3.2"
     "@listr2/prompt-adapter-inquirer": "npm:2.0.18"
-    "@schematics/angular": "npm:19.2.26"
+    "@schematics/angular": "npm:19.2.27"
     "@yarnpkg/lockfile": "npm:1.1.0"
     ini: "npm:5.0.0"
     jsonc-parser: "npm:3.3.1"
@@ -282,25 +282,25 @@ __metadata:
     yargs: "npm:17.7.2"
   bin:
     ng: bin/ng.js
-  checksum: 10/adb8522402685e49c85e59e1fa6bf5efa30321e758844a074e4f8ff80affc321bfcc699665ff47c4ea68837d6ee278ab639acf79be2263b42660f4f9023bbbd6
+  checksum: 10/197de350245979c8ceab2bf6896bda6da0a63faa49a404e9928c036f4d0e5f4ee92a7910b760a41f0a5be58b43e88cb102c812473495d4205da6202784654561
   languageName: node
   linkType: hard
 
 "@angular/common@npm:^19.2.16":
-  version: 19.2.22
-  resolution: "@angular/common@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/common@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 19.2.22
+    "@angular/core": 19.2.25
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/fde5eb2f701393d80273d0f140a6408c46e6c96b9c231334b39c1f2b193ae81dac48a4b7f813e3b3b2e6b5b954c4924ed21305a54d1389dad880dd40d128a763
+  checksum: 10/703275eed4e4f305c79abf1fbf1700ebc4ad20de1228051574aeb41ece14d031dbceeb17a95edbf086f7fe2589a358856ec9ef0daa0ee6f816b35179723d105d
   languageName: node
   linkType: hard
 
-"@angular/compiler-cli@npm:^19.2.22":
-  version: 19.2.22
-  resolution: "@angular/compiler-cli@npm:19.2.22"
+"@angular/compiler-cli@npm:^19.2.25":
+  version: 19.2.25
+  resolution: "@angular/compiler-cli@npm:19.2.25"
   dependencies:
     "@babel/core": "npm:7.26.9"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
@@ -311,92 +311,92 @@ __metadata:
     tslib: "npm:^2.3.0"
     yargs: "npm:^17.2.1"
   peerDependencies:
-    "@angular/compiler": 19.2.22
+    "@angular/compiler": 19.2.25
     typescript: ">=5.5 <5.9"
   bin:
     ng-xi18n: bundles/src/bin/ng_xi18n.js
     ngc: bundles/src/bin/ngc.js
     ngcc: bundles/ngcc/index.js
-  checksum: 10/90d92120c5c229bbcb2dd781950756cbad28909d643569a55cbf0523dad8f2b32f5cc006973dd02881405ab1d850b62b55053f400b78bea29e0e1bde93d40d29
+  checksum: 10/a75bab62853353a4196557918c54632db69a38a916c454b679907a9b2710f642bf3f9450c86b504d1848c1d57b048a0160b0b74e2a4eb4a76244753aefafc0a3
   languageName: node
   linkType: hard
 
 "@angular/compiler@npm:^19.2.3":
-  version: 19.2.22
-  resolution: "@angular/compiler@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/compiler@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/1e8c4a0326a4326fc7c1db59ebfc7904e2484ba5ac8d0d9e72713bcd1f33089537ace7a603494715e959c060e3903f8e588910ffa2ca0e12f7747eed3ba8a36a
+  checksum: 10/5b5025765bc4e5744420b201f47d48d9c80539858d663ba9a27298d271b06ccffbf434500621735703c48ca1e90dbe4ebe81b14bab6e68e22ce795548d4e9768
   languageName: node
   linkType: hard
 
 "@angular/core@npm:^19.2.18":
-  version: 19.2.22
-  resolution: "@angular/core@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/core@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
     rxjs: ^6.5.3 || ^7.4.0
     zone.js: ~0.15.0
-  checksum: 10/98ffa05d747e5547872a0c91e47bab1fa73c423784ba593f5d9412d8843e7618d730abd52fabd77a2397a95b7c53be4e5c373156c44e6f1a23db66d8b3e6fe0e
+  checksum: 10/0c20bc5dfa83bb2dc01e734a9087ece7c89f62d73799e75d51dfce4be68f0e5f9d266e41b0735fdc485b96c0a7d857556f438f6943277adc9905f18383bf2bb8
   languageName: node
   linkType: hard
 
 "@angular/forms@npm:^19.2.3":
-  version: 19.2.22
-  resolution: "@angular/forms@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/forms@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 19.2.22
-    "@angular/core": 19.2.22
-    "@angular/platform-browser": 19.2.22
+    "@angular/common": 19.2.25
+    "@angular/core": 19.2.25
+    "@angular/platform-browser": 19.2.25
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/9fd94cea3b5076119cab9d6f846e56fb2d5602d0a8a8dbe00b094685212fe043853578705cf7c294d7a3544f0d1ec1dd1424fe3f7c67b1d133539d4a3403ba52
+  checksum: 10/e901683535844f5283cf80457cf4720b504e83d31ab2545fcb8842859685a785d126626e146ee5931819c1df0bf0f34564f144be1034693dcc252d8e0831a7fd
   languageName: node
   linkType: hard
 
 "@angular/platform-browser-dynamic@npm:^19.2.3":
-  version: 19.2.22
-  resolution: "@angular/platform-browser-dynamic@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/platform-browser-dynamic@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 19.2.22
-    "@angular/compiler": 19.2.22
-    "@angular/core": 19.2.22
-    "@angular/platform-browser": 19.2.22
-  checksum: 10/2931fa17c49b1f57edb0b3d80f412b9123dac94b082cf22e9a3e3c0031e823340ea9c4b3ff442d89674ff2c0e0d1327df076b0bd979a126bb25752ff6f56234a
+    "@angular/common": 19.2.25
+    "@angular/compiler": 19.2.25
+    "@angular/core": 19.2.25
+    "@angular/platform-browser": 19.2.25
+  checksum: 10/f9d342cfaa5e10580ab00d38a4713ef048235fcdcd06f20845874f4714cec38036325142a40b7c4979addcafaead1bcc4b40cc74100b40c0df3209a15c84057a
   languageName: node
   linkType: hard
 
 "@angular/platform-browser@npm:^19.2.3":
-  version: 19.2.22
-  resolution: "@angular/platform-browser@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/platform-browser@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/animations": 19.2.22
-    "@angular/common": 19.2.22
-    "@angular/core": 19.2.22
+    "@angular/animations": 19.2.25
+    "@angular/common": 19.2.25
+    "@angular/core": 19.2.25
   peerDependenciesMeta:
     "@angular/animations":
       optional: true
-  checksum: 10/20666cdfe882e44a30bcd4fb2d0fcf0a39d61c9c593db8753ca2dc9f5846edb7e1c42535a61c665c9faa95f33c9c4fb08eef62e48bcce2cbf7c0feeafc1c7596
+  checksum: 10/017971a1bd15306c4b8fe7ece630205b1b21ab77f1ce4739b94ee4a0b785b2392382a8cc4e2acce39b29a8fa01f3204713230a054394d7ac138d8d07b5f8e05a
   languageName: node
   linkType: hard
 
 "@angular/router@npm:^19.2.3":
-  version: 19.2.22
-  resolution: "@angular/router@npm:19.2.22"
+  version: 19.2.25
+  resolution: "@angular/router@npm:19.2.25"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 19.2.22
-    "@angular/core": 19.2.22
-    "@angular/platform-browser": 19.2.22
+    "@angular/common": 19.2.25
+    "@angular/core": 19.2.25
+    "@angular/platform-browser": 19.2.25
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/5c309e0090780a04d31f04df4e4e2788d7cb3e3743ab7b14c89f9f757363823714b810f7ace61ef246bb322592e97ba5efa986137c349aa7f35963af25a90446
+  checksum: 10/32b999d7fc328754d493771a2e1b79d95ff805ad7d6c1f45d657a4d2ee28c530d7ac04f87f12e9ce61e4edbf541d95e496c980ec8d0220887ad3eefeac4300dd
   languageName: node
   linkType: hard
 
@@ -3178,14 +3178,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngtools/webpack@npm:19.2.26":
-  version: 19.2.26
-  resolution: "@ngtools/webpack@npm:19.2.26"
+"@ngtools/webpack@npm:19.2.27":
+  version: 19.2.27
+  resolution: "@ngtools/webpack@npm:19.2.27"
   peerDependencies:
     "@angular/compiler-cli": ^19.0.0 || ^19.2.0-next.0
     typescript: ">=5.5 <5.9"
     webpack: ^5.54.0
-  checksum: 10/ad405b155db3730f40c8984054b324ad9a70177b2665d877aec48840ff70f6dcd40042e7b4912793511fef2a74ead6ad44eb73f6b68fb7c57c8fa6922be941bc
+  checksum: 10/059d347433180b38fd166276f9408a3d4947f320b807e7cd07f71380a961c8599f948ba001c3ff5a6ba901f71fa213f56f67fa5829ff84db95967b66d7e46c85
   languageName: node
   linkType: hard
 
@@ -3674,14 +3674,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:19.2.26":
-  version: 19.2.26
-  resolution: "@schematics/angular@npm:19.2.26"
+"@schematics/angular@npm:19.2.27":
+  version: 19.2.27
+  resolution: "@schematics/angular@npm:19.2.27"
   dependencies:
-    "@angular-devkit/core": "npm:19.2.26"
-    "@angular-devkit/schematics": "npm:19.2.26"
+    "@angular-devkit/core": "npm:19.2.27"
+    "@angular-devkit/schematics": "npm:19.2.27"
     jsonc-parser: "npm:3.3.1"
-  checksum: 10/24f41e78966c931b86e4ea27ace2749b468253941c98ab7d0c277e94721588c88224d7868a2e7acd6c77c62753c0abcc0a43c4afc2187984eec55e46680dab75
+  checksum: 10/bda24684db17963565a7b27c12b6db987414bb29cfdacc1aed7b5071dc49fe5de22a3c71aef6d8c7c4d15503e8024e81094a364ea97a9d564091df948bda4f62
   languageName: node
   linkType: hard
 
@@ -6261,12 +6261,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-app-v19@workspace:."
   dependencies:
-    "@angular-devkit/build-angular": "npm:^19.2.26"
+    "@angular-devkit/build-angular": "npm:^19.2.27"
     "@angular/animations": "npm:^19.2.3"
-    "@angular/cli": "npm:^19.2.26"
+    "@angular/cli": "npm:^19.2.27"
     "@angular/common": "npm:^19.2.16"
     "@angular/compiler": "npm:^19.2.3"
-    "@angular/compiler-cli": "npm:^19.2.22"
+    "@angular/compiler-cli": "npm:^19.2.25"
     "@angular/core": "npm:^19.2.18"
     "@angular/forms": "npm:^19.2.3"
     "@angular/platform-browser": "npm:^19.2.3"
