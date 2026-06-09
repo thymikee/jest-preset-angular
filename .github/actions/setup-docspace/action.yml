@@ -1,4 +1,5 @@
 name: Setup documentation workspace ⚙️
+description: 'Setup documentation workspace for building and deploying docs'
 
 inputs:
   base-url:
@@ -27,7 +28,7 @@ runs:
         restore-keys: node-22-website-build
 
     - name: Install dependencies 🔧
-      run: yarn install --frozen-lockfile
+      run: yarn install --immutable
       shell: bash
       working-directory: website
 
