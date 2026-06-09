@@ -8,6 +8,12 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
+export interface FeatureItem {
+    title: string;
+    description: React.ReactNode;
+    imageUrl?: string;
+}
+
 const features = [
     {
         title: 'Easy to Use',
@@ -19,7 +25,7 @@ const features = [
     },
 ];
 
-function Feature({ imageUrl, title, description }) {
+function Feature({ imageUrl, title, description }: FeatureItem) {
     const imgUrl = useBaseUrl(imageUrl);
 
     return (
