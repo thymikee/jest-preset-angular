@@ -1,3 +1,12 @@
+# [16.2.0](https://github.com/thymikee/jest-preset-angular/compare/v16.1.5...v16.2.0) (2026-06-09)
+
+
+### Features
+
+* Support angular 22 ([#3821](https://github.com/thymikee/jest-preset-angular/issues/3821)) ([a267f0e](https://github.com/thymikee/jest-preset-angular/commit/a267f0e7cc1a74453bda049080c0681e3507cca7)), closes [#3811](https://github.com/thymikee/jest-preset-angular/issues/3811)
+
+
+
 ## [16.1.5](https://github.com/thymikee/jest-preset-angular/compare/v16.1.4...v16.1.5) (2026-05-07)
 
 
