@@ -39,7 +39,7 @@ const print: PluginPrintFn = (fixture, printer, indent, opts, colors) => {
     const componentDef = (componentRef.componentType as ɵComponentType<unknown>).ɵcmp as ɵDirectiveDef<unknown>;
     const componentName = componentDef.selectors[0][0] as string;
     const nodes = Array.from(componentRef.location.nativeElement.childNodes).map(printer).join('');
-    let serializedComponent = '';
+    let serializedComponent: string;
     if (opts.omitAllCompAttrs) {
         serializedComponent = '<' + componentName + '>\n' + indent(nodes) + '\n</' + componentName + '>';
     } else {
