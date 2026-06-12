@@ -23,6 +23,7 @@ export default tseslint.config(
             '**/.yarn',
             'website/.docusaurus',
             'src/transformers/jit_transform.js',
+            '**/.angular',
         ],
     },
     eslint.configs.recommended,
