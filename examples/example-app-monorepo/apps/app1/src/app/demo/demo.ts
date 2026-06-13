@@ -160,9 +160,12 @@ export class InputValueBinderDirective {
 
     @Output() valueChange: EventEmitter<unknown> = new EventEmitter();
 
-    @HostListener('input', ['$event.target.value'])
-    onInput(value: unknown) {
-        this.valueChange.emit(value);
+    @HostListener('input', ['$event'])
+    onInput(event: Event) {
+        const target = event.target as HTMLInputElement | null;
+        if (target) {
+            this.valueChange.emit(target.value);
+        }
     }
 }
 
