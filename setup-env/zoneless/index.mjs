@@ -1,21 +1,14 @@
-import * as angularCore from '@angular/core';
-import { ErrorHandler, NgModule, VERSION, COMPILER_OPTIONS } from '@angular/core';
+import { ErrorHandler, NgModule, COMPILER_OPTIONS, provideZonelessChangeDetection } from '@angular/core';
 import { getTestBed } from '@angular/core/testing';
 import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 
 import { polyfillEncoder, resolveTestEnvOptions } from '../utils';
 
-const provideZonelessChangeDetectionFn =
-    'provideExperimentalZonelessChangeDetection' in angularCore
-        ? // eslint-disable-next-line import/namespace
-          angularCore.provideExperimentalZonelessChangeDetection
-        : angularCore.provideZonelessChangeDetection;
-
 const provideZonelessConfig = () => {
     class TestModule {}
     NgModule({
         providers: [
-            VERSION.major < 21 ? provideZonelessChangeDetectionFn() : null,
+            provideZonelessChangeDetection(),
             {
                 provide: ErrorHandler,
                 useValue: {
@@ -24,38 +17,27 @@ const provideZonelessConfig = () => {
                     },
                 },
             },
-        ].filter(Boolean),
+        ],
     })(TestModule);
 
     return TestModule;
 };
 
 const setupZonelessTestEnv = (options) => {
-    if (typeof provideZonelessChangeDetectionFn !== 'undefined') {
-        polyfillEncoder();
-        const resolvedOptions = resolveTestEnvOptions(options) ?? {};
-        const { extraProviders = [], ...testEnvironmentOptions } = resolvedOptions;
-        getTestBed().initTestEnvironment(
-            [BrowserTestingModule, provideZonelessConfig()],
-            platformBrowserTesting([
-                {
-                    provide: COMPILER_OPTIONS,
-                    useValue: {},
-                    multi: true,
-                },
-                ...extraProviders,
-            ]),
-            testEnvironmentOptions,
-        );
-
-        return;
-    }
-
-    throw Error(
-        `Cannot find ${
-            +VERSION.major >= 20 ? 'provideZonelessChangeDetection()' : 'provideExperimentalZonelessChangeDetection()'
-        } to setup zoneless testing environment. ` +
-            'Please use setupZoneTestEnv() from jest-preset-angular/setup-env/setup-zone-env.mjs instead.',
+    polyfillEncoder();
+    const resolvedOptions = resolveTestEnvOptions(options) ?? {};
+    const { extraProviders = [], ...testEnvironmentOptions } = resolvedOptions;
+    getTestBed().initTestEnvironment(
+        [BrowserTestingModule, provideZonelessConfig()],
+        platformBrowserTesting([
+            {
+                provide: COMPILER_OPTIONS,
+                useValue: {},
+                multi: true,
+            },
+            ...extraProviders,
+        ]),
+        testEnvironmentOptions,
     );
 };
 

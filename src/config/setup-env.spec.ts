@@ -36,12 +36,12 @@ jest.mock('@angular/platform-browser/testing', () => {
         platformBrowserTesting: mockPlatformBrowserTesting,
     };
 });
-const mockProvideExperimentalZonelessChangeDetection = jest.fn();
+const mockProvideZonelessChangeDetection = jest.fn();
 const mockProvideZoneChangeDetection = jest.fn();
 const mockCompilerOptions = 'COMPILER_OPTIONS';
 jest.mock('@angular/core', () => {
     return {
-        provideExperimentalZonelessChangeDetection: mockProvideExperimentalZonelessChangeDetection,
+        provideZonelessChangeDetection: mockProvideZonelessChangeDetection,
         provideZoneChangeDetection: mockProvideZoneChangeDetection,
         ErrorHandler: ErrorHandlerStub,
         NgModule: () => {
@@ -188,7 +188,7 @@ describe('Setup env utilities', () => {
             expect(mockZoneJs).not.toHaveBeenCalled();
             expect(mockZoneJsTesting).not.toHaveBeenCalled();
             assertOnInitTestEnv();
-            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
+            expect(mockProvideZonelessChangeDetection).toHaveBeenCalled();
         });
 
         it('should setup test environment with setupZonelessTestEnv() and extraProviders', async () => {
@@ -218,7 +218,7 @@ describe('Setup env utilities', () => {
                 },
                 mockProvider,
             ]);
-            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
+            expect(mockProvideZonelessChangeDetection).toHaveBeenCalled();
         });
 
         it('should resolve extraProviders from global testEnvironmentOptions for setupZonelessTestEnv()', async () => {
@@ -326,7 +326,7 @@ describe('Setup env utilities', () => {
             expect(mockZoneJs).not.toHaveBeenCalled();
             expect(mockZoneJsTesting).not.toHaveBeenCalled();
             assertOnInitTestEnv();
-            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
+            expect(mockProvideZonelessChangeDetection).toHaveBeenCalled();
         });
 
         it('should setup test environment with setupZonelessTestEnv() and extraProviders', async () => {
@@ -356,7 +356,7 @@ describe('Setup env utilities', () => {
                 },
                 mockProvider,
             ]);
-            expect(mockProvideExperimentalZonelessChangeDetection).toHaveBeenCalled();
+            expect(mockProvideZonelessChangeDetection).toHaveBeenCalled();
         });
     });
 });
