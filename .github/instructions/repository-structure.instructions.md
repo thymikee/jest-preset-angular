@@ -56,9 +56,9 @@ jest-preset-angular/
 
 Contains example Angular applications for testing the preset:
 
-- `example-app-v18/` - Angular v18 example application
-- `example-app-v19/` - Angular v19 example application
 - `example-app-v20/` - Angular v20 example application
+- `example-app-v21/` - Angular v21 example application
+- `example-app-v22/` - Angular v22 example application
 - `example-app-monorepo/` - Monorepo structure example
 
 ### `/e2e/`
@@ -121,7 +121,7 @@ The preset follows a modular architecture:
 ### Required Tools
 
 - Node.js (^18.19.1 || ^20.11.1 || >=22.0.0)
-- Yarn 4.9.2
+- Yarn 4.16.0
 - Git
 
 ### Environment Files
