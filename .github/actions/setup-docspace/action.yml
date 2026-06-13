@@ -15,7 +15,7 @@ runs:
       with:
         cache: yarn
         cache-dependency-path: 'website/yarn.lock'
-        node-version: 24.x
+        node-version: 24.16.0
 
     - name: Restore cached node modules ♻️
       id: cache-yarn
