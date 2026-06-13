@@ -27,28 +27,22 @@ jest.mock('@angular/core/testing', () => {
 });
 
 class BrowserTestingModuleStub {}
-class BrowserDynamicTestingModuleStub {}
 class PlatformRefStub {}
 class ErrorHandlerStub {}
 const mockPlatformBrowserTesting = jest.fn(() => new PlatformRefStub());
-const mockPlatformBrowserDynamicTesting = jest.fn(() => new PlatformRefStub());
 jest.mock('@angular/platform-browser/testing', () => {
     return {
         BrowserTestingModule: new BrowserTestingModuleStub(),
         platformBrowserTesting: mockPlatformBrowserTesting,
     };
 });
-jest.mock('@angular/platform-browser-dynamic/testing', () => {
-    return {
-        BrowserDynamicTestingModule: new BrowserDynamicTestingModuleStub(),
-        platformBrowserDynamicTesting: mockPlatformBrowserDynamicTesting,
-    };
-});
 const mockProvideExperimentalZonelessChangeDetection = jest.fn();
+const mockProvideZoneChangeDetection = jest.fn();
 const mockCompilerOptions = 'COMPILER_OPTIONS';
 jest.mock('@angular/core', () => {
     return {
         provideExperimentalZonelessChangeDetection: mockProvideExperimentalZonelessChangeDetection,
+        provideZoneChangeDetection: mockProvideZoneChangeDetection,
         ErrorHandler: ErrorHandlerStub,
         NgModule: () => {
             return jest.fn();
