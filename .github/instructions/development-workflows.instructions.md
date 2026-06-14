@@ -30,9 +30,9 @@ This guide provides validated workflows and commands for working effectively in 
 
 The repository includes example Angular applications in `/examples/`:
 
-- `example-app-v18` - Angular v18 example
-- `example-app-v19` - Angular v19 example
 - `example-app-v20` - Angular v20 example
+- `example-app-v21` - Angular v21 example
+- `example-app-v22` - Angular v22 example
 - `example-app-monorepo` - Monorepo structure example
 
 Each example app has these scripts:
@@ -97,7 +97,7 @@ export default {
 
 ### Package Dependencies
 
-- **Node.js**: ^18.19.1 || ^20.11.1 || >=22.0.0
+- **Node.js**: ^20.11.1 || >=22.0.0
 - **Package Manager**: Yarn 4.9.2 (uses .yarnrc.yml configuration)
 - **Dependencies are managed via yarn.lock** - always use `yarn install --frozen-lockfile` for consistent installs
 
@@ -106,7 +106,7 @@ export default {
 The project uses GitHub Actions with:
 
 - Multi-OS testing (Ubuntu, Windows)
-- Multi-Node.js version testing (18.x, 20.x, 22.x)
+- Multi-Node.js version testing (20.x, 22.x, 24.x)
 - Code quality checks (ESLint, Prettier)
 - Performance testing
 - Example app validation
