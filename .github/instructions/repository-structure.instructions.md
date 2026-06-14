@@ -120,7 +120,7 @@ The preset follows a modular architecture:
 
 ### Required Tools
 
-- Node.js (^18.19.1 || ^20.11.1 || >=22.0.0)
+- Node.js (^20.11.1 || >=22.0.0)
 - Yarn 4.16.0
 - Git
 
