@@ -83,7 +83,7 @@ export class NgJestTransformer extends TsJestTransformer {
     process(fileContent: string, filePath: string, transformOptions: TsJestTransformOptions): TransformedSource {
         // @ts-expect-error we are accessing the private cache to avoid creating new objects all the time
         const configSet = super._configsFor(transformOptions);
-        if (configSet.processWithEsbuild(filePath) || this.#processWithEsbuild(filePath)) {
+        if (this.#processWithEsbuild(filePath)) {
             this.#ngJestLogger.debug({ filePath }, 'process with esbuild');
 
             const compilerOpts = configSet.parsedTsConfig.options;
