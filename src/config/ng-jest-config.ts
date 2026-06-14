@@ -1,6 +1,4 @@
-import type { Logger } from 'bs-logger';
-import { globsToMatcher } from 'jest-util';
-import { type RawCompilerOptions, ConfigSet, type TsJestTransformOptions } from 'ts-jest';
+import { type RawCompilerOptions, ConfigSet } from 'ts-jest';
 import type { ParsedCommandLine } from 'typescript';
 
 /**
@@ -10,22 +8,6 @@ import type { ParsedCommandLine } from 'typescript';
 export const defaultProcessWithEsbuildPatterns = ['**/*.mjs'];
 
 export class NgJestConfig extends ConfigSet {
-    readonly processWithEsbuild: ReturnType<typeof globsToMatcher>;
-
-    constructor(jestConfig: TsJestTransformOptions['config'] | undefined, parentLogger?: Logger | undefined) {
-        super(jestConfig, parentLogger);
-        const jestGlobalsConfig = jestConfig?.globals?.ngJest ?? Object.create(null);
-        if (jestGlobalsConfig.processWithEsbuild) {
-            this.logger.warn(
-                'Specifying `processWithEsbuild` in `ngJest` config is deprecated and will be removed in the next major version. Please follow this documentation https://thymikee.github.io/jest-preset-angular/docs/getting-started/options#processing-with-esbuild instead.',
-            );
-        }
-        this.processWithEsbuild = globsToMatcher([
-            ...(jestGlobalsConfig.processWithEsbuild ?? []),
-            ...defaultProcessWithEsbuildPatterns,
-        ]);
-    }
-
     /**
      * Override `ts-jest` behavior because we use `readConfiguration` which will read and resolve tsconfig.
      */
