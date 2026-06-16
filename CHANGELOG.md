@@ -1,3 +1,17 @@
+# [17.0.0](https://github.com/thymikee/jest-preset-angular/compare/v16.2.0...v17.0.0) (2026-06-16)
+
+
+### BREAKING CHANGES
+
+* Minimum supported version for `esbuild` is now `0.28.0`
+* Minimum supported version for Angular now is `v20`
+* Minimum supported version for NodeJs is now `v20`
+* Drop support for `@angular/platform-browser-dynamic` from `peerDependencies`. Users should use `@angular/platform-browser` instead.
+* Configuring `ngJest` via Jest `globals` option is no longer supported. Please configure via `transform` option instead.
+* Drop support for `provideExperimentalZonelessChangeDetection` fallback. Angular `v20` shipped `provideZonelessChangeDetection` as a stable API, so the fallback is no longer needed.
+
+
+
 # [16.2.0](https://github.com/thymikee/jest-preset-angular/compare/v16.1.5...v16.2.0) (2026-06-09)
 
 
