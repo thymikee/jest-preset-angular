@@ -1783,7 +1783,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/environment-jsdom-abstract@npm:30.4.1, @jest/environment-jsdom-abstract@npm:^30.0.0":
+"@jest/environment-jsdom-abstract@npm:30.4.1, @jest/environment-jsdom-abstract@npm:^30.4.1":
   version: 30.4.1
   resolution: "@jest/environment-jsdom-abstract@npm:30.4.1"
   dependencies:
@@ -4445,16 +4445,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:>=0.23.0":
-  version: 0.27.0
-  resolution: "esbuild-wasm@npm:0.27.0"
+"esbuild-wasm@npm:>=0.28.0":
+  version: 0.28.1
+  resolution: "esbuild-wasm@npm:0.28.1"
   bin:
     esbuild: bin/esbuild
-  checksum: 10/7e0ef7c4dc2e18571b3f9a31c64741a4fcf085941e9fd7c226514c6b0c8e24b7fff7ced236bded608294923f2d8e9c1d96a3e6eeaa1c81b41d39458ec8a55819
+  checksum: 10/e4f10a931ec5f26abe6273b33715e3e1707ddf7dc1a3bbb1a56cd36b16062b0ba75c96f14b4a1331c9010c7ee297911ed122118f50d325f063195b4f174289bd
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.28.1, esbuild@npm:>=0.23.0":
+"esbuild@npm:0.28.1, esbuild@npm:>=0.28.0":
   version: 0.28.1
   resolution: "esbuild@npm:0.28.1"
   dependencies:
@@ -4712,7 +4712,7 @@ __metadata:
     esbuild-register: "npm:^3.6.0"
     jest: "npm:^30.4.2"
     jest-environment-jsdom: "npm:^30.4.1"
-    jest-preset-angular: "npm:^16.2.0"
+    jest-preset-angular: "npm:^17.0.0"
     jsdom: "npm:^29.1.1"
     rxjs: "npm:~7.8.2"
     ts-jest: "npm:^29.4.11"
@@ -5780,29 +5780,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-preset-angular@npm:^16.2.0":
-  version: 16.2.0
-  resolution: "jest-preset-angular@npm:16.2.0"
+"jest-preset-angular@npm:^17.0.0":
+  version: 17.0.0
+  resolution: "jest-preset-angular@npm:17.0.0"
   dependencies:
-    "@jest/environment-jsdom-abstract": "npm:^30.0.0"
+    "@jest/environment-jsdom-abstract": "npm:^30.4.1"
     bs-logger: "npm:^0.2.6"
-    esbuild: "npm:>=0.23.0"
-    esbuild-wasm: "npm:>=0.23.0"
-    jest-util: "npm:^30.0.0"
-    pretty-format: "npm:^30.0.0"
-    ts-jest: "npm:^29.4.0"
+    esbuild: "npm:>=0.28.0"
+    esbuild-wasm: "npm:>=0.28.0"
+    jest-util: "npm:^30.4.1"
+    pretty-format: "npm:^30.4.1"
+    ts-jest: "npm:^29.4.11"
   peerDependencies:
-    "@angular/compiler-cli": ">=19.0.0 <23.0.0"
-    "@angular/core": ">=19.0.0 <23.0.0"
-    "@angular/platform-browser": ">=19.0.0 <23.0.0"
-    "@angular/platform-browser-dynamic": ">=19.0.0 <23.0.0"
+    "@angular/compiler-cli": ">=20.0.0 <23.0.0"
+    "@angular/core": ">=20.0.0 <23.0.0"
+    "@angular/platform-browser": ">=20.0.0 <23.0.0"
     jest: ^30.0.0
     jsdom: ">=26.0.0"
-    typescript: ">=5.5"
+    typescript: ">=5.8"
   dependenciesMeta:
     esbuild:
       optional: true
-  checksum: 10/2c9852b81dcf1c2c4045e39b6f6772eb12c4552e76d832cb92fb582058271b5e1f24aaa4611a5a8ed61464594c41424b201e1a6c83ad830446e801e89facd74f
+  checksum: 10/2854423b7ab54e7d77d221607a0d8c574dc11e30b655c0b491a849e2167e6045e4457ae4709b77dcb9b107ed67568fc5803630192582aec5634fedc2977bfa3c
   languageName: node
   linkType: hard
 
@@ -5928,7 +5927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-util@npm:30.4.1, jest-util@npm:^30.0.0":
+"jest-util@npm:30.4.1, jest-util@npm:^30.4.1":
   version: 30.4.1
   resolution: "jest-util@npm:30.4.1"
   dependencies:
@@ -7145,7 +7144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:30.4.1, pretty-format@npm:^30.0.0":
+"pretty-format@npm:30.4.1, pretty-format@npm:^30.0.0, pretty-format@npm:^30.4.1":
   version: 30.4.1
   resolution: "pretty-format@npm:30.4.1"
   dependencies:
@@ -8145,7 +8144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.4.0, ts-jest@npm:^29.4.11":
+"ts-jest@npm:^29.4.11":
   version: 29.4.11
   resolution: "ts-jest@npm:29.4.11"
   dependencies:
