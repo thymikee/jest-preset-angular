@@ -27,6 +27,7 @@
     "react",
     "react-dom"
   ],
+  "ignorePaths": [".github/workflows/audit.yml"],
   "packageRules": [
     {
       "matchPaths": ["examples/**/package.json"],
