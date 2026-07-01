@@ -1,5 +1,6 @@
 import * as semver from 'semver';
 
+// eslint-disable-next-line jest/no-export
 export const onNodeVersions = (versionRange: string, testBody: () => void): void => {
     const description = `on node ${versionRange}`;
     if (semver.satisfies(process.versions.node, versionRange)) {
