@@ -6362,12 +6362,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-angular@npm:^8.2.0, conventional-changelog-angular@npm:^8.3.1":
+"conventional-changelog-angular@npm:^8.2.0":
   version: 8.3.1
   resolution: "conventional-changelog-angular@npm:8.3.1"
   dependencies:
     compare-func: "npm:^2.0.0"
   checksum: 10/c9f32ddcc2095fa8b60f1f623fe5c49e0d16a2d83060a1c35990400da40b1cd3e765878f0333f4e0cff4f89c3a0bf63edc47e38aba5470a6334cfea2f7e5731c
+  languageName: node
+  linkType: hard
+
+"conventional-changelog-angular@npm:^9.2.0":
+  version: 9.2.0
+  resolution: "conventional-changelog-angular@npm:9.2.0"
+  dependencies:
+    "@conventional-changelog/template": "npm:^1.2.0"
+  checksum: 10/9cb8812249fa7a418dbe451ab82606b4c099e2bd7d88c00b6bd9e064f7c9c57b2a4d96fb4d4f17cc583c0cb08568defa4b6cb4f5bbd0ee0e28442ca09e5a71ee
   languageName: node
   linkType: hard
 
@@ -9513,7 +9522,7 @@ __metadata:
     bs-logger: "npm:^0.2.6"
     chalk: "npm:^4.1.2"
     conventional-changelog: "npm:^8.0.0"
-    conventional-changelog-angular: "npm:^8.3.1"
+    conventional-changelog-angular: "npm:^9.2.0"
     cross-env: "npm:^10.1.0"
     esbuild: "npm:>=0.28.0"
     esbuild-register: "npm:^3.6.0"
