@@ -1944,29 +1944,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@conventional-changelog/git-client@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "@conventional-changelog/git-client@npm:3.0.1"
+"@conventional-changelog/git-client@npm:^3.0.0, @conventional-changelog/git-client@npm:^3.0.2":
+  version: 3.1.0
+  resolution: "@conventional-changelog/git-client@npm:3.1.0"
   dependencies:
     "@simple-libs/child-process-utils": "npm:^2.0.0"
     "@simple-libs/stream-utils": "npm:^2.0.0"
     semver: "npm:^7.5.2"
   peerDependencies:
-    conventional-commits-filter: ^6.0.0
-    conventional-commits-parser: ^7.0.0
+    conventional-commits-filter: ^6.0.1
+    conventional-commits-parser: ^7.0.1
   peerDependenciesMeta:
     conventional-commits-filter:
       optional: true
     conventional-commits-parser:
       optional: true
-  checksum: 10/9f4cbcd6a750203cdaa843d33325bc65a706824fadbd3f00dc14ccb1d1b0879b82e1c8f88adefa88ee79facad1562abe522554a8a5bad2952208984daf7dc113
+  checksum: 10/41e6dc3e24d47eae5355aa42f54cecade0fb103772cd917e9df13bfc667877c1cc94a9ad9127bb3605d35783ce72d5b62715d7f60b7c9259513ea0d2628d3107
   languageName: node
   linkType: hard
 
-"@conventional-changelog/template@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@conventional-changelog/template@npm:1.2.0"
-  checksum: 10/f1be23af9cad17c96fb625557256cd8cae43b46f62d7b6a8c78dcc040b0ada054910e2ec1ed8b6f37367d913e9e6d298549a38f2240cdb5decaaa27501ba30fa
+"@conventional-changelog/template@npm:^1.2.0, @conventional-changelog/template@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@conventional-changelog/template@npm:1.2.1"
+  checksum: 10/be65738f81cb232a794fc0ab2bbe9af2e32896e0c731fe8bdf8a2ab8dabdcc2645937d1025d6f7ad8878c6a51be1da9cab71e287ac476b8e07fb0b8cb7811425
   languageName: node
   linkType: hard
 
@@ -4987,62 +4987,62 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-preset-loader@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "conventional-changelog-preset-loader@npm:6.0.0"
-  checksum: 10/8eec2f39339def46ed07aa2f66ceff69d534332f3fc475eee76116312b0efc83bed61b48729ba36aecf4341e13c20cec3fb60c33cdf6a556674604dfa2082a17
+"conventional-changelog-preset-loader@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "conventional-changelog-preset-loader@npm:6.0.1"
+  checksum: 10/3b82fbbc842932c725cb9097b03908118b9771cca8cbfd00929f470e980925652849f708bb4b75fb5b39209687c0b54551c3998c18e814b4286fd17338e490ac
   languageName: node
   linkType: hard
 
-"conventional-changelog-writer@npm:^9.0.0":
-  version: 9.1.0
-  resolution: "conventional-changelog-writer@npm:9.1.0"
+"conventional-changelog-writer@npm:^9.1.1":
+  version: 9.1.1
+  resolution: "conventional-changelog-writer@npm:9.1.1"
   dependencies:
-    "@conventional-changelog/template": "npm:^1.2.0"
+    "@conventional-changelog/template": "npm:^1.2.1"
     "@simple-libs/stream-utils": "npm:^2.0.0"
-    conventional-commits-filter: "npm:^6.0.0"
+    conventional-commits-filter: "npm:^6.0.1"
     meow: "npm:^14.0.0"
     semver: "npm:^7.5.2"
   bin:
     conventional-changelog-writer: ./dist/cli/index.js
-  checksum: 10/461aed0b90f27dbeaeba9dc54b33d526045bdf938634ec1a138438db976dfd7eea4bd1170e336729aa383602d0ddba549d26b6c445fe9332c6f101c4fda1cd3a
+  checksum: 10/01cfb84b86dbc2908c6d8d0526aa069f73f3341f7ddec0f9ce1428ecce6f5808d625b4241459edc3f1be7fbd5138b4bffd7ec7ffc7f2bd69ff059406e91575e2
   languageName: node
   linkType: hard
 
-"conventional-changelog@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "conventional-changelog@npm:8.0.0"
+"conventional-changelog@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "conventional-changelog@npm:8.0.1"
   dependencies:
-    "@conventional-changelog/git-client": "npm:^3.0.0"
+    "@conventional-changelog/git-client": "npm:^3.0.2"
     "@simple-libs/hosted-git-info": "npm:^2.0.0"
     "@simple-libs/normalize-package-data": "npm:^1.0.0"
-    conventional-changelog-preset-loader: "npm:^6.0.0"
-    conventional-changelog-writer: "npm:^9.0.0"
-    conventional-commits-parser: "npm:^7.0.0"
+    conventional-changelog-preset-loader: "npm:^6.0.1"
+    conventional-changelog-writer: "npm:^9.1.1"
+    conventional-commits-parser: "npm:^7.0.1"
     fd-package-json: "npm:^2.0.0"
     meow: "npm:^14.0.0"
   bin:
     conventional-changelog: ./dist/cli/index.js
-  checksum: 10/78ac1e99ecdd12e7a82e4abd9bf06ef36ff266f37a0f08c4191bc495a9829b21ffe6aba2a9a1818ffaa6fddeb419c5866e275aaf9c3fe0e55a0b2648fd10412c
+  checksum: 10/81ee03f021cef502ca693e4a1c215822f2a2707f38d2ff4fa77f082c6472b0175682e1a6193c6b3f63fd36d3bf6acfc3a30b27b361758514466555e36cc2b51a
   languageName: node
   linkType: hard
 
-"conventional-commits-filter@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "conventional-commits-filter@npm:6.0.0"
-  checksum: 10/bfd93b603e5d7a578d77c5d766d0b23c9cc10cd87d91136f550e9356ccaa7f28287a9e7f67e629b6a7970b4dd6c9c358b1e016ee42811b538229597f258aabab
+"conventional-commits-filter@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "conventional-commits-filter@npm:6.0.1"
+  checksum: 10/3d668c4428a67eb02267d6fc59f0830b2ec71b78e728062ef7b7698e8d510b2c379a549a9101844d0f2bb7b06b4add91e8c26258e55e29a9d8b9060ac2c83500
   languageName: node
   linkType: hard
 
-"conventional-commits-parser@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "conventional-commits-parser@npm:7.0.0"
+"conventional-commits-parser@npm:^7.0.0, conventional-commits-parser@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "conventional-commits-parser@npm:7.0.1"
   dependencies:
     "@simple-libs/stream-utils": "npm:^2.0.0"
     meow: "npm:^14.0.0"
   bin:
     conventional-commits-parser: ./dist/cli/index.js
-  checksum: 10/a45a7f0ad640017748f828f0a376e5f452e9317b179c3b8c0d8c35e77df951268137dd26012643d457860bd9cf7b31a33c34f4bf00a04ca0478141ed108c18d6
+  checksum: 10/8f237651e311618b108d357cd4cce93ae5635455e5f2b5cc092be74534403a5c2603d54e0abda7e389df6a503553ba49e398d7a482e4657aa0596ca7cda314a0
   languageName: node
   linkType: hard
 
@@ -7464,7 +7464,7 @@ __metadata:
     babel-jest: "npm:^30.4.1"
     bs-logger: "npm:^0.2.6"
     chalk: "npm:^4.1.2"
-    conventional-changelog: "npm:^8.0.0"
+    conventional-changelog: "npm:^8.0.1"
     conventional-changelog-angular: "npm:^9.2.0"
     cross-env: "npm:^10.1.0"
     esbuild: "npm:>=0.28.0"
