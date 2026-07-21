@@ -9,7 +9,7 @@ A file for [guiding AI coding agents](https://agents.md/).
 The project is a single-package repository:
 
 - Package manager: `Yarn 4`
-- `Node.js` requirement: `^20.11.1 || >=22.0.0`.
+- `Node.js` requirement: `^22.18.0 || >=24.11.0`.
 
 ### Project Structure
 
