@@ -12,10 +12,17 @@ const config: Config = {
             {
                 tsconfig: '<rootDir>/tsconfig-transpile-cjs.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
+                processWithEsbuild: [
+                    '**/node_modules/@noble/**/*.js',
+                    '**/node_modules/@primeui/license-manager/**/*.mjs',
+                    '**/node_modules/@primeuix/**/*.mjs',
+                    '**/node_modules/@primeicons/angular/**/*.mjs',
+                    '**/node_modules/primeng/**/*.mjs',
+                ],
             },
         ],
     },
-    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$|@noble|@primeui|@primeuix|@primeicons|primeng)'],
 };
 
 export default config;

@@ -93,44 +93,84 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@primeuix/motion@npm:^0.0.10":
-  version: 0.0.10
-  resolution: "@primeuix/motion@npm:0.0.10"
+"@noble/ed25519@npm:2.3.0":
+  version: 2.3.0
+  resolution: "@noble/ed25519@npm:2.3.0"
+  checksum: 10/3b12a7ac401ac625c59ab4b597d415aea3b855cdfa2563529863c9848b6c143b29fb1f0e462acec947bd20ab4fac0d8cfe892231566cbdcf6bdd13532241191b
+  languageName: node
+  linkType: hard
+
+"@noble/hashes@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@noble/hashes@npm:2.2.0"
+  checksum: 10/b1b78bedc2a01394be047429f3d888905015fe8a09f1b7e43e0b5736b54133df62f73dcc73ede43af38e96e86156afb45b86973fdeaa95d9f0880333c3fc0907
+  languageName: node
+  linkType: hard
+
+"@primeicons/angular@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@primeicons/angular@npm:8.0.0"
   dependencies:
-    "@primeuix/utils": "npm:^0.6.3"
-  checksum: 10/d3f6be390d123a17fb400cdd2d14b3452de70ccc4445fcb471638d30c306a9af7f13c335e5f980a2fe0e3a0715832e8db1710b4db76302e91780b8188ce5d22c
+    "@primeicons/core": "npm:8.0.0"
+    "@primeuix/utils": "npm:^0.8.0"
+    tslib: "npm:^2"
+  peerDependencies:
+    "@angular/core": ">=21"
+  checksum: 10/491fb5d8ce8839c108f8089766c4ce93460bd80e2653a5a34b332336ab7aed8407aa58ced3f376cc60234554e25221cf320cc01e33390716175238ee0cae8ab6
   languageName: node
   linkType: hard
 
-"@primeuix/styled@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "@primeuix/styled@npm:0.7.4"
+"@primeicons/core@npm:8.0.0":
+  version: 8.0.0
+  resolution: "@primeicons/core@npm:8.0.0"
   dependencies:
-    "@primeuix/utils": "npm:^0.6.1"
-  checksum: 10/55925b693b5bebcada94acb08d079583faa84537148a439fe6ce3c4f2358c94f2ff4a11086be81f9b208c6752a40743834e644f3283eec92705c88a43ab6f3fe
+    "@primeuix/utils": "npm:^0.8.0"
+  checksum: 10/003e9c824cdb3eec1ec39eb2bfa5a4b1a2088951d887da58c0d384886190e7c6589c4cf9bca0bb43334228f4318049145a63a5813b75a100dc1d9aaa9b9aaa9f
   languageName: node
   linkType: hard
 
-"@primeuix/styles@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@primeuix/styles@npm:2.0.3"
+"@primeui/license-manager@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@primeui/license-manager@npm:1.0.0"
   dependencies:
-    "@primeuix/styled": "npm:^0.7.4"
-  checksum: 10/77bc17f87ae954d4a8fda7eb3a1300706e8db63bb4c6954b967860e85620bffa10b9aaf95cb8e9d03394f520051a96ebaefb299f75329d7876f19e90ecf6c587
+    "@noble/ed25519": "npm:2.3.0"
+    "@noble/hashes": "npm:2.2.0"
+  checksum: 10/32dfe9bf3acd784025cc57b57fda63105b66383e920236bfce087ad343f04e50adc571b1dc5ea1da84d6790c0f7e1575639c15e07e27e8571bb227f709533063
   languageName: node
   linkType: hard
 
-"@primeuix/utils@npm:^0.6.1, @primeuix/utils@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@primeuix/utils@npm:0.6.3"
-  checksum: 10/5294ab4f8cc5a139591fb35cba0ed5c53100c739a3e2bb9009e7a97138627221cf75d6f95d349258ed44f393a2eafbe1441284009c61c0a4f5ab117ba3bbba7c
+"@primeuix/motion@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@primeuix/motion@npm:1.0.0"
+  dependencies:
+    "@primeuix/utils": "npm:^0.8.0"
+  checksum: 10/e9d6228efa75b1e77ba2002f7e3d720afa779ee1c73efc386279342754d067c8824719bc87e4acc3465304383f80222fcc1b3b58cc8a71cab41d19d4c2e8f3e5
   languageName: node
   linkType: hard
 
-"@primeuix/utils@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "@primeuix/utils@npm:0.7.2"
-  checksum: 10/4a1a1e9ce40f9abdb4dd36a0b5cefaa77eaa02df62211692fce2ff56e4c639cc36b43f55c0301cdfb4d59bbdf8b4f316bf34dbb75689d2df2184261c3dbf0ae2
+"@primeuix/styled@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@primeuix/styled@npm:1.0.0"
+  dependencies:
+    "@primeui/license-manager": "npm:^1.0.0"
+    "@primeuix/utils": "npm:^0.8.0"
+  checksum: 10/d7297906b25aaf1b1b79244fd42e06c12b951a9d7fe62039c5ca8860e2983b42d7e8783200766ac958518c034fb275c0a1701fec918e0fe33336946f375464b0
+  languageName: node
+  linkType: hard
+
+"@primeuix/styles@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@primeuix/styles@npm:3.0.0"
+  dependencies:
+    "@primeuix/styled": "npm:^1.0.0"
+  checksum: 10/f97d359385911a7cfef02930e5f0c36cd9aa9992043e0d90ff348546001039abc3d4a2cac96719a7a5fe9f420edac167ba15974d5997fdf0694d6cef45d84c4d
+  languageName: node
+  linkType: hard
+
+"@primeuix/utils@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@primeuix/utils@npm:0.8.0"
+  checksum: 10/86ae675dd69df81dd8dfa4536d0da1fc157da3ccd9967729abdaa2def45c40691dafc1f28ab2765ed5cb7fc09f88864abad06dbfdf249abb383c45b70fad2e1f
   languageName: node
   linkType: hard
 
@@ -177,7 +217,7 @@ __metadata:
   dependencies:
     jsdom: "npm:^27.0.0"
     primeicons: "npm:^8.0.0"
-    primeng: "npm:^21.1.9"
+    primeng: "npm:^22.0.0"
   languageName: unknown
   linkType: soft
 
@@ -332,24 +372,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"primeng@npm:^21.1.9":
-  version: 21.1.9
-  resolution: "primeng@npm:21.1.9"
+"primeng@npm:^22.0.0":
+  version: 22.0.0
+  resolution: "primeng@npm:22.0.0"
   dependencies:
-    "@primeuix/motion": "npm:^0.0.10"
-    "@primeuix/styled": "npm:^0.7.4"
-    "@primeuix/styles": "npm:^2.0.3"
-    "@primeuix/utils": "npm:^0.7.2"
+    "@primeicons/angular": "npm:^8.0.0"
+    "@primeui/license-manager": "npm:^1.0.0"
+    "@primeuix/motion": "npm:^1.0.0"
+    "@primeuix/styled": "npm:^1.0.0"
+    "@primeuix/styles": "npm:^3.0.0"
+    "@primeuix/utils": "npm:^0.8.0"
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/cdk": ^21.0.0
-    "@angular/common": ^21.0.0
-    "@angular/core": ^21.0.7
-    "@angular/forms": ^21.0.0
-    "@angular/platform-browser": ^21.0.0
-    "@angular/router": ^21.0.0
+    "@angular/cdk": ^22.0.0
+    "@angular/common": ^22.0.0
+    "@angular/core": ^22.0.0
+    "@angular/forms": ^22.0.0
+    "@angular/platform-browser": ^22.0.0
+    "@angular/router": ^22.0.0
     rxjs: ^6.0.0 || ^7.8.1
-  checksum: 10/a851748239306193c472c1b7d4f08ddeb98a683ed880136e11ce69ad4943ff6ab46390ec132451e9c839cce46c330b6604bf56b955308ea5fe449491b1e4fff4
+  checksum: 10/baad8850877e97012d15f76fe23e6d74f6b6a1a623f0507d262ed689495312c017c09c84728e581a82a76b34adfd66e8cf3c6f1f81e208285e904c8fec24d92c
   languageName: node
   linkType: hard
 
@@ -440,7 +482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.0":
+"tslib@npm:^2, tslib@npm:^2.3.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7

@@ -92,7 +92,7 @@ export class NgJestTransformer extends TsJestTransformer {
                 loader: 'js',
                 format: useESM ? 'esm' : 'cjs',
                 supported: useESM ? undefined : { 'dynamic-import': false },
-                target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
+                target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2022',
                 sourcemap: compilerOpts.sourceMap,
                 sourcefile: filePath,
                 sourcesContent: true,
