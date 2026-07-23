@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([["3436"],{1684(e){e.exports=JSON.parse('{"metadata":{"permalink":"/jest-preset-angular/pr-preview/pr-3980/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
