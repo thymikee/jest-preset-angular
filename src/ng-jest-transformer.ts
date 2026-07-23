@@ -6,38 +6,11 @@ import { transformSync } from 'esbuild';
 import { globsToMatcher } from 'jest-util';
 import { ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
 import { updateOutput } from 'ts-jest/dist/legacy/compiler/compiler-utils';
-import type { ScriptTarget, TranspileOutput } from 'typescript';
+import type { TranspileOutput } from 'typescript';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import type { NgJestTransformerOptions } from './config/config';
 import { defaultProcessWithEsbuildPatterns, NgJestConfig } from './config/ng-jest-config';
-
-/**
- * Map TypeScript `ScriptTarget` to esbuild `target` values.
- * Falls back to `es2022` for unknown targets so modern syntax like BigInt exponentiation is preserved.
- */
-const getEsbuildTarget = (target: ScriptTarget | undefined, compilerModule: ConfigSet['compilerModule']): string => {
-    switch (target) {
-        case compilerModule.ScriptTarget.ES2015:
-            return 'es2015';
-        case compilerModule.ScriptTarget.ES2016:
-            return 'es2016';
-        case compilerModule.ScriptTarget.ES2017:
-            return 'es2017';
-        case compilerModule.ScriptTarget.ES2018:
-            return 'es2018';
-        case compilerModule.ScriptTarget.ES2019:
-            return 'es2019';
-        case compilerModule.ScriptTarget.ES2020:
-            return 'es2020';
-        case compilerModule.ScriptTarget.ES2021:
-            return 'es2021';
-        case compilerModule.ScriptTarget.ES2022:
-            return 'es2022';
-        default:
-            return 'es2022';
-    }
-};
 
 // stores hashes made out of only one argument being a string
 const cache: Record<string, string> = {};
@@ -119,7 +92,7 @@ export class NgJestTransformer extends TsJestTransformer {
                 loader: 'js',
                 format: useESM ? 'esm' : 'cjs',
                 supported: useESM ? undefined : { 'dynamic-import': false },
-                target: getEsbuildTarget(compilerOpts.target, configSet.compilerModule),
+                target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2022',
                 sourcemap: compilerOpts.sourceMap,
                 sourcefile: filePath,
                 sourcesContent: true,
