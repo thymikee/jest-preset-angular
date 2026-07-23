@@ -6,11 +6,30 @@ import { transformSync } from 'esbuild';
 import { globsToMatcher } from 'jest-util';
 import { ConfigSet, TsJestTransformer, type TsJestTransformOptions } from 'ts-jest';
 import { updateOutput } from 'ts-jest/dist/legacy/compiler/compiler-utils';
-import type { TranspileOutput } from 'typescript';
+import ts, { type ScriptTarget, type TranspileOutput } from 'typescript';
 
 import { NgJestCompiler } from './compiler/ng-jest-compiler';
 import type { NgJestTransformerOptions } from './config/config';
 import { defaultProcessWithEsbuildPatterns, NgJestConfig } from './config/ng-jest-config';
+
+/**
+ * Map TypeScript `ScriptTarget` to esbuild `target` values.
+ * Falls back to `es2016` for unknown targets.
+ */
+const esbuildTargetMap: Record<number, string> = {
+    [ts.ScriptTarget.ES2015]: 'es2015',
+    [ts.ScriptTarget.ES2016]: 'es2016',
+    [ts.ScriptTarget.ES2017]: 'es2017',
+    [ts.ScriptTarget.ES2018]: 'es2018',
+    [ts.ScriptTarget.ES2019]: 'es2019',
+    [ts.ScriptTarget.ES2020]: 'es2020',
+    [ts.ScriptTarget.ES2021]: 'es2021',
+    [ts.ScriptTarget.ES2022]: 'es2022',
+};
+
+const getEsbuildTarget = (target: ScriptTarget | undefined): string => {
+    return (target !== undefined && esbuildTargetMap[target]) || 'es2016';
+};
 
 // stores hashes made out of only one argument being a string
 const cache: Record<string, string> = {};
@@ -92,7 +111,7 @@ export class NgJestTransformer extends TsJestTransformer {
                 loader: 'js',
                 format: useESM ? 'esm' : 'cjs',
                 supported: useESM ? undefined : { 'dynamic-import': false },
-                target: compilerOpts.target === configSet.compilerModule.ScriptTarget.ES2015 ? 'es2015' : 'es2016',
+                target: getEsbuildTarget(compilerOpts.target),
                 sourcemap: compilerOpts.sourceMap,
                 sourcefile: filePath,
                 sourcesContent: true,
