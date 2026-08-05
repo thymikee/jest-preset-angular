@@ -43,6 +43,11 @@
       "rangeStrategy": "in-range-only"
     },
     {
+      "matchPaths": ["website/package.json"],
+      "matchPackagePatterns": ["^@docusaurus/", "^docusaurus"],
+      "rangeStrategy": "bump"
+    },
+    {
       "matchDepTypes": ["peerDependencies"],
       "enabled": false
     },
