@@ -6,6 +6,7 @@
     "monorepo:jest",
     "packages:eslint",
     "group:angular-eslintMonorepo",
+    "packages:react",
     ":prHourlyLimit2",
     "helpers:pinGitHubActionDigests",
     ":semanticCommitTypeAll(build)",
@@ -21,11 +22,8 @@
   "internalChecksFilter": "strict",
   "ignoreDeps": [
     "@mdx-js/react",
-    "@types/react",
     "execa",
-    "chalk",
-    "react",
-    "react-dom"
+    "chalk"
   ],
   "ignorePaths": [".github/workflows/audit.yml"],
   "packageRules": [
@@ -68,6 +66,15 @@
     {
       "matchPaths": ["examples/**/package.json"],
       "matchDepNames": ["angular-in-memory-web-api", "zone.js"],
+      "enabled": false
+    },
+    {
+      "matchPaths": ["website/package.json"],
+      "matchPackageNames": [
+        "@types/react**",
+        "react**"
+      ],
+      "matchUpdateTypes": ["major"],
       "enabled": false
     }
   ]
