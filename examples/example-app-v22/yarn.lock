@@ -15,21 +15,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2201.5":
-  version: 0.2201.5
-  resolution: "@angular-devkit/architect@npm:0.2201.5"
+"@angular-devkit/architect@npm:0.2201.6":
+  version: 0.2201.6
+  resolution: "@angular-devkit/architect@npm:0.2201.6"
   dependencies:
-    "@angular-devkit/core": "npm:22.1.5"
+    "@angular-devkit/core": "npm:22.1.6"
     rxjs: "npm:7.8.2"
   bin:
     architect: bin/cli.js
-  checksum: 10/01900a539a59ad52b2f7a2f059df59e18b914978a2e1f18f7898fe9db04773fe7fa292767d30334c98d86b8b739b94ffcb33d3a0d320139a4bb5437ce6862869
+  checksum: 10/6d3eca266d803af9eab008233c175493f9b9a04969b0df7bcbc7c9f050a05715327cc9664a92f566e5584990e852736805af487adc1812090d28ac6472182ccf
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:22.1.5":
-  version: 22.1.5
-  resolution: "@angular-devkit/core@npm:22.1.5"
+"@angular-devkit/core@npm:22.1.6":
+  version: 22.1.6
+  resolution: "@angular-devkit/core@npm:22.1.6"
   dependencies:
     ajv: "npm:8.20.0"
     ajv-formats: "npm:3.0.1"
@@ -42,29 +42,29 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 10/6395233ea9951f0d29ed96f27b7db8c902b2ca82fd25d87c56c6de6517701368bebcf72748d3a7604dbbfda3071c388b8de8b9541ab46bdfde8d3ee76c621756
+  checksum: 10/a6296f591abdbb3077d3781c911e123cd5a4cdcb591ce6c3c511346d83429ed7f7fb89b88cf521e6440b4d7f1c32a210862659f084bd9bc87b435182f6bce341
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:22.1.5":
-  version: 22.1.5
-  resolution: "@angular-devkit/schematics@npm:22.1.5"
+"@angular-devkit/schematics@npm:22.1.6":
+  version: 22.1.6
+  resolution: "@angular-devkit/schematics@npm:22.1.6"
   dependencies:
-    "@angular-devkit/core": "npm:22.1.5"
+    "@angular-devkit/core": "npm:22.1.6"
     jsonc-parser: "npm:3.3.1"
     magic-string: "npm:1.0.0"
     ora: "npm:9.4.1"
     rxjs: "npm:7.8.2"
-  checksum: 10/8725ea3b1220249c3b0d1c3fc9ee6f5b18ccf0eebe7395dad20281602702418d1d57d9a9f326038e012180b6154d7d70b6cdf67ec963aa2007a17161afded228
+  checksum: 10/a9267dc10c7235a7bece0a191f25ccdb7c542e019adb15f15a9ce696c5789368471ae92c9b18e49be816c0c1c567c056498b1ed654337d8a38f8dcc8f9c161fb
   languageName: node
   linkType: hard
 
-"@angular/build@npm:^22.1.5":
-  version: 22.1.5
-  resolution: "@angular/build@npm:22.1.5"
+"@angular/build@npm:^22.1.6":
+  version: 22.1.6
+  resolution: "@angular/build@npm:22.1.6"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.2201.5"
+    "@angular-devkit/architect": "npm:0.2201.6"
     "@babel/core": "npm:8.0.1"
     "@babel/helper-annotate-as-pure": "npm:8.0.0"
     "@babel/helper-split-export-declaration": "npm:7.24.7"
@@ -98,7 +98,7 @@ __metadata:
     "@angular/platform-browser": ^22.0.0
     "@angular/platform-server": ^22.0.0
     "@angular/service-worker": ^22.0.0
-    "@angular/ssr": ^22.1.5
+    "@angular/ssr": ^22.1.6
     istanbul-lib-instrument: ^6.0.0
     karma: ^6.4.0
     less: ^4.2.0
@@ -141,21 +141,21 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10/5f17e657027e3d9be4368f8b16e39e0f6893204dec8e5655360f2373bec403a765298adc869d55f7e6a5b01eab71af7494a60e9614133d61b4d1d02644322f8a
+  checksum: 10/2189b365acd2d20263d2e35bb537657d7a0febd4c7b94b282f11a80b7f8d7a3a6c952d3b28e24ef5cd63e0a6d470c958ab6cb96cd6a9794cffd463dc3c465cd4
   languageName: node
   linkType: hard
 
-"@angular/cli@npm:^22.1.5":
-  version: 22.1.5
-  resolution: "@angular/cli@npm:22.1.5"
+"@angular/cli@npm:^22.1.6":
+  version: 22.1.6
+  resolution: "@angular/cli@npm:22.1.6"
   dependencies:
-    "@angular-devkit/architect": "npm:0.2201.5"
-    "@angular-devkit/core": "npm:22.1.5"
-    "@angular-devkit/schematics": "npm:22.1.5"
+    "@angular-devkit/architect": "npm:0.2201.6"
+    "@angular-devkit/core": "npm:22.1.6"
+    "@angular-devkit/schematics": "npm:22.1.6"
     "@inquirer/prompts": "npm:8.5.2"
     "@listr2/prompt-adapter-inquirer": "npm:4.2.5"
     "@modelcontextprotocol/sdk": "npm:1.30.0"
-    "@schematics/angular": "npm:22.1.5"
+    "@schematics/angular": "npm:22.1.6"
     jsonc-parser: "npm:3.3.1"
     listr2: "npm:11.0.0"
     npm-package-arg: "npm:14.0.0"
@@ -165,25 +165,25 @@ __metadata:
     zod: "npm:4.4.3"
   bin:
     ng: bin/ng.js
-  checksum: 10/2c0f43c68f11517ed81056826070b3f925e8e8ac879c40a48d77ab93552eaad93e53b1bcf1430a3bb9b32232aebc8b0438ae88e6397dfc6d421cde38ef724a42
+  checksum: 10/78fb20b7173c592933ddd1a0b79540fec12819b611b957601d3a4dc40ca473024340741209333e7c3440e4bf9372ccdec0b3fb2f02dcac57ec79122cf441b1fe
   languageName: node
   linkType: hard
 
 "@angular/common@npm:^22.0.0":
-  version: 22.1.3
-  resolution: "@angular/common@npm:22.1.3"
+  version: 22.1.4
+  resolution: "@angular/common@npm:22.1.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 22.1.3
+    "@angular/core": 22.1.4
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/821be218682c7ecca2aecbaa3f6ccbb41c9493640c4f1ccca160e75bf0d5288a1bfec013d793f940906d459efe034166d849638c37978510b89015260e0825cf
+  checksum: 10/d3b887b3e139d7be95d691850d5d345f158813d0512d7d2865944825bcbb8d96858437cc57dbe063a59565ee35d1a62cf1cdc6be524a4307660b6993f73df57b
   languageName: node
   linkType: hard
 
-"@angular/compiler-cli@npm:^22.1.3":
-  version: 22.1.3
-  resolution: "@angular/compiler-cli@npm:22.1.3"
+"@angular/compiler-cli@npm:^22.1.4":
+  version: 22.1.4
+  resolution: "@angular/compiler-cli@npm:22.1.4"
   dependencies:
     "@babel/core": "npm:8.0.1"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
@@ -194,7 +194,7 @@ __metadata:
     tslib: "npm:^2.3.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@angular/compiler": 22.1.3
+    "@angular/compiler": 22.1.4
     typescript: ">=6.0 <6.1"
   peerDependenciesMeta:
     typescript:
@@ -202,26 +202,26 @@ __metadata:
   bin:
     ng-xi18n: bundles/src/bin/ng_xi18n.js
     ngc: bundles/src/bin/ngc.js
-  checksum: 10/547342cafc8432e346db095f0ff4d18969cbb8dc6ca47e962bd4455dd40e5ece45dbf00cf7045471f7eb3cf73ebf0203cbedacfe8922b833595123d569a58f0b
+  checksum: 10/859e7c44e0920606179fd94817512a946a311b0ae3efb87d0b3269ba825fb98fcdf318e9df8d1be0aa8f364933ea1a0908beb262171b15db9ec33b8bfe1122e1
   languageName: node
   linkType: hard
 
 "@angular/compiler@npm:^22.0.0":
-  version: 22.1.3
-  resolution: "@angular/compiler@npm:22.1.3"
+  version: 22.1.4
+  resolution: "@angular/compiler@npm:22.1.4"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/e8086bccfd51c6a368f44c1e4d8baf5672373e1a47dc494ce76aac0a2462df2008903489994ef0bf94011573162636f177b76bb19b0700f06f41032195e1bd87
+  checksum: 10/5f6b669019d2276b4cfcd8da29d6744d0cfd26ab9052d9a2e9336ea33d33b19609f05e65ee54ea77ecc420a1d29380957bc1953912e8cce05f997540e21a51d6
   languageName: node
   linkType: hard
 
 "@angular/core@npm:^22.0.0":
-  version: 22.1.3
-  resolution: "@angular/core@npm:22.1.3"
+  version: 22.1.4
+  resolution: "@angular/core@npm:22.1.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/compiler": 22.1.3
+    "@angular/compiler": 22.1.4
     rxjs: ^6.5.3 || ^7.4.0
     zone.js: ~0.15.0 || ~0.16.0
   peerDependenciesMeta:
@@ -229,53 +229,53 @@ __metadata:
       optional: true
     zone.js:
       optional: true
-  checksum: 10/f5aa2a6f3861e00ae9ca6de3a3ca331b11ad3b5164dc51c562c597ce3fe16a8943195bf1f6c81d08dfa4893bdb742fbba4203180530b97628c24ac409c75a44e
+  checksum: 10/bb950265ab556e0265c15383d69c6c64079cdd37bee29fc729938671adfe12beb09f190ae64750fe6df4ce70e7b3186919ab96c52cf68efdcae4e0004d2dea53
   languageName: node
   linkType: hard
 
 "@angular/forms@npm:^22.0.0":
-  version: 22.1.3
-  resolution: "@angular/forms@npm:22.1.3"
+  version: 22.1.4
+  resolution: "@angular/forms@npm:22.1.4"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     tslib: "npm:^2.3.0"
     zod: "npm:^4.0.10"
   peerDependencies:
-    "@angular/common": 22.1.3
-    "@angular/core": 22.1.3
-    "@angular/platform-browser": 22.1.3
+    "@angular/common": 22.1.4
+    "@angular/core": 22.1.4
+    "@angular/platform-browser": 22.1.4
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/f21fce4ecd7f1765875a852520f4a57018ed76c308a077b5f5afbc0764f71ccffaec6f9c94f2a1295b8e70e702022242c64e57529b08656b9953d9885074a540
+  checksum: 10/edb8408769ec4468c62b650f26eae4ff4f7f81a453ac9494854a8b44b7703c767278eadcb96dc8f0169a1a8668ed8710dead9dbab5bee71d84b6389d13845ff9
   languageName: node
   linkType: hard
 
 "@angular/platform-browser@npm:^22.0.0":
-  version: 22.1.3
-  resolution: "@angular/platform-browser@npm:22.1.3"
+  version: 22.1.4
+  resolution: "@angular/platform-browser@npm:22.1.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/animations": 22.1.3
-    "@angular/common": 22.1.3
-    "@angular/core": 22.1.3
+    "@angular/animations": 22.1.4
+    "@angular/common": 22.1.4
+    "@angular/core": 22.1.4
   peerDependenciesMeta:
     "@angular/animations":
       optional: true
-  checksum: 10/2d17b2cf9d1dda9addf272f89c9ea1d49ffaabf06a0f66a1f3603cb9591a32158bd68a3d68f08d2afbfb285f3f1e1a1a9501be5e7f047b7af06808fa690f973f
+  checksum: 10/bb33aefa506df0edc26eea3ec2bae8fa45cea68d4f78fa852fc483fddf000843f0aa6fdf7900de5b6391eda218a448b91e3948da21e5271ba676d9b50896dc23
   languageName: node
   linkType: hard
 
 "@angular/router@npm:^22.0.0":
-  version: 22.1.3
-  resolution: "@angular/router@npm:22.1.3"
+  version: 22.1.4
+  resolution: "@angular/router@npm:22.1.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 22.1.3
-    "@angular/core": 22.1.3
-    "@angular/platform-browser": 22.1.3
+    "@angular/common": 22.1.4
+    "@angular/core": 22.1.4
+    "@angular/platform-browser": 22.1.4
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/bd4bf800b4cac9f6e162a9be1a7729a052c91652ae3ac669f8768041036ce12f93684261ee80d2563dfa872cf33845d4ad32780a3d87e1cc97600870dd21efd6
+  checksum: 10/71c4fa6774f648aff377c8937abdad37f3ec9cde0c70769abb7be1ca8db09f720a5728b8772268a483c57ca36b1a6e7aa9288f5ff039194f724a7eaeed215c9d
   languageName: node
   linkType: hard
 
@@ -2772,15 +2772,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:22.1.5":
-  version: 22.1.5
-  resolution: "@schematics/angular@npm:22.1.5"
+"@schematics/angular@npm:22.1.6":
+  version: 22.1.6
+  resolution: "@schematics/angular@npm:22.1.6"
   dependencies:
-    "@angular-devkit/core": "npm:22.1.5"
-    "@angular-devkit/schematics": "npm:22.1.5"
+    "@angular-devkit/core": "npm:22.1.6"
+    "@angular-devkit/schematics": "npm:22.1.6"
     jsonc-parser: "npm:3.3.1"
     typescript: "npm:6.0.3"
-  checksum: 10/e1a9d5fc75ddd7df900ae457e5e1f7516d8f821f477279fa77d3ebc5b8d685a762f085ed6ae5bf04fc7b08aca1d3724d8df5ee9c7f0c82d2a156dae841ebe1ba
+  checksum: 10/f61fb25a0258f73c8ee5386e4f1e243fb592b9b708d8e319416dc55b5e3e07f6490524f803b86ef96f83995ad3bf95816c5f4755d61588b9020145ba8c7292fa
   languageName: node
   linkType: hard
 
@@ -4355,11 +4355,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-app-v22@workspace:."
   dependencies:
-    "@angular/build": "npm:^22.1.5"
-    "@angular/cli": "npm:^22.1.5"
+    "@angular/build": "npm:^22.1.6"
+    "@angular/cli": "npm:^22.1.6"
     "@angular/common": "npm:^22.0.0"
     "@angular/compiler": "npm:^22.0.0"
-    "@angular/compiler-cli": "npm:^22.1.3"
+    "@angular/compiler-cli": "npm:^22.1.4"
     "@angular/core": "npm:^22.0.0"
     "@angular/forms": "npm:^22.0.0"
     "@angular/platform-browser": "npm:^22.0.0"
