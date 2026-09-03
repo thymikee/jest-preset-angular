@@ -28,7 +28,7 @@ const executeTest = (projectPath: string) => {
     logger.log('ensuring all dependencies of target project are installed');
     logger.log();
 
-    execa.sync('yarn', ['install'], { cwd: projectPath });
+    execa.sync('yarn', ['install', '--no-immutable'], { cwd: projectPath });
     logger.log();
 
     logger.log('installing bundled version of jest-preset-angular');
