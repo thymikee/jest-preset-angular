@@ -36,6 +36,10 @@
       "groupName": "Angular packages"
     },
     {
+      "matchPackagePatterns": ["^jest", "^@jest"],
+      "groupName": "Jest packages"
+    },
+    {
       "matchFiles": ["**/package.json"],
       "matchDepTypes": ["dependencies", "optionalDependencies"],
       "rangeStrategy": "in-range-only"
