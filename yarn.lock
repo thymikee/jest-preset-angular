@@ -15,15 +15,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2201.6, @angular-devkit/architect@npm:>= 0.2200.0 < 0.2300.0":
-  version: 0.2201.6
-  resolution: "@angular-devkit/architect@npm:0.2201.6"
+"@angular-devkit/architect@npm:0.2201.7, @angular-devkit/architect@npm:>= 0.2200.0 < 0.2300.0":
+  version: 0.2201.7
+  resolution: "@angular-devkit/architect@npm:0.2201.7"
   dependencies:
-    "@angular-devkit/core": "npm:22.1.6"
+    "@angular-devkit/core": "npm:22.1.7"
     rxjs: "npm:7.8.2"
   bin:
     architect: bin/cli.js
-  checksum: 10/6d3eca266d803af9eab008233c175493f9b9a04969b0df7bcbc7c9f050a05715327cc9664a92f566e5584990e852736805af487adc1812090d28ac6472182ccf
+  checksum: 10/7222a476903be060eef1fa58bc7d518c72df72dcc4366c4c64d6ba1fb6a3d3984adbb98b1391752d3dfd6f2c4b6333e6fb48ee6eb9e231d4e6f44cd3d674b51b
   languageName: node
   linkType: hard
 
@@ -46,9 +46,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:22.1.6, @angular-devkit/core@npm:>= 22.0.0 < 23.0.0":
-  version: 22.1.6
-  resolution: "@angular-devkit/core@npm:22.1.6"
+"@angular-devkit/core@npm:22.1.7, @angular-devkit/core@npm:>= 22.0.0 < 23.0.0":
+  version: 22.1.7
+  resolution: "@angular-devkit/core@npm:22.1.7"
   dependencies:
     ajv: "npm:8.20.0"
     ajv-formats: "npm:3.0.1"
@@ -61,7 +61,7 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 10/a6296f591abdbb3077d3781c911e123cd5a4cdcb591ce6c3c511346d83429ed7f7fb89b88cf521e6440b4d7f1c32a210862659f084bd9bc87b435182f6bce341
+  checksum: 10/6cc75813ffdf7f6df35e0b1fb94d2e8fb2b44dcac222fce88d7af67fc2cd5914369e13d25a612bbd0754562be6b0690bcef58bcf3070c255fcb1b00a6adcd569
   languageName: node
   linkType: hard
 
@@ -172,12 +172,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/build@npm:^22.1.6":
-  version: 22.1.6
-  resolution: "@angular/build@npm:22.1.6"
+"@angular/build@npm:^22.1.7":
+  version: 22.1.7
+  resolution: "@angular/build@npm:22.1.7"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.2201.6"
+    "@angular-devkit/architect": "npm:0.2201.7"
     "@babel/core": "npm:8.0.1"
     "@babel/helper-annotate-as-pure": "npm:8.0.0"
     "@babel/helper-split-export-declaration": "npm:7.24.7"
@@ -211,7 +211,7 @@ __metadata:
     "@angular/platform-browser": ^22.0.0
     "@angular/platform-server": ^22.0.0
     "@angular/service-worker": ^22.0.0
-    "@angular/ssr": ^22.1.6
+    "@angular/ssr": ^22.1.7
     istanbul-lib-instrument: ^6.0.0
     karma: ^6.4.0
     less: ^4.2.0
@@ -254,22 +254,23 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10/2189b365acd2d20263d2e35bb537657d7a0febd4c7b94b282f11a80b7f8d7a3a6c952d3b28e24ef5cd63e0a6d470c958ab6cb96cd6a9794cffd463dc3c465cd4
+  checksum: 10/a60a05f50fb12a252615ea5c8c607bac7bb6f7ad2a7d14d265aa6e48a16d380bc430c308de1ecfbd93eb2f3158deb3ddeb139dfff00f391565769edf22c1f25b
   languageName: node
   linkType: hard
 
-"@angular/cdk@npm:^22.1.4":
-  version: 22.1.4
-  resolution: "@angular/cdk@npm:22.1.4"
+"@angular/cdk@npm:^22.1.5":
+  version: 22.1.5
+  resolution: "@angular/cdk@npm:22.1.5"
   dependencies:
     parse5: "npm:^8.0.0"
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ^22.0.0 || ^23.0.0
     "@angular/core": ^22.0.0 || ^23.0.0
+    "@angular/forms": ^22.0.0 || ^23.0.0
     "@angular/platform-browser": ^22.0.0 || ^23.0.0
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/65799ab98047922b974da79f6249e4b693431ba9d8b67fa3e6f28cf2f1ba3b345c91c4b8919382ea4b7b5cd8f675fee75965891daf352ed14417ae982feff71b
+  checksum: 10/89228ec730d42bf291f499ae6a14bf7912706a84e017b1ee9a34a2d884ece42e0a2235076dadd31b4636b1183dd20822c29ec2e89dad7efbc2e32cd4ef479434
   languageName: node
   linkType: hard
 
@@ -353,19 +354,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/material@npm:^22.1.4":
-  version: 22.1.4
-  resolution: "@angular/material@npm:22.1.4"
+"@angular/material@npm:^22.1.5":
+  version: 22.1.5
+  resolution: "@angular/material@npm:22.1.5"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/cdk": 22.1.4
+    "@angular/cdk": 22.1.5
     "@angular/common": ^22.0.0 || ^23.0.0
     "@angular/core": ^22.0.0 || ^23.0.0
     "@angular/forms": ^22.0.0 || ^23.0.0
     "@angular/platform-browser": ^22.0.0 || ^23.0.0
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/ef6132f2c9a138a03ff1caf78aa5984a1c1c87989b43314fc283553331d56aea5d048ddd310b73b80a8109c0c4a9cfdb933998e8a302c6735b1e93ae9ddabd60
+  checksum: 10/849fc37f4237a0ab43188dbea35b695f5e92738e761533b60811cdefc71572b0a8a975af7adc2ee18149d6128798c5f01ee81a863592f5a2dbb64f0fecc42875
   languageName: node
   linkType: hard
 
@@ -7508,14 +7509,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jest-preset-angular@workspace:."
   dependencies:
-    "@angular/build": "npm:^22.1.6"
-    "@angular/cdk": "npm:^22.1.4"
+    "@angular/build": "npm:^22.1.7"
+    "@angular/cdk": "npm:^22.1.5"
     "@angular/common": "npm:^22.1.4"
     "@angular/compiler": "npm:^22.1.4"
     "@angular/compiler-cli": "npm:^22.1.4"
     "@angular/core": "npm:^22.1.4"
     "@angular/forms": "npm:^22.1.4"
-    "@angular/material": "npm:^22.1.4"
+    "@angular/material": "npm:^22.1.5"
     "@angular/platform-browser": "npm:^22.1.4"
     "@babel/core": "npm:^7.29.7"
     "@babel/preset-env": "npm:^7.29.7"
