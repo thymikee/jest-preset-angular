@@ -49,6 +49,11 @@
       "rangeStrategy": "bump"
     },
     {
+      "matchPaths": ["website/package.json"],
+      "matchPackageNames": ["react", "react-dom"],
+      "groupName": "React packages"
+    },
+    {
       "matchDepTypes": ["peerDependencies"],
       "enabled": false
     },
