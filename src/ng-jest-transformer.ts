@@ -13,7 +13,7 @@ import type { NgJestTransformerOptions } from './config/config';
 import { defaultProcessWithEsbuildPatterns, NgJestConfig } from './config/ng-jest-config';
 
 // stores hashes made out of only one argument being a string
-const cache: Record<string, string> = {};
+const cache: Record<string, string> = Object.create(null);
 
 type DataItem = string | Buffer;
 
@@ -23,7 +23,7 @@ const sha1 = (...data: DataItem[]): string => {
     let cacheKey!: string;
     if (canCache) {
         cacheKey = data[0] as string;
-        if (cacheKey in cache) {
+        if (Object.prototype.hasOwnProperty.call(cache, cacheKey)) {
             return cache[cacheKey];
         }
     }
