@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BarComponent, StringStylesBarComponent, DATA_TOKEN } from '../bar.component';
+import { BarComponent, StringStylesBarComponent, DATA_TOKEN } from '../src/bar.component';
 
 test('templateUrl/styleUrls/styles should work', () => {
     TestBed.configureTestingModule({

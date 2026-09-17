@@ -37,7 +37,7 @@ yarn lint-fix && yarn lint-prettier
 - Always run the full validation suite:
 
 ```bash
-yarn test && yarn test-esm && yarn lint && yarn lint-prettier-ci && yarn test-examples
+yarn test && yarn test-e2e && yarn lint && yarn lint-prettier-ci && yarn test-examples
 ```
 
 - Always run `husky` pre-commit hooks which is under `.husky` directory.

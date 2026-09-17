@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FooComponent } from '../foo.component';
+import { FooComponent } from '../src/foo.component';
 
 describe('FooComponent', () => {
     it('should trigger change detection without fixture.detectChanges', () => {

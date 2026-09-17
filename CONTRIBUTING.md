@@ -1,0 +1,106 @@
+# Contributing
+
+When contributing to this repository, please first discuss the change you wish to make via [issue](https://github.com/thymikee/jest-preset-angular/issues)
+with the owners of this repository before making a change.
+
+Please note we have a code of conduct, please follow it in all your interactions with the project.
+
+## Workflow and Pull Requests
+
+The team will monitor pull requests. We'll do our best to provide updates and feedback throughout the process.
+
+_Before_ submitting a pull request, please make sure the following is done…
+
+1. Fork the repo and create your branch from `main`. A guide on how to fork a repository: https://help.github.com/articles/fork-a-repo/
+
+   Open terminal (e.g. Terminal, iTerm, Git Bash or Git Shell) and type:
+
+   ```sh-session
+   $ git clone https://github.com/<your_username>/jest-preset-angular
+   $ cd jest-preset-angular
+   $ git checkout -b my_branch
+   ```
+
+   Note: Replace `<your_username>` with your GitHub username
+
+2. `jest-preset-angular` uses `yarn` for running development scripts. If you haven't already done so, please [install yarn](https://yarnpkg.com/getting-started/install).
+
+3. Make sure you have a compatible version of `node` installed (Latest LTS version is recommended).
+
+   ```sh
+   node -v
+   ```
+
+4. Run `yarn`. `jest-preset-angular` will automatically build source files into `dist/` after installing dependencies.
+
+5. Ensure the test suite passes via `yarn test`.
+
+### Testing
+
+Code that is written needs to be tested to ensure that it achieves the desired behaviour. Tests either fall into a unit
+test or an integration test.
+
+##### Unit tests
+
+The unit test files are associated with source files which are in `src/`. If the scope of your work only requires a unit test,
+this is where you will write it in. Tests here usually don't require much if any setup.
+
+##### Integration tests
+
+Integration tests reside in `e2e`. Controller tests under `e2e/__tests__` select isolated fixture projects and execute
+their local Jest configurations through `run-jest.ts`. Each fixture owns its package metadata, Jest configuration,
+TypeScript configuration, source files, and tests. Dependencies and lockfiles belong only to fixtures that require them.
+
+```bash
+yarn build
+yarn test-e2e
+yarn test-e2e -- --runTestsByPath e2e/__tests__/test-utils.test.ts
+```
+
+### Additional Workflow for any changes made to website or docs
+
+If you are making changes to the website or documentation, test the `website` folder and run the server to check if your
+changes are being displayed accurately.
+
+1. Locate to the `website` directory and install any website specific dependencies by typing in `yarn`.
+2. Following steps are to be followed for this purpose from the root directory.
+   ```sh-session
+   $ cd website       # Only needed if you are not already in the website directory
+   $ yarn
+   $ yarn lint-prettier # Please format markdown files
+   $ yarn start
+   ```
+3. You can run a development server to check if the changes you made are being displayed accurately by running `yarn start` in the website directory.
+
+The `jest-preset-angular` website also offers documentation for older versions of `jest-preset-angular`, which you can edit in `website/versioned_docs`.
+After making changes to the current documentation in `docs`, please check if any older versions of the documentation
+have a copy of the file where the change is also relevant and apply the changes to the `versioned_docs` as well.
+
+## Bugs
+
+### Where to Find Known Issues
+
+We will be using GitHub Issues for our public bugs. We will keep a close eye on this and try to make it clear when we
+have an internal fix in progress. Before filing a new issue, try to make sure your problem doesn't already exist.
+
+### Reporting New Issues
+
+The best way to get your bug fixed is to provide a reduced test case. Please provide a public repository with a runnable example.
+
+## How to Get in Touch
+
+[`#testing` on Reactiflux](https://discord.gg/j6FKKQQrW9) or [our GitHub discussion](https://github.com/thymikee/jest-preset-angular/discussions)
+
+## Code Conventions
+
+- 2 spaces for indentation (no tabs).
+- 120 character line length strongly preferred.
+- Prefer `'` over `"`.
+- ES6 syntax when possible.
+- Use [TypeScript](https://www.typescriptlang.org/).
+- No semicolon (`;`) required
+- Trailing commas,
+
+## License
+
+By contributing to `jest-preset-angular`, you agree that your contributions will be licensed under its MIT license.

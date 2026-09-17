@@ -1,5 +1,4 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-
 import { FullIvyService, FullIvyComponent, FullIvyModule } from 'full-ivy';
 
 describe('Full Ivy library', () => {
