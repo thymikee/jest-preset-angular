@@ -9,7 +9,7 @@ This guide provides validated workflows and commands for working effectively in 
 - Install dependencies: `yarn install --frozen-lockfile` -- takes 3 minutes. NEVER CANCEL. Set timeout to 5+ minutes.
 - Build the project: `yarn build` -- takes 4 seconds. Set timeout to 30 seconds.
 - Run main test suite: `yarn test` -- takes 26 seconds. NEVER CANCEL. Set timeout to 60+ minutes.
-- Run ESM test suite: `yarn test-esm` -- takes 41 seconds. NEVER CANCEL. Set timeout to 60+ minutes.
+- Run E2E test suite: `yarn test-e2e` -- builds once, then runs fixture configurations in child Jest processes.
 - Run example app tests: `yarn test-examples` -- takes 6.5 minutes. NEVER CANCEL. Set timeout to 10+ minutes.
 - Run performance tests: `yarn test-perf` -- takes 7 seconds (requires `yarn --cwd performance` first). Set timeout to 30 seconds.
 
@@ -57,8 +57,7 @@ After making changes, validate by:
 1. Running `yarn build` to ensure the build completes successfully
 2. Running `yarn test` to ensure core functionality works
 3. Testing at least one example app: `cd examples/example-app-v20 && yarn test`
-4. Verifying ESM compatibility: `yarn test-esm`
-5. Checking all linting passes: `yarn lint && yarn lint-prettier-ci`
+4. Checking all linting passes: `yarn lint && yarn lint-prettier-ci`
 
 ## Common Tasks
 
@@ -123,7 +122,7 @@ The project uses GitHub Actions with:
 Always run the full validation suite before submitting changes:
 
 ```bash
-yarn test && yarn test-esm && yarn lint && yarn lint-prettier-ci
+yarn test && yarn test-e2e && yarn lint && yarn lint-prettier-ci
 ```
 
 This ensures compatibility across all supported configurations.

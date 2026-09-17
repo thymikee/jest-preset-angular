@@ -16,8 +16,7 @@ This guide provides an overview of the jest-preset-angular repository structure 
 ### Configuration Files
 
 - `jest.config.ts` - Main Jest configuration for testing the preset itself
-- `jest-cjs.config.ts` - CommonJS-specific Jest configuration
-- `jest-esm.config.ts` - ESM-specific Jest configuration
+- `e2e/jest.config.cts` - Node-based E2E orchestrator configuration
 - `tsconfig.json` - TypeScript configuration for main project
 - `tsconfig.build.json` - TypeScript configuration for building
 - `eslint.config.mjs` - ESLint configuration (flat config format)
@@ -63,7 +62,7 @@ Contains example Angular applications for testing the preset:
 
 ### `/e2e/`
 
-End-to-end test scenarios that validate the preset against different project configurations and Angular versions.
+End-to-end fixtures follow ts-jest's two-level structure. Top-level `__tests__/*.test.ts` orchestrators launch each fixture's CJS/ESM configurations in child Jest processes. Fixture assertions live in `<fixture>/__tests__/`, with source payloads in `<fixture>/src/` where needed. Run all fixtures with `yarn test-e2e`, or one orchestrator with `yarn test-e2e --runTestsByPath e2e/__tests__/<fixture>.test.ts`.
 
 ### `/performance/`
 
@@ -103,8 +102,8 @@ GitHub-specific files:
 ### Jest Configuration Strategy
 
 - `jest.config.ts` - Main test configuration for the preset itself
-- `jest-cjs.config.ts` - CommonJS-specific testing
-- `jest-esm.config.ts` - ESM-specific testing
+- `e2e/jest.config.cts` - Discovers only the top-level E2E orchestrators
+- `e2e/<fixture>/jest-{compiler,transpiler}-{cjs,esm}.config.ts` - Explicitly selected child configurations
 - Example apps have their own Jest configurations
 
 ### Preset Architecture

@@ -1,14 +1,14 @@
 import { test, jest, jest as aliasedJest } from '@jest/globals';
 import * as JestGlobals from '@jest/globals';
 
-import a from '../__test_modules__/a';
-import b from '../__test_modules__/b';
-import c from '../__test_modules__/c';
+import a from '../src/a';
+import b from '../src/b';
+import c from '../src/c';
 
 // These will be hoisted above imports
-jest.unmock('../__test_modules__/a');
-aliasedJest.unmock('../__test_modules__/b');
-JestGlobals.jest.unmock('../__test_modules__/c');
+jest.unmock('../src/a');
+aliasedJest.unmock('../src/b');
+JestGlobals.jest.unmock('../src/c');
 
 // tests
 

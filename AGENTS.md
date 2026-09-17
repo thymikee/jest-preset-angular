@@ -50,7 +50,7 @@ The main CLI commands available
 Full pre-commit validation suite:
 
 ```bash
-yarn test && yarn test-esm && yarn lint && yarn lint-prettier-ci && yarn test-examples
+yarn test && yarn test-e2e && yarn lint && yarn lint-prettier-ci && yarn test-examples
 ```
 
 ### Website Development
@@ -72,8 +72,6 @@ Or run directly inside `website/`:
 
 - `yarn test` - Build and run unit tests (`src/**/*.spec.ts`)
 - `yarn test-e2e` - Build and run full e2e suite (CJS + ESM)
-- `yarn test-cjs` - Run CJS e2e tests only
-- `yarn test-esm` - Run ESM e2e tests only
 - `yarn test-examples` - Run tests in all example apps (allow 10+ minutes)
 - `yarn test-perf` - Run performance benchmarks
 - `yarn test <path/to/test.file.ts>` - Run a single test file

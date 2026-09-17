@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import serializer from '../../../build/serializers/ng-snapshot';
-import { FooComponent } from '../foo.component';
+import { FooComponent } from '../src/foo.component';
 
 describe('FooComponent', () => {
     test('should allow generating snapshot with removed component attributes with snapshot serializer option', () => {

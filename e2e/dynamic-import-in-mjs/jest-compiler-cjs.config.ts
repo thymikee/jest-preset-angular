@@ -1,0 +1,19 @@
+/** @jest-config-loader esbuild-register */
+
+import { defineConfig } from 'jest';
+
+export default defineConfig({
+    displayName: 'e2e-dynamic-import-in-mjs',
+    testEnvironment: 'jsdom',
+    setupFilesAfterEnv: ['<rootDir>/../setup-test-env.ts'],
+    transform: {
+        '^.+\\.(ts|mjs|js|html)$': [
+            '<rootDir>/../../build/index.js',
+            {
+                tsconfig: '<rootDir>/tsconfig-cjs.spec.json',
+                stringifyContentPathRegex: '\\.(html|svg)$',
+            },
+        ],
+    },
+    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],
+});
