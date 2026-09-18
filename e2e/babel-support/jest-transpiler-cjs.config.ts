@@ -10,7 +10,7 @@ export default defineConfig({
             '<rootDir>/../../build/index.js',
             {
                 babelConfig: true,
-                tsconfig: '<rootDir>/tsconfig-cjs-transpiler.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
             },
         ],

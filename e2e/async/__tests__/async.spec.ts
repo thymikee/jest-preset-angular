@@ -4,10 +4,8 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { MatButton } from '@angular/material/button';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 
 @Component({
-    standalone: true,
     selector: 'snd-button-page',
     template: `
         <p>button-page works!</p>
@@ -34,12 +32,6 @@ describe('ButtonPageComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ButtonPageComponent],
-            providers: [
-                {
-                    provide: MATERIAL_SANITY_CHECKS,
-                    useValue: false,
-                },
-            ],
         }).compileComponents();
         fixture = TestBed.createComponent(ButtonPageComponent);
         loader = TestbedHarnessEnvironment.loader(fixture);

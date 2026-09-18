@@ -35,7 +35,7 @@
     "lint-prettier": "prettier \"**/*.{yml,yaml,md}\" --write",
     "lint-prettier-ci": "prettier \"**/*.{yml,yaml,md}\" --check",
     "test": "yarn build && jest",
-    "test-e2e": "yarn build && jest -c=e2e/jest.config.cts \"$@\"",
+    "test-e2e": "yarn build && jest -c=e2e/jest.config.ts \"$@\"",
     "test-examples": "tsx scripts/test-examples.ts",
     "test-perf": "jest -c=performance/jest.config.ts --no-cache",
     "doc": "cd website && yarn start",

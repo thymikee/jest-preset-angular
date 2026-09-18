@@ -13,12 +13,12 @@ export class NgJestConfig extends ConfigSet {
      */
     protected _resolveTsConfig(compilerOptions?: RawCompilerOptions, resolvedConfigFile?: string): ParsedCommandLine {
         const result = super._resolveTsConfig(compilerOptions, resolvedConfigFile) as ParsedCommandLine;
-        result.options.enableIvy = true;
+        result.options['enableIvy'] = true;
         result.options.noEmitOnError = false;
-        result.options.suppressOutputPathCheck = true;
-        result.options.allowEmptyCodegenFiles = false;
-        result.options.annotationsAs = 'decorators';
-        result.options.enableResourceInlining = false;
+        result.options['suppressOutputPathCheck'] = true;
+        result.options['allowEmptyCodegenFiles'] = false;
+        result.options['annotationsAs'] = 'decorators';
+        result.options['enableResourceInlining'] = false;
         // Since we define preset default also transform `js` so we need to set `allowJs` true
         result.options.allowJs = true;
 

@@ -1,13 +1,14 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build",
-    "target": "ES2022",
-    "allowJs": true,
+    "module": "Node18",
+    "moduleResolution": "Node16",
     "removeComments": true,
     "stripInternal": true,
-    "declaration": true
+    "declaration": true,
+    "noEmit": false
   },
   "include": ["src"],
   "exclude": ["**/*.spec.ts", "src/transformers/jit_transform.js"]

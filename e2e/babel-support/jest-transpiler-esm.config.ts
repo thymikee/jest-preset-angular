@@ -11,7 +11,7 @@ export default defineConfig({
             {
                 babelConfig: true,
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm-transpiler.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
             },
         ],
     },

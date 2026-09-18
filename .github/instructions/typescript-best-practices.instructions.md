@@ -29,7 +29,7 @@ The most important one here is the `strict` flag which actually covers four othe
 
 ### 4. Avoid any. Type everything
 
-Always declare variables or constants with a type other than any. When declaring variables or constants in TypeScript without a typing, the typing of the variable/constant will be deduced by the value that gets assigned to it. This will cause unintended problems. Another advantage of having good typings in our application is that it makes refactoring easier and safer. The any type isn't necessarily a bad thing and, in fact, does still come in useful sometimes. However, in most cases, there is a better alternative that leads to having better defined types overall. In new projects, it is worth setting `strict:true` in the `tsconfig.json` file to enable all strict type checking options.
+Always declare variables or constants with a type other than any. When declaring variables or constants in TypeScript without a typing, the typing of the variable/constant will be deduced by the value that gets assigned to it. This will cause unintended problems. Another advantage of having good typings in our application is that it makes refactoring easier and safer. The any type isn't necessarily a bad thing and, in fact, does still come in useful sometimes. However, in most cases, there is a better alternative that leads to having better defined types overall. In new projects, it is worth setting `strict:true` in the `tsconfig.base.json` file to enable all strict type checking options.
 
 ### 5. Strings should be safe
 

@@ -11,7 +11,7 @@ export default defineConfig({
             {
                 babelConfig: true,
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+                tsconfig: '<rootDir>/tsconfig-compiler.spec.json',
             },
         ],
     },

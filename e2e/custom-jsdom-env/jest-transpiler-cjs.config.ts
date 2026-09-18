@@ -10,7 +10,7 @@ export default defineConfig({
         '^.+\\.(ts|mjs|js|html)$': [
             '<rootDir>/../../build/index.js',
             {
-                tsconfig: '<rootDir>/tsconfig-cjs-transpiler.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
                 processWithEsbuild: [
                     '**/node_modules/@noble/**/*.js',

@@ -15,7 +15,7 @@ export default defineConfig({
             '<rootDir>/../../build/index.js',
             {
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm-transpiler.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
             },
         ],

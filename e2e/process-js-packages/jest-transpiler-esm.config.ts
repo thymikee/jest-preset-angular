@@ -11,7 +11,7 @@ export default defineConfig({
             {
                 processWithEsbuild: ['**/node_modules/lodash-es/*.js'],
                 useESM: true,
-                tsconfig: '<rootDir>/tsconfig-esm-transpiler.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
             },
         ],
     },

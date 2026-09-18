@@ -16,8 +16,8 @@ This guide provides an overview of the jest-preset-angular repository structure 
 ### Configuration Files
 
 - `jest.config.ts` - Main Jest configuration for testing the preset itself
-- `e2e/jest.config.cts` - Node-based E2E orchestrator configuration
-- `tsconfig.json` - TypeScript configuration for main project
+- `e2e/jest.config.ts` - Node-based E2E orchestrator configuration
+- `tsconfig.spec.json` - TypeScript configuration for main project
 - `tsconfig.build.json` - TypeScript configuration for building
 - `eslint.config.mjs` - ESLint configuration (flat config format)
 - `.prettierrc.json` - Prettier formatting configuration
@@ -94,15 +94,15 @@ GitHub-specific files:
 
 ### TypeScript Configuration Hierarchy
 
-- `tsconfig.json` - Base configuration
+- `tsconfig.spec.json` - Base configuration
 - `tsconfig.build.json` - Build-specific configuration
-- `tsconfig-base.spec.json` - Base test configuration
+- `tsconfig.spec.json` - Unit test configuration
 - `tsconfig.eslint.json` - ESLint-specific configuration
 
 ### Jest Configuration Strategy
 
 - `jest.config.ts` - Main test configuration for the preset itself
-- `e2e/jest.config.cts` - Discovers only the top-level E2E orchestrators
+- `e2e/jest.config.ts` - Discovers only the top-level E2E orchestrators
 - `e2e/<fixture>/jest-{compiler,transpiler}-{cjs,esm}.config.ts` - Explicitly selected child configurations
 - Example apps have their own Jest configurations
 

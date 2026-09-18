@@ -118,10 +118,10 @@ export class NgJestCompiler extends TsCompiler {
          * transpileModule does not write anything to disk so there is no need to verify that there are no conflicts between
          * input and output paths.
          */
-        options.suppressOutputPathCheck = true;
+        options['suppressOutputPathCheck'] = true;
 
         // Filename can be non-ts file.
-        options.allowNonTsExtensions = true;
+        options['allowNonTsExtensions'] = true;
 
         const sourceFile = ts.createSourceFile(filePath, fileContent, options.target ?? ts.ScriptTarget.Latest);
 
