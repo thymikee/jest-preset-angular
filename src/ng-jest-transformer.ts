@@ -60,7 +60,7 @@ export class NgJestTransformer extends TsJestTransformer {
                 [LogContexts.logLevel]: LogLevels.trace,
                 version: this.version,
             },
-            targets: process.env.NG_JEST_LOG ?? undefined,
+            targets: process.env['NG_JEST_LOG'] ?? undefined,
         });
         this.#processWithEsbuild = globsToMatcher([
             ...(processWithEsbuild ?? []),

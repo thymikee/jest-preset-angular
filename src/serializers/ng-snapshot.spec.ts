@@ -30,10 +30,13 @@ describe('ng-snapshot snapshot serializer', () => {
     describe('print function', () => {
         const mockPrinter = () => '';
         const mockIndent = (str: string) => str;
-        const mockOpts = { spacing: ' ' };
+        const mockOpts = { spacing: ' ', edgeSpacing: ' ', min: false };
         const mockColors = {
             prop: { open: '', close: '' },
             value: { open: '', close: '' },
+            comment: { open: '', close: '' },
+            content: { open: '', close: '' },
+            tag: { open: '', close: '' },
         };
 
         test('should handle proxy objects without throwing', () => {

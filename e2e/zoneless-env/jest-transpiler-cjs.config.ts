@@ -15,7 +15,7 @@ export default defineConfig({
         '^.+\\.(ts|js|mjs|html)$': [
             '<rootDir>/../../build/index.js',
             {
-                tsconfig: '<rootDir>/tsconfig-cjs-transpiler.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
             },
         ],

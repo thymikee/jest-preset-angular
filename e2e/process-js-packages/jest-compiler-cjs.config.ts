@@ -9,7 +9,7 @@ export default defineConfig({
             '<rootDir>/../../build/index.js',
             {
                 processWithEsbuild: ['**/node_modules/lodash-es/*.js'],
-                tsconfig: '<rootDir>/tsconfig-cjs.spec.json',
+                tsconfig: '<rootDir>/tsconfig-compiler.spec.json',
                 stringifyContentPathRegex: '\\.(html|svg)$',
             },
         ],

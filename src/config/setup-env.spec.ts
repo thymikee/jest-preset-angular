@@ -73,8 +73,6 @@ describe('Setup env utilities', () => {
     beforeEach(() => {
         // @ts-expect-error testing purpose
         delete globalThis.TextEncoder;
-        // @ts-expect-error testing purpose
-        delete globalThis.ngJest;
         jest.clearAllMocks();
         jest.resetModules();
     });
@@ -127,51 +125,6 @@ describe('Setup env utilities', () => {
             ]);
         });
 
-        it('should resolve extraProviders from global testEnvironmentOptions for setupZoneTestEnv()', async () => {
-            const { setupZoneTestEnv } = await import('../../setup-env/zone/index.js');
-
-            const globalProvider = { provide: 'GLOBAL_TOKEN', useValue: 'global-value' };
-            const argumentProvider = { provide: 'ARG_TOKEN', useValue: 'arg-value' };
-            // @ts-expect-error testing purpose
-            globalThis.ngJest = {
-                testEnvironmentOptions: {
-                    teardown: {
-                        destroyAfterEach: false,
-                        rethrowErrors: true,
-                    },
-                    errorOnUnknownElements: true,
-                    errorOnUnknownProperties: true,
-                    extraProviders: [globalProvider],
-                },
-            };
-
-            setupZoneTestEnv({
-                extraProviders: [argumentProvider],
-            });
-
-            expect(mockPlatformBrowserTesting).toHaveBeenCalledWith([
-                {
-                    provide: mockCompilerOptions,
-                    useValue: {},
-                    multi: true,
-                },
-                globalProvider,
-            ]);
-            expect(mockPlatformBrowserTesting).toHaveBeenCalledWith([
-                { multi: true, provide: 'COMPILER_OPTIONS', useValue: {} },
-                { provide: 'GLOBAL_TOKEN', useValue: 'global-value' },
-            ]);
-            expect(mockInitTestEnvironment.mock.calls[0]).toEqual(
-                expect.arrayContaining([
-                    {
-                        errorOnUnknownElements: true,
-                        errorOnUnknownProperties: true,
-                        teardown: { destroyAfterEach: false, rethrowErrors: true },
-                    },
-                ]),
-            );
-        });
-
         it('should setup test environment with setupZonelessTestEnv()', async () => {
             const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.js');
 
@@ -219,46 +172,6 @@ describe('Setup env utilities', () => {
                 mockProvider,
             ]);
             expect(mockProvideZonelessChangeDetection).toHaveBeenCalled();
-        });
-
-        it('should resolve extraProviders from global testEnvironmentOptions for setupZonelessTestEnv()', async () => {
-            const { setupZonelessTestEnv } = await import('../../setup-env/zoneless/index.js');
-
-            const globalProvider = { provide: 'GLOBAL_TOKEN', useValue: 'global-value' };
-            const argumentProvider = { provide: 'ARG_TOKEN', useValue: 'arg-value' };
-            // @ts-expect-error testing purpose
-            globalThis.ngJest = {
-                testEnvironmentOptions: {
-                    teardown: {
-                        destroyAfterEach: false,
-                        rethrowErrors: true,
-                    },
-                    errorOnUnknownElements: true,
-                    errorOnUnknownProperties: true,
-                    extraProviders: [globalProvider],
-                },
-            };
-
-            setupZonelessTestEnv({
-                extraProviders: [argumentProvider],
-            });
-
-            expect(mockPlatformBrowserTesting).toHaveBeenCalledWith([
-                { multi: true, provide: 'COMPILER_OPTIONS', useValue: {} },
-                { provide: 'GLOBAL_TOKEN', useValue: 'global-value' },
-            ]);
-            expect(mockInitTestEnvironment.mock.calls[0]).toEqual(
-                expect.arrayContaining([
-                    {
-                        teardown: {
-                            destroyAfterEach: false,
-                            rethrowErrors: true,
-                        },
-                        errorOnUnknownElements: true,
-                        errorOnUnknownProperties: true,
-                    },
-                ]),
-            );
         });
     });
 

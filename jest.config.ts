@@ -1,8 +1,8 @@
 /** @jest-config-loader esbuild-register */
 
-import type { Config } from 'jest';
+import { defineConfig } from 'jest';
 
-const config: Config = {
+export default defineConfig({
     modulePathIgnorePatterns: ['examples/.*', 'website/.*'],
     testMatch: ['<rootDir>/src/**/*.spec.ts'],
     testEnvironment: 'jsdom',
@@ -10,10 +10,8 @@ const config: Config = {
         '^.+\\.(ts|js|mjs|html)$': [
             '<rootDir>/build/index.js',
             {
-                tsconfig: 'tsconfig-base.spec.json',
+                tsconfig: 'tsconfig.spec.json',
             },
         ],
     },
-};
-
-export default config;
+});

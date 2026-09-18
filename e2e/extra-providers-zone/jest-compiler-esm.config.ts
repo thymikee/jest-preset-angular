@@ -15,7 +15,7 @@ export default defineConfig({
         '^.+\\.(ts|mts|js|mjs|html)$': [
             '<rootDir>/../../build/index.js',
             {
-                tsconfig: '<rootDir>/tsconfig-esm.spec.json',
+                tsconfig: '<rootDir>/tsconfig.spec.json',
                 useESM: true,
             },
         ],
