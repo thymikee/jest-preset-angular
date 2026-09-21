@@ -2935,7 +2935,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/transform@npm:30.5.1, @jest/transform@npm:^30.5.1":
+"@jest/transform@npm:30.5.1":
   version: 30.5.1
   resolution: "@jest/transform@npm:30.5.1"
   dependencies:
@@ -2954,6 +2954,28 @@ __metadata:
     slash: "npm:^3.0.0"
     write-file-atomic: "npm:^5.0.1"
   checksum: 10/ead2db99e0f38484dd4f6b1453bb98bd0fd3254818735a456aa7877d2f7f81dad608c8d57fa04e087f96701f48d688b55b2df9c71b2efb9d81e95de447afaa74
+  languageName: node
+  linkType: hard
+
+"@jest/transform@npm:30.5.2, @jest/transform@npm:^30.5.1":
+  version: 30.5.2
+  resolution: "@jest/transform@npm:30.5.2"
+  dependencies:
+    "@babel/core": "npm:^7.27.4"
+    "@jest/types": "npm:30.5.1"
+    "@jridgewell/trace-mapping": "npm:^0.3.31"
+    babel-plugin-istanbul: "npm:^8.0.0"
+    chalk: "npm:^4.1.2"
+    convert-source-map: "npm:^2.0.0"
+    fast-json-stable-stringify: "npm:^2.1.0"
+    graceful-fs: "npm:^4.2.11"
+    jest-haste-map: "npm:30.5.1"
+    jest-regex-util: "npm:30.5.0"
+    jest-util: "npm:30.5.1"
+    pirates: "npm:^4.0.7"
+    slash: "npm:^3.0.0"
+    write-file-atomic: "npm:^5.0.1"
+  checksum: 10/5b2d6ce6e0c96ddec62be35c7924f6cb6550340508b63299bb0b88bef822bf9ba43e10baba6b956a0102a664060cc06cb5ae294b6b333cd94ea177c8a22b36e7
   languageName: node
   linkType: hard
 
@@ -4780,7 +4802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-jest@npm:30.5.1, babel-jest@npm:^30.5.1":
+"babel-jest@npm:30.5.1":
   version: 30.5.1
   resolution: "babel-jest@npm:30.5.1"
   dependencies:
@@ -4794,6 +4816,23 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.11.0 || ^8.0.0-0
   checksum: 10/801caaf025b1f7f063a0f6b8cdf9bd9384d12f87e785887ff9b65df8987766d2cc118fca1157da157ad1567ad2569dd8838848f39c8a57341a56feebad5a37b8
+  languageName: node
+  linkType: hard
+
+"babel-jest@npm:^30.5.2":
+  version: 30.5.2
+  resolution: "babel-jest@npm:30.5.2"
+  dependencies:
+    "@jest/transform": "npm:30.5.2"
+    "@types/babel__core": "npm:^7.20.5"
+    babel-plugin-istanbul: "npm:^8.0.0"
+    babel-preset-jest: "npm:30.5.0"
+    chalk: "npm:^4.1.2"
+    graceful-fs: "npm:^4.2.11"
+    slash: "npm:^3.0.0"
+  peerDependencies:
+    "@babel/core": ^7.11.0 || ^8.0.0-0
+  checksum: 10/52d08ac1a3130e94127e51892e3df8d61df647d0e6e66fdb24ac3c3ad5fb2466bf33d905f034a42056cf61e283874c1ef8c140e4e30728ad2da7ffc80b751473
   languageName: node
   linkType: hard
 
@@ -7622,7 +7661,7 @@ __metadata:
     "@types/node": "npm:^24.13.5"
     "@types/semver": "npm:^7.8.0"
     angular-eslint: "npm:^22.5.0"
-    babel-jest: "npm:^30.5.1"
+    babel-jest: "npm:^30.5.2"
     bs-logger: "npm:^0.2.6"
     chalk: "npm:^4.1.2"
     conventional-changelog: "npm:^8.1.3"
