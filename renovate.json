@@ -45,12 +45,11 @@
     },
     {
       "matchPaths": ["website/package.json"],
-      "matchPackagePatterns": ["^@docusaurus/", "^docusaurus"],
-      "rangeStrategy": "bump"
+      "matchPackagePatterns": ["^@docusaurus", "^docusaurus"]
     },
     {
       "matchPaths": ["website/package.json"],
-      "matchPackageNames": ["react", "react-dom"],
+      "matchPackageNames": ["react", "react-dom", "@types/react"],
       "groupName": "React packages"
     },
     {
