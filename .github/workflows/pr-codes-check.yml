@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node-version: [20.x, 22.x, 24.x]
+        node-version: [22.x, 24.x]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -50,8 +50,8 @@ jobs:
       - name: Setup codespace ⚙️
         uses: ./.github/actions/setup-codespace
         with:
-          node-version: ${{ matrix.node-version }}
-          os: ${{ matrix.os }}
+          node-version: 24.x
+          os: ubuntu-latest
 
       - name: Run check commit convention 🔍️
         run: yarn commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
@@ -67,7 +67,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node-version: [20.x, 22.x, 24.x]
+        node-version: [22.x, 24.x]
     runs-on: ${{ matrix.os }}
 
     steps:
