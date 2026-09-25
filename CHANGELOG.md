@@ -1,3 +1,12 @@
+## [17.0.1](https://github.com/thymikee/jest-preset-angular/compare/v17.0.0...v17.0.1) (2026-09-25)
+
+
+### Bug Fixes
+
+* **transformer:** avoid prototype pollution in `sha1` cache ([#4124](https://github.com/thymikee/jest-preset-angular/issues/4124)) ([59daefb](https://github.com/thymikee/jest-preset-angular/commit/59daefb6e492f8ba8620ab98faeee967c3413784))
+
+
+
 # [17.0.0](https://github.com/thymikee/jest-preset-angular/compare/v16.2.0...v17.0.0) (2026-06-16)
 
 
