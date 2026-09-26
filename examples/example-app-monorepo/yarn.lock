@@ -1210,7 +1210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@exodus/bytes@npm:^1.11.0":
+"@exodus/bytes@npm:^1.11.0, @exodus/bytes@npm:^1.6.0":
   version: 1.15.2
   resolution: "@exodus/bytes@npm:1.15.2"
   peerDependencies:
@@ -1219,18 +1219,6 @@ __metadata:
     "@noble/hashes":
       optional: true
   checksum: 10/2c4f2410aad1b8884255ac69f3e397fbe114778340782b45d3f87006d9c4176b879bcfeb422d0777f5d0c98fcad0a7e39e2400ef4cf5b160a3f71e66fa39160c
-  languageName: node
-  linkType: hard
-
-"@exodus/bytes@npm:^1.6.0":
-  version: 1.15.1
-  resolution: "@exodus/bytes@npm:1.15.1"
-  peerDependencies:
-    "@noble/hashes": ^1.8.0 || ^2.0.0
-  peerDependenciesMeta:
-    "@noble/hashes":
-      optional: true
-  checksum: 10/7dde00ae8040ec032ba3c287d210d7d555986caaf81a1215311c180422697d739a1952eb9d91e841132b18a19a910cdd02e4914136db3cc87baaa0fdd84b1e87
   languageName: node
   linkType: hard
 
@@ -4726,7 +4714,7 @@ __metadata:
     jsdom: "npm:28.1.0"
     ng-packagr: "npm:^21.2.7"
     rxjs: "npm:^7.8.2"
-    ts-jest: "npm:^29.4.12"
+    ts-jest: "npm:^29.4.13"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.9.3"
     zone.js: "npm:~0.16.3"
@@ -8560,9 +8548,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.4.11, ts-jest@npm:^29.4.12":
-  version: 29.4.12
-  resolution: "ts-jest@npm:29.4.12"
+"ts-jest@npm:^29.4.11, ts-jest@npm:^29.4.13":
+  version: 29.4.13
+  resolution: "ts-jest@npm:29.4.13"
   dependencies:
     bs-logger: "npm:^0.2.6"
     fast-json-stable-stringify: "npm:^2.1.0"
@@ -8574,7 +8562,7 @@ __metadata:
     type-fest: "npm:^4.41.0"
     yargs-parser: "npm:^21.1.1"
   peerDependencies:
-    "@babel/core": ">=7.0.0-beta.0 <8"
+    "@babel/core": ">=7.0.0-beta.0 <9"
     "@jest/transform": ^29.0.0 || ^30.0.0
     "@jest/types": ^29.0.0 || ^30.0.0
     babel-jest: ^29.0.0 || ^30.0.0
@@ -8596,7 +8584,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10/640678eb12d0911d99b0a2ac52ebfbf0ab170ba24ab73697d71de0e00ee95f2f468299a877a5e27dadf08265d5588e8cc982a6945c16b8893657390de7baa662
+  checksum: 10/ef146e599a9f307a748027594e778cf820939ec9d7781a727fb70ce834df081205c824802ec934619769710685eb6428d3da175a561e09ba4996d288c3b5b83c
   languageName: node
   linkType: hard
 
