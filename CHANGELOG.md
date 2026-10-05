@@ -1,3 +1,12 @@
+## [17.0.2](https://github.com/thymikee/jest-preset-angular/compare/v17.0.1...v17.0.2) (2026-10-05)
+
+
+### Bug Fixes
+
+* downlevel transform `.mjs` with `esbuild` to `es2016` ([#4188](https://github.com/thymikee/jest-preset-angular/issues/4188)) ([24576c7](https://github.com/thymikee/jest-preset-angular/commit/24576c7caa975b40935b37b81313433a5b5bd5bb)), closes [#4187](https://github.com/thymikee/jest-preset-angular/issues/4187)
+
+
+
 ## [17.0.1](https://github.com/thymikee/jest-preset-angular/compare/v17.0.0...v17.0.1) (2026-09-25)
 
 
