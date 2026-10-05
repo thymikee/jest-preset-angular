@@ -124,6 +124,24 @@ describe('NgJestTransformer', () => {
         expect(result.code).toContain('customer == null');
     });
 
+    test('lowers native async functions in .mjs for Zone.js tracking', () => {
+        const transformer = new NgJestTransformer({
+            tsconfig: {
+                sourceMap: false,
+                target: 'ES2022',
+                esModuleInterop: true,
+            },
+        });
+
+        const result = transformer.process(
+            'export async function navigate() { await Promise.resolve(); }',
+            fixturePath('navigation.mjs'),
+            createTransformOptions('mjs-async'),
+        );
+
+        expect(result.code).not.toMatch(/\basync\b|\bawait\b/);
+    });
+
     test('produces stable cache keys that change with source path and content', () => {
         const transformer = new NgJestTransformer({
             tsconfig: {
