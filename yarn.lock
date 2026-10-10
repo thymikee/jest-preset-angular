@@ -22,15 +22,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2202.1, @angular-devkit/architect@npm:>= 0.2200.0 < 0.2300.0":
-  version: 0.2202.1
-  resolution: "@angular-devkit/architect@npm:0.2202.1"
+"@angular-devkit/architect@npm:0.2202.2, @angular-devkit/architect@npm:>= 0.2200.0 < 0.2300.0":
+  version: 0.2202.2
+  resolution: "@angular-devkit/architect@npm:0.2202.2"
   dependencies:
-    "@angular-devkit/core": "npm:22.2.1"
+    "@angular-devkit/core": "npm:22.2.2"
     rxjs: "npm:7.8.2"
   bin:
     architect: bin/cli.js
-  checksum: 10/fbb688f882577d9088128233f29f762796e2425d272e7ab997ba4e96798d5ae038c9f4bdfbd84251d46140cfe81d1e3edecd5d0178dbaba5d8020ae9f9dc2cfa
+  checksum: 10/1e87793e092c1509fe9ffa5f4faa5a726691e5cd116d1940cc9ada21096fe9123ae9cad0924a3411bed06d36e68ecf212beaeda6446e5816e86f5846e357e803
   languageName: node
   linkType: hard
 
@@ -53,9 +53,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:22.2.1, @angular-devkit/core@npm:>= 22.0.0 < 23.0.0":
-  version: 22.2.1
-  resolution: "@angular-devkit/core@npm:22.2.1"
+"@angular-devkit/core@npm:22.2.2, @angular-devkit/core@npm:>= 22.0.0 < 23.0.0":
+  version: 22.2.2
+  resolution: "@angular-devkit/core@npm:22.2.2"
   dependencies:
     ajv: "npm:8.20.0"
     ajv-formats: "npm:3.0.1"
@@ -68,7 +68,7 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 10/5b7f307183afc63282906a650b03335aea5ce8f6c3e25ec17fcd3ada66e5ebbfc35daf573976d5575358695cabcd710ff6e1ef82350634fbc44171fd861293ad
+  checksum: 10/bde1d145a91fe03e6629789a87053c56b47b76788efda1b00593c12226f1658cc0b398c6509fe35e4b2c107c85a170255afef9b5d786c4508eb96ba99c8cb850
   languageName: node
   linkType: hard
 
@@ -179,12 +179,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/build@npm:^22.2.1":
-  version: 22.2.1
-  resolution: "@angular/build@npm:22.2.1"
+"@angular/build@npm:^22.2.2":
+  version: 22.2.2
+  resolution: "@angular/build@npm:22.2.2"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.2202.1"
+    "@angular-devkit/architect": "npm:0.2202.2"
     "@babel/core": "npm:8.0.5"
     "@inquirer/confirm": "npm:6.3.2"
     "@parcel/watcher": "npm:2.6.0"
@@ -219,7 +219,7 @@ __metadata:
     "@angular/platform-browser": ^22.0.0
     "@angular/platform-server": ^22.0.0
     "@angular/service-worker": ^22.0.0
-    "@angular/ssr": ^22.2.1
+    "@angular/ssr": ^22.2.2
     istanbul-lib-instrument: ^6.0.0
     karma: ^6.4.0
     less: ^4.2.0
@@ -262,7 +262,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10/7116ab6fb271009048d516411a74a2383b65ca619937428e5b5bcbad36bcc01146b6a28f6eb1977310972303fbe4fa7e70aecb19a33922b03d64e9a7a3d9e01b
+  checksum: 10/41001b0ae136e1b72773aac6acee5b84609dd7b61f51fa1b97551f0471cb42319e98d2031d4e70a93299dcbb7ead11840fa42e70f88c95a649d3f9a7855acf8f
   languageName: node
   linkType: hard
 
@@ -7744,7 +7744,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jest-preset-angular@workspace:."
   dependencies:
-    "@angular/build": "npm:^22.2.1"
+    "@angular/build": "npm:^22.2.2"
     "@angular/cdk": "npm:^22.2.1"
     "@angular/common": "npm:^22.2.1"
     "@angular/compiler": "npm:^22.2.1"
