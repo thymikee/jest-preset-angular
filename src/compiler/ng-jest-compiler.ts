@@ -4,6 +4,7 @@ import path from 'node:path';
 import { type TsJestAstTransformer, TsCompiler, type ConfigSet } from 'ts-jest';
 import ts from 'typescript';
 
+import '../transformers/encoder-polyfill';
 import { angularJitApplicationTransform } from '../transformers/jit_transform';
 import { replaceResources } from '../transformers/replace-resources';
 
