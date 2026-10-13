@@ -1,3 +1,12 @@
+## [17.0.3](https://github.com/thymikee/jest-preset-angular/compare/v17.0.2...v17.0.3) (2026-10-13)
+
+
+### Bug Fixes
+
+* polyfill `TextEncoder/TextDecoder` for `jsdom` env when loading bundled Angular compiler CLI ([#4211](https://github.com/thymikee/jest-preset-angular/issues/4211)) ([b4ebf6b](https://github.com/thymikee/jest-preset-angular/commit/b4ebf6b97594be57af22e1e695b6014b746b4e11))
+
+
+
 ## [17.0.2](https://github.com/thymikee/jest-preset-angular/compare/v17.0.1...v17.0.2) (2026-10-05)
 
 
