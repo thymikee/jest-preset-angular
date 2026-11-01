@@ -31,7 +31,7 @@ jobs:
         with:
           cache: yarn
           cache-dependency-path: 'yarn.lock'
-          node-version: '24.22.2'
+          node-version: '26.13.0'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies 🔧
